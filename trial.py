@@ -4,6 +4,7 @@ Created on Tue Mar  2 21:56:46 2021
 
 @author: nilah
 """
+'''
 import numpy as np
 import csv
 import os
@@ -65,3 +66,9 @@ data_norm = sliding_window(data_x, (100, data_x.shape[1]), (12, 1))
 print(data_norm[:,])
 label=1
 data_y=np.full(data_norm.shape[0],label)
+'''
+
+if __name__ == '__main__':
+    
+    print("Hello World")
+    

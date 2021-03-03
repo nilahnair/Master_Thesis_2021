@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar  3 19:04:34 2021
+
+@author: nilah
+"""
+
+path to mbientlab dataset
+
+/vol/actrec/DFG_Project/2019/LARa_dataset/Mbientlab/LARa_dataset_mbientlab
+
+S07 S08 S09 S10 S11 S12 S13 S14
+each file has the respective csv file and the labels
+#############################################################################
+path to mocap dataset
+
+/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed/
+
+S01-S06 - S07 S08 S09 S10 S11 S12 S13 S14
+each file has the respective norm csv file and the labels and Windows
+##################################################################################
+path to motionminers dataset
+
+/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_annotated/
+
+S07 S08 S09 S10 S11 S12 S13 S14
+each file has the respective csv file and the labels
+################################################################################
+path to Opportuity
+
+/vol/actrec/Opportunity/dataset
+
+the data set is given as .dat files
+
+S1-ADL.dat, S2-ADL.dat till S4-ADL.dat
+two parts are available one for the data and the other for labels
+the titles of the data are given in column_names.txt file
+
+################################################################################
+path to PAMAP2
+
+/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol
+
+subject101.dat subject102.dat ---- subject109.dat
+
