@@ -13,7 +13,7 @@ import csv_reader
 from sliding_window import sliding_window
 import pickle
 
-FOLDER_PATH = "path_to_dataset_LARa_Mbientlab"
+FOLDER_PATH = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed"
 
 NUM_CLASSES=7
 
@@ -166,6 +166,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     #type2- avoiding person 11
     '''
     persons = ["S07", "S08", "S09", "S10", "S12", "S13", "S14"]
+    ID = {"S07": 7, "S08": 8, "S09": 9, "S10": 10, "S11": 11, "S13": 13, "S14": 14}    
     train_ids = ["R11", "R12", "R13", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
@@ -174,7 +175,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     #type3- Avoiding person 11 and 12
     '''
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
-    train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
+     ID = {"S07": 7, "S08": 8, "S09": 9, "S10": 10, "S11": 11, "S13": 13, "S14": 14}
+     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
     '''
@@ -182,7 +184,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     #type4-Avoiding persons 11,12,10
     '''
     persons = ["S07", "S08", "S09", "S13", "S14"]
-    train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+     ID = {"S07": 7, "S08": 8, "S09": 9, "S10": 10, "S11": 11, "S13": 13, "S14": 14}
+     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
     '''
@@ -359,7 +362,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory = '/path_where_sequences_will_ve_stored/MoCap_dataset/'
+    base_directory = '/data/nnair/type1/mocap/'
     sliding_window_length = 100
     sliding_window_step = 25
     

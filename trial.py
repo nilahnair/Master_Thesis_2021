@@ -67,8 +67,41 @@ print(data_norm[:,])
 label=1
 data_y=np.full(data_norm.shape[0],label)
 '''
+import numpy as np
+import csv
+import os
+import sys
+import pickle
 
 if __name__ == '__main__':
     
     print("Hello World")
+    path1="/vol/actrec/DFG_Project/2019/LARa_dataset/Mbientlab/LARa_dataset_mbientlab/"
+    
+    with open(path1, 'r') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        print("Eg: ambient data")
+        print(spamreader)
+    
+    path2="/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed"
+    
+    with open(path2, 'r') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        print("Eg: mocap data")
+        print(spamreader)
+    
+    path3="/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_annotated/"
+    
+    with open(path3, 'r') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        print("Eg: motionminer data")
+        print(spamreader)
+    
+    base_directory='/data/nnair/trial/'
+    
+    data_dir_train = base_directory + 'sequences_train/'
+    
+    csv_dir= data_dir_train+"train_final.csv"
+    np.savetxt(csv_dir, delimiter="\n", fmt='%s')
+    
     

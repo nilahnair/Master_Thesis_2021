@@ -15,7 +15,7 @@ import datetime
 from sliding_window import sliding_window
 import pickle
 
-FOLDER_PATH = "path_to_dataset_LARa_Mbientlab"
+FOLDER_PATH = "/vol/actrec/DFG_Project/2019/LARa_dataset/Mbientlab/LARa_dataset_mbientlab/"
 
 NUM_CLASSES=7
 SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02', 'R06': 'L02', 'R07': 'L02',
@@ -303,7 +303,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory=''
+    base_directory='/data/nnair/type1/imu'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
