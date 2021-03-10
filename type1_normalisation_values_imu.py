@@ -72,7 +72,9 @@ def statistics_measurements():
                 print("------------------------------\n{}".format(file_name_data))
                 try:
                     # getting data
+                    print("check")
                     data = read_extracted_data(dataset_path_imu + file_name_data, skiprows=1)
+                    print(data)
                     data_x = data[:, 2:]
                     accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
                     print("\nFiles loaded")
