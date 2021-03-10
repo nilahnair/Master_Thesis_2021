@@ -21,7 +21,6 @@ time = []
 data = []
 with open(path, 'r') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-    print(spamreader)
     for row in spamreader:
         try:
            try:
@@ -66,7 +65,16 @@ data_norm = sliding_window(data_x, (100, data_x.shape[1]), (12, 1))
 print(data_norm[:,])
 label=1
 data_y=np.full(data_norm.shape[0],label)
+
+    path="C:/Users/nilah/Desktop/German/wrok revision/States/L01_S01_R01_A17_N01_norm_data.csv"
+    with open(path, 'r') as csvfile:
+       spamreader =csv.reader(csvfile, delimiter=',', quotechar='|')
+       for row in spamreader:
+           if spamreader.line_num == 1:
+               print(row)
+ 
 '''
+
 import numpy as np
 import csv
 import os
@@ -81,27 +89,38 @@ if __name__ == '__main__':
     with open(path1, 'r') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         print("Eg: ambient data")
-        print(spamreader)
+        print(path1)
+        for row in spamreader:
+           if spamreader.line_num == 1:
+               print(row)
     
     path2="/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed/S07/L01_S07_R01_A03_N02_norm_data.csv"
     
     with open(path2, 'r') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         print("Eg: mocap data")
-        print(spamreader)
+        print(path2)
+        for row in spamreader:
+           if spamreader.line_num == 1:
+               print(row)
     
     path3="/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_annotated/S07/L01_S07_R01.csv"
     
     with open(path3, 'r') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         print("Eg: motionminer data")
-        print(spamreader)
+        print(path3)
+        for row in spamreader:
+           if spamreader.line_num == 1:
+               print(row)
     
     base_directory='/data/nnair/trial/'
     
     data_dir_train = base_directory + 'sequences_train/'
     
     csv_dir= data_dir_train+"train_final.csv"
-    np.savetxt(csv_dir, delimiter="\n", fmt='%s')
-    
-    
+    print(csv_dir)
+    x= np.arange(0.0,5.0,1.0)
+    np.savetxt(csv_dir, x, delimiter="\n", fmt='%s')
+  
+   
