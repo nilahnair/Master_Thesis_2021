@@ -52,7 +52,7 @@ def statistics_measurements():
     '''
 
     #dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_12000/"
-    dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Mbientlab/LARa_dataset_mbientlab"
+    dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Mbientlab/LARa_dataset_mbientlab/"
 
     #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
 
