@@ -89,7 +89,7 @@ def statistics_measurements():
                     print(len(data[1]))
                                 
                     if len(row) != 31:
-                        imu_data = {'IMU': IMU, 'time': time, 'data': data}
+                        imu_data = {'IMU': IMU, 'data': data}
                     else:
                         try:
                             print("check")
