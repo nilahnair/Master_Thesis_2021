@@ -44,17 +44,18 @@ def statistics_measurements():
 
     #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
 
-    persons = ["S07", "S08", "S09", "S13", "S14"]
-    
+   # persons = ["S07", "S08", "S09", "S13", "S14"]
+    persons=["S07"]
     #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
     
-    train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+    #train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+    train_ids=["R03", "R07"]
     #val_ids = ["R12"]
     #test_ids = ["R15"]
     IMU = []
     data = []
 
-    accumulator_measurements = np.empty((0, 27))
+    accumulator_measurements = np.empty((0, 28))
     for P in persons:
           for R in train_ids:
                 S = SCENARIO[R]
@@ -70,9 +71,10 @@ def statistics_measurements():
                    #data= np.loadtxt(path, delimiter=',', skiprows=1)
                    data = np.loadtxt(path, delimiter=',', usecols=(range(2,28)), skiprows=1)
                    print("data size")
-                   
+                   print(data)
+                   print(data.shape)
                    print("Data Loaded")
-                   data_x = data[:, 2:]
+                   #data_x = data[:, 2:]
                 except:
                    print("Error in Sensor ")
                     
@@ -80,10 +82,11 @@ def statistics_measurements():
                 print(len(data[1]))
                                 
                 try:
-                   data_new=np.asarray(data)
-                   print(data_new.shape)
+                   #data_new=np.asarray(data)
+                   #print(data_new.shape)
                    print(accumulator_measurements.shape)
-                   accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
+                   accumulator_measurements = np.append(accumulator_measurements, data, axis=0)
+                   print(accumulator_measurements.shape)
                    print("\nFiles loaded")
                 except:
                    print("\n1 In loading data,  in file {}".format(dataset_path_imu + file_name_data))
