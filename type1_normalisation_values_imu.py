@@ -161,7 +161,9 @@ if __name__ == '__main__':
     x.append(list(mean_values))
     x.append(list(std_values))
     x=np.asarray(x)
-    base_directory='/data/nnair/trial/'
+    print(x)
+    print(x)
+    base_directory='/Master_Thesis_2021/'
     
     csv_dir=  base_directory+"type1_normalisation_values_imu.csv"
     print(csv_dir)
