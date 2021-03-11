@@ -4,7 +4,7 @@ Created on Tue Mar  2 21:56:46 2021
 
 @author: nilah
 """
-'''
+
 import numpy as np
 import csv
 import os
@@ -15,10 +15,11 @@ import datetime
 from sliding_window import sliding_window
 import pickle
 
-path="C:/Users/nilah/Desktop/German/Master thesis basis/Master_Thesis_2021/L03_S07_R30.csv"
+path="C:/Users/nilah/Desktop/German/Master thesis basis/L01_S07_R01.csv"
 IMU = []
 time = []
 data = []
+accumulator_measurements = np.empty((0, 28))
 with open(path, 'r') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
     for row in spamreader:
@@ -55,7 +56,10 @@ with open(path, 'r') as csvfile:
         imu_data = {'IMU': IMU, 'time': time, 'data': data}
     else:
         imu_data = {'time': time, 'data': data}
-data_x = imu_data["data"]
+data= imu_data["data"]
+data=np.asarray(data)
+data_x = data[:, 2:]
+accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
 print(len(data_x))
 
 data_x=np.asarray(data_x)
@@ -65,16 +69,15 @@ data_norm = sliding_window(data_x, (100, data_x.shape[1]), (12, 1))
 print(data_norm[:,])
 label=1
 data_y=np.full(data_norm.shape[0],label)
-
+'''
     path="C:/Users/nilah/Desktop/German/wrok revision/States/L01_S01_R01_A17_N01_norm_data.csv"
     with open(path, 'r') as csvfile:
        spamreader =csv.reader(csvfile, delimiter=',', quotechar='|')
        for row in spamreader:
            if spamreader.line_num == 1:
                print(row)
- 
 '''
-
+'''
 import numpy as np
 import csv
 import os
@@ -123,4 +126,4 @@ if __name__ == '__main__':
     x= np.arange(0.0,5.0,1.0)
     np.savetxt(csv_dir, x, delimiter="\n", fmt='%s')
   
-   
+  ''' 

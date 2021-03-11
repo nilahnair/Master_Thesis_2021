@@ -67,7 +67,7 @@ def statistics_measurements():
     time = []
     data = []
 
-    accumulator_measurements = np.empty((0, 27))
+    accumulator_measurements = np.empty((0, 28))
     for P in persons:
           for R in train_ids:
                 S = SCENARIO[R]
@@ -88,7 +88,6 @@ def statistics_measurements():
                                     if len(row) != 31:
                                         idx_row = 0
                                         IMU.append(row[idx_row])
-                                        print("appended")
                                         idx_row += 1
                                     else:
                                         idx_row = 0
@@ -116,7 +115,7 @@ def statistics_measurements():
                             print("check")
                             imu_data = {'time': time, 'data': data}
                             data= imu_data["data"]
-                            print(data)
+                            data=np.asarray(data)
                             data_x = data[:, 2:]
                             accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
                             print("\nFiles loaded")
