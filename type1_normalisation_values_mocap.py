@@ -135,6 +135,8 @@ def statistics_measurements():
                 # getting data
                 path=dataset_path_imu + file_name_norm
                 pathlabels= dataset_path_imu + file_name_label
+                print(path)
+                print(pathlabels)
                 '''
                 with open(path, 'r') as csvfile:
                     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
@@ -173,7 +175,8 @@ def statistics_measurements():
                     '''
                 try:
                         #getting data
-                        data = csv_reader.reader_data(path)
+                        print("check")
+                        data = np.loadtxt(path, delimiter=',', skiprows=1)
                         print("\nFiles loaded in modus\n{}".format(file_name_norm))
                         data = select_columns_opp(data)
                         print("Columns selected")
