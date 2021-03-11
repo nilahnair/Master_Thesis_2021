@@ -57,7 +57,7 @@ def statistics_measurements():
 
     #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
 
-    persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+    persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
     recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
     
     train_ids = ["R03", "R07", "R08", "R10"]
@@ -88,6 +88,7 @@ def statistics_measurements():
                                     if len(row) != 31:
                                         idx_row = 0
                                         IMU.append(row[idx_row])
+                                        print("appended")
                                         idx_row += 1
                                     else:
                                         idx_row = 0
@@ -112,8 +113,10 @@ def statistics_measurements():
                         imu_data = {'IMU': IMU, 'time': time, 'data': data}
                     else:
                         try:
+                            print("check")
                             imu_data = {'time': time, 'data': data}
                             data= imu_data["data"]
+                            print(data)
                             data_x = data[:, 2:]
                             accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
                             print("\nFiles loaded")
