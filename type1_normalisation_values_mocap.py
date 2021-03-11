@@ -117,7 +117,7 @@ def statistics_measurements():
                     try:
                         #getting data
                         print("check")
-                        data = np.loadtxt(path, delimiter=',', usecols=(range(1,134)), skiprows=1)
+                        data = np.loadtxt(path, delimiter=',', usecols=(range(2,134)), skiprows=1)
                         print("data size")
                         print(data)
                         print(data.shape)
