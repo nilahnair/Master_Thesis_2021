@@ -57,8 +57,8 @@ def statistics_measurements():
 
     #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
 
-    #persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
-    persons = ["S07"]
+    persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
+    
     #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
     
     train_ids = ["R03", "R07", "R08", "R10"]
@@ -162,8 +162,8 @@ if __name__ == '__main__':
     x.append(list(std_values))
     x=np.asarray(x)
     print(x)
-    print(x)
-    base_directory='/Master_Thesis_2021/'
+  
+    base_directory='/data/nnair/trial/'
     
     csv_dir=  base_directory+"type1_normalisation_values_imu.csv"
     print(csv_dir)
