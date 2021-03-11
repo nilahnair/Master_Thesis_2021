@@ -128,15 +128,15 @@ def statistics_measurements():
                         annotator_file = "A01"
                     if P == 'S09' and R in ['R21', 'R22', 'R23', 'R24', 'R25']:
                         annotator_file = "A11"
-                file_name_norm = "{}/{}_{}_{}_{}_{}_norm_data.csv".format(P, S, P, R, annotator_file, N)
-                file_name_label = "{}/{}_{}_{}_{}_{}_labels.csv".format(P, S, P, R, annotator_file, N)
-                #file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
-                print("------------------------------\n{}".format(file_name_norm))
-                # getting data
-                path=dataset_path_imu + file_name_norm
-                pathlabels= dataset_path_imu + file_name_label
-                print(path)
-                print(pathlabels)
+                    file_name_norm = "{}/{}_{}_{}_{}_{}_norm_data.csv".format(P, S, P, R, annotator_file, N)
+                    file_name_label = "{}/{}_{}_{}_{}_{}_labels.csv".format(P, S, P, R, annotator_file, N)
+                    #file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
+                    print("------------------------------\n{}".format(file_name_norm))
+                    # getting data
+                    path=dataset_path_imu + file_name_norm
+                    pathlabels= dataset_path_imu + file_name_label
+                    print(path)
+                    print(pathlabels)
                 '''
                 with open(path, 'r') as csvfile:
                     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
@@ -173,7 +173,7 @@ def statistics_measurements():
                     print(len(data[0]))
                     print(len(data[1]))
                     '''
-                try:
+                    try:
                         #getting data
                         print("check")
                         data = np.loadtxt(path, delimiter=',', usecols=(range(2,134)), skiprows=1)
@@ -184,11 +184,11 @@ def statistics_measurements():
                         print("\nFiles loaded in modus\n{}".format(file_name_norm))
                         data = select_columns_opp(data)
                         print("Columns selected")
-                except:
+                    except:
                         print("\n In generating data, No file {}".format(path))
                         continue        
                 
-                try:
+                    try:
                         #Getting labels and attributes
                         labels = csv_reader.reader_labels(pathlabels)
                         class_labels = np.where(labels[:, 0] == 7)[0]
@@ -196,25 +196,25 @@ def statistics_measurements():
                         # Deleting rows containing the "none" class
                         data = np.delete(data, class_labels, 0)
                         labels = np.delete(labels, class_labels, 0)
-                except:
+                    except:
                         print("\n In generating data, Error getting the data {}".format(path))
                         continue
                 
-                data_t, data_x, data_y = divide_x_y(data)
+                    data_t, data_x, data_y = divide_x_y(data)
                 
-                try:
-                    print("data_x shape")
-                    print(len(data_x[0]))
-                    print(len(data_x[1]))
-                    data_new=np.asarray(data_x)
-                    print("new data shape")
-                    print(data_new.shape)
-                    print(accumulator_measurements.shape)
-                    accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
-                    print("\nFiles loaded")
-                except:          
-                    print("\n1 In loading data,  in file {}".format(path))
-                    continue
+                    try:
+                        print("data_x shape")
+                        print(len(data_x[0]))
+                        print(len(data_x[1]))
+                        data_new=np.asarray(data_x)
+                        print("new data shape")
+                        print(data_new.shape)
+                        print(accumulator_measurements.shape)
+                        accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
+                        print("\nFiles loaded")
+                    except:          
+                        print("\n1 In loading data,  in file {}".format(path))
+                        continue
                             
     
     try:
