@@ -100,8 +100,8 @@ def statistics_measurements():
                                             time_d = datetime.datetime.strptime(row[idx_row.astype(int)], '%Y-%m-%d %H:%M:%S')
                                             idx_row += 1
                                         except:
-                                            print("strange time str {}".format(time_d))
-                                            continue
+                                                print("strange time str {}".format(time_d))
+                                                continue
                                     time.append(time_d)
                                     data.append(list(map(float, row[idx_row:])))
                             except:
@@ -116,9 +116,11 @@ def statistics_measurements():
                             print("check")
                             imu_data = {'time': time, 'data': data}
                             data_new= imu_data["data"]
+                            print(data_new.shape)
                             data_new=np.asarray(data_new)
-                            data_x = data_new[:, 2:]
-                            accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
+                            print(data_new.shape)
+                            print(accumulator_measurements.shape)
+                            accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
                             print("\nFiles loaded")
                         except:
                             print("\n1 In loading data,  in file {}".format(dataset_path_imu + file_name_data))
