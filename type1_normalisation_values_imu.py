@@ -118,9 +118,7 @@ def statistics_measurements():
                         try:
                             print("check")
                             imu_data = {'time': time, 'data': data}
-                            data_new= imu_data["data"]
-                            print(data_new.shape)
-                            data_new=np.asarray(data_new)
+                            data_new=np.asarray(data)
                             print(data_new.shape)
                             print(accumulator_measurements.shape)
                             accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
