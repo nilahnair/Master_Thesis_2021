@@ -54,7 +54,7 @@ def statistics_measurements():
     IMU = []
     data = []
 
-    accumulator_measurements = np.empty((0, 28))
+    accumulator_measurements = np.empty((0, 27))
     for P in persons:
           for R in train_ids:
                 S = SCENARIO[R]
@@ -67,7 +67,10 @@ def statistics_measurements():
                 try:
                    print("Loading Data")
                    #data = read_extracted_data(imu_file_path, skiprows=1)
-                   data= np.loadtxt(path, delimiter=',', skiprows=1)
+                   #data= np.loadtxt(path, delimiter=',', skiprows=1)
+                   data = np.loadtxt(path, delimiter=',', usecols=(range(2,28)), skiprows=1)
+                   print("data size")
+                   
                    print("Data Loaded")
                    data_x = data[:, 2:]
                 except:
