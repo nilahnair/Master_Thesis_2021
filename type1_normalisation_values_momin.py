@@ -54,7 +54,7 @@ def statistics_measurements():
     IMU = []
     data = []
 
-    accumulator_measurements = np.empty((0, 27))
+    accumulator_measurements = np.empty((0, 28))
     for P in persons:
           for R in train_ids:
                 S = SCENARIO[R]
@@ -63,45 +63,28 @@ def statistics_measurements():
                 print("------------------------------\n{}".format(file_name_data))
                 # getting data
                 path=dataset_path_imu + file_name_data
-                with open(path, 'r') as csvfile:
-                    spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-                    for row in spamreader:
-                        try:
-                            try:
-                                if spamreader.line_num == 1:
-                                    # print('\n')
-                                    print(', '.join(row))
-                                else:
-                                    if len(row) != 31:
-                                        idx_row = 0
-                                        IMU.append(row[idx_row])
-                                        idx_row += 1
-                                    else:
-                                        idx_row = 0
-                                    
-                                    data.append(list(map(float, row[idx_row:])))
-                            except:
-                                print("Error in line {}".format(row))
-                        except KeyboardInterrupt:
-                            print('\nYou cancelled the operation.')
+                
+               try:
+                   print("Loading Data")
+                   #data = read_extracted_data(imu_file_path, skiprows=1)
+                   data= np.loadtxt(path, delimiter=',', skiprows=1)
+                   print("Data Loaded")
+                   data_x = data[:, 2:]
+               except:
+                   print("Error in Sensor session {}: Person Recording {}".format(skey, recording))
                     
-                    print(len(data[0]))
-                    print(len(data[1]))
+               print(len(data[0]))
+               print(len(data[1]))
                                 
-                    if len(row) != 31:
-                        imu_data = {'IMU': IMU, 'data': data}
-                    else:
-                        try:
-                            print("check")
-                            imu_data = {'data': data}
-                            data_new=np.asarray(data[2:])
-                            print(data_new.shape)
-                            print(accumulator_measurements.shape)
-                            accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
-                            print("\nFiles loaded")
-                        except:
-                            print("\n1 In loading data,  in file {}".format(dataset_path_imu + file_name_data))
-                            continue
+               try:
+                   data_new=np.asarray(data)
+                   print(data_new.shape)
+                   print(accumulator_measurements.shape)
+                   accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
+                   print("\nFiles loaded")
+               except:
+                   print("\n1 In loading data,  in file {}".format(dataset_path_imu + file_name_data))
+                   continue
                             
     
     try:
