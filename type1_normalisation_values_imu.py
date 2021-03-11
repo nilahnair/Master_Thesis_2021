@@ -154,7 +154,11 @@ if __name__ == '__main__':
     
     #Computing Statistics of data
     max_values, min_values, mean_values, std_values = statistics_measurements()
-    x = [max_values, min_values, mean_values, std_values]
+    x = []
+    x.append([max_values])
+    x.append([min_values])
+    x.append([mean_values])
+    x.append([std_values])
     
     base_directory='/data/nnair/trial/'
     
