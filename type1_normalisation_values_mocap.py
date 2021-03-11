@@ -10,18 +10,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 import csv_reader
-import datetime
-
-
-headers_annotated = ['Time', 'Class', 'AccX_L', 'AccY_L', 'AccZ_L', 'GyrX_L', 'GyrY_L', 'GyrZ_L',
-           'MagX_L', 'MagY_L', 'MagZ_L', 'AccX_T', 'AccY_T', 'AccZ_T', 'GyrX_T', 'GyrY_T',
-           'GyrZ_T', 'MagX_T', 'MagY_T', 'MagZ_T', 'AccX_R', 'AccY_R', 'AccZ_R', 'GyrX_R',
-           'GyrY_R', 'GyrZ_R', 'MagX_R', 'MagY_R', 'MagZ_R']
-
-headers = ['Time', 'AccX_L', 'AccY_L', 'AccZ_L', 'GyrX_L', 'GyrY_L', 'GyrZ_L',
-           'MagX_L', 'MagY_L', 'MagZ_L', 'AccX_T', 'AccY_T', 'AccZ_T', 'GyrX_T', 'GyrY_T',
-           'GyrZ_T', 'MagX_T', 'MagY_T', 'MagZ_T', 'AccX_R', 'AccY_R', 'AccZ_R', 'GyrX_R',
-           'GyrY_R', 'GyrZ_R', 'MagX_R', 'MagY_R', 'MagZ_R']
 
 SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02', 'R06': 'L02', 'R07': 'L02',
             'R08': 'L02', 'R09': 'L02', 'R10': 'L02', 'R11': 'L02', 'R12': 'L02', 'R13': 'L02', 'R14': 'L02',
@@ -38,18 +26,6 @@ annotator = {"S01": "A17", "S02": "A03", "S03": "A08", "S04": "A06", "S05": "A12
 
 repetition = ["N01", "N02"]
 
-def read_extracted_data(path, skiprows = 1):
-    '''
-    gets data from csv file
-    data contains 3 columns, start, end and label
-
-    returns a numpy array
-
-    @param path: path to file
-    '''
-
-    annotation_original = np.loadtxt(path, delimiter=',', skiprows=skiprows)
-    return annotation_original
 
 def select_columns_opp(data):
     """
@@ -97,16 +73,17 @@ def statistics_measurements():
 
     #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
 
-    persons = ["S07", "S08", "S09", "S13", "S14"]
-    
+    #persons = ["S07", "S08", "S09", "S13", "S14"]
+    persons = ["S07"]
     #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
     
-    train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+    #train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+    train_ids = ["R03", "R07"]
     #val_ids = ["R12"]
     #test_ids = ["R15"]
 
 
-    accumulator_measurements = np.empty((0, 134))
+    accumulator_measurements = np.empty((0, 124))
     for P in persons:
           for R in train_ids:
                 S = SCENARIO[R]
@@ -140,7 +117,7 @@ def statistics_measurements():
                     try:
                         #getting data
                         print("check")
-                        data = np.loadtxt(path, delimiter=',', usecols=(range(2,134)), skiprows=1)
+                        data = np.loadtxt(path, delimiter=',', usecols=(range(1,134)), skiprows=1)
                         print("data size")
                         print(data)
                         print(data.shape)
@@ -168,13 +145,9 @@ def statistics_measurements():
                 
                     try:
                         print("data_x shape")
-                        print(len(data_x[0]))
-                        print(len(data_x[1]))
-                        data_new=np.asarray(data_x)
-                        print("new data shape")
-                        print(data_new.shape)
+                        print(data_x.shape)
                         print(accumulator_measurements.shape)
-                        accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
+                        accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
                         print("\nFiles loaded")
                     except:          
                         print("\n1 In loading data,  in file {}".format(path))
