@@ -109,7 +109,8 @@ def statistics_measurements():
                         except KeyboardInterrupt:
                             print('\nYou cancelled the operation.')
                     
-                    print(data.shape)
+                    print(len(data[0]))
+                    print(len(data[1]))
                                 
                     if len(row) != 31:
                         imu_data = {'IMU': IMU, 'time': time, 'data': data}
