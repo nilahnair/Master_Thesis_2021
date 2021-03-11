@@ -64,25 +64,25 @@ def statistics_measurements():
                 # getting data
                 path=dataset_path_imu + file_name_data
                 
-               try:
+                try:
                    print("Loading Data")
                    #data = read_extracted_data(imu_file_path, skiprows=1)
                    data= np.loadtxt(path, delimiter=',', skiprows=1)
                    print("Data Loaded")
                    data_x = data[:, 2:]
-               except:
-                   print("Error in Sensor session {}: Person Recording {}".format(skey, recording))
+                except:
+                   print("Error in Sensor ")
                     
-               print(len(data[0]))
-               print(len(data[1]))
+                print(len(data[0]))
+                print(len(data[1]))
                                 
-               try:
+                try:
                    data_new=np.asarray(data)
                    print(data_new.shape)
                    print(accumulator_measurements.shape)
                    accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
                    print("\nFiles loaded")
-               except:
+                except:
                    print("\n1 In loading data,  in file {}".format(dataset_path_imu + file_name_data))
                    continue
                             
