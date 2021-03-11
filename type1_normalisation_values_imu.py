@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 import csv_reader
+import datetime
 
 
 headers_annotated = ['Time', 'Class', 'AccX_L', 'AccY_L', 'AccZ_L', 'GyrX_L', 'GyrY_L', 'GyrZ_L',
@@ -62,6 +63,9 @@ def statistics_measurements():
     train_ids = ["R03", "R07", "R08", "R10"]
     #val_ids = ["R12"]
     #test_ids = ["R15"]
+    IMU = []
+    time = []
+    data = []
 
     accumulator_measurements = np.empty((0, 27))
     for P in persons:
@@ -70,18 +74,54 @@ def statistics_measurements():
                 file_name_data = "{}/{}_{}_{}.csv".format(P, S, P, R)
                 #file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
                 print("------------------------------\n{}".format(file_name_data))
-                try:
-                    # getting data
-                    print("check")
-                    data = read_extracted_data(dataset_path_imu + file_name_data, skiprows=1)
-                    print(data)
-                    data_x = data[:, 2:]
-                    accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
-                    print("\nFiles loaded")
-                except:
-                    print("\n1 In loading data,  in file {}".format(dataset_path_imu + file_name_data))
-                    continue
+                # getting data
+                path=dataset_path_imu + file_name_data
+                with open(path, 'r') as csvfile:
+                    spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+                    for row in spamreader:
+                        try:
+                            try:
+                                if spamreader.line_num == 1:
+                                    # print('\n')
+                                    print(', '.join(row))
+                                else:
+                                    if len(row) != 31:
+                                        idx_row = 0
+                                        IMU.append(row[idx_row])
+                                        idx_row += 1
+                                    else:
+                                        idx_row = 0
+                                    try:
+                                        time_d = datetime.datetime.strptime(row[idx_row], '%Y-%m-%d %H:%M:%S.%f')
+                                        idx_row += 1
+                                    except:
+                                        try:
+                                            time_d = datetime.datetime.strptime(row[idx_row.astype(int)], '%Y-%m-%d %H:%M:%S')
+                                            idx_row += 1
+                                        except:
+                                            print("strange time str {}".format(time_d))
+                                            continue
+                                    time.append(time_d)
+                                    data.append(list(map(float, row[idx_row:])))
+                            except:
+                                print("Error in line {}".format(row))
+                        except KeyboardInterrupt:
+                            print('\nYou cancelled the operation.')
 
+                    if len(row) != 31:
+                        imu_data = {'IMU': IMU, 'time': time, 'data': data}
+                    else:
+                        try:
+                            imu_data = {'time': time, 'data': data}
+                            data= imu_data["data"]
+                            data_x = data[:, 2:]
+                            accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
+                            print("\nFiles loaded")
+                        except:
+                            print("\n1 In loading data,  in file {}".format(dataset_path_imu + file_name_data))
+                            continue
+                            
+    
     try:
         max_values = np.max(accumulator_measurements, axis=0)
         min_values = np.min(accumulator_measurements, axis=0)
@@ -93,6 +133,7 @@ def statistics_measurements():
         mean_values = 0
         std_values = 0
         print("Error computing statistics")
+    
     return max_values, min_values, mean_values, std_values
 
 if __name__ == '__main__':
