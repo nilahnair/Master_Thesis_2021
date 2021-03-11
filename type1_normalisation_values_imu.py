@@ -130,9 +130,17 @@ def statistics_measurements():
     
     try:
         max_values = np.max(accumulator_measurements, axis=0)
+        print("Max values")
+        print(max_values)
         min_values = np.min(accumulator_measurements, axis=0)
+        print("Min values")
+        print(min_values)
         mean_values = np.mean(accumulator_measurements, axis=0)
+        print("Mean values")
+        print(mean_values)
         std_values = np.std(accumulator_measurements, axis=0)
+        print("std values")
+        print(std_values)
     except:
         max_values = 0
         min_values = 0
