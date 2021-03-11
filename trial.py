@@ -19,7 +19,7 @@ path="C:/Users/nilah/Desktop/German/Master thesis basis/L01_S07_R01.csv"
 IMU = []
 time = []
 data = []
-accumulator_measurements = np.empty((0, 28))
+accumulator_measurements = np.empty((0, 30))
 with open(path, 'r') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
     for row in spamreader:
@@ -56,9 +56,10 @@ with open(path, 'r') as csvfile:
         imu_data = {'IMU': IMU, 'time': time, 'data': data}
     else:
         imu_data = {'time': time, 'data': data}
-data= imu_data["data"]
-data=np.asarray(data)
-data_x = data[:, 2:]
+data_new= imu_data["data"]
+data_new=np.asarray(data_new)
+data_x = data_new
+print(data_x.shape)
 accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
 print(len(data_x))
 

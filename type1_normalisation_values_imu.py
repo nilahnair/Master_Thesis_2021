@@ -57,8 +57,9 @@ def statistics_measurements():
 
     #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
 
-    persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
-    recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
+    #persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
+    persons = ["S07"]
+    #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
     
     train_ids = ["R03", "R07", "R08", "R10"]
     #val_ids = ["R12"]
@@ -67,7 +68,7 @@ def statistics_measurements():
     time = []
     data = []
 
-    accumulator_measurements = np.empty((0, 28))
+    accumulator_measurements = np.empty((0, 30))
     for P in persons:
           for R in train_ids:
                 S = SCENARIO[R]
@@ -114,9 +115,9 @@ def statistics_measurements():
                         try:
                             print("check")
                             imu_data = {'time': time, 'data': data}
-                            data= imu_data["data"]
-                            data=np.asarray(data)
-                            data_x = data[:, 2:]
+                            data_new= imu_data["data"]
+                            data_new=np.asarray(data_new)
+                            data_x = data_new[:, 2:]
                             accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
                             print("\nFiles loaded")
                         except:
