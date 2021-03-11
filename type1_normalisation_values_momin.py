@@ -93,7 +93,7 @@ def statistics_measurements():
                     else:
                         try:
                             print("check")
-                            imu_data = {'time': time, 'data': data}
+                            imu_data = {'data': data}
                             data_new=np.asarray(data[2:])
                             print(data_new.shape)
                             print(accumulator_measurements.shape)
