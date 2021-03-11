@@ -1,0 +1,254 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar 10 17:26:32 2021
+
+@author: nilah
+"""
+import os
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+import csv
+import csv_reader
+import datetime
+
+
+headers_annotated = ['Time', 'Class', 'AccX_L', 'AccY_L', 'AccZ_L', 'GyrX_L', 'GyrY_L', 'GyrZ_L',
+           'MagX_L', 'MagY_L', 'MagZ_L', 'AccX_T', 'AccY_T', 'AccZ_T', 'GyrX_T', 'GyrY_T',
+           'GyrZ_T', 'MagX_T', 'MagY_T', 'MagZ_T', 'AccX_R', 'AccY_R', 'AccZ_R', 'GyrX_R',
+           'GyrY_R', 'GyrZ_R', 'MagX_R', 'MagY_R', 'MagZ_R']
+
+headers = ['Time', 'AccX_L', 'AccY_L', 'AccZ_L', 'GyrX_L', 'GyrY_L', 'GyrZ_L',
+           'MagX_L', 'MagY_L', 'MagZ_L', 'AccX_T', 'AccY_T', 'AccZ_T', 'GyrX_T', 'GyrY_T',
+           'GyrZ_T', 'MagX_T', 'MagY_T', 'MagZ_T', 'AccX_R', 'AccY_R', 'AccZ_R', 'GyrX_R',
+           'GyrY_R', 'GyrZ_R', 'MagX_R', 'MagY_R', 'MagZ_R']
+
+SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02', 'R06': 'L02', 'R07': 'L02',
+            'R08': 'L02', 'R09': 'L02', 'R10': 'L02', 'R11': 'L02', 'R12': 'L02', 'R13': 'L02', 'R14': 'L02',
+            'R15': 'L02', 'R16': 'L02', 'R17': 'L03', 'R18': 'L03', 'R19': 'L03', 'R20': 'L03', 'R21': 'L03',
+            'R22': 'L03', 'R23': 'L03', 'R24': 'L03', 'R25': 'L03', 'R26': 'L03', 'R27': 'L03', 'R28': 'L03',
+            'R29': 'L03', 'R30': 'L03'}
+
+labels_persons = {"S01": 0, "S02": 1, "S03": 2, "S04": 3, "S05": 4, "S06": 5, "S07": 6, "S08": 7, "S09": 8,
+                  "S10": 9, "S11": 10, "S12": 11, "S13": 12, "S14": 13, "S15": 14, "S16": 15}
+
+annotator = {"S01": "A17", "S02": "A03", "S03": "A08", "S04": "A06", "S05": "A12", "S06": "A13",
+             "S07": "A05", "S08": "A17", "S09": "A03", "S10": "A18", "S11": "A08", "S12": "A11",
+             "S13": "A08", "S14": "A06", "S15": "A05", "S16": "A05"}
+
+repetition = ["N01", "N02"]
+
+def read_extracted_data(path, skiprows = 1):
+    '''
+    gets data from csv file
+    data contains 3 columns, start, end and label
+
+    returns a numpy array
+
+    @param path: path to file
+    '''
+
+    annotation_original = np.loadtxt(path, delimiter=',', skiprows=skiprows)
+    return annotation_original
+
+def select_columns_opp(data):
+    """
+    Selection of the columns employed in the MoCAP
+    excluding the measurements from lower back,
+    as this became the center of the human body,
+    and the rest of joints are normalized
+    with respect to this one
+
+    :param data: numpy integer matrix
+        Sensor data (all features)
+    :return: numpy integer matrix
+        Selection of features
+    """
+
+    #included-excluded
+    features_delete = np.arange(68, 74)
+    
+    return np.delete(data, features_delete, 1)
+
+def divide_x_y(data):
+    """Segments each sample into features and label
+
+    :param data: numpy integer matrix
+        Sensor data
+    :return: numpy integer matrix, numpy integer array
+        Features encapsulated into a matrix and labels as an array
+    """
+    data_t = data[:, 0]
+    data_y = data[:, 1]
+    data_x = data[:, 2:]
+    
+
+    return data_t, data_x, data_y
+
+def statistics_measurements():
+    '''
+    Computes some statistics over the channels for the entire training data
+
+    returns a max_values, min_values, mean_values, std_values
+    '''
+
+    #dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_12000/"
+    dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed"
+
+    #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
+
+    persons = ["S07", "S08", "S09", "S13", "S14"]
+    
+    #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
+    
+    train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+    #val_ids = ["R12"]
+    #test_ids = ["R15"]
+    IMU = []
+    time = []
+    data = []
+
+    accumulator_measurements = np.empty((0, 134))
+    for P in persons:
+          for R in train_ids:
+                S = SCENARIO[R]
+                for N in repetition:
+                    annotator_file = annotator[P]
+                    if P == 'S07' and SCENARIO[R] == 'L01':
+                        annotator_file = "A03"
+                    if P == 'S14' and SCENARIO[R] == 'L03':
+                        annotator_file = "A19"
+                    if P == 'S11' and SCENARIO[R] == 'L01':
+                        annotator_file = "A03"
+                    if P == 'S11' and R in ['R04', 'R08', 'R09', 'R10', 'R11', 'R12', 'R13', 'R15']:
+                        annotator_file = "A02"
+                    if P == 'S13' and R in ['R28']:
+                        annotator_file = "A01"
+                    if P == 'S13' and R in ['R29', 'R30']:
+                        annotator_file = "A11"
+                    if P == 'S09' and R in ['R28', 'R29']:
+                        annotator_file = "A01"
+                    if P == 'S09' and R in ['R21', 'R22', 'R23', 'R24', 'R25']:
+                        annotator_file = "A11"
+                file_name_norm = "{}/{}_{}_{}_{}_{}_norm_data.csv".format(P, S, P, R, annotator_file, N)
+                file_name_label = "{}/{}_{}_{}_{}_{}_labels.csv".format(P, S, P, R, annotator_file, N)
+                #file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
+                print("------------------------------\n{}".format(file_name_norm))
+                # getting data
+                path=dataset_path_imu + file_name_norm
+                pathlabels= dataset_path_imu + file_name_label
+                '''
+                with open(path, 'r') as csvfile:
+                    spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+                    for row in spamreader:
+                        try:
+                            try:
+                                if spamreader.line_num == 1:
+                                    # print('\n')
+                                    print(', '.join(row))
+                                else:
+                                    if len(row) != 31:
+                                        idx_row = 0
+                                        IMU.append(row[idx_row])
+                                        idx_row += 1
+                                    else:
+                                        idx_row = 0
+                                    try:
+                                        time_d = datetime.datetime.strptime(row[idx_row], '%Y-%m-%d %H:%M:%S.%f')
+                                        idx_row += 1
+                                    except:
+                                        try:
+                                            time_d = datetime.datetime.strptime(row[idx_row.astype(int)], '%Y-%m-%d %H:%M:%S')
+                                            idx_row += 1
+                                        except:
+                                                print("strange time str {}".format(time_d))
+                                                continue
+                                    time.append(time_d)
+                                    data.append(list(map(float, row[idx_row:])))
+                            except:
+                                print("Error in line {}".format(row))
+                        except KeyboardInterrupt:
+                            print('\nYou cancelled the operation.')
+                    
+                    print(len(data[0]))
+                    print(len(data[1]))
+                    '''
+                try:
+                        #getting data
+                        data = csv_reader.reader_data(path)
+                        print("\nFiles loaded in modus\n{}".format(file_name_norm))
+                        data = select_columns_opp(data)
+                        print("Columns selected")
+                except:
+                        print("\n In generating data, No file {}".format(path))
+                        continue        
+                
+                try:
+                        #Getting labels and attributes
+                        labels = csv_reader.reader_labels(pathlabels)
+                        class_labels = np.where(labels[:, 0] == 7)[0]
+
+                        # Deleting rows containing the "none" class
+                        data = np.delete(data, class_labels, 0)
+                        labels = np.delete(labels, class_labels, 0)
+                except:
+                        print("\n In generating data, Error getting the data {}".format(path))
+                        continue
+                
+                data_t, data_x, data_y = divide_x_y(data)
+                
+                try:
+                    print("data_x shape")
+                    print(len(data_x[0]))
+                    print(len(data_x[1]))
+                    data_new=np.asarray(data_x)
+                    print("new data shape")
+                    print(data_new.shape)
+                    print(accumulator_measurements.shape)
+                    accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
+                    print("\nFiles loaded")
+                except:          
+                    print("\n1 In loading data,  in file {}".format(path))
+                    continue
+                            
+    
+    try:
+        max_values = np.max(accumulator_measurements, axis=0)
+        print("Max values")
+        print(max_values)
+        min_values = np.min(accumulator_measurements, axis=0)
+        print("Min values")
+        print(min_values)
+        mean_values = np.mean(accumulator_measurements, axis=0)
+        print("Mean values")
+        print(mean_values)
+        std_values = np.std(accumulator_measurements, axis=0)
+        print("std values")
+        print(std_values)
+    except:
+        max_values = 0
+        min_values = 0
+        mean_values = 0
+        std_values = 0
+        print("Error computing statistics")
+    
+    return max_values, min_values, mean_values, std_values
+
+if __name__ == '__main__':
+    
+    #Computing Statistics of data
+    max_values, min_values, mean_values, std_values = statistics_measurements()
+    
+    x = []
+    x.append(list(max_values))
+    x.append(list(min_values))
+    x.append(list(mean_values))
+    x.append(list(std_values))
+    x=np.asarray(x)
+    print(x)
+  
+    base_directory='/data/nnair/trial/'
+    
+    csv_dir=  base_directory+"type4_normalisation_values_imu.csv"
+    print(csv_dir)
+    np.savetxt(csv_dir, x, delimiter="\n", fmt='%s')
