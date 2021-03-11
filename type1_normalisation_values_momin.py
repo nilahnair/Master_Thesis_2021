@@ -44,12 +44,12 @@ def statistics_measurements():
 
     #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
 
-   # persons = ["S07", "S08", "S09", "S13", "S14"]
-    persons=["S07"]
+    persons = ["S07", "S08", "S09", "S13", "S14"]
+    
     #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
     
-    #train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
-    train_ids=["R03", "R07"]
+    train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+    
     #val_ids = ["R12"]
     #test_ids = ["R15"]
     IMU = []
