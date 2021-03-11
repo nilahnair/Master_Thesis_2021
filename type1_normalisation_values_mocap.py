@@ -176,7 +176,11 @@ def statistics_measurements():
                 try:
                         #getting data
                         print("check")
-                        data = np.loadtxt(path, delimiter=',', skiprows=1)
+                        data = np.loadtxt(path, delimiter=',', usecols=(range(2,134)), skiprows=1)
+                        print("data size")
+                        print(data)
+                        print(data.shape)
+                        print("Data Loaded")
                         print("\nFiles loaded in modus\n{}".format(file_name_norm))
                         data = select_columns_opp(data)
                         print("Columns selected")
