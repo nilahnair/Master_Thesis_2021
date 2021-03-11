@@ -127,9 +127,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     #type2- avoiding person 11
     '''
     persons = ["S07", "S08", "S09", "S10", "S12", "S13", "S14"]
-    train_ids = ["R11", "R12", "R13", "R15", "R18"]
-    val_ids = ["R19", "R21"]
-    test_ids = ["R22", "R23"]
+    train_ids =["R11", "R12", "R15", "R18", "R19","R21"]
+    val_ids = ["R22"]
+    test_ids = ["R23"]
     '''
     
     #type3- Avoiding person 11 and 12

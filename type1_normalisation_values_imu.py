@@ -61,7 +61,7 @@ def statistics_measurements():
     
     #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
     
-    train_ids = ["R11", "R12", "R13", "R15", "R18"]
+    train_ids = ["R11", "R12", "R15", "R18", "R19","R21"]
     #val_ids = ["R12"]
     #test_ids = ["R15"]
     IMU = []
