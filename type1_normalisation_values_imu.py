@@ -159,6 +159,7 @@ if __name__ == '__main__':
     x.append([min_values])
     x.append([mean_values])
     x.append([std_values])
+    x=np.asarray(x)
     
     base_directory='/data/nnair/trial/'
     
