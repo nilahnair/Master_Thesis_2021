@@ -137,42 +137,6 @@ def statistics_measurements():
                     pathlabels= dataset_path_imu + file_name_label
                     print(path)
                     print(pathlabels)
-                '''
-                with open(path, 'r') as csvfile:
-                    spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-                    for row in spamreader:
-                        try:
-                            try:
-                                if spamreader.line_num == 1:
-                                    # print('\n')
-                                    print(', '.join(row))
-                                else:
-                                    if len(row) != 31:
-                                        idx_row = 0
-                                        IMU.append(row[idx_row])
-                                        idx_row += 1
-                                    else:
-                                        idx_row = 0
-                                    try:
-                                        time_d = datetime.datetime.strptime(row[idx_row], '%Y-%m-%d %H:%M:%S.%f')
-                                        idx_row += 1
-                                    except:
-                                        try:
-                                            time_d = datetime.datetime.strptime(row[idx_row.astype(int)], '%Y-%m-%d %H:%M:%S')
-                                            idx_row += 1
-                                        except:
-                                                print("strange time str {}".format(time_d))
-                                                continue
-                                    time.append(time_d)
-                                    data.append(list(map(float, row[idx_row:])))
-                            except:
-                                print("Error in line {}".format(row))
-                        except KeyboardInterrupt:
-                            print('\nYou cancelled the operation.')
-                    
-                    print(len(data[0]))
-                    print(len(data[1]))
-                    '''
                     try:
                         #getting data
                         print("check")
