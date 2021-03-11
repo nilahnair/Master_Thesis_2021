@@ -93,7 +93,7 @@ def statistics_measurements():
     '''
 
     #dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_12000/"
-    dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed"
+    dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed/"
 
     #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
 
@@ -104,9 +104,7 @@ def statistics_measurements():
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     #val_ids = ["R12"]
     #test_ids = ["R15"]
-    IMU = []
-    time = []
-    data = []
+
 
     accumulator_measurements = np.empty((0, 134))
     for P in persons:
@@ -249,6 +247,6 @@ if __name__ == '__main__':
   
     base_directory='/data/nnair/trial/'
     
-    csv_dir=  base_directory+"type4_normalisation_values_imu.csv"
+    csv_dir=  base_directory+"type4_normalisation_values_mocap.csv"
     print(csv_dir)
     np.savetxt(csv_dir, x, delimiter="\n", fmt='%s')
