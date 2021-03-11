@@ -69,7 +69,7 @@ def statistics_measurements():
                    print("Loading Data")
                    #data = read_extracted_data(imu_file_path, skiprows=1)
                    #data= np.loadtxt(path, delimiter=',', skiprows=1)
-                   data = np.loadtxt(path, delimiter=',', usecols=(range(2,30)), skiprows=1)
+                   data = np.loadtxt(path, delimiter=',', usecols=(range(1,29)), skiprows=1)
                    print("data size")
                    print(data)
                    print(data.shape)
@@ -77,10 +77,7 @@ def statistics_measurements():
                    #data_x = data[:, 2:]
                 except:
                    print("Error in Sensor ")
-                    
-                print(len(data[0]))
-                print(len(data[1]))
-                                
+                                             
                 try:
                    #data_new=np.asarray(data)
                    #print(data_new.shape)
