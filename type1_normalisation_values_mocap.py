@@ -122,7 +122,7 @@ def statistics_measurements():
                         print(data)
                         print(data.shape)
                         print("Data Loaded")
-                        print("\nFiles loaded in modus\n{}".format(file_name_norm))
+                        #print("\nFiles loaded in modus\n{}".format(file_name_norm))
                         #data = select_columns_opp(data)
                         #print("Columns selected")
                     except:
@@ -141,13 +141,13 @@ def statistics_measurements():
                         print("\n In generating data, Error getting the data {}".format(path))
                         continue
                 
-                    data_t, data_x, data_y = divide_x_y(data)
+                    #data_t, data_x, data_y = divide_x_y(data)
                 
                     try:
                         print("data_x shape")
-                        print(data_x.shape)
+                        print(data.shape)
                         print(accumulator_measurements.shape)
-                        accumulator_measurements = np.append(accumulator_measurements, data_x, axis=0)
+                        accumulator_measurements = np.append(accumulator_measurements, data, axis=0)
                         print("\nFiles loaded")
                     except:          
                         print("\n1 In loading data,  in file {}".format(path))
