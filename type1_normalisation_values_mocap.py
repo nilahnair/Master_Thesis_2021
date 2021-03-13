@@ -69,7 +69,7 @@ def statistics_measurements():
     #test_ids = ["R15"]
 
 
-    accumulator_measurements = np.empty((0, 132))
+    accumulator_measurements = np.empty((0, 126))
     for P in persons:
           for R in train_ids:
                 S = SCENARIO[R]
