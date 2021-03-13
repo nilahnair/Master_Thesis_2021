@@ -83,7 +83,7 @@ def statistics_measurements():
     #test_ids = ["R15"]
 
 
-    accumulator_measurements = np.empty((0, 124))
+    accumulator_measurements = np.empty((0, 132))
     for P in persons:
           for R in train_ids:
                 S = SCENARIO[R]
@@ -123,8 +123,8 @@ def statistics_measurements():
                         print(data.shape)
                         print("Data Loaded")
                         print("\nFiles loaded in modus\n{}".format(file_name_norm))
-                        data = select_columns_opp(data)
-                        print("Columns selected")
+                        #data = select_columns_opp(data)
+                        #print("Columns selected")
                     except:
                         print("\n In generating data, No file {}".format(path))
                         continue        

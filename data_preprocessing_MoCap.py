@@ -158,7 +158,7 @@ def select_columns_opp(data):
 def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None, identity_bool=False, usage_modus='train'):
     #type1-avoiding person 12
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
-    ID = {"S07": 7, "S08": 8, "S09": 9, "S10": 10, "S11": 11, "S13": 13, "S14": 14}
+    ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S13": 5, "S14": 6}
     train_ids = ["R03", "R07", "R08", "R10"]
     val_ids = ["R12"]
     test_ids = ["R15"]
