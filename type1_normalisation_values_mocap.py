@@ -42,24 +42,10 @@ def select_columns_opp(data):
     """
 
     #included-excluded
-    features_delete = np.arange(68, 74)
+    features_delete = np.arange(66, 72)
     
     return np.delete(data, features_delete, 1)
 
-def divide_x_y(data):
-    """Segments each sample into features and label
-
-    :param data: numpy integer matrix
-        Sensor data
-    :return: numpy integer matrix, numpy integer array
-        Features encapsulated into a matrix and labels as an array
-    """
-    data_t = data[:, 0]
-    data_y = data[:, 1]
-    data_x = data[:, 2:]
-    
-
-    return data_t, data_x, data_y
 
 def statistics_measurements():
     '''
@@ -123,7 +109,7 @@ def statistics_measurements():
                         print(data.shape)
                         print("Data Loaded")
                         #print("\nFiles loaded in modus\n{}".format(file_name_norm))
-                        #data = select_columns_opp(data)
+                        data = select_columns_opp(data)
                         #print("Columns selected")
                     except:
                         print("\n In generating data, No file {}".format(path))
@@ -140,8 +126,6 @@ def statistics_measurements():
                     except:
                         print("\n In generating data, Error getting the data {}".format(path))
                         continue
-                
-                    #data_t, data_x, data_y = divide_x_y(data)
                 
                     try:
                         print("data_x shape")
