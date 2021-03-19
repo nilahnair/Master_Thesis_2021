@@ -290,7 +290,7 @@ def create_dataset():
     '''
     #type2- avoiding person 11
     
-    train_ids = ["R11", "R12", "R15", "R18", "R19", "R21""]
+    train_ids = ["R11", "R12", "R15", "R18", "R19", "R21"]
     val_ids = ["R22"]
     test_ids = ["R23"]
    
