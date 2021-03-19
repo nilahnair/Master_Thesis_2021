@@ -354,7 +354,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory = '/data/nnair/output/type1/mocap$'
+    base_directory = '/data/nnair/output/type1/mocap/'
     sliding_window_length = 100
     sliding_window_step = 25
     
