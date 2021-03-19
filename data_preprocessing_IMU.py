@@ -119,7 +119,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     
     #type1-avoiding person 12
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
-    ID = {"S07": 7, "S08": 8, "S09": 9, "S10": 10, "S11": 11, "S13": 13, "S14": 14}
+    ID = {"S07": 1, "S08": 2, "S09": 3, "S10": 4, "S11": 5, "S13": 6, "S14": 7}
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
@@ -183,11 +183,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             "2 In generating data, Error getting the data {}".format(FOLDER_PATH
                                                                                        + file_name_data))
                         continue
+                    '''
                     try:
                         data_x = norm_mbientlab(data_x)
                     except:
                         print("\n3  In generating data, Plotting {}".format(FOLDER_PATH + file_name_data))
                         continue
+                    '''
                     try:
                         # checking if annotations are consistent
                         if data_x.shape[0] == data_x.shape[0]:
@@ -278,15 +280,15 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
                     
 def create_dataset():
     #type1-avoiding person 12
-    train_ids = ["R03", "R07", "R08", "R10"]
+    train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
     
     #type2- avoiding person 11
     '''
-    train_ids = ["R11", "R12", "R13", "R15", "R18"]
-    val_ids = ["R19", "R21"]
-    test_ids = ["R22", "R23"]
+    train_ids = ["R11", "R12", R15", "R18", "R19", "R21""]
+    val_ids = ["R22"]
+    test_ids = ["R23"]
     '''
     
     #type3- Avoiding person 11 and 12
@@ -303,7 +305,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory='/data/nnair/type1/imu'
+    base_directory='/data/nnair/output/type1/imu/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
