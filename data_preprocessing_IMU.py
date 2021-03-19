@@ -106,7 +106,8 @@ def reader_data(path):
                     print("Error in line {}".format(row))
             except KeyboardInterrupt:
                 print('\nYou cancelled the operation.')
-
+    print(len(data[0]))
+    print(len(data[1]))
     if len(row) != 31:
         imu_data = {'IMU': IMU, 'time': time, 'data': data}
     else:
@@ -170,13 +171,17 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         data_x = data["data"]
                         print("\nFiles loaded")
                         print("datasize")
-                        print(data.shape)
+                        print(len(data[0]))
+                        print(len(data[1]))
+                        print(data_x.shape[0])
+                        print(data_x.shape[1])
                     except:
                         print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_data))
                         continue
                     
                     label=ID[P]
-                    
+                    print("printing label")
+                    print(label)
                     '''
                     try:
                         data_x = norm_mbientlab(data_x)
