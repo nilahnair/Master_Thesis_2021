@@ -169,17 +169,14 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_data))
                         data_x = data["data"]
                         print("\nFiles loaded")
+                        print("datasize")
+                        print(data.shape)
                     except:
                         print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_data))
                         continue
                     
-                    try:
-                        label=ID[P]
-                    except:
-                        print(
-                            "2 In generating data, Error getting the data {}".format(FOLDER_PATH
-                                                                                       + file_name_data))
-                        continue
+                    label=ID[P]
+                    
                     '''
                     try:
                         data_x = norm_mbientlab(data_x)
