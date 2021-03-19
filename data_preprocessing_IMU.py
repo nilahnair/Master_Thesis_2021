@@ -141,7 +141,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
   
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
     ID = {"S07": 1, "S08": 2, "S09": 3, "S10": 4, "S13": 5, "S14": 6}
-    train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
+    train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
     
