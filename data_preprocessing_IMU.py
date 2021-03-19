@@ -152,15 +152,12 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     #hist_classes_all = np.zeros((NUM_CLASSES))
     
     for P in persons:
-        if P not in ids:
-            print("\n6 No Person in expected IDS {}".format(P))
-        else:
-            if usage_modus == 'train':
-                 recordings = train_ids
-            elif usage_modus == 'val':
-                recordings = val_ids
-            elif usage_modus == 'test':
-                recordings = test_ids
+        if usage_modus == 'train':
+           recordings = train_ids
+        elif usage_modus == 'val':
+           recordings = val_ids
+        elif usage_modus == 'test':
+           recordings = test_ids
         print("\nModus {} \n{}".format(usage_modus, recordings))
         for R in recordings:
                try:
@@ -311,9 +308,9 @@ def create_dataset():
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
     
-    generate_data(train_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_train)
-    generate_data(val_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_val)
-    generate_data(test_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test)
+    generate_data(train_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_train, usage_modus='train')
+    generate_data(val_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_val, usage_modus='val')
+    generate_data(test_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test, usage_modus='test')
     
     generate_CSV_final(base_directory + "train_final.csv", data_dir_train, data_dir_val)
 
