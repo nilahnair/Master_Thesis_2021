@@ -94,9 +94,12 @@ NORM_MIN_THRESHOLDS = [-382.62, -363.81, -315.691, -472.2, -471.4, -152.398,
                        -351.1281, -290.558, -269.311, -159.9403, -153.482, -162.718]
 
 def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
+    print("check1")
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
     data_y_labels=np.full(data_x.shape[0],data_y)
-    
+    print("check2")
+    print(data_x.shape)
+    print(data_y_labels.shape)
     return data_x.astype(np.float32), data_y_labels.astype(np.uint8)
     
 
@@ -239,6 +242,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     try:
                         # checking if annotations are consistent
                         #data_x = normalize(data_x)
+                        print("data shape")
+                        print(data_x.shape)
                         if data_x.shape[0] == data_x.shape[0]:
                             print("Starting sliding window")
                             X, y= opp_sliding_window(data_x, label.astype(int),
