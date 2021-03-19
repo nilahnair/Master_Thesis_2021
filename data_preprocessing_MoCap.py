@@ -159,7 +159,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     #type1-avoiding person 12
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S13": 5, "S14": 6}
-    train_ids = ["R03", "R07", "R08", "R10"]
+    train_ids = ["R03", "R07", "R08", "R10","R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
     
@@ -192,15 +192,12 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     counter_seq = 0
     
     for P in persons:
-        if P not in ids:
-            print("\nNo Person in expected IDS {}".format(P))
-        else:
-            if usage_modus == 'train':
-                 recordings = train_ids
-            elif usage_modus == 'val':
-                recordings = val_ids
-            elif usage_modus == 'test':
-                recordings = test_ids
+        if usage_modus == 'train':
+           recordings = train_ids
+        elif usage_modus == 'val':
+            recordings = val_ids
+        elif usage_modus == 'test':
+            recordings = test_ids
         print("\nModus {} \n{}".format(usage_modus, recordings))
         for R in recordings:
             S = SCENARIO[R]
@@ -225,7 +222,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         
                     file_name_norm = "{}/{}_{}_{}_{}_{}_norm_data.csv".format(P, S, P, R, annotator_file, N)
                     try:
-                        data = reader_data(FOLDER_PATH + file_name_norm)
+                        data = csv_reader.reader_data(FOLDER_PATH + file_name_norm)
                         print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_norm))
                         data = select_columns_opp(data)
                         print("\nFiles loaded")
@@ -233,20 +230,15 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_norm))
                         continue
                     
-                    try:
-                        label=ID[P]
-                    except:
-                        print(
-                            "2 In generating data, Error getting the data {}".format(FOLDER_PATH
-                                                                                       + file_name_norm))
-                        continue
+                    label=ID[P]
+                    
                     data_t, data_x, data_y = divide_x_y(data)
                     del data_t
                     #    print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_norm))
                     #    continue
                     try:
                         # checking if annotations are consistent
-                        data_x = normalize(data_x)
+                        #data_x = normalize(data_x)
                         if data_x.shape[0] == data_x.shape[0]:
                             print("Starting sliding window")
                             X, y= opp_sliding_window(data_x, label.astype(int),
@@ -362,7 +354,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory = '/data/nnair/type1/mocap/'
+    base_directory = '/data/nnair/output/type1/mocap$'
     sliding_window_length = 100
     sliding_window_step = 25
     
@@ -373,9 +365,9 @@ def create_dataset():
     generate_data(train_ids, sliding_window_length=sliding_window_length,
                   sliding_window_step=sliding_window_step, data_dir=data_dir_train, usage_modus='train')
     generate_data(val_ids, sliding_window_length=sliding_window_length,
-                  sliding_window_step=sliding_window_step, data_dir=data_dir_val)
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_val, usage_modus='val')
     generate_data(test_ids, sliding_window_length=sliding_window_length,
-                  sliding_window_step=sliding_window_step, data_dir=data_dir_test)
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_test, usage_modus='test')
     
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
