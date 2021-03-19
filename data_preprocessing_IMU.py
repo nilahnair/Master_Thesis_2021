@@ -138,22 +138,22 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     '''
     
     #type3- Avoiding person 11 and 12
-  
+    '''
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
     ID = {"S07": 1, "S08": 2, "S09": 3, "S10": 4, "S13": 5, "S14": 6}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
-    
+    '''
     
     #type4-Avoiding persons 11,12,10
-    '''
+   
     persons = ["S07", "S08", "S09", "S13", "S14"]
     ID = {"S07": 1, "S08": 2, "S09": 3, "S13": 4, "S14": 5}
-    train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+    train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
+   
     
     counter_seq = 0
     #hist_classes_all = np.zeros((NUM_CLASSES))
@@ -299,20 +299,20 @@ def create_dataset():
    
     '''
     #type3- Avoiding person 11 and 12
-    
+    '''
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
   
-    
-    #type4-Avoiding persons 11,12,10
     '''
-    train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+    #type4-Avoiding persons 11,12,10
+    
+    train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
     
-    base_directory='/data/nnair/output/type3/imu/'
+    
+    base_directory='/data/nnair/output/type4/imu/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
