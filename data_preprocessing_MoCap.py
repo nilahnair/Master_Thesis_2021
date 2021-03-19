@@ -13,7 +13,7 @@ import csv_reader
 from sliding_window import sliding_window
 import pickle
 
-FOLDER_PATH = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed"
+FOLDER_PATH = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed/"
 
 NUM_CLASSES=7
 
