@@ -339,20 +339,20 @@ def create_dataset():
     
     '''
     #type3- Avoiding person 11 and 12
-    
+    '''
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
-  
+    '''
     
     #type4-Avoiding persons 11,12,10
-    '''
+    
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
+   
     
-    base_directory='/data/nnair/output/type3/imu_norm/'
+    base_directory='/data/nnair/output/type4/imu_norm/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
