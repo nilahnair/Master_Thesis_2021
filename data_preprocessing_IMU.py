@@ -106,13 +106,16 @@ def reader_data(path):
                     print("Error in line {}".format(row))
             except KeyboardInterrupt:
                 print('\nYou cancelled the operation.')
-    print(len(data[0]))
-    print(len(data[1]))
+  
     if len(row) != 31:
         imu_data = {'IMU': IMU, 'time': time, 'data': data}
     else:
-        imu_data = {'time': time, 'data': data}
-    return imu_data
+         print("check")
+         imu_data = {'time': time, 'data': data}
+         data_new=np.asarray(data)
+         print(data_new.shape)
+    
+    return data_new
 
 #####################
 
@@ -168,11 +171,12 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     try:
                         data = reader_data(FOLDER_PATH + file_name_data)
                         print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_data))
-                        data_x = data["data"]
+                        print(data.shape[0])
+                        print(data.shape[1])
+                        data_x=data
                         print("\nFiles loaded")
                         print("datasize")
-                        print(len(data[0]))
-                        print(len(data[1]))
+                        
                         print(data_x.shape[0])
                         print(data_x.shape[1])
                     except:
