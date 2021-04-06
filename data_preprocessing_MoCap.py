@@ -246,9 +246,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         print(data_x.shape)
                         if data_x.shape[0] == data_x.shape[0]:
                             print("Starting sliding window")
-                            X, y= opp_sliding_window(data_x, label.astype(int),
-                                                             sliding_window_length,
-                                                             sliding_window_step, label_pos_end = False)
+                            X, y= opp_sliding_window(data_x, label.astype(int), sliding_window_length, sliding_window_step, label_pos_end = True)
                             print("Windows are extracted")
                             
                             for f in range(X.shape[0]):
