@@ -78,7 +78,7 @@ def norm_mbientlab(data):
     
     '''
     #type3
-    
+    '''
     mean_values= np.array([-0.6200914,   0.14143905,  0.36254782,  0.98599565, -0.21967514, -2.97762359,
                            0.0116792,   1.02994192, -0.13389797,  3.21394732,  3.82663941, -1.59950976,
                            -0.9680652,  -0.09346404,  0.14538209,  0.50057431,  1.2562121,   0.36204835,
@@ -91,9 +91,9 @@ def norm_mbientlab(data):
                            46.76843155,  29.78979248,  18.52047611,   0.4731271,    0.53445842,
                            0.50229102, 100.09105194,  76.78732035,  88.96565595,   0.98935636,
                            0.55415324,   0.75100717,  42.62376115,  62.69705387,  67.55396168])
-    
-    #type4
     '''
+    #type4
+    
     mean_values= np.array([-0.59291547,  0.16510277,  0.39688181,  1.06174891,  0.03655466, -2.54978003,
                            0.0113082,   1.02285025, -0.13735555,  2.49047449,  2.90262683, -1.55012442,
                            -0.96827405, -0.11433454,  0.13784902,  0.46335482,  1.1964269,   0.3138417,
@@ -106,7 +106,7 @@ def norm_mbientlab(data):
                            45.41451804,  27.60438897,  18.59057502,   0.47634617,   0.53341564,
                            0.49594787,  94.47440142,  80.03186714,  85.56527538,   0.91948319,
                            0.54490135,   0.68835778,  41.7696377,   58.54988989,  63.32484912])
-     '''
+     
     std_values = np.reshape(std_values, [1, 30])
 
     mean_array = np.repeat(mean_values, data.shape[0], axis=0)
@@ -194,22 +194,22 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     '''
     
     #type3- Avoiding person 11 and 12
-    
+    '''
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S13": 4, "S14": 5}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
-    
+    '''
     
     #type4-Avoiding persons 11,12,10
-    '''
+    
     persons = ["S07", "S08", "S09", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S13": 3, "S14": 4}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
+    
     
     counter_seq = 0
     #hist_classes_all = np.zeros((NUM_CLASSES))
@@ -355,20 +355,20 @@ def create_dataset():
     '''
     
     #type3- Avoiding person 11 and 12
-    
+    '''
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
-    
+    '''
     
     #type4-Avoiding persons 11,12,10
-    '''
+    
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
     
-    base_directory='/data/nnair/output/type3/imu_norm/'
+    
+    base_directory='/data/nnair/output/type4/imu_norm/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
