@@ -276,7 +276,7 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,    -451.56,     -459
 def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
     print("check1")
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
-    data_y_labels=np.full(data_x.shape[0],data_y)
+    data_y_labels=sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))
     print("check2")
     print(data_x.shape)
     print(data_y_labels.shape)
