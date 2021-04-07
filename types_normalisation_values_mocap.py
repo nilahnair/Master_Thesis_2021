@@ -59,18 +59,18 @@ def statistics_measurements():
 
     
     #type1- avoiding person 12
-    '''
+    
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
    
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
     
-    '''
-    #type2- avoiding person 11
     
+    #type2- avoiding person 11
+    '''
     persons = ["S07", "S08", "S09", "S10", "S12", "S13", "S14"]
     
     train_ids =["R11", "R12", "R15", "R18", "R19","R21"]
-    
+    '''
     
     
     #type3- Avoiding person 11 and 12
@@ -198,6 +198,6 @@ if __name__ == '__main__':
   
     base_directory='/data/nnair/trial/'
     
-    csv_dir=  base_directory+"type2_normalisation_values_mocap.csv"
+    csv_dir=  base_directory+"type1_normalisation_values_mocap.csv"
     print(csv_dir)
     np.savetxt(csv_dir, x, delimiter="\n", fmt='%s')
