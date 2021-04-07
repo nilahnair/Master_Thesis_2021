@@ -414,9 +414,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_norm))
                         continue
                     
-                    label=ID[P]
-                    
+                    labelid=ID[P]
+                    print("label")
+                    print(label)
                     data_t, data_x, data_y = divide_x_y(data)
+                    
                     del data_t
                     #    print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_norm))
                     #    continue
@@ -425,6 +427,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         data_x = normalize(data_x)
                         print("data shape")
                         print(data_x.shape)
+                        label = np.full_like(data_x, labelid)
                         if data_x.shape[0] == data_x.shape[0]:
                             print("Starting sliding window")
                             X, y= opp_sliding_window(data_x, label.astype(int), sliding_window_length, sliding_window_step, label_pos_end = True)
