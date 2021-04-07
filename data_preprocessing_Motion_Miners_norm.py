@@ -57,7 +57,7 @@ def norm_motion_miners(data):
     '''
     
     #type1
-    Mean values=np.array([-1.78984914e+03  1.46200361e+03  1.97059330e+03 -6.34871273e+00
+    Mean values=np.array([-1789.84914,  1462.00361,  1.97059330e+03 -6.34871273e+00
   9.67200065e+00 -1.93348175e+01  2.47001003e+03 -3.52440579e+03
  -2.15254172e+03  2.76902101e+02 -3.75078852e+03 -1.20081288e+03
  -4.70626042e+00  2.13210546e+00 -3.86406634e+00  6.81098169e+01
@@ -136,7 +136,7 @@ def reader_data(path):
 
 def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None, identity_bool=False, usage_modus='train'):
     
-    #type1-avoiding person 12
+   #type1-avoiding person 12
     '''
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S13": 5, "S14": 6}
@@ -205,11 +205,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             "2 In generating data, Error getting the data {}".format(FOLDER_PATH
                                                                                        + file_name_data))
                         continue
-                    #try:
-                    #    data_x = norm_motion_miners(data_x)
-                    #except:
-                    #    print("\n3  In generating data, Plotting {}".format(FOLDER_PATH + file_name_data))
-                    #    continue
+                    try:
+                        data_x = norm_motion_miners(data_x)
+                    except:
+                        print("\n3  In generating data, Plotting {}".format(FOLDER_PATH + file_name_data))
+                        continue
                     try:
                         # checking if annotations are consistent
                         if data_x.shape[0] == data_x.shape[0]:
@@ -299,16 +299,17 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
 ##################################                    
                     
 def create_dataset():
-    #type1-avoiding person 12
-    train_ids = ["R03", "R07", "R08", "R10"]
+ #type1-avoiding person 12
+    '''
+    train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
-    
+    '''
     #type2- avoiding person 11
     '''
-    train_ids = ["R11", "R12", "R13", "R15", "R18"]
-    val_ids = ["R19", "R21"]
-    test_ids = ["R22", "R23"]
+    train_ids = ["R11", "R12", "R15", "R18", "R19", "R21"]
+    val_ids = ["R22"]
+    test_ids = ["R23"]
     '''
     
     #type3- Avoiding person 11 and 12
@@ -319,11 +320,11 @@ def create_dataset():
     '''
     
     #type4-Avoiding persons 11,12,10
-    '''
+    
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
+    
     
     base_directory='/data/nnair/type1/momin/'
     

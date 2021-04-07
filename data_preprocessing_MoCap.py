@@ -50,7 +50,7 @@ repetition = ["N01", "N02"]
 
 annotator_S01 = ["A17", "A12"]
 
-labels_persons = {"S07": 7, "S08": 8, "S09": 9, "S10": 10, "S11": 11, "S12": 12, "S13": 13, "S14": 14}
+labels_persons = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S12": 5, "S13": 6, "S14": 7}
 
 NORM_MAX_THRESHOLDS = [392.85,    345.05,    311.295,    460.544,   465.25,    474.5,     392.85,
                        345.05,    311.295,   574.258,   575.08,    589.5,     395.81,    503.798,
@@ -92,6 +92,7 @@ NORM_MIN_THRESHOLDS = [-382.62, -363.81, -315.691, -472.2, -471.4, -152.398,
                        -417.297, -495.1, -565.544, -906.02, -901.77, -731.921,
                        -417.297, -495.1, -565.544, -990.83, -991.36, -803.9,
                        -351.1281, -290.558, -269.311, -159.9403, -153.482, -162.718]
+
 
 def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
     print("check1")
@@ -159,39 +160,40 @@ def select_columns_opp(data):
     return np.delete(data, features_delete, 1)
 
 def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None, identity_bool=False, usage_modus='train'):
-    #type1-avoiding person 12
+     #type1-avoiding person 12
+    '''
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S13": 5, "S14": 6}
-    train_ids = ["R03", "R07", "R08", "R10","R11"]
+    train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
-    
+    '''
     #type2- avoiding person 11
     '''
     persons = ["S07", "S08", "S09", "S10", "S12", "S13", "S14"]
-    ID = {"S07": 7, "S08": 8, "S09": 9, "S10": 10, "S11": 11, "S13": 13, "S14": 14}    
-    train_ids = ["R11", "R12", "R13", "R15", "R18"]
-    val_ids = ["R19", "R21"]
-    test_ids = ["R22", "R23"]
+    ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S12": 4, "S13": 5, "S14": 6}
+    train_ids =["R11", "R12", "R15", "R18", "R19","R21"]
+    val_ids = ["R22"]
+    test_ids = ["R23"]
     '''
     
     #type3- Avoiding person 11 and 12
     '''
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
-     ID = {"S07": 7, "S08": 8, "S09": 9, "S10": 10, "S11": 11, "S13": 13, "S14": 14}
-     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
+    ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S13": 4, "S14": 5}
+    train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
     '''
     
     #type4-Avoiding persons 11,12,10
-    '''
+    
     persons = ["S07", "S08", "S09", "S13", "S14"]
-     ID = {"S07": 7, "S08": 8, "S09": 9, "S10": 10, "S11": 11, "S13": 13, "S14": 14}
-     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+    ID = {"S07": 0, "S08": 1, "S09": 2, "S13": 3, "S14": 4}
+    train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
+    
     counter_seq = 0
     
     for P in persons:
@@ -359,7 +361,7 @@ def create_dataset():
     
     base_directory = '/data/nnair/output/type1/mocap/'
     sliding_window_length = 100
-    sliding_window_step = 25
+    sliding_window_step = 12
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'

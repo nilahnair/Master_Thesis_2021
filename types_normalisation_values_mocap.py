@@ -57,13 +57,36 @@ def statistics_measurements():
     #dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_12000/"
     dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed/"
 
-    #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
-
+    
+    #type1- avoiding person 12
+    '''
+    persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
+   
+    train_ids = ["R03", "R07", "R08", "R10", "R11"]
+    
+    '''
+    #type2- avoiding person 11
+    '''
+    persons = ["S07", "S08", "S09", "S10", "S12", "S13", "S14"]
+    
+    train_ids =["R11", "R12", "R15", "R18", "R19","R21"]
+    
+    '''
+    
+    #type3- Avoiding person 11 and 12
+    '''
+    persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
+    
+    train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18"]
+    
+    '''
+    
+    #type4-Avoiding persons 11,12,10
+    
     persons = ["S07", "S08", "S09", "S13", "S14"]
-    
-    #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
-    
+   
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+       
    
     #val_ids = ["R12"]
     #test_ids = ["R15"]
