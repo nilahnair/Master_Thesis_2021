@@ -416,7 +416,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     
                     labelid=ID[P]
                     print("label")
-                    print(label)
+                    print(labelid)
                     data_t, data_x, data_y = divide_x_y(data)
                     
                     del data_t
