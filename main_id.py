@@ -406,8 +406,11 @@ def my_config():
 @ex.capture
 def run(config, dataset, network, output, usageModus):
     print("run function began")
-    setup_experiment_logger(logging_level=logging.DEBUG,
-                            filename=config['/data/nnair/output/softmax/'] + "logger.txt")
+    filename=config['/data/nnair/output/softmax/']
+    print(filename)
+    filename=config['/data/nnair/output/softmax/']+"logger.txt"
+    print(filename)
+    setup_experiment_logger(logging_level=logging.DEBUG,filename="logger.txt")
 
     logging.info('Finished')
     logging.info('Dataset {} Network {} Output {} Modus {}'.format(dataset, network, output, usageModus))
