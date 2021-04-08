@@ -265,7 +265,6 @@ class Network_User(object):
         '''
         Training and validating a network
 
-        @param ea_itera: evolution iteration
         @return results_val: dict with validation results
         @return best_itera: best iteration when validating
         '''
@@ -534,7 +533,7 @@ class Network_User(object):
                             'sliding_window_length': self.config['sliding_window_length'],
                             'filter_size': self.config['filter_size'],
                             'num_filters': self.config['num_filters'],
-                            'reshape_input': self.config['reshape_input'],
+                            #'reshape_input': self.config['reshape_input'],
                             'network': self.config['network'],
                             'output': self.config['output'],
                             'num_classes': self.config['num_classes'],

@@ -13,7 +13,7 @@ import numpy as np
 import random
 
 import platform
-from modus_selecter import Modus_Selecter
+from modus_selecter_new import Modus_Selecter
 
 import datetime
 
@@ -49,13 +49,13 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'mocap': 126, 'mbientlab': 30,'motionminers_flw': 27}
-    sliding_window_length = {'mocap': 200, 'mbientlab': 100, 'motionminers_flw': 100}
-    sliding_window_step = {'mocap': 25, 'mbientlab': 12, 'motionminers_flw': 12}
+    sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
+    sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     #num_attributes = {'mocap': 19, 'mbientlab': 19, 'motionminers_flw': 19}
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'motionminers_flw': 93712}
 
     # Number of classes for either for activity recognition
-    num_classes = {'mocap': 7, 'mbientlab': 7, 'virtual': 7, 'motionminers_flw': 7}
+    #num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
 
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
@@ -88,9 +88,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         epoch_mult = 1
 
    # Number of epochs depending of the dataset and network
-    epochs = {'mocap': {'cnn': {'softmax': 6, 'attribute': 6},
-                        'lstm': {'softmax': 6, 'attribute': 6},
-                        'cnn_imu': {'softmax': 6, 'attribute': 6}},
+    epochs = {'mocap': {'cnn': {'softmax': 10, 'attribute': 10},
+                        'lstm': {'softmax': 10, 'attribute': 10},
+                        'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'mbientlab': {'cnn': {'softmax': 10, 'attribute': 10},
                             'lstm': {'softmax': 10, 'attribute': 10},
                             'cnn_imu': {'softmax': 10, 'attribute': 10}},
@@ -111,7 +111,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                       'cnn_imu': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}}
     
      # Number of iterations for accumulating the gradients
-    accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    accumulation_steps = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
 
     # Filters
     filter_size = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
@@ -122,12 +122,13 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     freeze_options = [False, True]
     
     # User gotta take care of creating these folders, or storing the results in a different way
+    '''
     reshape_input = reshape_input
     if reshape_input:
         reshape_folder = "reshape"
     else:
         reshape_folder = "noreshape"
-
+    '''
     if fully_convolutional:
         fully_convolutional = "FCN"
     else:
@@ -141,8 +142,47 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_base = "/data/nnair/output/attributes"
 
 ##################################Check this again###############################################
-    '''
+    
     # Folder
+    if usage_modus[usage_modus_idx] == 'train':
+        folder_exp = folder_base + dataset[dataset_idx] + '/' + \
+                     network[network_idx] + '/' + fully_convolutional \
+                     + '/' + 'experiment/'
+        '''
+        folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
+                                      network[network_idx] + '/' + fully_convolutional \
+                                      + '/' + 'train_final/'
+        '''
+    elif usage_modus[usage_modus_idx] == 'test':
+        folder_exp = folder_base + dataset[dataset_idx] + '/' + \
+                     network[network_idx] + '/' + fully_convolutional \
+                     + '/' + 'test_final/'
+        '''
+        folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
+                                      network[network_idx] +  fully_convolutional + \
+                                      '/' + 'final/'
+        '''
+    elif usage_modus[usage_modus_idx] == 'train_final':
+        folder_exp = folder_base + dataset[dataset_idx] + '/' + \
+                     network[network_idx] + '/' + fully_convolutional +\
+                     '/' + 'train_final/'
+        '''
+        folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
+                                      network[network_idx] + '/' + fully_convolutional + \
+                                      '/' + 'train_final/'
+        '''
+    elif usage_modus[usage_modus_idx] == 'fine_tuning':
+        folder_exp = folder_base + dataset[dataset_idx] + '/' + \
+                     network[network_idx] + '/' + fully_convolutional + \
+                     '/' + 'fine_tuning/'
+        '''
+        folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
+                                      network[network_idx] + '/' + fully_convolutional + \
+                                      '/' + 'final/'
+        '''
+    else:
+        raise ("Error: Not selected fine tuning option")
+    '''
     if usage_modus[usage_modus_idx] == 'train':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + output[output_idx] + '/' + fully_convolutional + '/' \
@@ -173,12 +213,26 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                       '/' + reshape_folder + '/' + 'final/'
     else:
         raise ("Error: Not selected fine tuning option")
-    '''
+   '''
 ################################################################################################################################3
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
-    dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
-                    'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
+    '''
+    path_to_datasets_folder='/data/nnair/output/type1/imu/'
+    path_to_datasets_folder='/data/nnair/output/type2/imu/'
+    path_to_datasets_folder='/data/nnair/output/type3/imu/'
+    path_to_datasets_folder='/data/nnair/output/type4/imu/'
+    path_to_datasets_folder='/data/nnair/output/type1/imu_norm/'
+    path_to_datasets_folder='/data/nnair/output/type2/imu_norm/'
+    path_to_datasets_folder='/data/nnair/output/type3/imu_norm/'
+    path_to_datasets_folder='/data/nnair/output/type4/imu_norm/'
+    path_to_datasets_folder='/data/nnair/output/type1/mocap/'
+    path_to_datasets_folder='/data/nnair/output/type2/mocap/'
+    path_to_datasets_folder='/data/nnair/output/type3/mocap/'
+    path_to_datasets_folder='/data/nnair/output/type4/mocap/'
+    '''
+    dataset_root = {'mocap': '/data/nnair/output/type1/mocap/',
+                    'mbientlab': '/data/nnair/output/type1/imu/',
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
     
     
@@ -203,7 +257,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     now = datetime.datetime.now()
     
     configuration = {'dataset': dataset[dataset_idx],
-                     'dataset_finetuning': dataset[dataset_fine_tuning_idx],
+                     #'dataset_finetuning': dataset[dataset_fine_tuning_idx],
                      'network': network[network_idx],
                      'output': output[output_idx],
                      'num_filters': num_filters[dataset[dataset_idx]][network[network_idx]],
@@ -226,7 +280,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'batch_size_train': batch_size_train[network[network_idx]][dataset[dataset_idx]],
                      'batch_size_val': batch_size_val[network[network_idx]][dataset[dataset_idx]],
                      #'num_tr_inputs': num_tr_inputs[dataset[dataset_idx]],
-                     'num_classes': num_classes[dataset[dataset_idx]],
+                     #'num_classes': num_classes[dataset[dataset_idx]],
                      'file_suffix': 'results_yy{}mm{}dd{:02d}hh{:02d}mm{:02d}.xml'.format(now.year,
                                                                                           now.month,
                                                                                           now.day,
@@ -234,7 +288,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                                                                           now.minute),
                      'dataset_root': dataset_root[dataset[dataset_idx]],
                      'accumulation_steps': accumulation_steps[dataset[dataset_idx]],
-                     'reshape_input': reshape_input,
+                     #'reshape_input': reshape_input,
                      'name_counter': name_counter,
                      'freeze_options': freeze_options[freeze],
                      #'percentages_names': percentages_names[percentage_idx],
@@ -310,7 +364,7 @@ def main():
                                                            fully_convolutional=False)
 
                                     setup_experiment_logger(logging_level=logging.DEBUG,
-                                                            filename=config['folder_exp'] + "logger.txt")
+                                                            filename=config['/data/nnair/output/'] + "logger.txt")
 
                                     logging.info('Finished')
 
