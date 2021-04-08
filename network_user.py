@@ -18,7 +18,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
-from hdfs.config import catch
+#from hdfs.config import catch
 
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -31,6 +31,7 @@ from network import Network
 from HARWindows import HARWindows
 
 from metrics import Metrics
+
 
 class Network_User(object):
     '''
@@ -533,11 +534,11 @@ class Network_User(object):
                             'sliding_window_length': self.config['sliding_window_length'],
                             'filter_size': self.config['filter_size'],
                             'num_filters': self.config['num_filters'],
-                            #'reshape_input': self.config['reshape_input'],
+                            'reshape_input': self.config['reshape_input'],
                             'network': self.config['network'],
                             'output': self.config['output'],
                             'num_classes': self.config['num_classes'],
-                            'num_attributes': self.config['num_attributes'],
+                            #'num_attributes': self.config['num_attributes'],
                             'fully_convolutional': self.config['fully_convolutional'],
                             'labeltype': self.config['labeltype']
                         }
@@ -928,9 +929,9 @@ class Network_User(object):
     ##################################################
     ############  evolution_evaluation  ##############
     ##################################################
-
+    
     def evolution_evaluation(self, ea_iter, testing = False):
-        '''
+       '''
         Organises the evolution, training, testing or validating
 
         @param ea_itera: evolution iteration
@@ -938,16 +939,16 @@ class Network_User(object):
         @return results: dict with validating/testing results
         @return confusion_matrix: dict with validating/testing results
         @return best_itera: best iteration for training
-        '''
+       '''
 
-        logging.info('        Network_User: Evolution evaluation iter {}'.format(ea_iter))
+       logging.info('        Network_User: Evolution evaluation iter {}'.format(ea_iter))
 
-        confusion_matrix = 0
-        best_itera = 0
-        if testing:
+       confusion_matrix = 0
+       best_itera = 0
+       if testing:
             logging.info('        Network_User: Testing')
             results, confusion_matrix = self.test(ea_iter)
-        else:
+       else:
             if self.config['usage_modus'] == 'train':
                 logging.info('        Network_User: Training')
 
@@ -965,4 +966,5 @@ class Network_User(object):
             else:
                 logging.info('        Network_User: Not selected modus')
 
-        return results, confusion_matrix, best_itera
+       return results, confusion_matrix, best_itera
+  

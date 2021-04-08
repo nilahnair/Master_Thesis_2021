@@ -17,9 +17,22 @@ from modus_selecter_new import Modus_Selecter
 
 import datetime
 
+from sacred import Experiment
+#from sacred.utils import apply_backspaces_and_linefeeds
+from sacred.observers import MongoObserver
+
+ex= Experiment('First attempt')
+
+ex.observers.append(MongoObserver.create(url='curtiz',
+                                         db_name='nnair_sacred',
+                                         username='nnair',
+                                         password='Germany2018',
+                                         authSource='admin',
+                                         authMechanism='SCRAM-SHA-1'))
+
 def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, dataset_fine_tuning_idx=0,
                   reshape_input=False, learning_rates_idx=0, name_counter=0, freeze=0, percentage_idx=0,
-                  fully_convolutional=False):
+                  fully_convolutional=False, sacred=True):
     """
     Set a configuration of all the possible variables that were set in the experiments.
     This includes the datasets, hyperparameters for training, networks, outputs, datasets paths,
@@ -53,9 +66,20 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     #num_attributes = {'mocap': 19, 'mbientlab': 19, 'motionminers_flw': 19}
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'motionminers_flw': 93712}
-
     # Number of classes for either for activity recognition
-    #num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
+    #type1&2
+    
+    num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
+   
+    #type3
+    '''
+    #num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
+    '''
+     #type4
+    '''
+    #num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    '''
+    
 
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
@@ -73,7 +97,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     lr_mult = 1.0
 
     # Maxout
-    use_maxout = {'cnn': False, 'lstm': False, 'cnn_imu': False}
+    #use_maxout = {'cnn': False, 'lstm': False, 'cnn_imu': False}
 
     # Balacing the proportion of classes into the dataset dataset
     # This will be deprecated
@@ -122,13 +146,13 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     freeze_options = [False, True]
     
     # User gotta take care of creating these folders, or storing the results in a different way
-    '''
+    
     reshape_input = reshape_input
     if reshape_input:
         reshape_folder = "reshape"
     else:
         reshape_folder = "noreshape"
-    '''
+    
     if fully_convolutional:
         fully_convolutional = "FCN"
     else:
@@ -144,10 +168,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 ##################################Check this again###############################################
     
     # Folder
-    if usage_modus[usage_modus_idx] == 'train':
+    if usage_modus[usage_modus_idx] == 'traing':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional \
-                     + '/' + 'experiment/'
+                     + '/' + reshape_folder +'/' + 'experiment/'
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] + '/' + fully_convolutional \
@@ -156,7 +180,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     elif usage_modus[usage_modus_idx] == 'test':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional \
-                     + '/' + 'test_final/'
+                     + '/' + reshape_folder +'/' + 'test_final/'
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] +  fully_convolutional + \
@@ -165,7 +189,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     elif usage_modus[usage_modus_idx] == 'train_final':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional +\
-                     '/' + 'train_final/'
+                     '/' + reshape_folder + '/' + 'train_final/'
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] + '/' + fully_convolutional + \
@@ -174,7 +198,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     elif usage_modus[usage_modus_idx] == 'fine_tuning':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional + \
-                     '/' + 'fine_tuning/'
+                     + '/' + reshape_folder +'/' + 'fine_tuning/'
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] + '/' + fully_convolutional + \
@@ -231,10 +255,28 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     path_to_datasets_folder='/data/nnair/output/type3/mocap/'
     path_to_datasets_folder='/data/nnair/output/type4/mocap/'
     '''
+    #type1
     dataset_root = {'mocap': '/data/nnair/output/type1/mocap/',
                     'mbientlab': '/data/nnair/output/type1/imu/',
-                    'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
-    
+                    'motionminers_flw': '/data/nnair/output/type1/momin/'}
+    #type2
+    '''
+    dataset_root = {'mocap': '/data/nnair/output/type2/mocap/',
+                    'mbientlab': '/data/nnair/output/type2/imu/',
+                    'motionminers_flw': '/data/nnair/output/type2/momin/'}
+    '''
+    #type3
+    '''
+    dataset_root = {'mocap': '/data/nnair/output/type3/mocap/',
+                    'mbientlab': '/data/nnair/output/type3/imu/',
+                    'motionminers_flw': '/data/nnair/output/type3/momin/'}
+    '''
+    #type4
+    '''
+    dataset_root = {'mocap': '/data/nnair/output/type4/mocap/',
+                    'mbientlab': '/data/nnair/output/type4/imu/',
+                    'motionminers_flw': '/data/nnair/output/type4/momin/'}
+    '''
     
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "3"
@@ -280,7 +322,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'batch_size_train': batch_size_train[network[network_idx]][dataset[dataset_idx]],
                      'batch_size_val': batch_size_val[network[network_idx]][dataset[dataset_idx]],
                      #'num_tr_inputs': num_tr_inputs[dataset[dataset_idx]],
-                     #'num_classes': num_classes[dataset[dataset_idx]],
+                     'num_classes': num_classes[dataset[dataset_idx]],
                      'file_suffix': 'results_yy{}mm{}dd{:02d}hh{:02d}mm{:02d}.xml'.format(now.year,
                                                                                           now.month,
                                                                                           now.day,
@@ -288,11 +330,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                                                                           now.minute),
                      'dataset_root': dataset_root[dataset[dataset_idx]],
                      'accumulation_steps': accumulation_steps[dataset[dataset_idx]],
-                     #'reshape_input': reshape_input,
+                     'reshape_input': reshape_input,
                      'name_counter': name_counter,
                      'freeze_options': freeze_options[freeze],
                      #'percentages_names': percentages_names[percentage_idx],
                      'fully_convolutional': fully_convolutional,
+                     'sacred': sacred,
                      'labeltype': labeltype}
 
     return configuration
@@ -323,9 +366,70 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 
     logging.getLogger('').addHandler(console)
 
-    return    
+    return  
 
+@ex.config
+def my_config():
+    config = configuration(dataset_idx=1,
+                           network_idx=2,
+                           output_idx=0,
+                           usage_modus_idx=0,
+                           #dataset_fine_tuning_idx=0,
+                           reshape_input=True,
+                           learning_rates_idx=1,
+                           name_counter=0,
+                           freeze=0,
+                           #percentage_idx=12,
+                           fully_convolutional=False,
+                           #pooling=0
+                           )
+    dataset = config["dataset"]
+    network = config["network"]
+    output = config["output"]
+    reshape_input = config["reshape_input"]
+    usageModus = config["usage_modus"]
+    dataset_finetuning = config["dataset_finetuning"]
+    pooling = config["pooling"]
+    lr = config["lr"]
     
+@ex.capture
+def run(config, dataset, network, output, usageModus):
+    setup_experiment_logger(logging_level=logging.DEBUG,
+                            filename=config['/data/nnair/output/'] + "logger.txt")
+
+    logging.info('Finished')
+    logging.info('Dataset {} Network {} Output {} Modus {}'.format(dataset, network, output, usageModus))
+
+    modus = Modus_Selecter(config, ex)
+
+    # Starting process
+    modus.net_modus()
+
+    print("Done")
+
+
+@ex.automain
+def main():
+
+    #Setting the same RNG seed
+    seed = 42
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    # Torch RNG
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    # Python RNG
+    np.random.seed(seed)
+    random.seed(seed)
+
+    print("Python Platform {}".format(platform.python_version()))
+
+
+    run()
+
+    print("Done")
+
+'''    
 def main():
     """
     Run experiment for a certain set of parameters
@@ -334,20 +438,20 @@ def main():
     for more information about all of possible configurations for the experiments
 
     """
-    dataset_idx = [11]
-    network_idx = [0]
-    reshape_input = [False]
-    output_idxs = [0, 1]
+    dataset_idx = [1]
+    network_idx = [2]
+    reshape_input = [True]
+    output_idxs = [0]
     lrs = [0, 1, 2]
-    dataset_ft_idx = [0,1,2,3]
+    #dataset_ft_idx = [0,1,2,3]
     counter_exp = 0
     freeze = [0]
-    percentages = [12]
+    #percentages = [12]
     for dts in range(len(dataset_idx)):
         for nt in range(len(network_idx)):
             for opt in output_idxs:
-                for dft in dataset_ft_idx:
-                    for pr in percentages:
+                #for dft in dataset_ft_idx:
+                    #for pr in percentages:
                         for rsi in range(len(reshape_input)):
                             for fr in freeze:
                                 for lr in lrs:
@@ -355,12 +459,12 @@ def main():
                                                            network_idx=network_idx[nt],
                                                            output_idx=opt,
                                                            usage_modus_idx=5,
-                                                           dataset_fine_tuning_idx=dft,
+                                                           #dataset_fine_tuning_idx=dft,
                                                            reshape_input=reshape_input[rsi],
                                                            learning_rates_idx=lr,
                                                            name_counter=counter_exp,
                                                            freeze=fr,
-                                                           percentage_idx=pr,
+                                                           #percentage_idx=pr,
                                                            fully_convolutional=False)
 
                                     setup_experiment_logger(logging_level=logging.DEBUG,
@@ -396,3 +500,4 @@ if __name__ == '__main__':
     main()
 
     print("Done")
+'''

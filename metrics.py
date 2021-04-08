@@ -147,16 +147,12 @@ class Metrics(object):
         elif self.config['output'] == 'attribute':
             # predictions = torch.argmin(preds, dim=1)
             predictions = self.atts[torch.argmin(preds, dim=1), 0]
-        elif self.config['output'] == 'identity':
-            predictions = torch.argmax(preds, dim=1)
-
+       
         if self.config['output'] == 'softmax':
             precision, recall = self.get_precision_recall(targets, predictions)
         elif self.config['output'] == 'attribute':
             precision, recall = self.get_precision_recall(targets[:, 0], predictions)
-        elif self.config['output'] == 'identity':
-            precision, recall = self.get_precision_recall(targets, predictions)
-
+       
         proportions = torch.zeros(self.config['num_classes'])
 
         if self.config['output'] == 'softmax':
@@ -165,10 +161,7 @@ class Metrics(object):
         elif self.config['output'] == 'attribute':
             for c in range(self.config['num_classes']):
                 proportions[c] = torch.sum(targets[:, 0] == c).item() / float(targets[:, 0].size()[0])
-        elif self.config['output'] == 'identity':
-            for c in range(self.config['num_classes']):
-                proportions[c] = torch.sum(targets == c).item() / float(targets.size()[0])
-
+        
         logging.info('            Metric:    \nPrecision: \n{}\nRecall\n{}'.format(precision, recall))
 
         self.results['precision'] = precision
