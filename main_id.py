@@ -162,10 +162,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/output/softmax"
+        folder_base = "/data/nnair/output/softmax/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
-        folder_base = "/data/nnair/output/attributes"
+        folder_base = "/data/nnair/output/attributes/"
         
     print("folderbase selected")
     print(folder_base)
@@ -399,8 +399,8 @@ def my_config():
     output = config["output"]
     reshape_input = config["reshape_input"]
     usageModus = config["usage_modus"]
-    dataset_finetuning = config["dataset_finetuning"]
-    pooling = config["pooling"]
+    #dataset_finetuning = config["dataset_finetuning"]
+    #pooling = config["pooling"]
     lr = config["lr"]
     
 @ex.capture
