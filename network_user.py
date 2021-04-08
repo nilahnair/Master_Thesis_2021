@@ -403,7 +403,8 @@ class Network_User(object):
         best_acc_val = 0
 
         # initialising object for computing metrics
-        metrics_obj = Metrics(self.config, self.device, self.attrs)
+        #metrics_obj = Metrics(self.config, self.device, self.attrs)
+        metrics_obj = Metrics(self.config, self.device)
 
         itera = 0
         start_time_train = time.time()
