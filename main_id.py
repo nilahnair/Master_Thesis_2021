@@ -407,7 +407,7 @@ def my_config():
 def run(config, dataset, network, output, usageModus):
     print("run function began")
     setup_experiment_logger(logging_level=logging.DEBUG,
-                            filename=config['/data/nnair/output/'] + "logger.txt")
+                            filename=config['/data/nnair/output/softmax/'] + "logger.txt")
 
     logging.info('Finished')
     logging.info('Dataset {} Network {} Output {} Modus {}'.format(dataset, network, output, usageModus))
