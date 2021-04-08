@@ -353,7 +353,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
     print("setup logger began")
     # set up the logging
     logging_format = '[%(asctime)-19s, %(name)s, %(levelname)s] %(message)s'
-
+    
     if filename != None:
         logging.basicConfig(filename=filename, level=logging.DEBUG,
                             format=logging_format,
