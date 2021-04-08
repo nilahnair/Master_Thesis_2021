@@ -279,8 +279,9 @@ class Network_User(object):
         #else:
 
         # Selecting the training sets, either train or train final (train  + Validation)
+        ###########change train_final to tain and create a new csv file
         if self.config['usage_modus'] == 'train':
-            harwindows_train = HARWindows(csv_file=self.config['dataset_root'] + "train.csv",
+            harwindows_train = HARWindows(csv_file=self.config['dataset_root'] + "train_final.csv",
                                           root_dir=self.config['dataset_root'])
         elif self.config['usage_modus'] == 'train_final':
             harwindows_train = HARWindows(csv_file=self.config['dataset_root'] + "train.csv",
