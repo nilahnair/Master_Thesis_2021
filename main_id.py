@@ -22,17 +22,19 @@ from sacred import Experiment
 from sacred.observers import MongoObserver
 
 ex= Experiment('First attempt')
-
+print("sacred check1")
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
                                          username='nnair',
                                          password='Germany2018',
                                          authSource='admin',
                                          authMechanism='SCRAM-SHA-1'))
+print("sacred loged in")
 
 def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, dataset_fine_tuning_idx=0,
                   reshape_input=False, learning_rates_idx=0, name_counter=0, freeze=0, percentage_idx=0,
                   fully_convolutional=False, sacred=True):
+    print("configuration function began!")
     """
     Set a configuration of all the possible variables that were set in the experiments.
     This includes the datasets, hyperparameters for training, networks, outputs, datasets paths,
@@ -164,14 +166,18 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/output/attributes"
+        
+    print("folderbase selected")
+    print(folder_base)
 
 ##################################Check this again###############################################
     
     # Folder
-    if usage_modus[usage_modus_idx] == 'traing':
+    if usage_modus[usage_modus_idx] == 'train':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment/'
+        print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] + '/' + fully_convolutional \
@@ -181,6 +187,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'test_final/'
+        print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] +  fully_convolutional + \
@@ -190,6 +197,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional +\
                      '/' + reshape_folder + '/' + 'train_final/'
+        print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] + '/' + fully_convolutional + \
@@ -199,6 +207,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional + \
                      + '/' + reshape_folder +'/' + 'fine_tuning/'
+        print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] + '/' + fully_convolutional + \
@@ -341,6 +350,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     return configuration
 
 def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
+    print("setup logger began")
     # set up the logging
     logging_format = '[%(asctime)-19s, %(name)s, %(levelname)s] %(message)s'
 
@@ -370,6 +380,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 
 @ex.config
 def my_config():
+    print("configuration function began")
     config = configuration(dataset_idx=1,
                            network_idx=2,
                            output_idx=0,
@@ -379,8 +390,8 @@ def my_config():
                            learning_rates_idx=1,
                            name_counter=0,
                            freeze=0,
-                           #percentage_idx=12,
                            fully_convolutional=False,
+                           #percentage_idx=12,
                            #pooling=0
                            )
     dataset = config["dataset"]
@@ -394,6 +405,7 @@ def my_config():
     
 @ex.capture
 def run(config, dataset, network, output, usageModus):
+    print("run function began")
     setup_experiment_logger(logging_level=logging.DEBUG,
                             filename=config['/data/nnair/output/'] + "logger.txt")
 
@@ -410,7 +422,7 @@ def run(config, dataset, network, output, usageModus):
 
 @ex.automain
 def main():
-
+    print("main began")
     #Setting the same RNG seed
     seed = 42
     os.environ['PYTHONHASHSEED'] = str(seed)
@@ -422,7 +434,7 @@ def main():
     np.random.seed(seed)
     random.seed(seed)
 
-    print("Python Platform {}".format(platform.python_version()))
+    print("Python  {}".format(platform.python_version()))
 
 
     run()
