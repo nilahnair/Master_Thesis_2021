@@ -27,7 +27,7 @@ def generate_CSV(csv_dir, data_dir):
 
 if __name__ == '__main__':
     
-    base_directory='/data/nnair/output/type2/imu/'
+    base_directory='/data/nnair/output/type3/imu/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
