@@ -292,7 +292,7 @@ class Network_User(object):
 
         # Creating the dataloader
         dataLoader_train = DataLoader(harwindows_train, batch_size=self.config['batch_size_train'], shuffle=True)
-
+        print(dataLoader_train)
         # Setting the network
         logging.info('        Network_User:    Train:    creating network')
         if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':

@@ -22,19 +22,18 @@ from sacred import Experiment
 from sacred.observers import MongoObserver
 
 ex= Experiment('First attempt')
-print("sacred check1")
+
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
                                          username='nnair',
                                          password='Germany2018',
                                          authSource='admin',
                                          authMechanism='SCRAM-SHA-1'))
-print("sacred loged in")
 
 def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, dataset_fine_tuning_idx=0,
                   reshape_input=False, learning_rates_idx=0, name_counter=0, freeze=0, percentage_idx=0,
                   fully_convolutional=False, sacred=True):
-    print("configuration function began!")
+    
     """
     Set a configuration of all the possible variables that were set in the experiments.
     This includes the datasets, hyperparameters for training, networks, outputs, datasets paths,
@@ -60,7 +59,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset = {0: 'mocap', 1: 'mbientlab', 2: 'motionminers_flw'}
     network = {0: 'cnn', 1: 'lstm', 2: 'cnn_imu'}
     output = {0: 'softmax', 1: 'attribute'}
-    usage_modus = {0: 'train', 1: 'test', 2: 'fine_tuning'}
+    usage_modus = {0: 'train', 1: 'test', 2: 'fine_tuning', 3: 'train_final'}
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'mocap': 126, 'mbientlab': 30,'motionminers_flw': 27}
@@ -146,7 +145,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                    'motionminers_flw': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64}}
 
     freeze_options = [False, True]
-    
+    evolution_iter = 10000
     # User gotta take care of creating these folders, or storing the results in a different way
     
     reshape_input = reshape_input
@@ -319,7 +318,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      #'valid_show': valid_show[network[network_idx]],
                      'plotting': plotting,
                      'usage_modus': usage_modus[usage_modus_idx],
-                     #'folder_exp': folder_exp,
+                     'folder_exp': folder_exp,
                      #'folder_exp_base_fine_tuning': folder_exp_base_fine_tuning,
                      #'balancing': balancing[dataset[dataset_idx]],
                      'GPU': GPU,
@@ -346,8 +345,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'fully_convolutional': fully_convolutional,
                      'sacred': sacred,
                      'labeltype': labeltype}
-    print("accumulation steps")
-    print(accumulation_steps[dataset[dataset_idx]])
+
     return configuration
 
 def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
@@ -406,11 +404,11 @@ def my_config():
     
 @ex.capture
 def run(config, dataset, network, output, usageModus):
-    print("run function began")
+   
     file_name='/data/nnair/output/softmax/'
-    print(file_name)
+   
     file_name='/data/nnair/output/softmax/'+"logger.txt"
-    print(file_name)
+    
     setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
 
     logging.info('Finished')

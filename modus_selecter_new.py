@@ -61,14 +61,14 @@ class Modus_Selecter(object):
         child = ET.SubElement(child_dataset, "usage_modus", usage_modus=str(self.config['usage_modus']))
         #child = ET.SubElement(child_dataset, "dataset_finetuning",
                               #dataset_finetuning=str(self.config['dataset_finetuning']))
-        child = ET.SubElement(child_dataset, "percentages_names",
-                              percentages_names=str(self.config['percentages_names']))
+        #child = ET.SubElement(child_dataset, "percentages_names",
+                              #percentages_names=str(self.config['percentages_names']))
         child = ET.SubElement(child_dataset, "type_simple", type_simple=str(type_simple))
         child = ET.SubElement(child_dataset, "output", output=str(self.config['output']))
 
         child = ET.SubElement(child_dataset, "lr", lr=str(self.config['lr']))
         child = ET.SubElement(child_dataset, "epochs", epochs=str(self.config['epochs']))
-        #child = ET.SubElement(child_dataset, "reshape_input", reshape_input=str(self.config["reshape_input"]))
+        child = ET.SubElement(child_dataset, "reshape_input", reshape_input=str(self.config["reshape_input"]))
 
         child = ET.SubElement(child_dataset, "freeze_options", freeze_options=str(self.config['freeze_options']))
         child = ET.SubElement(child_dataset, "time_iter", time_iter=str(time_iter))
