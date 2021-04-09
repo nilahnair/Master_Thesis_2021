@@ -137,7 +137,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                       'cnn_imu': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}}
     
      # Number of iterations for accumulating the gradients
-    accumulation_steps = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
 
     # Filters
     filter_size = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
@@ -346,7 +346,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'fully_convolutional': fully_convolutional,
                      'sacred': sacred,
                      'labeltype': labeltype}
-
+    print("accumulation steps")
+    print(accumulation_steps[dataset[dataset_idx]])
     return configuration
 
 def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
