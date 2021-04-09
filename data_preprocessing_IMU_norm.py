@@ -378,6 +378,9 @@ def create_dataset():
     generate_data(val_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_val, usage_modus='val')
     generate_data(test_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test, usage_modus='test')
     
+    generate_CSV(base_directory + "train.csv", data_dir_train)
+    generate_CSV(base_directory + "val.csv", data_dir_val)
+    generate_CSV(base_directory + "test.csv", data_dir_test)
     generate_CSV_final(base_directory + "train_final.csv", data_dir_train, data_dir_val)
 
     return

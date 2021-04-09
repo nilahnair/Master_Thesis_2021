@@ -487,6 +487,7 @@ def generate_CSV(csv_dir, data_dir):
         for n in range(len(filenames)):
             f.append(data_dir + 'seq_{0:06}.pkl'.format(n))
 
+    #np.savetxt(csv_dir + type_file, f, delimiter="\n", fmt='%s')
     np.savetxt(csv_dir, f, delimiter="\n", fmt='%s')
     
     return

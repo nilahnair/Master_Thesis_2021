@@ -14,6 +14,29 @@ import datetime
 #import csv_reader
 from sliding_window import sliding_window
 import pickle
+
+def generate_CSV(csv_dir, type_file, data_dir):
+    f = []
+    for dirpath, dirnames, filenames in os.walk(data_dir):
+        for n in range(len(filenames)):
+            f.append(data_dir + 'seq_{0:06}.pkl'.format(n))
+
+    np.savetxt(csv_dir, f, delimiter="\n", fmt='%s')
+        
+    return f
+
+if __name__ == '__main__':
+    
+    base_directory='/data/nnair/output/type1/imu/'
+    
+    data_dir_train = base_directory + 'sequences_train/'
+    data_dir_val = base_directory + 'sequences_val/'
+    data_dir_test = base_directory + 'sequences_test/'
+ 
+    generate_CSV(base_directory + "train.csv", data_dir_train)
+    generate_CSV(base_directory + "val.csv", data_dir_val)
+    generate_CSV(base_directory + "test.csv", data_dir_test)
+
 '''
 path="C:/Users/nilah/Desktop/German/Master thesis basis/L01_S07_R01.csv"
 IMU = []
@@ -128,7 +151,6 @@ if __name__ == '__main__':
     x= np.arange(0.0,5.0,1.0)
     np.savetxt(csv_dir, x, delimiter="\n", fmt='%s')
   
-  ''' 
 Max_values=[5.35345435, 9.10256798, 4.88436873, 0.00138411284, 0.00138515507, 0.0598900912, 0.106352326, 6.80991485, 4.80592809, 0.0152394273, 0.0739000245, 0.0312218774, 4.20999100, 1.88736763, 4.04904100, 3.63478717, 5.83114797, 7.33353379, 5.86790924, 2.62255038, 6.17225572, 7.77781943, 2.16467766, 4.55743908, 1.01340060, 5.08785669, 3.51806116, 3.13018543, 1.50726462, 6.16330964]
 Mean_values=[5.35345435, 9.10256798, 4.88436873, 0.00138411284, 0.00138515507, 0.0598900912, 0.106352326, 6.80991485, 4.80592809, 0.0152394273, 0.0739000245, 0.0312218774, 4.20999100, 1.88736763, 4.04904100, 3.63478717, 5.83114797, 7.33353379, 5.86790924, 2.62255038, 6.17225572, 7.77781943, 2.16467766, 4.55743908, 1.01340060, 5.08785669, 3.51806116, 3.13018543, 1.50726462, 6.16330964]
 Min_values=[5.35345435, 9.10256798, 4.88436873, 0.00138411284, 0.00138515507, 0.0598900912, 0.106352326, 6.80991485, 4.80592809, 0.0152394273, 0.0739000245, 0.0312218774, 4.20999100, 1.88736763, 4.04904100, 3.63478717, 5.83114797, 7.33353379, 5.86790924, 2.62255038, 6.17225572, 7.77781943, 2.16467766, 4.55743908, 1.01340060, 5.08785669, 3.51806116, 3.13018543, 1.50726462, 6.16330964]
@@ -137,3 +159,4 @@ x.append(Max_values)
 x.append(Min_values)
 x.append(Mean_values)
 x=np.asarray(x)
+'''
