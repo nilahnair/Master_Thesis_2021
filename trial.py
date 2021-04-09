@@ -15,7 +15,7 @@ import datetime
 from sliding_window import sliding_window
 import pickle
 
-def generate_CSV(csv_dir, type_file, data_dir):
+def generate_CSV(csv_dir, data_dir):
     f = []
     for dirpath, dirnames, filenames in os.walk(data_dir):
         for n in range(len(filenames)):
