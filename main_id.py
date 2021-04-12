@@ -385,7 +385,7 @@ def my_config():
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
-                           reshape_input=True,
+                           reshape_input=False,
                            learning_rates_idx=1,
                            name_counter=0,
                            freeze=0,
