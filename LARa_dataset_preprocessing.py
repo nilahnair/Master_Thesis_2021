@@ -222,8 +222,8 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
 
             # All labels per window
             data_y_all = np.asarray([i[:] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
-    print(data_y_labels)
-    print(data_y_all)
+    print(data_y_labels.shape)
+    print(data_y_all.shape)
     return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
 
 
