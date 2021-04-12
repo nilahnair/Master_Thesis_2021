@@ -14,7 +14,15 @@ import datetime
 #import csv_reader
 from sliding_window import sliding_window
 import pickle
+from HARWindows import HARWindows
 
+root='/data/nnair/output/type1/mocap/'
+root1='/data/nnair/output/type1/mocap/train.csv'
+
+harwindows_train = HARWindows(csv_file = root1 , root_dir=root)
+
+
+'''
 def generate_CSV(csv_dir, data_dir):
     f = []
     for dirpath, dirnames, filenames in os.walk(data_dir):
@@ -36,7 +44,7 @@ if __name__ == '__main__':
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
     generate_CSV(base_directory + "test.csv", data_dir_test)
-
+'''
 '''
 path="C:/Users/nilah/Desktop/German/Master thesis basis/L01_S07_R01.csv"
 IMU = []
