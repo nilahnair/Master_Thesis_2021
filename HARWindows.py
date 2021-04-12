@@ -45,10 +45,8 @@ class HARWindows(Dataset):
         @return window_data: dict with sequence window, label of window, and labels of each sample in window
         '''
         window_name = os.path.join(self.root_dir, self.harwindows.iloc[idx, 0])
-        print(window_name)
         f = open(window_name, 'rb')
         data = pickle.load(f, encoding='bytes')
-        print(data)
         f.close()
 
         X = data['data']
