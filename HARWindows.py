@@ -53,10 +53,7 @@ class HARWindows(Dataset):
 
         X = data['data']
         y = data['label']
-        print("X")
-        print(X)
-        print("Y")
-        print(y)
+        
         #Y = data['labels']
         window_data = {"data": X, "label": y}
         '''

@@ -277,11 +277,11 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,    -451.56,     -459
 def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
     print("check1")
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
-    data_y_labels=sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))
+    data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
     print("check2")
     print(data_x.shape)
-    print(data_y_labels.shape)
-    return data_x.astype(np.float32), data_y_labels.astype(np.uint8)
+    print(data_y.shape)
+    return data_x.astype(np.float32), data_y.astype(np.uint8)
     
 
 def normalize(data):
@@ -341,13 +341,13 @@ def select_columns_opp(data):
 
 def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None, identity_bool=False, usage_modus='train'):
      #type1-avoiding person 12
-    '''
+    
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S13": 5, "S14": 6}
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
-    '''
+   
     #type2- avoiding person 11
     '''
     persons = ["S07", "S08", "S09", "S10", "S12", "S13", "S14"]
@@ -358,7 +358,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     '''
     
     #type3- Avoiding person 11 and 12
-    
+    '''
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S13": 4, "S14": 5}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18"]
@@ -367,7 +367,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     
     '''
     #type4-Avoiding persons 11,12,10
-    
+     '''
     persons = ["S07", "S08", "S09", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S13": 3, "S14": 4}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
@@ -429,6 +429,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         print("data shape")
                         print(data_x.shape)
                         label = np.full_like(data_x, labelid)
+                        print("label shape")
+                        print(label)
+                        label = label[1]
+                        print("label shape")
+                        print(label)
                         if data_x.shape[0] == data_x.shape[0]:
                             print("Starting sliding window")
                             X, y= opp_sliding_window(data_x, label.astype(int), sliding_window_length, sliding_window_step, label_pos_end = True)
@@ -518,11 +523,11 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
                             
 def create_dataset():
     #type1-avoiding person 12
-    '''
+    
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
-    '''
+    
     #type2- avoiding person 11
     '''
     train_ids = ["R11", "R12", "R15", "R18", "R19", "R21"]
@@ -531,11 +536,11 @@ def create_dataset():
     '''
     
     #type3- Avoiding person 11 and 12
-    
+    '''
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
-    
+    '''
     
     #type4-Avoiding persons 11,12,10
     '''
