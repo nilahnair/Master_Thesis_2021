@@ -14,6 +14,7 @@ import datetime
 #import csv_reader
 from sliding_window import sliding_window
 import pickle
+from torch.utils.data import DataLoader
 from HARWindows import HARWindows
 
 root='/data/nnair/output/type1/mocap/'
@@ -22,6 +23,9 @@ print("check1")
 
 harwindows_train = HARWindows(csv_file = root1 , root_dir=root)
 print("check2")
+
+dataLoader_train = DataLoader(harwindows_train, batch_size=100, shuffle=True)
+print(dataLoader_train)
 
 '''
 def generate_CSV(csv_dir, data_dir):
