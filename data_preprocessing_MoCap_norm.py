@@ -367,7 +367,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     
     '''
     #type4-Avoiding persons 11,12,10
-     '''
+    '''
     persons = ["S07", "S08", "S09", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S13": 3, "S14": 4}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
