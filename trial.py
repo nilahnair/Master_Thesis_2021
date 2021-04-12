@@ -16,7 +16,21 @@ from sliding_window import sliding_window
 import pickle
 from torch.utils.data import DataLoader
 from HARWindows import HARWindows
-
+ws=5
+ss=1
+data_y = np.ones( (30,20) , dtype=np.int64)
+print(data_y)
+print(data_y.shape)
+data_y_all = np.ones( (40,30) , dtype=np.int64)
+print(data_y_all)
+print(data_y_all.shape)
+data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+print(data_y)
+print(data_y.shape)
+data_y_all = np.asarray([i[:] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+print(data_y_all)
+print(data_y_all.shape)
+'''
 root='/data/nnair/output/type1/mocap/'
 root1='/data/nnair/output/type1/mocap/train.csv'
 print("check1")
@@ -49,7 +63,8 @@ for b, harwindow_batched in enumerate(dataLoader_train):
                 print(train_batch_l)
                 train_batch_l = train_batch_l.reshape(-1)
                 print(train_batch_l)
-                
+        
+'''
 '''
 def generate_CSV(csv_dir, data_dir):
     f = []
