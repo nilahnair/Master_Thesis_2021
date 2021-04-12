@@ -16,6 +16,10 @@ import pickle
 import warnings
 warnings.filterwarnings("ignore")
 
+root='/data/nnair/output/type1/mocap/'
+root1='/data/nnair/output/type1/mocap/train.csv'
+csv_file = root1 
+root_dir=root
 
 class HARWindows(Dataset):
     '''
