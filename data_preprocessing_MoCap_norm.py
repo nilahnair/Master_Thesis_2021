@@ -277,7 +277,9 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,    -451.56,     -459
 def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
     print("check1")
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
+    print(data_x.shape)
     data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+    print(data_y)
     print("check2")
     print(data_x.shape)
     print(data_y.shape)
@@ -431,7 +433,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         label = np.full_like(data_x, labelid)
                         print("label shape")
                         print(label.shape)
-                        label = label[1]
+                        label = label[0]
                         print("label shape")
                         print(label.shape)
                         if data_x.shape[0] == data_x.shape[0]:
