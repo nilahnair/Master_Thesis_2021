@@ -731,7 +731,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                                              sliding_window_length,
                                                              sliding_window_step, label_pos_end = False)
                             print("Windows are extracted")
-
+                            print(X.shape)
+                            print(y.shape)
+                            print(y_all.shape)
                             # Statistics
                             hist_classes = np.bincount(y[:, 0], minlength=NUM_CLASSES)
                             hist_classes_all += hist_classes
@@ -747,7 +749,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                     # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                                     seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
                                     seq = np.require(seq, dtype=np.float)
-
+                                    print(seq.shape)
+                                    print(f)
                                     # Storing the sequences
                                     obj = {"data": seq, "label": y[f], "labels": y_all[f],
                                            "identity": labels_persons[P]}
