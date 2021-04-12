@@ -433,9 +433,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         label = np.full_like(data_x, labelid)
                         print("label shape")
                         print(label.shape)
-                        label = label[0]
-                        print("label shape")
-                        print(label.shape)
+                        
                         if data_x.shape[0] == data_x.shape[0]:
                             print("Starting sliding window")
                             X, y= opp_sliding_window(data_x, label.astype(int), sliding_window_length, sliding_window_step, label_pos_end = True)
