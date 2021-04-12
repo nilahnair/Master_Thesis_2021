@@ -26,7 +26,30 @@ print("check2")
 
 dataLoader_train = DataLoader(harwindows_train, batch_size=100, shuffle=True)
 print(dataLoader_train)
+len(dataLoader_train)
+itera=1
+for b, harwindow_batched in enumerate(dataLoader_train):
+                sys.stdout.write("\rTraining: Epoch {}/{} Batch {}/{} and itera {}".format(1,
+                                                                                          1,
+                                                                                           1,
+                                                                                           len(dataLoader_train),
+                                                                                           itera))
+                sys.stdout.flush()
 
+                #Setting the network to train mode
+                #network_obj.train(mode=True)
+                
+                #Counting iterations
+                itera = (1 * harwindow_batched["data"].shape[0]) + 1
+                print(itera)
+                #Selecting batch
+                train_batch_v = harwindow_batched["data"]
+                print(train_batch_v)
+                train_batch_l = harwindow_batched["label"][:, 0]
+                print(train_batch_l)
+                train_batch_l = train_batch_l.reshape(-1)
+                print(train_batch_l)
+                
 '''
 def generate_CSV(csv_dir, data_dir):
     f = []
