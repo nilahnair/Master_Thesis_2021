@@ -18,9 +18,10 @@ from HARWindows import HARWindows
 
 root='/data/nnair/output/type1/mocap/'
 root1='/data/nnair/output/type1/mocap/train.csv'
+print("check1")
 
 harwindows_train = HARWindows(csv_file = root1 , root_dir=root)
-
+print("check2")
 
 '''
 def generate_CSV(csv_dir, data_dir):
