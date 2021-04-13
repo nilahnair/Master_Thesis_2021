@@ -571,7 +571,7 @@ class Network_User(object):
                 
                 # Computing metrics for current training batch
                 #if (itera) % self.config['train_show'] == 0:
-                if (itera) % 2 == 0:
+                if (itera) % 4 == 0:
                     # Metrics for training
                     results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps)
 
@@ -686,7 +686,7 @@ class Network_User(object):
         network_obj.eval()
 
         # Creating metric object
-        metrics_obj = Metrics(self.config, self.device, self.attrs)
+        metrics_obj = Metrics(self.config, self.device)
         loss_val = 0
 
         # One doesnt need the gradients
@@ -699,7 +699,7 @@ class Network_User(object):
                         test_batch_l = harwindow_batched_val["labels"][:, 0]
                         test_batch_l = test_batch_l.reshape(-1)
                     elif self.config["fully_convolutional"] == "FC":
-                        test_batch_l = harwindow_batched_val["label"][:, 0]
+                        test_batch_l = harwindow_batched_val["label"]
                         test_batch_l = test_batch_l.reshape(-1)
                 elif self.config['output'] == 'attribute':
                     if self.config["fully_convolutional"] == "FCN":
@@ -732,6 +732,22 @@ class Network_User(object):
                 if v == 0:
                     predictions_val = predictions
                     if self.config['output'] == 'softmax':
+                        test_labels = harwindow_batched_val["label"]
+                        test_labels = test_labels.reshape(-1)
+                    elif self.config['output'] == 'attribute':
+                        test_labels = harwindow_batched_val["label"]
+                else:
+                    predictions_val = torch.cat((predictions_val, predictions), dim=0)
+                    if self.config['output'] == 'softmax':
+                        test_labels_batch = harwindow_batched_val["label"]
+                        test_labels_batch = test_labels_batch.reshape(-1)
+                    elif self.config['output'] == 'attribute':
+                        test_labels_batch = harwindow_batched_val["label"]
+                    test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
+                '''
+                if v == 0:
+                    predictions_val = predictions
+                    if self.config['output'] == 'softmax':
                         test_labels = harwindow_batched_val["label"][:, 0]
                         test_labels = test_labels.reshape(-1)
                     elif self.config['output'] == 'attribute':
@@ -744,7 +760,7 @@ class Network_User(object):
                     elif self.config['output'] == 'attribute':
                         test_labels_batch = harwindow_batched_val["label"]
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
-
+                '''
                 sys.stdout.write("\rValidating: Batch  {}/{}".format(v, len(dataLoader_val)))
                 sys.stdout.flush()
 
