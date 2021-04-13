@@ -500,9 +500,11 @@ class Network_User(object):
                 elapsed_time_batch = time.time() - start_time_batch
 
                 ################################## Validating ##################################################
-
+                '''
                 if (itera + 1) % self.config['valid_show'] == 0 or \
                         (itera + 1) == (self.config['epochs'] * harwindow_batched["data"].shape[0]):
+                '''
+                if (itera + 1) == (self.config['epochs'] * harwindow_batched["data"].shape[0]):
                     logging.info('\n')
                     logging.info('        Network_User:        Validating')
                     start_time_val = time.time()
