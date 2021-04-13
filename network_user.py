@@ -568,9 +568,10 @@ class Network_User(object):
                                    self.config['folder_exp'] + 'network.pt')
                         best_acc_val = results_val['acc']
                         best_itera = itera
-
+                
                 # Computing metrics for current training batch
-                if (itera) % self.config['train_show'] == 0:
+                #if (itera) % self.config['train_show'] == 0:
+                if (itera) % 2 == 0:
                     # Metrics for training
                     results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps)
 
