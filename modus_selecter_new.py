@@ -148,7 +148,8 @@ class Modus_Selecter(object):
 
             # Saving the results
             self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, time_iter=time_train,
-                      precisions=results_train['precision'], recalls=results_train['recall'], best_itera=best_itera)
+                      precisions=results_train['precision'], recalls=results_train['recall'])
+            #best_itera=best_itera)
 
             # Testing the network
             if testing:
