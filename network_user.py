@@ -826,7 +826,7 @@ class Network_User(object):
         loss_test = 0
 
         # Creating metric object
-        metrics_obj = Metrics(self.config, self.device, self.attrs)
+        metrics_obj = Metrics(self.config, self.device)
 
         logging.info('        Network_User:    Testing')
         start_time_test = time.time()
@@ -840,7 +840,7 @@ class Network_User(object):
                         test_batch_l = harwindow_batched_test["labels"][:, 0]
                         test_batch_l = test_batch_l.reshape(-1)
                     elif self.config["fully_convolutional"] == "FC":
-                        test_batch_l = harwindow_batched_test["label"][:, 0]
+                        test_batch_l = harwindow_batched_test["label"]
                         test_batch_l = test_batch_l.reshape(-1)
                 elif self.config['output'] == 'attribute':
                     if self.config["fully_convolutional"] == "FCN":
@@ -875,14 +875,14 @@ class Network_User(object):
                 if v == 0:
                     predictions_test = predictions
                     if self.config['output'] == 'softmax':
-                        test_labels = harwindow_batched_test["label"][:, 0]
+                        test_labels = harwindow_batched_test["label"]
                         test_labels = test_labels.reshape(-1)
                     elif self.config['output'] == 'attribute':
                         test_labels = harwindow_batched_test["label"]
                 else:
                     predictions_test = torch.cat((predictions_test, predictions), dim=0)
                     if self.config['output'] == 'softmax':
-                        test_labels_batch = harwindow_batched_test["label"][:, 0]
+                        test_labels_batch = harwindow_batched_test["label"]
                         test_labels_batch = test_labels_batch.reshape(-1)
                     elif self.config['output'] == 'attribute':
                         test_labels_batch = harwindow_batched_test["label"]
