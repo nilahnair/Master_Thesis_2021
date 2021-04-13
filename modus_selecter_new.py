@@ -134,7 +134,7 @@ class Modus_Selecter(object):
             # Training the network and obtaining the validation results
             logging.info('    Network_selecter:    Train iter 0')
             results_train, confusion_matrix_train, best_itera = self.network.evolution_evaluation(ea_iter=iter_evl)
-
+            best_itera=0
             # Appending results for later saving in results file
             acc_train_ac.append(results_train['acc'])
             f1_weighted_train_ac.append(results_train['f1_weighted'])
@@ -147,9 +147,7 @@ class Modus_Selecter(object):
                                                              results_train['f1_weighted'], results_train['f1_mean']))
 
             # Saving the results
-            self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, time_iter=time_train,
-                      precisions=results_train['precision'], recalls=results_train['recall'])
-            #best_itera=best_itera)
+            self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, time_iter=time_train, precisions=results_train['precision'], recalls=results_train['recall'], best_itera=best_itera)
 
             # Testing the network
             if testing:
