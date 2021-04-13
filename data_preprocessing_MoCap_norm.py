@@ -274,16 +274,21 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,    -451.56,     -459
                        -351.1281,   -290.558,    -269.311,    -131.22,     -117.78,     -162.545]
 '''
 
-def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
+#def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
+def opp_sliding_window(data_x, ws, ss, label_pos_end=True):
     print("check1")
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
     print(data_x.shape)
+    '''
     data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
     print(data_y)
+    print(data_y.shape)
+    '''
     print("check2")
     print(data_x.shape)
-    print(data_y.shape)
-    return data_x.astype(np.float32), data_y.astype(np.uint8)
+    
+    #return data_x.astype(np.float32), data_y.astype(np.uint8)
+    return data_x.astype(np.float32)
     
 
 def normalize(data):
@@ -430,18 +435,14 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         data_x = normalize(data_x)
                         print("data shape")
                         print(data_x.shape)
-                        label = np.full_like(data_x, labelid)
-                        print("label shape")
-                        print(label.shape)
-                        
+                                                
                         if data_x.shape[0] == data_x.shape[0]:
                             print("Starting sliding window")
-                            X, y= opp_sliding_window(data_x, label.astype(int), sliding_window_length, sliding_window_step, label_pos_end = True)
+                            X = opp_sliding_window(data_x, sliding_window_length, sliding_window_step, label_pos_end = True)
                             print("Windows are extracted")
                             print(X)
                             print(X.shape)
-                            print(y)
-                            print(y.shape)
+                            
                             for f in range(X.shape[0]):
                                 try:
 
@@ -452,9 +453,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                     # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                                     seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
                                     seq = np.require(seq, dtype=np.float)
-
+                                    
                                     # Storing the sequences
-                                    obj = {"data": seq, "label": y[f]}
+                                    obj = {"data": seq, "label": labelid}
                                     f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                     pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
                                     f.close()
