@@ -445,6 +445,19 @@ class Network_User(object):
                         train_batch_l = harwindow_batched["labels"][:, :, 0]
                         train_batch_l = train_batch_l.reshape(-1)
                     elif self.config["fully_convolutional"] == "FC":
+                        train_batch_l = harwindow_batched["label"]
+                        train_batch_l = train_batch_l.reshape(-1)
+                elif self.config['output'] == 'attribute':
+                    if self.config["fully_convolutional"] == "FCN":
+                        train_batch_l = harwindow_batched["labels"][:, :, 1:]
+                    elif self.config["fully_convolutional"] == "FC":
+                        train_batch_l = harwindow_batched["label"]
+                '''
+                if self.config['output'] == 'softmax':
+                    if self.config["fully_convolutional"] == "FCN":
+                        train_batch_l = harwindow_batched["labels"][:, :, 0]
+                        train_batch_l = train_batch_l.reshape(-1)
+                    elif self.config["fully_convolutional"] == "FC":
                         train_batch_l = harwindow_batched["label"][:, 0]
                         train_batch_l = train_batch_l.reshape(-1)
                 elif self.config['output'] == 'attribute':
@@ -452,7 +465,7 @@ class Network_User(object):
                         train_batch_l = harwindow_batched["labels"][:, :, 1:]
                     elif self.config["fully_convolutional"] == "FC":
                         train_batch_l = harwindow_batched["label"]
-                        
+                '''        
                 # Adding gaussian noise
                 noise = self.normal.sample((train_batch_v.size()))
                 noise = noise.reshape(train_batch_v.size())

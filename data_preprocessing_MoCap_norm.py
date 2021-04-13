@@ -440,7 +440,6 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             print("Starting sliding window")
                             X = opp_sliding_window(data_x, sliding_window_length, sliding_window_step, label_pos_end = True)
                             print("Windows are extracted")
-                            print(X)
                             print(X.shape)
                             
                             for f in range(X.shape[0]):
