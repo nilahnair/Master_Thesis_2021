@@ -36,7 +36,7 @@ class Modus_Selecter(object):
 
         return
 
-    def save(self, acc_test, f1_weighted_test, f1_mean_test, ea_iter, type_simple='training', confusion_matrix=0,
+    def save(self, acc_test, f1_weighted_test, f1_mean_test, ea_iter=0, type_simple='training', confusion_matrix=0,
              time_iter=0, precisions=0, recalls=0, best_itera=0):
         """
         Save the results of training and testing according to the configuration.
@@ -134,7 +134,7 @@ class Modus_Selecter(object):
             # Training the network and obtaining the validation results
             logging.info('    Network_selecter:    Train iter 0')
             results_train, confusion_matrix_train, best_itera = self.network.evolution_evaluation(ea_iter=iter_evl)
-            best_itera=0
+            
             # Appending results for later saving in results file
             acc_train_ac.append(results_train['acc'])
             f1_weighted_train_ac.append(results_train['f1_weighted'])
