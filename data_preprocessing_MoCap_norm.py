@@ -96,7 +96,7 @@ NORM_MIN_THRESHOLDS = [-382.62, -363.81, -315.691, -472.2, -471.4, -152.398,
                        -351.1281, -290.558, -269.311, -159.9403, -153.482, -162.718]
 '''
 #type1 - avoiding subject 12
-'''
+
 NORM_MAX_THRESHOLDS = [ 393.989,    287.475,    284.478,    460.544,    455.63,     460.81,
                        393.989,    287.475,    284.478,    574.258,    567.25,     575.75,
                        384.232,    425.469,    428.713,    319.7402,   328.464,    332.26,
@@ -183,6 +183,7 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,   -451.56,     -413.
                        -405.712,    -484.677,    -483.109,    -892.97,     -852.581,    -695.073,
                        -405.712,    -484.677,    -483.109,   -968.66,     -947.151,    -753.931,
                        -114.9842,   -132.7648,   -164.68537,  -131.22,     -117.78,     -162.387]
+'''
 '''
 #type3 - avoiding subjects 11 and 12
 
@@ -342,7 +343,7 @@ def select_columns_opp(data):
 
 def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None, identity_bool=False, usage_modus='train'):
      #type1-avoiding person 12
-    '''
+    
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S13": 5, "S14": 6}
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
@@ -357,7 +358,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     val_ids = ["R22"]
     test_ids = ["R23"]
     '''
-    
+    '''
     #type3- Avoiding person 11 and 12
     
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
@@ -532,7 +533,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
                             
 def create_dataset():
     #type1-avoiding person 12
-    '''
+    
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
@@ -543,7 +544,7 @@ def create_dataset():
     val_ids = ["R22"]
     test_ids = ["R23"]
     '''
-    
+    '''
     #type3- Avoiding person 11 and 12
     
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
@@ -558,7 +559,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory = '/data/nnair/output/type2/mocap/clean/'
+    base_directory = '/data/nnair/output/type1/mocap/clean/'
     sliding_window_length = 100
     sliding_window_step = 12
     
