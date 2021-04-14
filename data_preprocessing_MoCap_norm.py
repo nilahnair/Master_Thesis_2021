@@ -95,7 +95,7 @@ NORM_MIN_THRESHOLDS = [-382.62, -363.81, -315.691, -472.2, -471.4, -152.398,
                        -351.1281, -290.558, -269.311, -159.9403, -153.482, -162.718]
 '''
 #type1 - avoiding subject 12
-'''
+
 NORM_MAX_THRESHOLDS = [ 393.989,    287.475,    284.478,    460.544,    455.63,     460.81,
                        393.989,    287.475,    284.478,    574.258,    567.25,     575.75,
                        384.232,    425.469,    428.713,    319.7402,   328.464,    332.26,
@@ -139,7 +139,7 @@ NORM_MIN_THRESHOLDS = [ -356.7484,  -350.385,   -275.538,   -426.97,    -459.003
                        -405.712,   -457.251,   -565.544,   -796.613,   -767.2,     -692.469,
                        -405.712,   -457.251,  -565.544,   -887.707,   -815.67,   -712.609,
                        -260.2279,   -98.0932,   -66.7167,  -122.788,   -107.3,     -162.189]
-'''
+
 #type2 - avoiding subject 11
 '''
 NORM_MAX_THRESHOLDS = [ 385.977,   315.51,    284.478,   460.544,   455.554,   460.81,    385.977,
@@ -184,7 +184,7 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,   -451.56,     -413.
                        -114.9842,   -132.7648,   -164.68537,  -131.22,     -117.78,     -162.387]
 '''
 #type3 - avoiding subjects 11 and 12
-
+'''
 NORM_MAX_THRESHOLDS = [ 385.977,   287.475,   284.478,   460.544,   455.63,    460.81,    385.977,
                        287.475,   284.478,   574.258,   567.25,    575.79,    407.0898,  425.469,
                        438.49,    319.7402,  328.464,   332.26,    501.277,   458.856,   441.221,
@@ -226,7 +226,7 @@ NORM_MIN_THRESHOLDS = [ -356.7484,   -350.385,    -287.806,   -451.56,     -459.
                        -405.712,    -407.182,    -565.544,    -887.707,    -947.151,    -753.931,
                        -78.9523,    -98.0932,   -164.68537,  -131.22,     -117.78,     -162.387]
 
-
+'''
 #type4 - avoiding subjects 10,11 and 12
 '''
 NORM_MAX_THRESHOLDS = [ 385.977,    315.51,     284.478,    460.544,    455.63,     460.55,
@@ -278,13 +278,6 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,    -451.56,     -459
 def opp_sliding_window(data_x, ws, ss, label_pos_end=True):
     print("check1")
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
-    print(data_x.shape)
-    '''
-    data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
-    print(data_y)
-    print(data_y.shape)
-    '''
-    print("check2")
     print(data_x.shape)
     
     #return data_x.astype(np.float32), data_y.astype(np.uint8)
@@ -440,8 +433,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             print("Starting sliding window")
                             X = opp_sliding_window(data_x, sliding_window_length, sliding_window_step, label_pos_end = True)
                             print("Windows are extracted")
-                            print(X.shape)
-                            
+                                                        
                             for f in range(X.shape[0]):
                                 try:
 
@@ -552,7 +544,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory = '/data/nnair/output/type1/mocap/'
+    base_directory = '/data/nnair/output/type1/mocap/unclean/'
     sliding_window_length = 100
     sliding_window_step = 12
     
