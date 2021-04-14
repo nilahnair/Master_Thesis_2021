@@ -393,7 +393,7 @@ def my_config():
                            #percentage_idx=12,
                            #pooling=0
                            )
-    ex.log_scalar("configuration", config)
+    
     dataset = config["dataset"]
     network = config["network"]
     output = config["output"]
