@@ -264,7 +264,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     path_to_datasets_folder='/data/nnair/output/type4/mocap/'
     '''
     #type1
-    dataset_root = {'mocap': '/data/nnair/output/type1/mocap/',
+    dataset_root = {'mocap': '/data/nnair/output/type1/mocap/unclean',
                     'mbientlab': '/data/nnair/output/type1/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     #type2
@@ -393,6 +393,7 @@ def my_config():
                            #percentage_idx=12,
                            #pooling=0
                            )
+    ex.log_scalar("configuration", config)
     dataset = config["dataset"]
     network = config["network"]
     output = config["output"]
@@ -407,7 +408,7 @@ def run(config, dataset, network, output, usageModus):
    
     file_name='/data/nnair/output/softmax/'
    
-    file_name='/data/nnair/output/softmax/'+"logger.txt"
+    file_name='/data/nnair/output/softmax/'+'logger.txt'
     
     setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
 

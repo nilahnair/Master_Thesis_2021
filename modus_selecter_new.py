@@ -74,10 +74,10 @@ class Modus_Selecter(object):
         child = ET.SubElement(child_dataset, "time_iter", time_iter=str(time_iter))
         child = ET.SubElement(child_dataset, "best_itera", best_itera=str(best_itera))
 
-        for exp in range(len(acc_test)):
-            child = ET.SubElement(child_dataset, "metrics", acc_test=str(acc_test[exp]),
-                                  f1_weighted_test=str(f1_weighted_test[exp]),
-                                  f1_mean_test=str(f1_mean_test[exp]))
+        for expi in range(len(acc_test)):
+            child = ET.SubElement(child_dataset, "metrics", acc_test=str(acc_test[expi]),
+                                  f1_weighted_test=str(f1_weighted_test[expi]),
+                                  f1_mean_test=str(f1_mean_test[expi]))
         child = ET.SubElement(child_dataset, "metrics_mean", acc_test_mean=str(np.mean(acc_test)),
                               f1_weighted_test_mean=str(np.mean(f1_weighted_test)),
                               f1_mean_test_mean=str(np.mean(f1_mean_test)))
@@ -145,10 +145,15 @@ class Modus_Selecter(object):
             logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
                          'f1_weighted {}, f1_mean {}'.format(time_train, results_train['acc'],
                                                              results_train['f1_weighted'], results_train['f1_mean']))
-
+            self.exp.log_scalar("Train accuracy", acc_train_ac, iter_evl)
+            self.exp.log_scalar("train f1 weighted", f1_weighted_train_ac, iter_evl)
+            self.exp.log_scalar("train f1 mean", f1_mean_train_ac, iter_evl)
+            self.exp.log_scalar("train Precision", results_train['precision'], iter_evl)
+            self.exp.log_scalar("train Recall", results_train['recall'], iter_evl)
+            
             # Saving the results
             self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, time_iter=time_train, precisions=results_train['precision'], recalls=results_train['recall'], best_itera=best_itera)
-
+            
             # Testing the network
             if testing:
                 start_time_test = time.time()
@@ -158,7 +163,12 @@ class Modus_Selecter(object):
                 f1_mean_test_ac.append(results_test['f1_mean'])
                 precisions_test.append(results_test['precision'].numpy())
                 recalls_test.append(results_test['recall'].numpy())
-
+                self.exp.log_scalar("test accuracy", results_test['acc'], iter_evl)
+                self.exp.log_scalar("test f1 weighted", results_test['f1_weighted'], iter_evl)
+                self.exp.log_scalar("test f1 mean", results_test['f1_mean'], iter_evl)
+                self.exp.log_scalar("test Precision", results_test['precision'], iter_evl)
+                self.exp.log_scalar("test Recall", results_test['recall'], iter_evl)
+                self.exp.log_scalar("confusion matrix", confusion_matrix_test, iter_evl)
                 time_test = time.time() - start_time_test
 
         if testing:
