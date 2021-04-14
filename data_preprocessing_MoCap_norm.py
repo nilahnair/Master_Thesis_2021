@@ -407,6 +407,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         annotator_file = "A11"
                         
                     file_name_norm = "{}/{}_{}_{}_{}_{}_norm_data.csv".format(P, S, P, R, annotator_file, N)
+                    file_name_label = "{}/{}_{}_{}_{}_{}_labels.csv".format(P, S, P, R, annotator_file, N)
                     try:
                         data = csv_reader.reader_data(FOLDER_PATH + file_name_norm)
                         print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_norm))
@@ -414,6 +415,18 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         print("\nFiles loaded")
                     except:
                         print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_norm))
+                        continue
+                    
+                    try:
+                        #Getting labels and attributes
+                        labels = csv_reader.reader_labels(FOLDER_PATH + file_name_label)
+                        class_labels = np.where(labels[:, 0] == 7)[0]
+
+                        # Deleting rows containing the "none" class
+                        data = np.delete(data, class_labels, 0)
+                        labels = np.delete(labels, class_labels, 0)
+                    except:
+                        print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_norm))
                         continue
                     
                     labelid=ID[P]
@@ -545,7 +558,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     
     
-    base_directory = '/data/nnair/output/type4/mocap/unclean/'
+    base_directory = '/data/nnair/output/type4/mocap/clean/'
     sliding_window_length = 100
     sliding_window_step = 12
     
