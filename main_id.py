@@ -53,7 +53,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     @return configuration: dict with all the configurations
     """
     # Flags
-    plotting = False
+    plotting = True
 
     # Options
     dataset = {0: 'mocap', 1: 'mbientlab', 2: 'motionminers_flw'}
