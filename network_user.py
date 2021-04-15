@@ -572,7 +572,7 @@ class Network_User(object):
                 
                 # Computing metrics for current training batch
                 #if (itera) % self.config['train_show'] == 0:
-                if (itera) % 4 == 0:
+                if (itera) % 5 == 0:
                     # Metrics for training
                     results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps)
 
@@ -627,6 +627,21 @@ class Network_User(object):
                         'Allocated {} GB Cached {} GB'.format(round(torch.cuda.memory_allocated(0)/1024**3, 1),
                                                               round(torch.cuda.memory_cached(0)/1024**3, 1)))
                     logging.info('\n\n--------------------------')
+                    
+                    if self.config['sacred']:
+                        self.exp.log_scalar("accuracy_train",results_train['acc'], itera)
+                        self.exp.log_scalar("f1_w_train",results_train['f1_weighted'], itera)
+                        self.exp.log_scalar("f1_m_train", results_train['f1_mean'], itera)
+                        self.exp.log_scalar("loss_train", loss_train, itera)
+                        self.exp.log_scalar("accuracy_train_val",accs_train_val, itera)
+                        self.exp.log_scalar("f1_w_train_val",f1w_train_val, itera)
+                        self.exp.log_scalar("f1_m_train_val", f1m_train_val, itera)
+                        self.exp.log_scalar("loss_train_val", loss_train_val, itera)
+                        self.exp.log_scalar("accuracy_val",accs_val, itera)
+                        self.exp.log_scalar("f1_w_val",f1w_val, itera)
+                        self.exp.log_scalar("f1_m_val", f1m_val, itera)
+                        self.exp.log_scalar("loss_val", losses_val, itera)
+                        
             #Step of the scheduler
             scheduler.step()
 

@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Type2 experiment')
+ex= Experiment('Type4 experiment')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -69,17 +69,17 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'motionminers_flw': 93712}
     # Number of classes for either for activity recognition
     #type1&2
-    
+    '''
     num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
-   
+    '''
     #type3
     '''
     #num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
     '''
      #type4
-    '''
-    #num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
-    '''
+    
+    num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    
     
 
     # It was thought to have different LR per dataset, but experimentally have worked the next three
@@ -161,7 +161,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/output/softmax3/"
+        folder_base = "/data/nnair/output/softmax4/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/output/attributes/"
@@ -276,17 +276,17 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
     '''
     #type3
-    
+    '''
     dataset_root = {'mocap': '/data/nnair/output/type3/mocap/unclean/',
                     'mbientlab': '/data/nnair/output/type3/imu/',
                     'motionminers_flw': '/data/nnair/output/type3/momin/'}
-    
-    #type4
     '''
-    dataset_root = {'mocap': '/data/nnair/output/type4/mocap/',
+    #type4
+    
+    dataset_root = {'mocap': '/data/nnair/output/type4/mocap/unclean',
                     'mbientlab': '/data/nnair/output/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type4/momin/'}
-    '''
+    
     
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -408,9 +408,9 @@ def my_config():
 @ex.capture
 def run(config, dataset, network, output, usageModus):
    
-    file_name='/data/nnair/output/softmax2/'
+    file_name='/data/nnair/output/softmax4/'
    
-    file_name='/data/nnair/output/softmax2/'+'logger.txt'
+    file_name='/data/nnair/output/softmax4/'+'logger.txt'
     
     setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
 
