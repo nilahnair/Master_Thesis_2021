@@ -280,7 +280,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             print("\nStarting sliding window")
                             X = opp_sliding_window(data_x, sliding_window_length, sliding_window_step, label_pos_end=False)
                             print("\nWindows are extracted")
-                            print(X.shape[0])
+                            
                             for f in range(X.shape[0]):
                                 print(f)
                                 try:
@@ -296,6 +296,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                     print(obj)
                                     file_name = open(os.path.join(data_dir,
                                                                   'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
+                                    print(file_name)
                                     pickle.dump(obj, file_name, protocol=pickle.HIGHEST_PROTOCOL)
                                     file_name.close()
 
@@ -390,7 +391,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory='/data/nnair/output/type1/imu_norm/unclean'
+    base_directory='/data/nnair/output/type1/imu_norm/unclean/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
