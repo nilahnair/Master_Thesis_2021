@@ -280,17 +280,20 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             print("\nStarting sliding window")
                             X = opp_sliding_window(data_x, sliding_window_length, sliding_window_step, label_pos_end=False)
                             print("\nWindows are extracted")
-                            
+                            print(X.shape[0])
                             for f in range(X.shape[0]):
+                                print(f)
                                 try:
                                     sys.stdout.write('\r' + 'Creating sequence file number {} with id {}'.format(f, counter_seq))
                                     sys.stdout.flush()
 
                                     print("\nCreating sequence file number {} with id {}".format(f, counter_seq))
+                                    
                                     seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
                                     seq = np.require(seq, dtype=np.float)
                                     print(seq.shape)
-                                    obj = {"data": seq, "label": labelid }
+                                    obj = {"data": seq, "label": labelid}
+                                    print(obj)
                                     file_name = open(os.path.join(data_dir,
                                                                   'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                     pickle.dump(obj, file_name, protocol=pickle.HIGHEST_PROTOCOL)
