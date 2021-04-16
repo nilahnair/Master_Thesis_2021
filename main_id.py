@@ -161,7 +161,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/output/softmax/"
+        folder_base = "/data/nnair/output/softmax2/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/output/attributes/"
@@ -264,17 +264,17 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     path_to_datasets_folder='/data/nnair/output/type4/mocap/'
     '''
     #type1
-    
+    '''
     dataset_root = {'mocap': '/data/nnair/output/type1/mocap/unclean/',
                     'mbientlab': '/data/nnair/output/type1/imu_norm/unclean/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
-    
+    '''
     #type2
-    '''
+    
     dataset_root = {'mocap': '/data/nnair/output/type2/mocap/unclean/',
-                    'mbientlab': '/data/nnair/output/type2/imu/',
+                    'mbientlab': '/data/nnair/output/type2/imu_norm/unclean/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
-    '''
+    
     #type3
     '''
     dataset_root = {'mocap': '/data/nnair/output/type3/mocap/unclean/',
@@ -408,9 +408,9 @@ def my_config():
 @ex.capture
 def run(config, dataset, network, output, usageModus):
    
-    file_name='/data/nnair/output/softmax/'
+    file_name='/data/nnair/output/softmax2/'
    
-    file_name='/data/nnair/output/softmax/'+'logger.txt'
+    file_name='/data/nnair/output/softmax2/'+'logger.txt'
     
     setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
 
