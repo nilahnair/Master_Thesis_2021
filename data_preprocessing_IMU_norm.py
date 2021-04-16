@@ -25,8 +25,9 @@ SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02'
             'R29': 'L03', 'R30': 'L03'}
 
 def opp_sliding_window(data_x, ws, ss, label_pos_end=True):
+    print('check1')
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
-       
+    print(data_x.shape)   
     return data_x.astype(np.float32)
 
 def norm_mbientlab(data):
@@ -106,19 +107,21 @@ def norm_mbientlab(data):
                            0.49594787,  94.47440142,  80.03186714,  85.56527538,   0.91948319,
                            0.54490135,   0.68835778,  41.7696377,   58.54988989,  63.32484912])
     '''
-    
-    std_values = np.reshape(std_values, [1, 30])
+    try:
+        std_values = np.reshape(std_values, [1, 30])
 
-    mean_array = np.repeat(mean_values, data.shape[0], axis=0)
-    std_array = np.repeat(std_values, data.shape[0], axis=0)
+        mean_array = np.repeat(mean_values, data.shape[0], axis=0)
+        std_array = np.repeat(std_values, data.shape[0], axis=0)
 
-    max_values = mean_array + 2 * std_array
-    min_values = mean_array - 2 * std_array
+        max_values = mean_array + 2 * std_array
+        min_values = mean_array - 2 * std_array
 
-    data_norm = (data - min_values) / (max_values - min_values)
+        data_norm = (data - min_values) / (max_values - min_values)
 
-    data_norm[data_norm > 1] = 1
-    data_norm[data_norm < 0] = 0
+        data_norm[data_norm > 1] = 1
+        data_norm[data_norm < 0] = 0
+    except:
+        raise("Error in normalisation")
 
     return data_norm
 
