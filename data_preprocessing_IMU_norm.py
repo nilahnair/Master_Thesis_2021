@@ -291,7 +291,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                     
                                     seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
                                     seq = np.require(seq, dtype=np.float)
-                                    print(seq.shape)
+                                    #print(seq.shape)
                                     obj = {"data": seq, "label": labelid}
                                     
                                     file_name = open(os.path.join(data_dir,
