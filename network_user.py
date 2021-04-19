@@ -284,7 +284,7 @@ class Network_User(object):
             harwindows_train = HARWindows(csv_file=self.config['dataset_root'] + "train.csv",
                                           root_dir=self.config['dataset_root'])
         elif self.config['usage_modus'] == 'train_final':
-            harwindows_train = HARWindows(csv_file=self.config['dataset_root'] + "train_final.csv",
+            harwindows_train = HARWindows(csv_file=self.config['dataset_root'] + "train.csv",
                                          root_dir=self.config['dataset_root'])
         elif self.config['usage_modus'] == 'fine_tuning':
             harwindows_train = HARWindows(csv_file=self.config['dataset_root'] + "train.csv",
@@ -501,7 +501,7 @@ class Network_User(object):
 
                 ################################## Validating ##################################################
                 
-                if (itera + 1) == (itera + 1) % self.config['valid_show'] == 0 or (self.config['epochs'] * harwindow_batched["data"].shape[0]):
+                if (itera + 1) % self.config['valid_show'] == 0 or (itera + 1) == (self.config['epochs'] * harwindow_batched["data"].shape[0]):
                     logging.info('\n')
                     logging.info('        Network_User:        Validating')
                     start_time_val = time.time()
