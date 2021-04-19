@@ -500,10 +500,7 @@ class Network_User(object):
                 elapsed_time_batch = time.time() - start_time_batch
 
                 ################################## Validating ##################################################
-                '''
-                if (itera + 1) % self.config['valid_show'] == 0 or \
-                        (itera + 1) == (self.config['epochs'] * harwindow_batched["data"].shape[0]):
-                '''
+                
                 if (itera + 1) == (itera + 1) % self.config['valid_show'] == 0 or (self.config['epochs'] * harwindow_batched["data"].shape[0]):
                     logging.info('\n')
                     logging.info('        Network_User:        Validating')
@@ -571,7 +568,7 @@ class Network_User(object):
                         best_itera = itera
                 
                 # Computing metrics for current training batch
-                #if (itera) % self.config['train_show'] == 0:
+                
                 if (itera) % self.config['train_show'] == 0:
                     # Metrics for training
                     results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps)
@@ -598,7 +595,7 @@ class Network_User(object):
                         metrics_list.append(f1m_val)
                         metrics_list.append(loss_train_val)
                         metrics_list.append(losses_val)
-                        activaciones.append(train_batch_v.to("cpu", torch.double).detach().numpy()[0,0,:,:])
+                        #activaciones.append(train_batch_v.to("cpu", torch.double).detach().numpy()[0,0,:,:])
                         #activaciones.append(feature_maps[0].to("cpu", torch.double).detach().numpy()[0,0,:,:])
                         #activaciones.append(feature_maps[1].to("cpu", torch.double).detach().numpy()[0,0,:,:])
                         #activaciones.append(feature_maps[2].to("cpu", torch.double).detach().numpy()[0,0,:,:])
