@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Type1 experiment imu norm uncelan')
+ex= Experiment('Type3 experiment imu norm uncelan')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -66,16 +66,16 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     #num_attributes = {'mocap': 19, 'mbientlab': 19, 'motionminers_flw': 19}
-    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
     # Number of classes for either for activity recognition
     #type1&2
-    
+    '''
     num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
-    
+    '''
     #type3
-    '''
-    #num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
-    '''
+    
+    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
+    
      #type4
     '''
     num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
@@ -161,7 +161,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/output/softmax2/"
+        folder_base = "/data/nnair/output/softmax3/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/output/attributes/"
@@ -270,17 +270,17 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     '''
     #type2
-    
+    '''
     dataset_root = {'mocap': '/data/nnair/output/type2/mocap/unclean/',
                     'mbientlab': '/data/nnair/output/type2/imu_norm/unclean/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
-    
+    '''
     #type3
-    '''
+    
     dataset_root = {'mocap': '/data/nnair/output/type3/mocap/unclean/',
-                    'mbientlab': '/data/nnair/output/type3/imu/',
+                    'mbientlab': '/data/nnair/output/type3/imu_norm/unclean/',
                     'motionminers_flw': '/data/nnair/output/type3/momin/'}
-    '''
+    
     #type4
     '''
     dataset_root = {'mocap': '/data/nnair/output/type4/mocap/unclean/',
@@ -292,8 +292,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     GPU = 0
    
-    '''
-     train_show_value = num_tr_inputs[dataset[dataset_idx]] / \
+    
+    train_show_value = num_tr_inputs[dataset[dataset_idx]] / \
                        batch_size_train[network[network_idx]][dataset[dataset_idx]]
     if dataset[dataset_idx] == "mbientlab" or dataset[dataset_idx] == "motionminers_real":
         train_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
@@ -304,7 +304,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     else:
         train_show = {'cnn': int(train_show_value / 100), 'lstm': 100, 'cnn_imu': int(train_show_value / 100)}
         valid_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
-    '''
+    
     
     now = datetime.datetime.now()
     
@@ -316,8 +316,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'filter_size': filter_size[dataset[dataset_idx]],
                      'lr': lr[dataset[dataset_idx]][network[network_idx]] * lr_mult,
                      'epochs': epochs[dataset[dataset_idx]][network[network_idx]][output[output_idx]] * epoch_mult,
-                     #'train_show': train_show[network[network_idx]],
-                     #'valid_show': valid_show[network[network_idx]],
+                     'train_show': train_show[network[network_idx]],
+                     'valid_show': valid_show[network[network_idx]],
                      'plotting': plotting,
                      'usage_modus': usage_modus[usage_modus_idx],
                      'folder_exp': folder_exp,
@@ -408,9 +408,9 @@ def my_config():
 @ex.capture
 def run(config, dataset, network, output, usageModus):
    
-    file_name='/data/nnair/output/softmax2/'
+    file_name='/data/nnair/output/softmax3/'
    
-    file_name='/data/nnair/output/softmax2/'+'logger.txt'
+    file_name='/data/nnair/output/softmax3/'+'logger.txt'
     
     setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
 

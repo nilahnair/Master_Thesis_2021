@@ -504,7 +504,7 @@ class Network_User(object):
                 if (itera + 1) % self.config['valid_show'] == 0 or \
                         (itera + 1) == (self.config['epochs'] * harwindow_batched["data"].shape[0]):
                 '''
-                if (itera + 1) == (self.config['epochs'] * harwindow_batched["data"].shape[0]):
+                if (itera + 1) == (itera + 1) % self.config['valid_show'] == 0 or (self.config['epochs'] * harwindow_batched["data"].shape[0]):
                     logging.info('\n')
                     logging.info('        Network_User:        Validating')
                     start_time_val = time.time()
@@ -572,7 +572,7 @@ class Network_User(object):
                 
                 # Computing metrics for current training batch
                 #if (itera) % self.config['train_show'] == 0:
-                if (itera) % 5 == 0:
+                if (itera) % self.config['train_show'] == 0:
                     # Metrics for training
                     results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps)
 
@@ -629,18 +629,18 @@ class Network_User(object):
                     logging.info('\n\n--------------------------')
                     
                     if self.config['sacred']:
-                        self.exp.log_scalar("accuracy_train",results_train['acc'], itera)
-                        self.exp.log_scalar("f1_w_train",results_train['f1_weighted'], itera)
-                        self.exp.log_scalar("f1_m_train", results_train['f1_mean'], itera)
-                        self.exp.log_scalar("loss_train", loss_train, itera)
-                        self.exp.log_scalar("accuracy_train_val",accs_train_val, itera)
-                        self.exp.log_scalar("f1_w_train_val",f1w_train_val, itera)
-                        self.exp.log_scalar("f1_m_train_val", f1m_train_val, itera)
-                        self.exp.log_scalar("loss_train_val", loss_train_val, itera)
-                        self.exp.log_scalar("accuracy_val",accs_val, itera)
-                        self.exp.log_scalar("f1_w_val",f1w_val, itera)
-                        self.exp.log_scalar("f1_m_val", f1m_val, itera)
-                        self.exp.log_scalar("loss_val", losses_val, itera)
+                        self.exp.log_scalar("accuracy_train_int",results_train['acc'], itera)
+                        self.exp.log_scalar("f1_w_train_int",results_train['f1_weighted'], itera)
+                        self.exp.log_scalar("f1_m_train_int", results_train['f1_mean'], itera)
+                        self.exp.log_scalar("loss_train_int", loss_train, itera)
+                        self.exp.log_scalar("accuracy_train_val_int",accs_train_val, itera)
+                        self.exp.log_scalar("f1_w_train_val_int",f1w_train_val, itera)
+                        self.exp.log_scalar("f1_m_train_val_int", f1m_train_val, itera)
+                        self.exp.log_scalar("loss_train_val_int", loss_train_val, itera)
+                        self.exp.log_scalar("accuracy_val_int",accs_val, itera)
+                        self.exp.log_scalar("f1_w_val_int",f1w_val, itera)
+                        self.exp.log_scalar("f1_m_val_int", f1m_val, itera)
+                        self.exp.log_scalar("loss_val_int", losses_val, itera)
                         
             #Step of the scheduler
             scheduler.step()

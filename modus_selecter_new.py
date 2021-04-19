@@ -147,12 +147,12 @@ class Modus_Selecter(object):
                                                              results_train['f1_weighted'], results_train['f1_mean']))
             
             if self.config['sacred']:
-                 self.exp.log_scalar("accuracy_train",acc_train_ac)
-                 self.exp.log_scalar("f1_w_train",f1_weighted_train_ac)
-                 self.exp.log_scalar("f1_m_train", f1_mean_train_ac)
-                 self.exp.log_scalar("precision", results_train['precision'])
-                 self.exp.log_scalar("recall", results_train['recall'])
-                 self.exp.log_scalar("best_iter",best_itera)
+                 self.exp.log_scalar("accuracy_train_mo",acc_train_ac, itera)
+                 self.exp.log_scalar("f1_w_train_mo",f1_weighted_train_ac, itera)
+                 self.exp.log_scalar("f1_m_train_mo", f1_mean_train_ac,itera)
+                 self.exp.log_scalar("precision_mo", results_train['precision'], itera)
+                 self.exp.log_scalar("recall_mo", results_train['recall'], itera)
+                 self.exp.log_scalar("best_iter_mo",best_itera, itera)
                        
             # Saving the results
             self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, time_iter=time_train, precisions=results_train['precision'], recalls=results_train['recall'], best_itera=best_itera)
@@ -174,12 +174,12 @@ class Modus_Selecter(object):
                       confusion_matrix=confusion_matrix_test, time_iter=time_test, precisions=np.array(precisions_test),
                       recalls=np.array(recalls_test))
             if self.config['sacred']:
-                self.exp.log_scalar("confusion matrix",confusion_matrix_test)
-                self.exp.log_scalar("accuracy_test",acc_test_ac)
-                self.exp.log_scalar("f1_w_test",f1_weighted_test_ac)
-                self.exp.log_scalar("f1_m_test",f1_mean_test_ac)
-                self.exp.log_scalar("precision_test",np.array(precisions_test))
-                self.exp.log_scalar("recall_test",np.array(recalls_test))
+                self.exp.log_scalar("confusion matrix_test",confusion_matrix_test)
+                self.exp.log_scalar("accuracy_test_mo",acc_test_ac, itera)
+                self.exp.log_scalar("f1_w_test_mo",f1_weighted_test_ac, itera)
+                self.exp.log_scalar("f1_m_test_mo",f1_mean_test_ac, itera)
+                self.exp.log_scalar("precision_test_mo",np.array(precisions_test), itera)
+                self.exp.log_scalar("recall_test_mo",np.array(recalls_test), itera)
 
         if self.config["usage_modus"] == "train":
             logging.info('    Network_selecter:    Train:    eliminating network file')
