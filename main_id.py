@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Type1 experiment imu norm clean')
+ex= Experiment('Type2 experiment imu norm clean')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -71,7 +71,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #unclean type4
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
     #clean type1
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 32428, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 32428, 'motionminers_flw': 93712}
+    #clean type2
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 36414, 'motionminers_flw': 93712}
     # Number of classes for either for activity recognition
     #type1&2
     
@@ -166,7 +168,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/output/softmax/clean/"
+        folder_base = "/data/nnair/output/softmax2/clean/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/output/attributes/"
@@ -269,17 +271,17 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     path_to_datasets_folder='/data/nnair/output/type4/mocap/'
     '''
     #type1
-    
+    '''
     dataset_root = {'mocap': '/data/nnair/output/type1/mocap/unclean/',
                     'mbientlab': '/data/nnair/output/type1/imu_norm/clean/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
-    
+    '''
     #type2
-    '''
+    
     dataset_root = {'mocap': '/data/nnair/output/type2/mocap/unclean/',
-                    'mbientlab': '/data/nnair/output/type2/imu_norm/unclean/',
+                    'mbientlab': '/data/nnair/output/type2/imu_norm/clean/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
-    '''
+    
     #type3
     '''
     dataset_root = {'mocap': '/data/nnair/output/type3/mocap/unclean/',
@@ -413,9 +415,9 @@ def my_config():
 @ex.capture
 def run(config, dataset, network, output, usageModus):
    
-    file_name='/data/nnair/output/softmax/'
+    file_name='/data/nnair/output/softmax2/'
    
-    file_name='/data/nnair/output/softmax/'+'logger.txt'
+    file_name='/data/nnair/output/softmax2/'+'logger.txt'
     
     setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
 
