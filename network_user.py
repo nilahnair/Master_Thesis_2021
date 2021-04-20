@@ -630,15 +630,12 @@ class Network_User(object):
                     self.exp.log_scalar("f1_w_train_int",results_train['f1_weighted'], itera)
                     self.exp.log_scalar("f1_m_train_int", results_train['f1_mean'], itera)
                     self.exp.log_scalar("loss_train_int", loss_train, itera)
-                    self.exp.log_scalar("accuracy_train_val_int",accs_train_val, itera)
-                    self.exp.log_scalar("f1_w_train_val_int",f1w_train_val, itera)
-                    self.exp.log_scalar("f1_m_train_val_int", f1m_train_val, itera)
-                    self.exp.log_scalar("loss_train_val_int", loss_train_val, itera)
-                    self.exp.log_scalar("accuracy_val_int",accs_val, itera)
-                    self.exp.log_scalar("f1_w_val_int",f1w_val, itera)
-                    self.exp.log_scalar("f1_m_val_int", f1m_val, itera)
-                    self.exp.log_scalar("loss_val_int", losses_val, itera)
-                        
+                    
+                    self.exp.log_scalar("loss_val_int", loss_val, itera)
+                    self.exp.log_scalar("accuracy_val_int",results_val['acc'], itera)
+                    self.exp.log_scalar("f1_w_val_int",results_val['f1_weighted'], itera)
+                    self.exp.log_scalar("f1_m_val_int", results_val['f1_mean'], itera)
+                                           
                 itera+=1
                         
             #Step of the scheduler

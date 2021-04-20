@@ -147,13 +147,11 @@ class Modus_Selecter(object):
                                                              results_train['f1_weighted'], results_train['f1_mean']))
             
             
-            self.exp.log_scalar("accuracy_train_mo",acc_train_ac)
-            self.exp.log_scalar("f1_w_train_mo",f1_weighted_train_ac)
-            self.exp.log_scalar("f1_m_train_mo", f1_mean_train_ac)
-            self.exp.log_scalar("precision_train_mo", results_train['precision'])
-            self.exp.log_scalar("recall_train_mo", results_train['recall'])
-            self.exp.log_scalar("best_iter_train_mo",best_itera)
-                       
+            self.exp.log_scalar("accuracy_train_mo",results_train['acc'])
+            self.exp.log_scalar("f1_w_train_mo",results_train['f1_weighted'])
+            self.exp.log_scalar("f1_m_train_mo", results_train['f1_mean'])
+            self.exp.log_scalar("best_iter", best_itera)
+                                      
             # Saving the results
             self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, time_iter=time_train, precisions=results_train['precision'], recalls=results_train['recall'], best_itera=best_itera)
             
@@ -174,12 +172,10 @@ class Modus_Selecter(object):
                       confusion_matrix=confusion_matrix_test, time_iter=time_test, precisions=np.array(precisions_test),
                       recalls=np.array(recalls_test))
            
-            self.exp.log_scalar("confusion matrix_test_mo",confusion_matrix_test)
-            self.exp.log_scalar("accuracy_test_mo",acc_test_ac)
-            self.exp.log_scalar("f1_w_test_mo",f1_weighted_test_ac)
-            self.exp.log_scalar("f1_m_test_mo",f1_mean_test_ac)
-            self.exp.log_scalar("precision_test_mo",np.array(precisions_test))
-            self.exp.log_scalar("recall_test_mo",np.array(recalls_test))
+            self.exp.log_scalar("accuracy_test_mo",results_test['acc'])
+            self.exp.log_scalar("f1_w_test_mo",results_test['f1_weighted'])
+            self.exp.log_scalar("f1_m_test_mo",results_test['f1_mean'])
+            
 
         if self.config["usage_modus"] == "train":
             logging.info('    Network_selecter:    Train:    eliminating network file')
