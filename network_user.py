@@ -625,16 +625,16 @@ class Network_User(object):
                                                               round(torch.cuda.memory_cached(0)/1024**3, 1)))
                     logging.info('\n\n--------------------------')
                     
-                   
-                    self.exp.log_scalar("accuracy_train_int",results_train['acc'], itera)
-                    self.exp.log_scalar("f1_w_train_int",results_train['f1_weighted'], itera)
-                    self.exp.log_scalar("f1_m_train_int", results_train['f1_mean'], itera)
-                    self.exp.log_scalar("loss_train_int", loss_train, itera)
+                    if self.config["sacred"]==True:
+                        self.exp.log_scalar("accuracy_train_int",results_train['acc'], itera)
+                        self.exp.log_scalar("f1_w_train_int",results_train['f1_weighted'], itera)
+                        self.exp.log_scalar("f1_m_train_int", results_train['f1_mean'], itera)
+                        self.exp.log_scalar("loss_train_int", loss_train, itera)
                     
-                    self.exp.log_scalar("loss_val_int", loss_val, itera)
-                    self.exp.log_scalar("accuracy_val_int",results_val['acc'], itera)
-                    self.exp.log_scalar("f1_w_val_int",results_val['f1_weighted'], itera)
-                    self.exp.log_scalar("f1_m_val_int", results_val['f1_mean'], itera)
+                        self.exp.log_scalar("loss_val_int", loss_val, itera)
+                        self.exp.log_scalar("accuracy_val_int",results_val['acc'], itera)
+                        self.exp.log_scalar("f1_w_val_int",results_val['f1_weighted'], itera)
+                        self.exp.log_scalar("f1_m_val_int", results_val['f1_mean'], itera)
                                            
                 itera+=1
                         
