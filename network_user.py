@@ -437,6 +437,10 @@ class Network_User(object):
                 
                 #Counting iterations
                 itera = (e * harwindow_batched["data"].shape[0]) + b
+                print('b')
+                print(b)
+                print(harwindow_batched["data"].shape[0])
+                print(e)
 
                 #Selecting batch
                 train_batch_v = harwindow_batched["data"]
