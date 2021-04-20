@@ -166,7 +166,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/output/softmax/clean"
+        folder_base = "/data/nnair/output/softmax/clean/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/output/attributes/"
@@ -413,9 +413,9 @@ def my_config():
 @ex.capture
 def run(config, dataset, network, output, usageModus):
    
-    file_name='/data/nnair/output/softmax3/'
+    file_name='/data/nnair/output/softmax/'
    
-    file_name='/data/nnair/output/softmax3/'+'logger.txt'
+    file_name='/data/nnair/output/softmax/'+'logger.txt'
     
     setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
 
