@@ -530,6 +530,10 @@ class Network_User(object):
                     accs_val.append(results_val['acc'])
                     f1w_val.append(results_val['f1_weighted'])
                     f1m_val.append(results_val['f1_mean'])
+                    
+                    self.exp.log_scalar("accuracy_val_int",results_val['acc'], itera)
+                    self.exp.log_scalar("f1_w_val_int",results_val['f1_weighted'], itera)
+                    self.exp.log_scalar("f1_m_val_int", results_val['f1_mean'], itera)
 
                     # print statistics
                     logging.info('\n')
@@ -632,10 +636,6 @@ class Network_User(object):
                         self.exp.log_scalar("f1_m_train_int", results_train['f1_mean'], itera)
                         self.exp.log_scalar("loss_train_int", loss_train, itera)
                     
-                        
-                        self.exp.log_scalar("accuracy_val_int",results_val['acc'], itera)
-                        self.exp.log_scalar("f1_w_val_int",results_val['f1_weighted'], itera)
-                        self.exp.log_scalar("f1_m_val_int", results_val['f1_mean'], itera)
                                            
                 itera+=1
                         
