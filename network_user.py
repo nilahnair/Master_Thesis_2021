@@ -436,12 +436,8 @@ class Network_User(object):
                 network_obj.train(mode=True)
                 
                 #Counting iterations
-                itera = (e * harwindow_batched["data"].shape[0]) + b
-                print('b')
-                print(b)
-                print(harwindow_batched["data"].shape[0])
-                print(e)
-
+                #itera = (e * harwindow_batched["data"].shape[0]) + b
+                
                 #Selecting batch
                 train_batch_v = harwindow_batched["data"]
                 if self.config['output'] == 'softmax':
@@ -642,6 +638,8 @@ class Network_User(object):
                         self.exp.log_scalar("f1_w_val_int",f1w_val, itera)
                         self.exp.log_scalar("f1_m_val_int", f1m_val, itera)
                         self.exp.log_scalar("loss_val_int", losses_val, itera)
+                        
+                itera+=1
                         
             #Step of the scheduler
             scheduler.step()
