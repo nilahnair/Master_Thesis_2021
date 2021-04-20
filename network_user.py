@@ -521,6 +521,7 @@ class Network_User(object):
                     # Calling the val() function with the current network and criterion
                     del train_batch_v, noise
                     results_val, loss_val = self.validate(network_obj, criterion)
+                    self.exp.log_scalar("loss_val_int", loss_val, itera)
 
                     elapsed_time_val = time.time() - start_time_val
 
@@ -631,7 +632,7 @@ class Network_User(object):
                         self.exp.log_scalar("f1_m_train_int", results_train['f1_mean'], itera)
                         self.exp.log_scalar("loss_train_int", loss_train, itera)
                     
-                        self.exp.log_scalar("loss_val_int", loss_val, itera)
+                        
                         self.exp.log_scalar("accuracy_val_int",results_val['acc'], itera)
                         self.exp.log_scalar("f1_w_val_int",results_val['f1_weighted'], itera)
                         self.exp.log_scalar("f1_m_val_int", results_val['f1_mean'], itera)
