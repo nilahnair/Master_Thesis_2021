@@ -39,7 +39,7 @@ def norm_mbientlab(data):
     @return data_norm: Normalized sensor data
     """
     ####type1
-    '''
+    
     mean_values = np.array([-0.604270513,  0.152956490,  0.322321324,  0.389408162,
                             0.197817624, -0.653126441,  0.0476041071,  1.00963016,
                             -0.142480054,  0.211524953,  1.17799808, -1.41275496,
@@ -60,7 +60,7 @@ def norm_mbientlab(data):
                            0.596013311,  0.425130372,  0.351205656,  42.0825727,
                            58.0533664,  64.0456206])
     
-    '''
+    
     #type2
     '''
     mean_values =np.array([-0.60783108,  0.1640153,   0.39861219,  1.27958508, -0.31284539, -4.34756889,
@@ -93,7 +93,7 @@ def norm_mbientlab(data):
                            0.55415324,   0.75100717,  42.62376115,  62.69705387,  67.55396168])
     '''
     #type4
-    
+    '''
     mean_values= np.array([-0.59291547,  0.16510277,  0.39688181,  1.06174891,  0.03655466, -2.54978003,
                            0.0113082,   1.02285025, -0.13735555,  2.49047449,  2.90262683, -1.55012442,
                            -0.96827405, -0.11433454,  0.13784902,  0.46335482,  1.1964269,   0.3138417,
@@ -106,7 +106,7 @@ def norm_mbientlab(data):
                            45.41451804,  27.60438897,  18.59057502,   0.47634617,   0.53341564,
                            0.49594787,  94.47440142,  80.03186714,  85.56527538,   0.91948319,
                            0.54490135,   0.68835778,  41.7696377,   58.54988989,  63.32484912])
-    
+    '''
     try:
         std_values = np.reshape(std_values, [1, 30])
 
@@ -180,7 +180,7 @@ def reader_data(path):
 def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None, identity_bool=False, usage_modus='train'):
     
     #type1-avoiding person 12
-    '''
+    
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S13": 5, "S14": 6}
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
@@ -188,7 +188,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     test_ids = ["R15"]
     
     #type2- avoiding person 11
-    '''
+    
     '''
     persons = ["S07", "S08", "S09", "S10", "S12", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S12": 4, "S13": 5, "S14": 6}
@@ -207,13 +207,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     '''
     
     #type4-Avoiding persons 11,12,10
-    
+    '''
     persons = ["S07", "S08", "S09", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S13": 3, "S14": 4}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    
+    '''
     
     counter_seq = 0
     #hist_classes_all = np.zeros((NUM_CLASSES))
@@ -230,7 +230,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                try:
                     S = SCENARIO[R]
                     file_name_data = "{}/{}_{}_{}.csv".format(P, S, P, R)
-                    file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
+                    #file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
                     print("\n{}\n".format(file_name_data))
                     try:
                         data = reader_data(FOLDER_PATH + file_name_data)
@@ -246,7 +246,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     except:
                         print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_data))
                         continue
-                    
+                    '''
                     try:
                         # Getting labels and attributes
                         labels = csv_reader.reader_labels(FOLDER_PATH + file_name_label)
@@ -263,7 +263,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             "2 In generating data, Error getting the data {}".format(FOLDER_PATH
                                                                                        + file_name_data))
                         continue
-                    
+                    '''
                     labelid=ID[P]
                     print("printing label")
                     print(labelid)
@@ -366,11 +366,11 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
                     
 def create_dataset():
     #type1-avoiding person 12
-    '''
+    
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
-    '''
+    
     #type2- avoiding person 11
     '''
     train_ids = ["R11", "R12", "R15", "R18", "R19", "R21"]
@@ -386,13 +386,13 @@ def create_dataset():
     
     '''
     #type4-Avoiding persons 11,12,10
-    
+    '''
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
+    '''
     
-    
-    base_directory='/data/nnair/output/type4/imu_norm/clean/'
+    base_directory='/data/nnair/output/type1/imu_norm/unclean/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
