@@ -66,9 +66,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     #num_attributes = {'mocap': 19, 'mbientlab': 19, 'motionminers_flw': 19}
-    
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
+    #unclean type3
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
+    #unclean type4
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
+    #clean type1
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 32428, 'motionminers_flw': 93712}
     # Number of classes for either for activity recognition
     #type1&2
     
