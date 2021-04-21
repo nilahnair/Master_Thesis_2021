@@ -186,7 +186,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if usage_modus[usage_modus_idx] == 'train':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional \
-                     + '/' + reshape_folder +'/' + 'experiment1/'
+                     + '/' + reshape_folder +'/' + 'experiment2/'
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
