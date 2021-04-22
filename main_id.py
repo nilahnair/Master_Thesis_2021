@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Type2 experiment imu norm lr2 batch200')
+ex= Experiment('Type3 experiment imu norm lr0 batch100')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -69,9 +69,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #unclean type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
     #unclean type2
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 39323, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 39323, 'motionminers_flw': 93712}
     #unclean type3
-    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
     #unclean type4
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
     
@@ -86,13 +86,13 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     # Number of classes for either for activity recognition
     #type1&2
-    
+    '''
     num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
-   
+    '''
     #type3
-    '''
+    
     num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
-    '''
+    
     #type4
     '''
     num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
@@ -146,11 +146,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap': 100, 'mbientlab':200, 'motionminers_flw': 100}}
+        'cnn_imu': {'mocap': 100, 'mbientlab':100, 'motionminers_flw': 100}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap': 100, 'mbientlab':200, 'motionminers_flw': 100}}
+                      'cnn_imu': {'mocap': 100, 'mbientlab':100, 'motionminers_flw': 100}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
@@ -178,7 +178,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/output/softmax2/"
+        folder_base = "/data/nnair/output/softmax3/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/output/attributes/"
@@ -192,7 +192,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if usage_modus[usage_modus_idx] == 'train':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional \
-                     + '/' + reshape_folder +'/' + 'experiment9/'
+                     + '/' + reshape_folder +'/' + 'experiment/'
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
@@ -287,17 +287,17 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     '''
     #type2
-    
+    '''
     dataset_root = {'mocap': '/data/nnair/output/type2/mocap/unclean/',
                     'mbientlab': '/data/nnair/output/type2/imu_norm/unclean/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
-    
-    #type3
     '''
+    #type3
+    
     dataset_root = {'mocap': '/data/nnair/output/type3/mocap/unclean/',
                     'mbientlab': '/data/nnair/output/type3/imu_norm/unclean/',
                     'motionminers_flw': '/data/nnair/output/type3/momin/'}
-    '''
+    
     #type4
     '''
     dataset_root = {'mocap': '/data/nnair/output/type4/mocap/unclean/',
@@ -405,7 +405,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=2,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
@@ -425,9 +425,9 @@ def my_config():
 @ex.capture
 def run(config, dataset, network, output, usageModus):
    
-    file_name='/data/nnair/output/softmax2/'
+    file_name='/data/nnair/output/softmax3/'
    
-    file_name='/data/nnair/output/softmax2/'+'logger.txt'
+    file_name='/data/nnair/output/softmax3/'+'logger.txt'
     
     setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
 
