@@ -247,7 +247,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
 
 ##################
 
-def generate_CSV(csv_dir, type_file, data_dir):
+def generate_CSV(csv_dir, data_dir):
     f = []
     for dirpath, dirnames, filenames in os.walk(data_dir):
         for n in range(len(filenames)):
