@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Type4 experiment imu norm lr2 batch200')
+ex= Experiment('Type1 experiment imu lr0 batch100')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -66,6 +66,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     
+    
+    
     #unclean type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
     #unclean type2
@@ -73,7 +75,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #unclean type3
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
     #unclean type4
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
     
     #clean type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 32428, 'motionminers_flw': 93712}
@@ -178,7 +180,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/output/softmax4/"
+        folder_base = "/data/nnair/output/softmax/raw"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/output/attributes/"
@@ -283,25 +285,25 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #type1
     '''
     dataset_root = {'mocap': '/data/nnair/output/type1/mocap/unclean/',
-                    'mbientlab': '/data/nnair/output/type1/imu_norm/unclean/',
+                    'mbientlab': '/data/nnair/output/type1/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     '''
     #type2
     '''
     dataset_root = {'mocap': '/data/nnair/output/type2/mocap/unclean/',
-                    'mbientlab': '/data/nnair/output/type2/imu_norm/unclean/',
+                    'mbientlab': '/data/nnair/output/type2/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
     '''
     #type3
     '''
     dataset_root = {'mocap': '/data/nnair/output/type3/mocap/unclean/',
-                    'mbientlab': '/data/nnair/output/type3/imu_norm/unclean/',
+                    'mbientlab': '/data/nnair/output/type3/imu/',
                     'motionminers_flw': '/data/nnair/output/type3/momin/'}
     '''
     #type4
     
     dataset_root = {'mocap': '/data/nnair/output/type4/mocap/unclean/',
-                    'mbientlab': '/data/nnair/output/type4/imu_norm/unclean/',
+                    'mbientlab': '/data/nnair/output/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type4/momin/'}
     
     

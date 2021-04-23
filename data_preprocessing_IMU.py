@@ -11,7 +11,7 @@ import csv
 import os
 import sys
 import datetime
-#import csv_reader
+import csv_reader
 from sliding_window import sliding_window
 import pickle
 
@@ -24,11 +24,11 @@ SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02'
             'R22': 'L03', 'R23': 'L03', 'R24': 'L03', 'R25': 'L03', 'R26': 'L03', 'R27': 'L03', 'R28': 'L03',
             'R29': 'L03', 'R30': 'L03'}
 
-def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
+def opp_sliding_window(data_x, ws, ss, label_pos_end=True):
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
-    data_y_labels=np.full(data_x.shape[0],data_y)
+    print(data_x.shape)
     
-    return data_x.astype(np.float32), data_y_labels.astype(np.uint8)
+    return data_x.astype(np.float32)
 
 def norm_mbientlab(data):
     """
@@ -186,9 +186,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_data))
                         continue
                     
-                    label=ID[P]
+                    labelid=ID[P]
                     print("printing label")
-                    print(label)
+                    print(labelid)
                     '''
                     try:
                         data_x = norm_mbientlab(data_x)
@@ -201,7 +201,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         if data_x.shape[0] == data_x.shape[0]:
                             # Sliding window approach
                             print("\nStarting sliding window")
-                            X, y = opp_sliding_window(data_x, label, sliding_window_length,
+                            X = opp_sliding_window(data_x, sliding_window_length,
                                                              sliding_window_step, label_pos_end=False)
                             print("\nWindows are extracted")
                             
@@ -216,7 +216,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                     seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
                                     seq = np.require(seq, dtype=np.float)
 
-                                    obj = {"data": seq, "label": y[f]}
+                                    obj = {"data": seq, "label": labelid}
                                     file_name = open(os.path.join(data_dir,
                                                                   'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                     pickle.dump(obj, file_name, protocol=pickle.HIGHEST_PROTOCOL)
