@@ -21,8 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-#ex= Experiment('Type2 experiment mocap clean lr2 batch200')
-ex= Experiment('Type1 experiment imu_norm batch200 0.01')
+ex= Experiment('Type1 experiment mocap clean lr0 batch50')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -157,11 +156,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap': 100, 'mbientlab':200, 'motionminers_flw': 100}}
+        'cnn_imu': {'mocap': 50, 'mbientlab':100, 'motionminers_flw': 100}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap': 100, 'mbientlab':200, 'motionminers_flw': 100}}
+                      'cnn_imu': {'mocap': 50, 'mbientlab':100, 'motionminers_flw': 100}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
@@ -203,7 +202,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if usage_modus[usage_modus_idx] == 'train':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional \
-                     + '/' + reshape_folder +'/' + 'experiment10/'
+                     + '/' + reshape_folder +'/' + 'experiment4/'
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
@@ -410,13 +409,13 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=3,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
