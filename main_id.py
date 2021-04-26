@@ -21,7 +21,8 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Type2 experiment mocap clean lr2 batch200')
+#ex= Experiment('Type2 experiment mocap clean lr2 batch200')
+ex= Experiment('Type1 experiment imu lr0 batch100 0.01')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -67,7 +68,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     
     #raw type1
-    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
     #raw type2
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 39323, 'motionminers_flw': 93712}
     #raw type3
@@ -88,7 +89,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type1
     #num_tr_inputs = {'mocap': 65948, 'mbientlab': 32428, 'motionminers_flw': 93712}
     #clean type2
-    num_tr_inputs = {'mocap': 77841, 'mbientlab': 36414, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 77841, 'mbientlab': 36414, 'motionminers_flw': 93712}
     #clean type3
     #num_tr_inputs = {'mocap': 89142, 'mbientlab': 43749, 'motionminers_flw': 93712}
     #clean type4
@@ -111,7 +112,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.0001, 0.00001, 0.000001]
+    learning_rates = [0.0001, 0.00001, 0.000001, 0.01]
     lr = {'mocap': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
@@ -188,7 +189,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/output/softmax2/clean/"
+        folder_base = "/data/nnair/output/softmax/raw/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/output/attributes/"
@@ -202,7 +203,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if usage_modus[usage_modus_idx] == 'train':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional \
-                     + '/' + reshape_folder +'/' + 'experiment9/'
+                     + '/' + reshape_folder +'/' + 'experiment10/'
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
@@ -291,17 +292,17 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     path_to_datasets_folder='/data/nnair/output/type4/mocap/'
     '''
     #type1
-    '''
+    
     dataset_root = {'mocap': '/data/nnair/output/type1/mocap/clean/',
                     'mbientlab': '/data/nnair/output/type1/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
-    '''
-    #type2
     
+    #type2
+    '''
     dataset_root = {'mocap': '/data/nnair/output/type2/mocap/clean/',
                     'mbientlab': '/data/nnair/output/type2/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
-    
+    '''
     #type3
     '''
     dataset_root = {'mocap': '/data/nnair/output/type3/mocap/clean/',
@@ -409,13 +410,13 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=0,
+    config = configuration(dataset_idx=1,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=2,
+                           learning_rates_idx=3,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
@@ -435,9 +436,9 @@ def my_config():
 @ex.capture
 def run(config, dataset, network, output, usageModus):
    
-    file_name='/data/nnair/output/softmax2/'
+    file_name='/data/nnair/output/softmax1/'
    
-    file_name='/data/nnair/output/softmax2/'+'logger.txt'
+    file_name='/data/nnair/output/softmax1/'+'logger.txt'
     
     setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
 
