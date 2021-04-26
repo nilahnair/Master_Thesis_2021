@@ -294,7 +294,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #type1
     
     dataset_root = {'mocap': '/data/nnair/output/type1/mocap/clean/',
-                    'mbientlab': '/data/nnair/output/type1/imu_norm/clean',
+                    'mbientlab': '/data/nnair/output/type1/imu_norm/clean/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
     #type2
