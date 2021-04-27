@@ -741,6 +741,7 @@ class Network_User(object):
                     loss = criterion(predictions, test_batch_l)
                 elif self.config['output'] == 'attribute':
                     loss = criterion(predictions, test_batch_l[:, 1:])
+                
                 loss_val = loss_val + loss.item()
 
                 # Concatenating all of the batches for computing the metrics
@@ -760,6 +761,14 @@ class Network_User(object):
                     elif self.config['output'] == 'attribute':
                         test_labels_batch = harwindow_batched_val["label"]
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
+                    
+                    
+                '''
+                if self.config['output'] == 'softmax':
+                    if predictions==test_batch_l
+                        
+                '''
+                
                 '''
                 if v == 0:
                     predictions_val = predictions
