@@ -69,6 +69,7 @@ class Modus_Selecter(object):
         child = ET.SubElement(child_dataset, "lr", lr=str(self.config['lr']))
         child = ET.SubElement(child_dataset, "epochs", epochs=str(self.config['epochs']))
         child = ET.SubElement(child_dataset, "reshape_input", reshape_input=str(self.config["reshape_input"]))
+        child = ET.SubElement(child_dataset, "batch_size_train", bsize=str(self.config["batch_size_train"]))
 
         child = ET.SubElement(child_dataset, "freeze_options", freeze_options=str(self.config['freeze_options']))
         child = ET.SubElement(child_dataset, "time_iter", time_iter=str(time_iter))
@@ -132,7 +133,7 @@ class Modus_Selecter(object):
             start_time_train = time.time()
 
             # Training the network and obtaining the validation results
-            logging.info('    Network_selecter:    Train iter 0')
+            logging.info('    Network_selecter:    Train iter {}'.format(iter_evl))
             results_train, confusion_matrix_train, best_itera = self.network.evolution_evaluation(ea_iter=iter_evl)
             
             # Appending results for later saving in results file
@@ -147,10 +148,10 @@ class Modus_Selecter(object):
                                                              results_train['f1_weighted'], results_train['f1_mean']))
             
             
-            self.exp.log_scalar("accuracy_train_mo",results_train['acc'])
-            self.exp.log_scalar("f1_w_train_mo",results_train['f1_weighted'])
-            self.exp.log_scalar("f1_m_train_mo", results_train['f1_mean'])
-            self.exp.log_scalar("best_iter", best_itera)
+            self.exp.log_scalar("accuracy_train_mo_{}".format(iter_evl),results_train['acc'])
+            self.exp.log_scalar("f1_w_train_mo_{}".format(iter_evl),results_train['f1_weighted'])
+            self.exp.log_scalar("f1_m_train_mo_{}".format(iter_evl), results_train['f1_mean'])
+            self.exp.log_scalar("best_iter_{}".format(iter_evl), best_itera)
                                       
             # Saving the results
             self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, time_iter=time_train, precisions=results_train['precision'], recalls=results_train['recall'], best_itera=best_itera)
@@ -172,9 +173,9 @@ class Modus_Selecter(object):
                       confusion_matrix=confusion_matrix_test, time_iter=time_test, precisions=np.array(precisions_test),
                       recalls=np.array(recalls_test))
            
-            self.exp.log_scalar("accuracy_test_mo",results_test['acc'])
-            self.exp.log_scalar("f1_w_test_mo",results_test['f1_weighted'])
-            self.exp.log_scalar("f1_m_test_mo",results_test['f1_mean'])
+            self.exp.log_scalar("accuracy_test_mo_{}".format(iter_evl),results_test['acc'])
+            self.exp.log_scalar("f1_w_test_mo_{}".format(iter_evl),results_test['f1_weighted'])
+            self.exp.log_scalar("f1_m_test_mo_{}".format(iter_evl),results_test['f1_mean'])
             
 
         if self.config["usage_modus"] == "train":
