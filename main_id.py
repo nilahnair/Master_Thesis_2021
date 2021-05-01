@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Exp4 avg Type1 imu_norm clean lr1 batch50')
+ex= Experiment('Exp5 avg Type2 imu_norm clean lr0 batch100')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -86,9 +86,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
     
     #clean type1
-    num_tr_inputs = {'mocap': 65948, 'mbientlab': 32428, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 65948, 'mbientlab': 32428, 'motionminers_flw': 93712}
     #clean type2
-    #num_tr_inputs = {'mocap': 77841, 'mbientlab': 36414, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 77841, 'mbientlab': 36414, 'motionminers_flw': 93712}
     #clean type3
     #num_tr_inputs = {'mocap': 89142, 'mbientlab': 43749, 'motionminers_flw': 93712}
     #clean type4
@@ -156,11 +156,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap': 100, 'mbientlab':50, 'motionminers_flw': 100}}
+        'cnn_imu': {'mocap': 100, 'mbientlab':100, 'motionminers_flw': 100}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap': 100, 'mbientlab':50, 'motionminers_flw': 100}}
+                      'cnn_imu': {'mocap': 100, 'mbientlab':100, 'motionminers_flw': 100}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
@@ -206,7 +206,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'experiment4/'
+        folder_exp = folder_base + 'experiment5/'
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
@@ -419,7 +419,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=1,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
