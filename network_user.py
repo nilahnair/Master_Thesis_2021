@@ -488,6 +488,11 @@ class Network_User(object):
                     feature_maps = feature_maps.reshape(-1, feature_maps.size()[2])
                 if self.config['output'] == 'softmax':
                     loss = criterion(feature_maps, train_batch_l) * (1 / self.config['accumulation_steps'])
+                    '''
+                    loss_id = criterion(feature_maps, train_batch_l) * (1 / self.config['accumulation_steps'])
+                    loss_act = criterion(feature_maps_act, train_batch_l_activity) * (1 / self.config['accumulation_steps'])
+                    loss=loss_id+loss_act
+                    '''
                 elif self.config['output'] == 'attribute':
                     loss = criterion(feature_maps, train_batch_l[:, 1:]) * (1 / self.config['accumulation_steps'])
                 loss.backward()
