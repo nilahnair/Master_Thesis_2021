@@ -295,17 +295,17 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     path_to_datasets_folder='/data/nnair/output/type4/mocap/'
     '''
     #type1
-  
+    '''
     dataset_root = {'mocap': '/data/nnair/output/type1/mocap/clean/',
                     'mbientlab': '/data/nnair/output/type1/imu_norm/clean/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
-   
+    '''
     #type2
-    '''
+    
     dataset_root = {'mocap': '/data/nnair/output/type2/mocap/clean/',
-                    'mbientlab': '/data/nnair/output/type2/imu/',
+                    'mbientlab': '/data/nnair/output/type2/imu_norm/clean/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
-    '''
+    
     #type3
     '''
     dataset_root = {'mocap': '/data/nnair/output/type3/mocap/clean/',
