@@ -172,7 +172,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                    'motionminers_flw': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64}}
 
     freeze_options = [False, True]
-    evolution_iter = 10000
+    #evolution_iter = 10000
     # User gotta take care of creating these folders, or storing the results in a different way
     
     reshape_input = reshape_input

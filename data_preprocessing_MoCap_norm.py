@@ -426,6 +426,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         # Deleting rows containing the "none" class
                         data = np.delete(data, class_labels, 0)
                         labels = np.delete(labels, class_labels, 0)
+                       
+                        downsampling = range(0, data.shape[0], 2)
+                        data = data[downsampling]
                     except:
                         print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_norm))
                         continue
@@ -559,7 +562,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory = '/data/nnair/output/type1/mocap/clean/'
+    base_directory = '/data/nnair/output/type1/mocap/downsampled/'
     sliding_window_length = 100
     sliding_window_step = 12
     
