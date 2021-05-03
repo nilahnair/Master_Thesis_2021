@@ -120,8 +120,8 @@ class Modus_Selecter(object):
         f1_mean_train_ac = []
         precisions_test = []
         recalls_test = []
-
-
+        
+        
         if testing:
             acc_test_ac = []
             f1_weighted_test_ac = []
@@ -131,6 +131,12 @@ class Modus_Selecter(object):
         #As there is not evolution
         for iter_evl in range(itera):
             start_time_train = time.time()
+            
+            '''
+            count_pos = [0, 0, 0, 0, 0, 0, 0, 0]
+            count_neg = [0, 0, 0, 0, 0, 0, 0, 0]
+            '''
+
 
             # Training the network and obtaining the validation results
             logging.info('    Network_selecter:    Train iter {}'.format(iter_evl))
