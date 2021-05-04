@@ -54,14 +54,20 @@ def statistics_measurements():
 
     #dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_12000/"
     dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Mbientlab/LARa_dataset_mbientlab/"
-
+    
+    '''
     #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
 
     persons = ["S07", "S08", "S09", "S13", "S14"]
-    
     #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
     
+    persons = ["S07", "S08", "S09", "S13", "S14"]
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
+    '''
+    
+    persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+    train_ids = ["R01", "R02", "R03", "R04", "R05", "R06","R07", "R08", "R09", "R10", "R13", "R14", "R16", "R17",
+                 "R18", "R19", "R20", "R21", "R22", "R23", "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
     #val_ids = ["R12"]
     #test_ids = ["R15"]
     IMU = []
@@ -165,6 +171,6 @@ if __name__ == '__main__':
   
     base_directory='/data/nnair/trial/'
     
-    csv_dir=  base_directory+"type4_normalisation_values_imu.csv"
+    csv_dir=  base_directory+"all_normalisation_values_imu.csv"
     print(csv_dir)
     np.savetxt(csv_dir, x, delimiter="\n", fmt='%s')
