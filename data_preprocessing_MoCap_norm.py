@@ -186,7 +186,7 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,   -451.56,     -413.
 
 '''
 #type3 - avoiding subjects 11 and 12
-
+'''
 NORM_MAX_THRESHOLDS = [ 385.977,   287.475,   284.478,   460.544,   455.63,    460.81,    385.977,
                        287.475,   284.478,   574.258,   567.25,    575.79,    407.0898,  425.469,
                        438.49,    319.7402,  328.464,   332.26,    501.277,   458.856,   441.221,
@@ -274,7 +274,7 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,    -451.56,     -459
                        -405.712,    -478.784,    -565.544,    -906.02,     -852.581,    -692.469,
                        -405.712,    -478.784,    -565.544,    -990.83,     -947.151,    -703.37,
                        -351.1281,   -290.558,    -269.311,    -131.22,     -117.78,     -162.545]
-'''
+
 
 #def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
 def opp_sliding_window(data_x, ws, ss, label_pos_end=True):
@@ -360,7 +360,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     
     '''
     #type3- Avoiding person 11 and 12
-    
+    '''
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S13": 4, "S14": 5}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18"]
@@ -375,7 +375,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
+    
     counter_seq = 0
     
     for P in persons:
@@ -549,7 +549,7 @@ def create_dataset():
     
     '''
     #type3- Avoiding person 11 and 12
-    
+    '''
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
@@ -560,9 +560,9 @@ def create_dataset():
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
+   
     
-    base_directory = '/data/nnair/output/type3/mocap/downsampled/'
+    base_directory = '/data/nnair/output/type4/mocap/downsampled/'
     sliding_window_length = 100
     sliding_window_step = 12
     
