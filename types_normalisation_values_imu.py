@@ -79,59 +79,64 @@ def statistics_measurements():
           for R in train_ids:
                 S = SCENARIO[R]
                 file_name_data = "{}/{}_{}_{}.csv".format(P, S, P, R)
-                #file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
+                file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
                 print("------------------------------\n{}".format(file_name_data))
                 # getting data
                 path=dataset_path_imu + file_name_data
-                with open(path, 'r') as csvfile:
-                    spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-                    for row in spamreader:
-                        try:
+                pathlabels= dataset_path_imu + file_name_label
+                try:
+                    with open(path, 'r') as csvfile:
+                        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+                        for row in spamreader:
                             try:
-                                if spamreader.line_num == 1:
-                                    # print('\n')
-                                    print(', '.join(row))
-                                else:
-                                    if len(row) != 31:
-                                        idx_row = 0
-                                        IMU.append(row[idx_row])
-                                        idx_row += 1
+                                try:
+                                    if spamreader.line_num == 1:
+                                        # print('\n')
+                                        print(', '.join(row))
                                     else:
-                                        idx_row = 0
-                                    try:
-                                        time_d = datetime.datetime.strptime(row[idx_row], '%Y-%m-%d %H:%M:%S.%f')
-                                        idx_row += 1
-                                    except:
+                                        if len(row) != 31:
+                                            idx_row = 0
+                                            IMU.append(row[idx_row])
+                                            idx_row += 1
+                                        else:
+                                            idx_row = 0
                                         try:
-                                            time_d = datetime.datetime.strptime(row[idx_row.astype(int)], '%Y-%m-%d %H:%M:%S')
+                                            time_d = datetime.datetime.strptime(row[idx_row], '%Y-%m-%d %H:%M:%S.%f')
                                             idx_row += 1
                                         except:
+                                            try:
+                                                time_d = datetime.datetime.strptime(row[idx_row.astype(int)], '%Y-%m-%d %H:%M:%S')
+                                                idx_row += 1
+                                            except:
                                                 print("strange time str {}".format(time_d))
                                                 continue
-                                    time.append(time_d)
-                                    data.append(list(map(float, row[idx_row:])))
-                            except:
-                                print("Error in line {}".format(row))
-                        except KeyboardInterrupt:
-                            print('\nYou cancelled the operation.')
+                                        time.append(time_d)
+                                        data.append(list(map(float, row[idx_row:])))
+                                except:
+                                    print("Error in line {}".format(row))
+                            except KeyboardInterrupt:
+                                print('\nYou cancelled the operation.')
+                except:
+                    print("\n no file called file {}".format(dataset_path_imu + file_name_data))
+                    continue
                     
-                    print(len(data[0]))
-                    print(len(data[1]))
+                print(len(data[0]))
+                print(len(data[1]))
                                 
-                    if len(row) != 31:
-                        imu_data = {'IMU': IMU, 'time': time, 'data': data}
-                    else:
-                        try:
-                            print("check")
-                            imu_data = {'time': time, 'data': data}
-                            data_new=np.asarray(data)
-                            print(data_new.shape)
-                            print(accumulator_measurements.shape)
-                            accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
-                            print("\nFiles loaded")
-                        except:
-                            print("\n1 In loading data,  in file {}".format(dataset_path_imu + file_name_data))
-                            continue
+                if len(row) != 31:
+                    imu_data = {'IMU': IMU, 'time': time, 'data': data}
+                else:
+                    try:
+                        print("check")
+                        imu_data = {'time': time, 'data': data}
+                        data_new=np.asarray(data)
+                        print(data_new.shape)
+                        print(accumulator_measurements.shape)
+                        accumulator_measurements = np.append(accumulator_measurements, data_new, axis=0)
+                        print("\nFiles loaded")
+                    except:
+                        print("\n1 In loading data,  in file {}".format(dataset_path_imu + file_name_data))
+                        continue
                             
     
     try:
