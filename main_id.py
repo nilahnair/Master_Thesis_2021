@@ -96,6 +96,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     #clean type1 mocap downsampled
     num_tr_inputs = {'mocap': 32834, 'mbientlab': 32428, 'motionminers_flw': 93712}
+    #clean type2 mocap downsampled
+    #num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
+    #clean type3 mocap downsampled
+    #num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
+    #clean type4 mocap downsampled
+    #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
     # Number of classes for either for activity recognition
     #type1&2
