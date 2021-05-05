@@ -204,13 +204,11 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
             try:
                 data_y_labels = []
                 for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
-                    labels = np.zeros((20)).astype(int)
+                    labels = np.zeros((1)).astype(int)
                     count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
                     idy = np.argmax(count_l)
-                    attrs = np.sum(sw[:, 1:], axis=0)
-                    attrs[attrs > 0] = 1
                     labels[0] = idy
-                    labels[1:] = attrs
+                   
                     data_y_labels.append(labels)
                 data_y_labels = np.asarray(data_y_labels)
 
@@ -221,7 +219,12 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
                 return np.Inf
 
             # All labels per window
-            data_y_all = np.asarray([i[:] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+            data_y_all = np.asarray([i[:,0] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+            
+    print("daya_y_labels")
+    print(data_y_labels.shape)
+    print("daya_y_all")
+    print(data_y_all.shape)
 
     return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
 
@@ -665,8 +668,14 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
 
                     # Deleting rows containing the "none" class
                     data = np.delete(data, null_labels, 0)
-                    labels = np.delete(labels, class_labels, 0)
-
+                    labels = np.delete(act_labels, null_labels, 0)
+                    
+                    print("data size")
+                    print(data.shape)
+                    act_class= labels[:, 0]
+                    print("act_class")
+                    print(act_class.shape)
+                    
                     # halving the frequency
                     if half:
                         downsampling = range(0, data.shape[0], 2)
@@ -699,7 +708,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
 
                             # Sliding window approach
                             print("Starting sliding window")
-                            X, y, y_all = opp_sliding_window(data_x, labels.astype(int),
+                            X, y, y_all = opp_sliding_window(data_x, act_class.astype(int),
                                                              sliding_window_length,
                                                              sliding_window_step, label_pos_end = False)
                             print("Windows are extracted")
@@ -817,16 +826,23 @@ def create_dataset(half=False):
 
     @param half: set for creating dataset with half the frequence.
     '''
-
+    '''
     train_ids = ["S01", "S02", "S03", "S04", "S07", "S08", "S09", "S10", "S15", "S16"]
     train_final_ids = ["S01", "S02", "S03", "S04", "S05", "S07", "S08", "S09", "S10" "S11", "S12", "S15", "S16"]
     val_ids = ["S05", "S11", "S12"]
     test_ids = ["S06", "S13", "S14"]
 
     all_data = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
-
+    '''
+    
+    train_ids = ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10", 
+                 "R13", "R14", "R16", "R17", "R18", "R19", "R20", "R21", "R22", "R23", 
+                 "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
+    val_ids = ["R11","R12"]
+    test_ids = ["R15"]
+    
     #general_statistics(train_ids)
-
+    '''
     if half:
         "Path to the segmented sequences"
         base_directory = '/path_where_sequences_will_ve_stored/MoCap_dataset_half_freq/'
@@ -837,7 +853,12 @@ def create_dataset(half=False):
         base_directory = '/path_where_sequences_will_ve_stored/MoCap_dataset/'
         sliding_window_length = 200
         sliding_window_step = 25
-
+    '''
+    
+    base_directory = '/data/nnair/trial/mocap_all/'
+    sliding_window_length = 100
+    sliding_window_step = 12
+    
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
