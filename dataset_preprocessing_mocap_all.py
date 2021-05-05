@@ -153,6 +153,7 @@ def normalize(data):
     :return:
         Normalized sensor data
     """
+    print("normalisation begins")
     try:
         max_list, min_list = np.array(NORM_MAX_THRESHOLDS), np.array(NORM_MIN_THRESHOLDS)
         diffs = max_list - min_list
@@ -163,7 +164,7 @@ def normalize(data):
         data[data < 0] = 0.00
     except:
         raise("Error in normalization")
-        
+    print("normalisation done")   
     return data
 
 
@@ -696,7 +697,10 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     else:
                         data_t, data_x, data_y = divide_x_y(data)
                         del data_t
-
+                    print("data_x")
+                    print(data_x.shape)
+                    print("data_y")
+                    print(data_y.shape)
                 except:
                     print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_norm))
                     continue
@@ -704,7 +708,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     try:
                         # checking if annotations are consistent
                         data_x = normalize(data_x)
-                        if np.sum(data_y == labels[:, 0]) == data_y.shape[0]:
+                        if np.sum(data_y == act_class) == data_y.shape[0]:
 
                             # Sliding window approach
                             print("Starting sliding window")
@@ -866,9 +870,9 @@ def create_dataset(half=False):
     generate_data(train_ids, sliding_window_length=sliding_window_length,
                   sliding_window_step=sliding_window_step, data_dir=data_dir_train, half=half, usage_modus='train')
     generate_data(val_ids, sliding_window_length=sliding_window_length,
-                  sliding_window_step=sliding_window_step, data_dir=data_dir_val, half=half)
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_val, half=half, usage_modus='val')
     generate_data(test_ids, sliding_window_length=sliding_window_length,
-                  sliding_window_step=sliding_window_step, data_dir=data_dir_test, half=half)
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_test, half=half, usage_modus='test')
 
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
