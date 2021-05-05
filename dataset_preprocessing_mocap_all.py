@@ -234,6 +234,7 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
             print(data_y_all_1.shape)
             data_y_all=data_y_all_1[:,0]
             print(data_y_all.shape)
+            print(data_y_all[10:20])
     print("daya_y_labels")
     print(data_y_labels.shape)
     print("daya_y_all")
