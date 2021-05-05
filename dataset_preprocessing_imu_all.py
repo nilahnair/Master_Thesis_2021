@@ -93,7 +93,10 @@ def reader_data(path):
         imu_data = {'IMU': IMU, 'time': time, 'data': data}
     else:
         imu_data = {'time': time, 'data': data}
-    return imu_data
+        data_new=np.asarray(data)
+        print(data_new.shape)
+        
+    return data_new
 
 
 
@@ -218,9 +221,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                   # getting data
                   data = reader_data(FOLDER_PATH + file_name_data)
                   print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_data))
+                  print("data shape")
+                  print(data.shape[0])
+                  print(data.shape[1])
                   data_x = data["data"]
                   print("data_x shape")
-                  print(data_x.shape)
+                  print(data_x.shape[0])
+                  print(data_x.shape[1])
                   print("\nFiles loaded")
                except:
                   print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_data))
