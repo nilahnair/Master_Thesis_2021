@@ -133,13 +133,12 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
             try:
                 data_y_labels = []
                 for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
-                    labels = np.zeros((20)).astype(int)
+                    labels = np.zeros((1)).astype(int)
                     count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
                     idy = np.argmax(count_l)
-                    attrs = np.sum(sw[:, 1:], axis=0)
-                    attrs[attrs > 0] = 1
+                   
                     labels[0] = idy
-                    labels[1:] = attrs
+                   
                     data_y_labels.append(labels)
                 data_y_labels = np.asarray(data_y_labels)
             except:
@@ -189,126 +188,122 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     @param usage_modus: selecting Train, Val or testing
     '''
 
-    persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
-
-    idx_train = {"S07": 21, "S08": 21, "S09": 21, "S10": 11, "S11": 11, "S12": 23, "S13": 21, "S14": 21}
-    idx_val = {"S07": 26, "S08": 26, "S09": 26, "S10": 16, "S11": 13, "S12": 26, "S13": 26, "S14": 26}
-    idx_test = {"S07": 31, "S08": 31, "S09": 31, "S10": 24, "S11": 16, "S12": 31, "S13": 31, "S14": 31}
+    persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+    ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S12":5, "S13": 6, "S14": 7}
+    train_ids = ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10", 
+                 "R13", "R14", "R16", "R17", "R18", "R19", "R20", "R21", "R22", "R23", 
+                 "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
+    val_ids = ["R11","R12"]
+    test_ids = ["R15"]
 
     counter_seq = 0
     hist_classes_all = np.zeros((NUM_CLASSES))
 
     for P in persons:
-        if P not in ids:
-            print("\n6 No Person in expected IDS {}".format(P))
-        else:
-            if identity_bool:
-                # Selecting the proportions of the train, val or testing according to the quantity of
-                # recordings per subject, as there are not equal number of recordings per subject
-                # see dataset for checking the recording files per subject
-                if usage_modus == 'train':
-                    recordings = ['R{:02d}'.format(rec) for rec in range(1, idx_train[P])]
-                elif usage_modus == 'val':
-                    recordings = ['R{:02d}'.format(rec) for rec in range(idx_train[P], idx_val[P])]
-                elif usage_modus == 'test':
-                    recordings = ['R{:02d}'.format(rec) for rec in range(idx_val[P], idx_test[P])]
-            else:
-                recordings = ['R{:02d}'.format(rec) for rec in range(1, 31, 1)]
-                # recordings = ['R{:02d}'.format(r) for r in range(1, 31, 2)]
-            print("\nModus {} \n{}".format(usage_modus, recordings))
-            for R in recordings:
-                try:
-                    S = SCENARIO[R]
-                    file_name_data = "{}/{}_{}_{}.csv".format(P, S, P, R)
-                    file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
-                    print("\n{}\n{}".format(file_name_data, file_name_label))
-                    try:
-                        # getting data
-                        data = reader_data(FOLDER_PATH + file_name_data)
-                        print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_data))
-                        data_x = data["data"]
-                        print("\nFiles loaded")
-                    except:
-                        print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_data))
-                        continue
+       if usage_modus == 'train':
+           recordings = train_ids
+       elif usage_modus == 'val':
+           recordings = val_ids
+       elif usage_modus == 'test':
+           recordings =  test_ids 
+            
+       print("\nModus {} \n{}".format(usage_modus, recordings))
+       for R in recordings:
+           try:
+               S = SCENARIO[R]
+               file_name_data = "{}/{}_{}_{}.csv".format(P, S, P, R)
+               file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
+               print("\n{}\n{}".format(file_name_data, file_name_label))
+               try:
+                  # getting data
+                  data = reader_data(FOLDER_PATH + file_name_data)
+                  print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_data))
+                  data_x = data["data"]
+                  print("data_x shape")
+                  print(data_x.shape)
+                  print("\nFiles loaded")
+               except:
+                  print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_data))
+                  continue
 
-                    try:
-                        # Getting labels and attributes
-                        labels = csv_reader.reader_labels(FOLDER_PATH + file_name_label)
-                        class_labels = np.where(labels[:, 0] == 7)[0]
+               try:
+                  # Getting labels and attributes
+                  labels = csv_reader.reader_labels(FOLDER_PATH + file_name_label)
+                  class_labels = np.where(labels[:, 0] == 7)[0]
 
-                        # Deleting rows containing the "none" class
-                        data_x = np.delete(data_x, class_labels, 0)
-                        labels = np.delete(labels, class_labels, 0)
+                  # Deleting rows containing the "none" class
+                  data_x = np.delete(data_x, class_labels, 0)
+                  labels = np.delete(labels, class_labels, 0)
 
-                        #data_t, data_x, data_y = divide_x_y(data)
-                        #del data_t
-                    except:
-                        print(
-                            "2 In generating data, Error getting the data {}".format(FOLDER_PATH
+                  #data_t, data_x, data_y = divide_x_y(data)
+                  #del data_t
+               except:
+                  print("2 In generating data, Error getting the data {}".format(FOLDER_PATH
                                                                                        + file_name_data))
-                        continue
-                    try:
-                        data_x = norm_mbientlab(data_x)
-                    except:
-                        print("\n3  In generating data, Plotting {}".format(FOLDER_PATH + file_name_data))
-                        continue
-                    try:
-                        # checking if annotations are consistent
-                        if data_x.shape[0] == data_x.shape[0]:
+                  continue
+               try:
+                  data_x = norm_mbientlab(data_x)
+               except:
+                  print("\n3  In generating data, Plotting {}".format(FOLDER_PATH + file_name_data))
+                  continue
+               try:
+                  # checking if annotations are consistent
+                  if data_x.shape[0] == data_x.shape[0]:
 
-                            # Sliding window approach
-                            print("\nStarting sliding window")
-                            X, y, y_all = opp_sliding_window(data_x, labels.astype(int), sliding_window_length,
+                      # Sliding window approach
+                      print("\nStarting sliding window")
+                      X, y, y_all = opp_sliding_window(data_x, labels.astype(int), sliding_window_length,
                                                              sliding_window_step, label_pos_end=False)
-                            print("\nWindows are extracted")
+                      print("\nWindows are extracted")
 
                             # Statistics
 
-                            hist_classes = np.bincount(y[:, 0], minlength=NUM_CLASSES)
-                            hist_classes_all += hist_classes
-                            print("\nNumber of seq per class {}".format(hist_classes_all))
+                      hist_classes = np.bincount(y[:, 0], minlength=NUM_CLASSES)
+                      hist_classes_all += hist_classes
+                      print("\nNumber of seq per class {}".format(hist_classes_all))
 
-                            for f in range(X.shape[0]):
-                                try:
+                      for f in range(X.shape[0]):
+                          try:
 
-                                    sys.stdout.write(
+                              sys.stdout.write(
                                         '\r' +
                                         'Creating sequence file number {} with id {}'.format(f, counter_seq))
-                                    sys.stdout.flush()
+                              sys.stdout.flush()
 
-                                    # print "Creating sequence file number {} with id {}".format(f, counter_seq)
-                                    seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
-                                    seq = np.require(seq, dtype=np.float)
+                              # print "Creating sequence file number {} with id {}".format(f, counter_seq)
+                              seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
+                              seq = np.require(seq, dtype=np.float)
 
-                                    obj = {"data": seq, "label": y[f], "labels": y_all[f],
-                                           "identity": labels_persons[P]}
-                                    file_name = open(os.path.join(data_dir,
+                              obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "label": labels_persons[P]}
+                                           
+                              file_name = open(os.path.join(data_dir,
                                                                   'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
-                                    pickle.dump(obj, file_name, protocol=pickle.HIGHEST_PROTOCOL)
-                                    file_name.close()
+                              pickle.dump(obj, file_name, protocol=pickle.HIGHEST_PROTOCOL)
+                              file_name.close()
 
-                                    counter_seq += 1
+                              counter_seq += 1
 
-                                except:
-                                    raise ('\nError adding the seq')
+                          except:
+                              raise ('\nError adding the seq')
 
-                            print("\nCorrect data extraction from {}".format(FOLDER_PATH + file_name_data))
+                      print("\nCorrect data extraction from {}".format(FOLDER_PATH + file_name_data))
 
-                            del data
-                            del data_x
-                            del X
-                            del labels
-                            del class_labels
+                      del data
+                      del data_x
+                      del X
+                      del labels
+                      del class_labels
 
-                        else:
-                            print("\n4 Not consisting annotation in  {}".format(file_name_data))
-                            continue
-                    except:
-                        print("\n5 In generating data, No created file {}".format(FOLDER_PATH + file_name_data))
-                    print("-----------------\n{}\n{}\n-----------------".format(file_name_data, file_name_label))
-                except KeyboardInterrupt:
-                    print('\nYou cancelled the operation.')
+                  else:
+                      print("\n4 Not consisting annotation in  {}".format(file_name_data))
+                      continue
+               except:
+                   print("\n5 In generating data, No created file {}".format(FOLDER_PATH + file_name_data))
+                   print("-----------------\n{}\n{}\n-----------------".format(file_name_data, file_name_label))
+                   continue
+               
+           except KeyboardInterrupt:
+               print('\nYou cancelled the operation.')
 
     return
 
@@ -364,12 +359,13 @@ def create_dataset(identity_bool = False):
 
     @param half: set for creating dataset with half the frequence.
     '''
-    train_ids = ["S07", "S08", "S09", "S10"]
-    train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
-    val_ids = ["S11", "S12"]
-    test_ids = ["S13", "S14"]
+    train_ids = ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10", 
+                 "R13", "R14", "R16", "R17", "R18", "R19", "R20", "R21", "R22", "R23", 
+                 "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
+    val_ids = ["R11","R12"]
+    test_ids = ["R15"]
 
-    all_data = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+    #all_data = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
 
     # general_statistics(train_ids)
 
@@ -377,15 +373,15 @@ def create_dataset(identity_bool = False):
     # base_directory = '/path_where_sequences_will_ve_stored/mbientlab_50_persons/'
     # base_directory = '/path_where_sequences_will_ve_stored/mbientlab_10_recordings/'
     #base_directory = '/path_where_sequences_will_ve_stored/mbientlab_50_recordings/'
-    base_directory = '/path_where_sequences_will_ve_stored/mbientlab/'
+    base_directory = '/data/nnair/trial/imu_all/'
 
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
 
-    generate_data(train_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_train)
-    generate_data(val_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_val)
-    generate_data(test_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test)
+    generate_data(train_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_train, usage_modus='train')
+    generate_data(val_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_val, usage_modus='val')
+    generate_data(test_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test, usage_modus='test')
 
     generate_CSV(base_directory, "train.csv", data_dir_train)
     generate_CSV(base_directory, "val.csv", data_dir_val)

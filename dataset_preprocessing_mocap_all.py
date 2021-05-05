@@ -197,19 +197,19 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
     print(data_x.shape)
     # Label from the end
     if label_pos_end:
-        print("check1")
+        
         data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
     else:
         if False:
             # Label from the middle
             # not used in experiments
-            print("check2")
+           
             data_y_labels = np.asarray(
                 [[i[i.shape[0] // 2]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
         else:
             # Label according to mode
             try:
-                print("check3")
+                
                 data_y_labels = []
                 for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
                    
