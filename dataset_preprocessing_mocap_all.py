@@ -33,7 +33,7 @@ NUM_CLASSES = 8
 NUM_ATTRIBUTES = 19
 #change this
 
-NORM_MAX_THRESHOLDS = [ 398.916,   355.542,   311.295,   459.25,    460.51,    460.81,    398.916,
+NORM_MAX_THRESHOLDS = [398.916,   355.542,   311.295,   459.25,    460.51,    460.81,    398.916,
                        355.542,   311.295,   572.34,    568.79,    575.8,     393.446,   503.798,
                        434.992,   318.84,    330.982,   332.26,    501.277,   598.326,   477.503,
                        660.388,   635.11,    772.18,    387.987,   304.54,    305.625,   193.69,
@@ -157,7 +157,11 @@ def normalize(data):
     try:
         max_list, min_list = np.array(NORM_MAX_THRESHOLDS), np.array(NORM_MIN_THRESHOLDS)
         print("chck1")
+        print(max_list.shape)
+        print(min_list.shape)
         diffs = max_list - min_list
+        print(data.shape)
+        print(data.shape[1])
         for i in np.arange(data.shape[1]):
             data[:, i] = (data[:, i]-min_list[i])/diffs[i]
         #     Checking the boundaries
