@@ -215,6 +215,7 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
                     print("check 4")
                     labels = np.zeros((1)).astype(int)
                     count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
+                    print("check5")
                     idy = np.argmax(count_l)
                     labels[0] = idy
                    
@@ -682,7 +683,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     
                     print("data size")
                     print(data.shape)
-                    act_class= labels[:, 0]
+                    act_class= labels
                     print("act_class")
                     print(act_class.shape)
                     '''
@@ -715,7 +716,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                 
                     # checking if annotations are consistent
                     data_x = normalize(data_x)
-                    if np.sum(data_y == act_class) == data_y.shape[0]:
+                    if np.sum(data_y == act_class[:,0]) == data_y.shape[0]:
 
                         # Sliding window approach
                         print("Starting sliding window")
