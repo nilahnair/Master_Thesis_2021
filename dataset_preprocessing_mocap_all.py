@@ -156,12 +156,14 @@ def normalize(data):
     print("normalisation begins")
     try:
         max_list, min_list = np.array(NORM_MAX_THRESHOLDS), np.array(NORM_MIN_THRESHOLDS)
+        print("chck1")
         diffs = max_list - min_list
         for i in np.arange(data.shape[1]):
             data[:, i] = (data[:, i]-min_list[i])/diffs[i]
         #     Checking the boundaries
         data[data > 1] = 0.99
         data[data < 0] = 0.00
+        print("check2")
     except:
         raise("Error in normalization")
     print("normalisation done")   
