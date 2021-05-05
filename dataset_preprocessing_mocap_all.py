@@ -709,7 +709,10 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                 else:
                     data_t, data_x, data_y = divide_x_y(data)
                     del data_t
-                    '''
+                '''
+                downsampling = range(0, data.shape[0], 2)
+                data = data[downsampling]
+                
                 data_t, data_x, data_y = divide_x_y(data)
                 print("data_x")
                 print(data_x.shape)
@@ -862,10 +865,10 @@ def create_dataset(half=False):
     test_ids = ["R15"]
     
     #general_statistics(train_ids)
-    '''
+   
     if half:
         "Path to the segmented sequences"
-        base_directory = '/path_where_sequences_will_ve_stored/MoCap_dataset_half_freq/'
+        base_directory = '/data/nnair/all/mocap/downsampled'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
@@ -873,9 +876,9 @@ def create_dataset(half=False):
         base_directory = '/path_where_sequences_will_ve_stored/MoCap_dataset/'
         sliding_window_length = 200
         sliding_window_step = 25
-    '''
+  
     
-    base_directory = '/data/nnair/trial/mocap_all/'
+    base_directory = '/data/nnair/all/mocap/downsampled'
     sliding_window_length = 100
     sliding_window_step = 12
     
@@ -912,6 +915,6 @@ if __name__ == '__main__':
     # MoCap_dataset/sequences_val
     # MoCap_dataset/sequences_test
 
-    create_dataset(half=False)
+    create_dataset(half=True)
 
     print("Done")
