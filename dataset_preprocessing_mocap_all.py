@@ -678,7 +678,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     act_class= labels[:, 0]
                     print("act_class")
                     print(act_class.shape)
-                    
+                    '''
                     # halving the frequency
                     if half:
                         downsampling = range(0, data.shape[0], 2)
@@ -699,6 +699,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     else:
                         data_t, data_x, data_y = divide_x_y(data)
                         del data_t
+                    '''
+                    data_t, data_x, data_y = divide_x_y(data)
                     print("data_x")
                     print(data_x.shape)
                     print("data_y")
