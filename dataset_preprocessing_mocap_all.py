@@ -701,48 +701,44 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     print(data_x.shape)
                     print("data_y")
                     print(data_y.shape)
-                except:
-                    print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_norm))
-                    continue
+                
+                    # checking if annotations are consistent
+                    data_x = normalize(data_x)
+                    if np.sum(data_y == act_class) == data_y.shape[0]:
 
-                    try:
-                        # checking if annotations are consistent
-                        data_x = normalize(data_x)
-                        if np.sum(data_y == act_class) == data_y.shape[0]:
-
-                            # Sliding window approach
-                            print("Starting sliding window")
-                            X, y, y_all = opp_sliding_window(data_x, act_class.astype(int),
+                        # Sliding window approach
+                        print("Starting sliding window")
+                        X, y, y_all = opp_sliding_window(data_x, act_class.astype(int),
                                                              sliding_window_length,
                                                              sliding_window_step, label_pos_end = False)
-                            print("Windows are extracted")
+                        print("Windows are extracted")
 
-                            # Statistics
-                            hist_classes = np.bincount(y[:, 0], minlength=NUM_CLASSES)
-                            hist_classes_all += hist_classes
-                            print("Number of seq per class {}".format(hist_classes_all))
+                        # Statistics
+                        hist_classes = np.bincount(y[:, 0], minlength=NUM_CLASSES)
+                        hist_classes_all += hist_classes
+                        print("Number of seq per class {}".format(hist_classes_all))
 
-                            for f in range(X.shape[0]):
-                                try:
+                        for f in range(X.shape[0]):
+                            try:
 
-                                    sys.stdout.write('\r' + 'Creating sequence file '
+                                sys.stdout.write('\r' + 'Creating sequence file '
                                                             'number {} with id {}'.format(f, counter_seq))
-                                    sys.stdout.flush()
+                                sys.stdout.flush()
 
-                                    # print "Creating sequence file number {} with id {}".format(f, counter_seq)
-                                    seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
-                                    seq = np.require(seq, dtype=np.float)
-                                    print
-                                    # Storing the sequences
-                                    obj = {"data": seq, "act_label": y[f], "act_labels": y_all[f],
+                                # print "Creating sequence file number {} with id {}".format(f, counter_seq)
+                                seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
+                                seq = np.require(seq, dtype=np.float)
+                                print
+                                # Storing the sequences
+                                obj = {"data": seq, "act_label": y[f], "act_labels": y_all[f],
                                            "label": labels_persons[P]}
-                                    f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
-                                    pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
-                                    f.close()
+                                f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
+                                pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
+                                f.close()
 
-                                    counter_seq += 1
-                                except:
-                                    raise('\nError adding the seq')
+                                counter_seq += 1
+                            except:
+                                raise('\nError adding the seq')
 
                             print("\nCorrect data extraction from {}".format(FOLDER_PATH + file_name_norm))
 
@@ -753,11 +749,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             del labels
                             del class_labels
 
-                        else:
-                            print("\nNot consisting annotation in  {}".format(file_name_norm))
-                            continue
-
-                    except:
+                    else:
+                        print("\nNot consisting annotation in  {}".format(file_name_norm))
+                        continue
+                    
+                except:
                         print("\n In generating data, No file {}".format(FOLDER_PATH + file_name_norm))
             
     return
