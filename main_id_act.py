@@ -69,7 +69,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     #num_attributes = {'mocap': 11, 'mbientlab': 11, 'motionminers_flw': 11}
     
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 91399, 'motionminers_flw': 93712}
     
     num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
     
@@ -215,7 +215,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     
        
-    dataset_root = {'mocap': '/data/nnair/output/type1/mocap/downsampled/',
+    dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled',
                     'mbientlab': '/data/nnair/output/type1/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
   
@@ -343,7 +343,7 @@ def my_config():
 @ex.capture
 def run(config, dataset, network, output, usageModus):
    
-    file_name='/data/nnair/output/avg/'
+    file_name='/data/nnair/trial/'
    
     file_name='/data/nnair/output/avg/'+'logger.txt'
     

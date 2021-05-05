@@ -795,7 +795,8 @@ class Network_User(object):
                         test_labels_batch = harwindow_batched_val["label"]
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
                     
-                    
+                act_class=harwindow_batched_val["act_label"]    
+                
                 if self.config['output'] == 'softmax':
                     pred_index= torch.argmax(predictions)
                     if pred_index==harwindow_batched_val["label"]:
@@ -934,6 +935,7 @@ class Network_User(object):
                 # Summing the loss
                 loss_test = loss_test + loss.item()
                 
+                act_class=harwindow_batched_test["act_label"]
                 if self.config['output'] == 'softmax':
                     pred_index= torch.argmax(predictions)
                     if pred_index==test_batch_l:
