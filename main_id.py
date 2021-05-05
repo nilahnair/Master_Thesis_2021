@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Exp25 Type2 mocap norm clean downsampled lr0 batch50')
+ex= Experiment('Exp26 Type3 mocap norm clean downsampled lr0 batch50')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -97,21 +97,21 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type1 mocap downsampled
     #num_tr_inputs = {'mocap': 32834, 'mbientlab': 32428, 'motionminers_flw': 93712}
     #clean type2 mocap downsampled
-    num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
     #clean type3 mocap downsampled
-    #num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
     #clean type4 mocap downsampled
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
     # Number of classes for either for activity recognition
     #type1&2
     
-    num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
+    #num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
     
     #type3
-    '''
+    
     num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
-    '''
+    
     #type4
     '''
     num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
@@ -215,7 +215,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'experiment25/'
+        folder_exp = folder_base + 'experiment26/'
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
@@ -305,7 +305,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
     #type1
    
-    dataset_root = {'mocap': '/data/nnair/output/type2/mocap/downsampled/',
+    dataset_root = {'mocap': '/data/nnair/output/type3/mocap/downsampled/',
                     'mbientlab': '/data/nnair/output/type1/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
