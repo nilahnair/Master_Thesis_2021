@@ -156,9 +156,7 @@ def normalize(data):
     print("normalisation begins")
     try:
         max_list, min_list = np.array(NORM_MAX_THRESHOLDS), np.array(NORM_MIN_THRESHOLDS)
-        print("chck1")
-        print(max_list.shape)
-        print(min_list.shape)
+       
         diffs = max_list - min_list
         print(data.shape)
         print(data.shape[1])
@@ -167,7 +165,7 @@ def normalize(data):
         #     Checking the boundaries
         data[data > 1] = 0.99
         data[data < 0] = 0.00
-        print("check2")
+        
     except:
         raise("Error in normalization")
     print("normalisation done")   
@@ -196,21 +194,25 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
     print("Sliding window: Creating windows {} with step {}".format(ws, ss))
 
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
-
+    print(data_x.shape)
     # Label from the end
     if label_pos_end:
+        print("check1")
         data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
     else:
         if False:
             # Label from the middle
             # not used in experiments
+            print("check2")
             data_y_labels = np.asarray(
                 [[i[i.shape[0] // 2]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
         else:
             # Label according to mode
             try:
+                print("check3")
                 data_y_labels = []
                 for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
+                    print("check 4")
                     labels = np.zeros((1)).astype(int)
                     count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
                     idy = np.argmax(count_l)
@@ -227,7 +229,8 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
 
             # All labels per window
             data_y_all = np.asarray([i[:,0] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
-            
+            print("data_y_all")
+            print(data_y_all.shape)
     print("daya_y_labels")
     print(data_y_labels.shape)
     print("daya_y_all")
