@@ -224,10 +224,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                   print("data shape")
                   print(data.shape[0])
                   print(data.shape[1])
-                  data_x = data["data"]
+                  data_x = data
                   print("data_x shape")
-                  print(data_x.shape[0])
-                  print(data_x.shape[1])
+           
                   print("\nFiles loaded")
                except:
                   print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_data))
