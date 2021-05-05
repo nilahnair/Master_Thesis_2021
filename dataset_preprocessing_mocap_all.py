@@ -212,10 +212,9 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
                 print("check3")
                 data_y_labels = []
                 for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
-                    print("check 4")
+                   
                     labels = np.zeros((1)).astype(int)
                     count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
-                    print("check5")
                     idy = np.argmax(count_l)
                     labels[0] = idy
                    
@@ -234,7 +233,7 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
             print(data_y_all_1.shape)
             data_y_all=data_y_all_1[:,0]
             print(data_y_all.shape)
-            print(data_y_all[10:20])
+            print(data_y_all[40:60])
     print("daya_y_labels")
     print(data_y_labels.shape)
     print("daya_y_all")
@@ -743,7 +742,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                                 seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
                                 seq = np.require(seq, dtype=np.float)
-                                print
+                                print("seq shape")
+                                print(seq.shape)
+                                print("act_label")
+                                print(y.shape)
+                                print("act_label all")
+                                print(y_all.shape)
+                                print(labels_persons[P])
                                 # Storing the sequences
                                 obj = {"data": seq, "act_label": y[f], "act_labels": y_all[f],
                                            "label": labels_persons[P]}
