@@ -713,11 +713,14 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                 downsampling = range(0, data.shape[0], 2)
                 data = data[downsampling]
                 act_class = act_class[downsampling]
+                
                 data_t, data_x, data_y = divide_x_y(data)
                 print("data_x")
                 print(data_x.shape)
                 print("data_y")
                 print(data_y.shape)
+                print("act_class")
+                print(act_class.shape)
                 del data_t
                 
                 try:
@@ -753,8 +756,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                 seq = np.require(seq, dtype=np.float)
                                 
                                 # Storing the sequences
-                                obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f],
-                                           "label": labels_persons[P]}
+                                obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "label": labels_persons[P]}
                                 f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
                                 f.close()
@@ -868,7 +870,7 @@ def create_dataset(half=False):
    
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/all/mocap/downsampled'
+        base_directory = '/data/nnair/all/mocap/downsampled/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
@@ -878,7 +880,7 @@ def create_dataset(half=False):
         sliding_window_step = 25
   
     
-    base_directory = '/data/nnair/all/mocap/downsampled'
+    base_directory = '/data/nnair/all/mocap/downsampled/'
     sliding_window_length = 100
     sliding_window_step = 12
     
