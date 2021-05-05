@@ -743,8 +743,12 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                 print(seq.shape)
                                 print("act_label")
                                 print(y.shape)
+                                print("act_label_f")
+                                print(y[f].shape)
                                 print("act_label all")
                                 print(y_all.shape)
+                                print("act_label all_f")
+                                print(y_all[f].shape)
                                 print(labels_persons[P])
                                 # Storing the sequences
                                 obj = {"data": seq, "act_label": y[f], "act_labels": y_all[f],
