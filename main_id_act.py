@@ -215,7 +215,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     
        
-    dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled',
+    dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/output/type1/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
   
