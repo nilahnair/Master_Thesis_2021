@@ -685,36 +685,45 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     act_class= labels
                     print("act_class")
                     print(act_class.shape)
-                    '''
-                    # halving the frequency
-                    if half:
-                        downsampling = range(0, data.shape[0], 2)
-                        print("downsampling shape")
-                        print(downsampling.shape)
-                        print("data")
-                        print(data.shape)
-                        print("labels")
-                        print(labels.shape)
-                        data = data[downsampling]
-                        print("data downsampled")
-                        print(data)
-                        labels = labels[downsampling]
-                        print("labels downsampled")
-                        print(labels)
-                        data_t, data_x, data_y = divide_x_y(data)
-                        del data_t
-                    else:
-                        data_t, data_x, data_y = divide_x_y(data)
-                        del data_t
-                    '''
+                except:
+                    print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_label))
+                    continue
+                '''
+                # halving the frequency
+                if half:
+                    downsampling = range(0, data.shape[0], 2)
+                    print("downsampling shape")
+                    print(downsampling.shape)
+                    print("data")
+                    print(data.shape)
+                    print("labels")
+                    print(labels.shape)
+                    data = data[downsampling]
+                    print("data downsampled")
+                    print(data)
+                    labels = labels[downsampling]
+                    print("labels downsampled")
+                    print(labels)
                     data_t, data_x, data_y = divide_x_y(data)
-                    print("data_x")
-                    print(data_x.shape)
-                    print("data_y")
-                    print(data_y.shape)
+                    del data_t
+                else:
+                    data_t, data_x, data_y = divide_x_y(data)
+                    del data_t
+                    '''
+                data_t, data_x, data_y = divide_x_y(data)
+                print("data_x")
+                print(data_x.shape)
+                print("data_y")
+                print(data_y.shape)
+                del data_t
+                
+                try:
                 
                     # checking if annotations are consistent
                     data_x = normalize(data_x)
+                    print("data shape")
+                    print(data_x.shape)
+                    
                     if np.sum(data_y == act_class[:,0]) == data_y.shape[0]:
 
                         # Sliding window approach
@@ -739,19 +748,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                                 seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
                                 seq = np.require(seq, dtype=np.float)
-                                print("seq shape")
-                                print(seq.shape)
-                                print("act_label")
-                                print(y.shape)
-                                print("act_label_f")
-                                print(y[f].shape)
-                                print("act_label all")
-                                print(y_all.shape)
-                                print("act_label all_f")
-                                print(y_all[f].shape)
-                                print(labels_persons[P])
+                                
                                 # Storing the sequences
-                                obj = {"data": seq, "act_label": y[f], "act_labels": y_all[f],
+                                obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f],
                                            "label": labels_persons[P]}
                                 f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
@@ -761,21 +760,21 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             except:
                                 raise('\nError adding the seq')
 
-                            print("\nCorrect data extraction from {}".format(FOLDER_PATH + file_name_norm))
+                        print("\nCorrect data extraction from {}".format(FOLDER_PATH + file_name_norm))
 
-                            del data
-                            del data_x
-                            del data_y
-                            del X
-                            del labels
-                            del class_labels
+                        del data
+                        del data_x
+                        del data_y
+                        del X
+                        del labels
+                        del class_labels
 
                     else:
                         print("\nNot consisting annotation in  {}".format(file_name_norm))
                         continue
                     
                 except:
-                        print("\n In generating data, No file {}".format(FOLDER_PATH + file_name_norm))
+                    print("\n In generating data, No file {}".format(FOLDER_PATH + file_name_norm))
             
     return
 
