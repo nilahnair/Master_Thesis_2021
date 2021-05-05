@@ -712,7 +712,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                 '''
                 downsampling = range(0, data.shape[0], 2)
                 data = data[downsampling]
-                
+                act_class = act_class[downsampling]
                 data_t, data_x, data_y = divide_x_y(data)
                 print("data_x")
                 print(data_x.shape)
