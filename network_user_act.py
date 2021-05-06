@@ -771,18 +771,20 @@ class Network_User(object):
 
                 # forward
                 predictions = network_obj(test_batch_v)
+               
+                if self.config['output'] == 'softmax':
+                    loss = criterion(predictions, test_batch_l)
+                elif self.config['output'] == 'attribute':
+                    loss = criterion(predictions, test_batch_l[:, 1:])
+                    
                 '''    
                 print("harwindow_batched_val")
                 print(harwindow_batched_val["label"])
                 print(type(harwindow_batched_val["label"]))
                 '''
-                print("predictions")
-                print(predictions)
-                print(type(predictions))
-                if self.config['output'] == 'softmax':
-                    loss = criterion(predictions, test_batch_l)
-                elif self.config['output'] == 'attribute':
-                    loss = criterion(predictions, test_batch_l[:, 1:])
+                print("loss")
+                print(loss)
+                print(type(loss))
                 
                 loss_val = loss_val + loss.item()
                 
