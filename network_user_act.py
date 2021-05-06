@@ -768,17 +768,17 @@ class Network_User(object):
                     # labels for binerycrossentropy needs float type
                     test_batch_l = test_batch_l.to(self.device, dtype=torch.float)
                     # labels for crossentropy needs long type
+
+                # forward
+                predictions = network_obj(test_batch_v)
                 '''    
                 print("harwindow_batched_val")
                 print(harwindow_batched_val["label"])
                 print(type(harwindow_batched_val["label"]))
                 '''
-                print("test_batch_l")
-                print(test_batch_l)
-                print(type(test_batch_l))
-
-                # forward
-                predictions = network_obj(test_batch_v)
+                print("predictions")
+                print(predictions)
+                print(type(predictions))
                 if self.config['output'] == 'softmax':
                     loss = criterion(predictions, test_batch_l)
                 elif self.config['output'] == 'attribute':
