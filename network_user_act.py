@@ -777,23 +777,14 @@ class Network_User(object):
                 elif self.config['output'] == 'attribute':
                     loss = criterion(predictions, test_batch_l[:, 1:])
                     
-                '''    
-                print("harwindow_batched_val")
-                print(harwindow_batched_val["label"])
-                print(type(harwindow_batched_val["label"]))
-                '''
-                print("loss")
-                print(loss)
-                print(type(loss))
-                
                 loss_val = loss_val + loss.item()
                 
                 act_class=harwindow_batched_val["act_label"] 
-                '''
+             
                 print("act_class")
                 print(act_class)
                 print(type(act_class))
-                '''
+             
                 '''
                 print("pred_index")
                 print(torch.argmax(predictions))
