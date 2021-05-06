@@ -796,7 +796,7 @@ class Network_User(object):
                             print(act_class[i].shape)
                             for c,z in enumerate(count_pos_val):
                                 print(c)
-                                print(c.shape)
+                               
                                 print(act_class[i])
                                 print(act_class[i].shape)
                                 if c==act_class[i]:
@@ -805,7 +805,7 @@ class Network_User(object):
                             
                             for c,z in enumerate(count_neg_val):
                                 print(c)
-                                print(c.shape)
+                                
                                 print(act_class[i])
                                 print(act_class[i].shape)
                                 if c==act_class[i]:
