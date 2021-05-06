@@ -794,7 +794,7 @@ class Network_User(object):
                     label=test_batch_l.detach().cpu().numpy()
                     '''
                     label=test_batch_l
-                    for i,v in enumerate(pred_index):
+                    for i,x in enumerate(pred_index):
                         if pred_index[i]==label[i]:
                            for c,z in enumerate(count_pos_val):
                                 if c==act_class[i]:
