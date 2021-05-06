@@ -532,10 +532,16 @@ class Network_User(object):
                     # Calling the val() function with the current network and criterion
                     del train_batch_v, noise
                     results_val, loss_val, c_pos_val, c_neg_val = self.validate(network_obj, criterion)
-                    
+                    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx")
+                    print(c_pos_val)
+                    print(c_neg_val)
+                    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx")
                     count_pos_val= count_pos_val+ c_pos_val
                     count_neg_val= count_neg_val+ c_neg_val
                     
+                    print(count_pos_val)
+                    print(count_neg_val)
+                    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx")
                     self.exp.log_scalar("loss_val_int_{}".format(ea_itera), loss_val, itera)
 
                     elapsed_time_val = time.time() - start_time_val
