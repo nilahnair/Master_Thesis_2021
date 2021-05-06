@@ -781,15 +781,12 @@ class Network_User(object):
                 
                 act_class=harwindow_batched_val["act_label"] 
                 act_class = act_class.reshape(-1)
-                print("act_class")
-                print(act_class)
-                print(type(act_class))
-             
-                '''
+                             
+                
                 print("pred_index")
                 print(torch.argmax(predictions))
                 print(type(torch.argmax(predictions)))
-                '''
+                
                 
                 if self.config['output'] == 'softmax':
                     pred_index= torch.argmax(predictions)
