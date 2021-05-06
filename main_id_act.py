@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('id_count_attr')
+ex= Experiment('id_count_attr_imu')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -69,7 +69,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     #num_attributes = {'mocap': 11, 'mbientlab': 11, 'motionminers_flw': 11}
     
-    num_tr_inputs = {'mocap': 172561, 'mbientlab': 91399, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
     
     num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
     
@@ -170,7 +170,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'experiment/'
+        folder_exp = folder_base + 'experiment_imu/'
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
@@ -216,7 +216,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
        
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
-                    'mbientlab': '/data/nnair/output/type1/imu/',
+                    'mbientlab': '/data/nnair/trial/imu_all/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
   
     # GPU
@@ -316,7 +316,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=0,
+    config = configuration(dataset_idx=1,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
