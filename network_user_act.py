@@ -778,36 +778,29 @@ class Network_User(object):
                     loss = criterion(predictions, test_batch_l[:, 1:])
                     
                 loss_val = loss_val + loss.item()
-                
+                '''
                 act_class=harwindow_batched_val["act_label"] 
                 act_class = act_class.reshape(-1)
                 act_class = act_class.detach().numpy()
-               
+                '''
+                act_class=harwindow_batched_val["act_label"] 
+                act_class = act_class.reshape(-1)
+                
                 if self.config['output'] == 'softmax':
                     pred_index= predictions.argmax(1)
+                    '''
                     pred_index=pred_index.cpu().numpy()
                     
                     label=test_batch_l.detach().cpu().numpy()
-                    
+                    '''
+                    label=test_batch_l
                     for i,v in enumerate(pred_index):
-                        print(i)
                         if pred_index[i]==label[i]:
-                            print(act_class[i])
-                            print(act_class[i].shape)
-                            for c,z in enumerate(count_pos_val):
-                                print(c)
-                               
-                                print(act_class[i])
-                                print(act_class[i].shape)
+                           for c,z in enumerate(count_pos_val):
                                 if c==act_class[i]:
                                     count_pos_val[c]+=1
                         else:
-                            
                             for c,z in enumerate(count_neg_val):
-                                print(c)
-                                
-                                print(act_class[i])
-                                print(act_class[i].shape)
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
 
