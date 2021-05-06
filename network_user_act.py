@@ -803,6 +803,9 @@ class Network_User(object):
                             for c,z in enumerate(count_neg_val):
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
+                                    
+                print(count_pos_val)
+                print(count_neg_val)
 
                 # Concatenating all of the batches for computing the metrics
                 # As creating an empty tensor and sending to device and then concatenating isnt working
@@ -986,18 +989,7 @@ class Network_User(object):
                         test_labels_batch = harwindow_batched_test["label"]
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
                     
-                '''
-                if self.config['output'] == 'softmax':
-                    pred_index= torch.argmax(predictions)
-                    if pred_index==harwindow_batched_test["label"]:
-                        for i in enumerate(count_pos):
-                            if i==act_class:
-                                count_pos[i]+=1
-                    else:
-                        for i in enumerate(count_neg):
-                            if i==act_class:
-                                count_neg[i]+=1
-                '''
+            
 
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
