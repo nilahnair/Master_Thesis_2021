@@ -782,11 +782,23 @@ class Network_User(object):
                 act_class=harwindow_batched_val["act_label"] 
                 act_class = act_class.reshape(-1)
                 act_class = act_class.detach().numpy()
+                print("act_class")
+                print(act_class)
+                print(type(act_class))
+                print(act_class.shape)
               
                 if self.config['output'] == 'softmax':
                     pred_index= predictions.argmax(1)
                     pred_index=pred_index.cpu().numpy()
+                    print("pred_index")
+                    print(pred_index)
+                    print(type(pred_index))
+                    print(pred_index.shape)
                     label=test_batch_l.detach().cpu().numpy()
+                    print("label")
+                    print(label)
+                    print(type(label))
+                    print(label.shape)
                     for i in enumerate(pred_index):
                         if pred_index[i]==label[i]:
                             for c in enumerate(count_pos_val):
