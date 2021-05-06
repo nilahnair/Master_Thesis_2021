@@ -756,7 +756,14 @@ class Network_User(object):
                         test_batch_l = test_batch_l.reshape(-1)
                     elif self.config["fully_convolutional"] == "FC":
                         test_batch_l = harwindow_batched_val["label"]
-
+                
+                print("harwindow_batched_val")
+                print(harwindow_batched_val["label"])
+                print(type(harwindow_batched_val["label"]))
+                print("test_batch_l")
+                print(test_batch_l)
+                print(type(test_batch_l))
+                
                 # Creating torch tensors
                 # test_batch_v = torch.from_numpy(test_batch_v)
                 test_batch_v = test_batch_v.to(self.device, dtype=torch.float)
@@ -778,6 +785,12 @@ class Network_User(object):
                 loss_val = loss_val + loss.item()
                 
                 act_class=harwindow_batched_val["act_label"]    
+                print("act_class")
+                print(act_class)
+                print(type(act_class))
+                print("pred_index")
+                print(torch.argmax(predictions))
+                print(type(torch.argmax(predictions)))
                 
                 if self.config['output'] == 'softmax':
                     pred_index= torch.argmax(predictions)
