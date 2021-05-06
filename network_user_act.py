@@ -789,7 +789,7 @@ class Network_User(object):
                 
                 
                 if self.config['output'] == 'softmax':
-                    pred_index= torch.argmax(predictions)
+                    pred_index= predictions.argmax(1)
                     if pred_index==test_batch_l:
                         for i in enumerate(count_pos_val):
                             if i==act_class:
@@ -947,7 +947,7 @@ class Network_User(object):
                 
                 act_class=harwindow_batched_test["act_label"]
                 if self.config['output'] == 'softmax':
-                    pred_index= torch.argmax(predictions)
+                    pred_index=predictions.argmax(1)
                     if pred_index==test_batch_l:
                         for i in enumerate(count_pos_test):
                             if i==act_class:
