@@ -784,10 +784,12 @@ class Network_User(object):
                 
                 loss_val = loss_val + loss.item()
                 
-                act_class=harwindow_batched_val["act_label"]    
+                act_class=harwindow_batched_val["act_label"] 
+                '''
                 print("act_class")
                 print(act_class)
                 print(type(act_class))
+                '''
                 '''
                 print("pred_index")
                 print(torch.argmax(predictions))
