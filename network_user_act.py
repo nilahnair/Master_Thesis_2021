@@ -784,8 +784,8 @@ class Network_User(object):
                              
                 
                 print("pred_index")
-                print(torch.argmax(predictions))
-                print(type(torch.argmax(predictions)))
+                print(predictions.argmax(1))
+                print(type(predictions.argmax(1)))
                 
                 
                 if self.config['output'] == 'softmax':
