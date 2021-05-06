@@ -71,7 +71,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     num_tr_inputs = {'mocap': 172561, 'mbientlab': 91399, 'motionminers_flw': 93712}
     
-    num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
+    num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
     
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
