@@ -106,7 +106,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
    # Number of epochs depending of the dataset and network
     epochs = {'mocap': {'cnn': {'softmax': 10, 'attribute': 10},
                         'lstm': {'softmax': 10, 'attribute': 10},
-                        'cnn_imu': {'softmax': 1, 'attribute': 10}},
+                        'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'mbientlab': {'cnn': {'softmax': 10, 'attribute': 10},
                             'lstm': {'softmax': 10, 'attribute': 10},
                             'cnn_imu': {'softmax': 10, 'attribute': 10}},
@@ -266,7 +266,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'batch_size_val': batch_size_val[network[network_idx]][dataset[dataset_idx]],
                      'num_tr_inputs': num_tr_inputs[dataset[dataset_idx]],
                      'num_classes': num_classes[dataset[dataset_idx]],
-                     'label_pos': label_pos[2],
+                     'label_pos': label_pos[1],
                      'file_suffix': 'results_yy{}mm{}dd{:02d}hh{:02d}mm{:02d}.xml'.format(now.year,
                                                                                           now.month,
                                                                                           now.day,

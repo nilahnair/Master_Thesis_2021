@@ -533,9 +533,6 @@ class Network_User(object):
                     del train_batch_v, noise
                     results_val, loss_val, c_pos_val, c_neg_val = self.validate(network_obj, criterion)
                  
-                    print(c_pos_val)
-                    print(c_neg_val)
-                    
                     self.exp.log_scalar("loss_val_int_{}".format(ea_itera), loss_val, itera)
 
                     elapsed_time_val = time.time() - start_time_val
@@ -577,10 +574,6 @@ class Network_User(object):
                     count_pos_val=count_pos_val.tolist()
                     count_neg_val=count_neg_val.tolist()
                     
-                    print(count_pos_val)
-                    print(count_neg_val)
-                
-
                     # print statistics
                     logging.info('\n')
                     logging.info(
@@ -816,10 +809,7 @@ class Network_User(object):
                             for c,z in enumerate(count_neg_val):
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
-                                    
-                print(count_pos_val)
-                print(count_neg_val)
-
+               
                 # Concatenating all of the batches for computing the metrics
                 # As creating an empty tensor and sending to device and then concatenating isnt working
                 if v == 0:
