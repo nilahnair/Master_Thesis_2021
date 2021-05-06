@@ -786,7 +786,7 @@ class Network_User(object):
                 if self.config['output'] == 'softmax':
                     pred_index= predictions.argmax(1)
                     pred_index=pred_index.cpu().numpy()
-                    label=test_batch_l.detach().numpy()
+                    label=test_batch_l.detach().cpu().numpy()
                     for i in enumerate(pred_index):
                         if pred_index[i]==label[i]:
                             for c in enumerate(count_pos_val):
