@@ -802,7 +802,12 @@ class Network_User(object):
                                 if c==act_class[i]:
                                     count_pos_val[c]+=1
                         else:
-                            for c in enumerate(count_neg_val):
+                            
+                            for c,z in enumerate(count_neg_val):
+                                print(c)
+                                print(c.shape)
+                                print(act_class[i])
+                                print(act_class[i].shape)
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
 
