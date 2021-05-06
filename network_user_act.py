@@ -800,6 +800,7 @@ class Network_User(object):
                     print(type(label))
                     print(label.shape)
                     for i in enumerate(pred_index):
+                        print(i)
                         if pred_index[i]==label[i]:
                             for c in enumerate(count_pos_val):
                                 if c==act_class[i]:
