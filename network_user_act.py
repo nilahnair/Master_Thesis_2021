@@ -781,7 +781,7 @@ class Network_User(object):
                 
                 act_class=harwindow_batched_val["act_label"] 
                 act_class = act_class.reshape(-1)
-                act_class = act_class.detach().np()
+                act_class = act_class.detach().numpy()
                              
                 
                 print("pred_index")
@@ -791,8 +791,8 @@ class Network_User(object):
                 
                 if self.config['output'] == 'softmax':
                     pred_index= predictions.argmax(1)
-                    pred_index=pred_index.np()
-                    label=test_batch_l.detach().np()
+                    pred_index=pred_index.numpy()
+                    label=test_batch_l.detach().numpy()
                     for i in enumerate(pred_index):
                         if pred_index[i]==label[i]:
                             for c in enumerate(count_pos_val):
