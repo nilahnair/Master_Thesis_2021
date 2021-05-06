@@ -757,13 +757,7 @@ class Network_User(object):
                     elif self.config["fully_convolutional"] == "FC":
                         test_batch_l = harwindow_batched_val["label"]
                 
-                print("harwindow_batched_val")
-                print(harwindow_batched_val["label"])
-                print(type(harwindow_batched_val["label"]))
-                print("test_batch_l")
-                print(test_batch_l)
-                print(type(test_batch_l))
-                
+                            
                 # Creating torch tensors
                 # test_batch_v = torch.from_numpy(test_batch_v)
                 test_batch_v = test_batch_v.to(self.device, dtype=torch.float)
@@ -774,6 +768,14 @@ class Network_User(object):
                     # labels for binerycrossentropy needs float type
                     test_batch_l = test_batch_l.to(self.device, dtype=torch.float)
                     # labels for crossentropy needs long type
+                '''    
+                print("harwindow_batched_val")
+                print(harwindow_batched_val["label"])
+                print(type(harwindow_batched_val["label"]))
+                '''
+                print("test_batch_l")
+                print(test_batch_l)
+                print(type(test_batch_l))
 
                 # forward
                 predictions = network_obj(test_batch_v)
