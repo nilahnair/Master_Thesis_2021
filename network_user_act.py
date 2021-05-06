@@ -803,6 +803,10 @@ class Network_User(object):
                         print(i)
                         if pred_index[i]==label[i]:
                             for c in enumerate(count_pos_val):
+                                print(c)
+                                print(c.shape)
+                                print(act_class[i])
+                                print(act_class[i].shape)
                                 if c==act_class[i]:
                                     count_pos_val[c]+=1
                         else:
