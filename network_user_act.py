@@ -949,17 +949,21 @@ class Network_User(object):
 
                 # Summing the loss
                 loss_test = loss_test + loss.item()
+          
+                act_class=harwindow_batched_test["act_label"] 
+                act_class = act_class.reshape(-1)
                 
-                act_class=harwindow_batched_test["act_label"]
                 if self.config['output'] == 'softmax':
-                    pred_index=predictions.argmax(1)
-                    for i in enumerate(pred_index):
-                        if pred_index[i]==test_batch_l[i]:
-                            for c in enumerate(count_pos_test):
+                    pred_index= predictions.argmax(1)
+                    
+                    label=test_batch_l
+                    for i,x in enumerate(pred_index):
+                        if pred_index[i]==label[i]:
+                           for c,z in enumerate(count_pos_test):
                                 if c==act_class[i]:
                                     count_pos_test[c]+=1
                         else:
-                            for c in enumerate(count_neg_test):
+                            for c,z in enumerate(count_neg_test):
                                 if c==act_class[i]:
                                     count_neg_test[c]+=1
 
