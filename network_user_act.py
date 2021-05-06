@@ -790,14 +790,15 @@ class Network_User(object):
                 
                 if self.config['output'] == 'softmax':
                     pred_index= predictions.argmax(1)
-                    if pred_index==test_batch_l:
-                        for i in enumerate(count_pos_val):
-                            if i==act_class:
-                                count_pos_val[i]+=1
-                    else:
-                        for i in enumerate(count_neg_val):
-                            if i==act_class:
-                                count_neg_val[i]+=1
+                    for i in enumerate(pred_index):
+                        if pred_index[i]==test_batch_l[i]:
+                            for c in enumerate(count_pos_val):
+                                if c==act_class[i]:
+                                    count_pos_val[c]+=1
+                        else:
+                            for c in enumerate(count_neg_val):
+                                if c==act_class[i]:
+                                    count_neg_val[c]+=1
 
                 # Concatenating all of the batches for computing the metrics
                 # As creating an empty tensor and sending to device and then concatenating isnt working
@@ -948,14 +949,15 @@ class Network_User(object):
                 act_class=harwindow_batched_test["act_label"]
                 if self.config['output'] == 'softmax':
                     pred_index=predictions.argmax(1)
-                    if pred_index==test_batch_l:
-                        for i in enumerate(count_pos_test):
-                            if i==act_class:
-                                count_pos_test[i]+=1
-                    else:
-                        for i in enumerate(count_neg_test):
-                            if i==act_class:
-                                count_neg_test[i]+=1
+                    for i in enumerate(pred_index):
+                        if pred_index[i]==test_batch_l[i]:
+                            for c in enumerate(count_pos_test):
+                                if c==act_class[i]:
+                                    count_pos_test[c]+=1
+                        else:
+                            for c in enumerate(count_neg_test):
+                                if c==act_class[i]:
+                                    count_neg_test[c]+=1
 
                 # Concatenating all of the batches for computing the metrics for the entire testing set
                 # and not only for a batch
