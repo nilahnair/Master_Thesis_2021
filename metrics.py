@@ -298,7 +298,7 @@ class Metrics(object):
         targets = targets.type(dtype=torch.FloatTensor)
         targets = targets.to(self.device)
         # if softmax = argmax(predictions)
-        # if sigmoid = argmin(predictions) why? because predcitions are in this case distances
+        #if sigmoid = argmin(predictions) why? because predcitions are in this case distances
         #
         # with self.acc_metric, one computes the classes either from softmax os attributes
         acc, predicted_classes = self.acc_metric(targets, predictions)
