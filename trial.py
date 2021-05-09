@@ -18,15 +18,15 @@ from torch.utils.data import DataLoader
 from HARWindows import HARWindows
 
 path="/home/nnair/Master_Thesis_2021/id_attr_one.txt"
-att_rep = np.loadtxt(path, delimiter=',', skiprows=1)
+att_rep = np.loadtxt(path, delimiter=',')
 print(att_rep)
 print(att_rep.shape)
-for i in range(att_rep.shape[0]):
+for i in range(0,att_rep.shape[0]):
     print(att_rep[i,1:])
     a= att_rep[i,1:]
     
   
-sample=[1, 3, 5, 2, 4, 7, 6, 1, 2, 5, 2, 7, 5]   
+sample=[1, 3, 0, 2, 4, 7, 6, 1, 2, 5, 2, 7, 5, 0, 3, 0, 4]   
 sample=np.asarray(sample)
 train_batch_l=np.zeros((sample.shape[0],att_rep.shape[1]-1)) 
 for i in range(sample.shape[0]):
