@@ -30,8 +30,8 @@ sample=[1, 3, 0, 2, 4, 7, 6, 1, 2, 5, 2, 7, 5, 0, 3, 0, 4]
 sample=np.asarray(sample)
 train_batch_l=np.zeros((sample.shape[0],att_rep.shape[1]-1)) 
 for i in range(sample.shape[0]):
-    if sample[i]==att_rep[i,0]:
-        train_batch_l[i]= att_rep[i,1:]
+    if sample[i]==att_rep[sample[i],0]:
+        train_batch_l[i]= att_rep[sample[i],1:]
     
 print(train_batch_l)
  
