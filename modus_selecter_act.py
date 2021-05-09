@@ -196,23 +196,71 @@ class Modus_Selecter(object):
             self.exp.log_scalar("f1_w_test_mo_{}".format(iter_evl),results_test['f1_weighted'])
             self.exp.log_scalar("f1_m_test_mo_{}".format(iter_evl),results_test['f1_mean'])
             
-            self.exp.log_scalar("standing_class_pos_test{}".format(iter_evl), count_pos_test[0]/(count_pos_test[0]+count_neg_test[0]))
-            self.exp.log_scalar("walking_class_pos_test{}".format(iter_evl), count_pos_test[1]/(count_pos_test[1]+count_neg_test[1]))
-            self.exp.log_scalar("cart_class_pos_test{}".format(iter_evl), count_pos_test[2]/(count_pos_test[2]+count_neg_test[2]))
-            self.exp.log_scalar("handling_up_class_pos_test{}".format(iter_evl), count_pos_test[3]/(count_pos_test[3]+count_neg_test[3]))
-            self.exp.log_scalar("handling_cen_class_pos_test{}".format(iter_evl), count_pos_test[4]/(count_pos_test[4]+count_neg_test[4]))
-            self.exp.log_scalar("handling_down_class_pos_test{}".format(iter_evl), count_pos_test[5]/(count_pos_test[5]+count_neg_test[5]))
-            self.exp.log_scalar("synch_class_pos_test{}".format(iter_evl), count_pos_test[6]/(count_pos_test[6]+count_neg_test[6]))
-            self.exp.log_scalar("none_class_pos_test{}".format(iter_evl), count_pos_test[7]/(count_pos_test[7]+count_neg_test[7]))
+            if count_pos_test[0] == 0:
+                self.exp.log_scalar("standing_pos_test{}".format(iter_evl), count_pos_test[0])
+            else:
+                self.exp.log_scalar("standing_pos_test{}".format(iter_evl), count_pos_test[0]/(count_pos_test[0]+count_neg_test[0]))
+            if count_pos_test[1] == 0:
+                self.exp.log_scalar("walking_pos_test{}".format(iter_evl), count_pos_test[1])
+            else:
+                self.exp.log_scalar("walking_pos_test{}".format(iter_evl), count_pos_test[1]/(count_pos_test[1]+count_neg_test[1]))
+            if count_pos_test[2] == 0:
+                self.exp.log_scalar("cart_pos_test{}".format(iter_evl), count_pos_test[2])
+            else:
+                self.exp.log_scalar("cart_pos_test{}".format(iter_evl), count_pos_test[2]/(count_pos_test[2]+count_neg_test[2]))
+            if count_pos_test[3] == 0:
+                self.exp.log_scalar("handling_up_pos_test{}".format(iter_evl), count_pos_test[3])
+            else:
+                self.exp.log_scalar("handling_up_pos_test{}".format(iter_evl), count_pos_test[3]/(count_pos_test[3]+count_neg_test[3]))
+            if count_pos_test[4] == 0:
+                self.exp.log_scalar("handling_cen_pos_test{}".format(iter_evl), count_pos_test[4])
+            else:
+                self.exp.log_scalar("handling_cen_pos_test{}".format(iter_evl), count_pos_test[4]/(count_pos_test[4]+count_neg_test[4]))
+            if count_pos_test[5] == 0:
+                self.exp.log_scalar("handling_down_pos_test{}".format(iter_evl), count_pos_test[5])
+            else:
+                self.exp.log_scalar("handling_down_pos_test{}".format(iter_evl), count_pos_test[5]/(count_pos_test[5]+count_neg_test[5]))
+            if count_pos_test[6] == 0:
+                self.exp.log_scalar("synch_pos_test{}".format(iter_evl), count_pos_test[6])
+            else:
+                self.exp.log_scalar("synch_pos_test{}".format(iter_evl), count_pos_test[6]/(count_pos_test[6]+count_neg_test[6]))
+            if count_pos_test[7] == 0:
+                self.exp.log_scalar("none_pos_test{}".format(iter_evl), count_pos_test[7])
+            else:
+                self.exp.log_scalar("none_pos_test{}".format(iter_evl), count_pos_test[7]/(count_pos_test[7]+count_neg_test[7]))
             
-            self.exp.log_scalar("standing_class_neg_test{}".format(iter_evl), count_neg_test[0]/(count_pos_test[0]+count_neg_test[0]))
-            self.exp.log_scalar("walking_class_neg_test{}".format(iter_evl), count_neg_test[1]/(count_pos_test[1]+count_neg_test[1]))
-            self.exp.log_scalar("cart_class_neg_test{}".format(iter_evl), count_neg_test[2]/(count_pos_test[2]+count_neg_test[2]))
-            self.exp.log_scalar("handling_up_class_neg_test{}".format(iter_evl), count_neg_test[3]/(count_pos_test[3]+count_neg_test[3]))
-            self.exp.log_scalar("handling_cen_class_neg_test{}".format(iter_evl), count_neg_test[4]/(count_pos_test[4]+count_neg_test[4]))
-            self.exp.log_scalar("handling_down_class_neg_test{}".format(iter_evl), count_neg_test[5]/(count_pos_test[5]+count_neg_test[5]))
-            self.exp.log_scalar("synch_class_neg_test{}".format(iter_evl), count_neg_test[6]/(count_pos_test[6]+count_neg_test[6]))
-            self.exp.log_scalar("none_class_neg_test{}".format(iter_evl), count_neg_test[7]/(count_pos_test[7]+count_neg_test[7]))
+            if count_neg_test[0] == 0:
+                self.exp.log_scalar("standing_neg_test{}".format(iter_evl), count_neg_test[0])
+            else:
+                self.exp.log_scalar("standing_neg_test{}".format(iter_evl), count_neg_test[0]/(count_pos_test[0]+count_neg_test[0]))
+            if count_neg_test[1] == 0:
+                self.exp.log_scalar("walking_neg_test{}".format(iter_evl), count_neg_test[1])
+            else:
+                self.exp.log_scalar("walking_neg_test{}".format(iter_evl), count_neg_test[1]/(count_pos_test[1]+count_neg_test[1]))
+            if count_neg_test[2] == 0:
+                self.exp.log_scalar("cart_pos_test{}".format(iter_evl), count_neg_test[2])
+            else:
+                self.exp.log_scalar("cart_neg_test{}".format(iter_evl), count_neg_test[2]/(count_pos_test[2]+count_neg_test[2]))
+            if count_neg_test[3] == 0:
+                self.exp.log_scalar("handling_up_neg_test{}".format(iter_evl), count_neg_test[3])
+            else:
+                self.exp.log_scalar("handling_up_neg_test{}".format(iter_evl), count_neg_test[3]/(count_pos_test[3]+count_neg_test[3]))
+            if count_neg_test[4] == 0:
+                self.exp.log_scalar("shandling_cen_neg_test{}".format(iter_evl), count_neg_test[4])
+            else:
+                self.exp.log_scalar("handling_cen_neg_test{}".format(iter_evl), count_neg_test[4]/(count_pos_test[4]+count_neg_test[4]))
+            if count_neg_test[5] == 0:
+                self.exp.log_scalar("handling_down_neg_test{}".format(iter_evl), count_neg_test[5])
+            else:
+                self.exp.log_scalar("handling_down_neg_test{}".format(iter_evl), count_neg_test[5]/(count_pos_test[5]+count_neg_test[5]))
+            if count_neg_test[6] == 0:
+                self.exp.log_scalar("synch_neg_test{}".format(iter_evl), count_neg_test[6])
+            else:
+                self.exp.log_scalar("synch_neg_test{}".format(iter_evl), count_neg_test[6]/(count_pos_test[6]+count_neg_test[6]))
+            if count_neg_test[7] == 0:
+                self.exp.log_scalar("none_neg_test{}".format(iter_evl), count_neg_test[7])
+            else:
+                self.exp.log_scalar("none_neg_test{}".format(iter_evl), count_neg_test[7]/(count_pos_test[7]+count_neg_test[7]))
             
 
         if self.config["usage_modus"] == "train":

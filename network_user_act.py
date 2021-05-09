@@ -547,23 +547,71 @@ class Network_User(object):
                     self.exp.log_scalar("f1_w_val_int_{}".format(ea_itera),results_val['f1_weighted'], itera)
                     self.exp.log_scalar("f1_m_val_int_{}".format(ea_itera), results_val['f1_mean'], itera)
                     
-                    self.exp.log_scalar("standing_class_pos_val_{}".format(ea_itera), c_pos_val[0]/(c_pos_val[0]+c_neg_val[0]), itera)
-                    self.exp.log_scalar("walking_class_pos_val_{}".format(ea_itera), c_pos_val[1]/(c_pos_val[1]+c_neg_val[1]), itera)
-                    self.exp.log_scalar("cart_class_pos_val_{}".format(ea_itera), c_pos_val[2]/(c_pos_val[2]+c_neg_val[2]), itera)
-                    self.exp.log_scalar("handling_up_class_pos_val_{}".format(ea_itera), c_pos_val[3]/(c_pos_val[3]+c_neg_val[3]), itera)
-                    self.exp.log_scalar("handling_cen_class_pos_val_{}".format(ea_itera), c_pos_val[4]/(c_pos_val[4]+c_neg_val[4]), itera)
-                    self.exp.log_scalar("handling_down_class_pos_val_{}".format(ea_itera), c_pos_val[5]/(c_pos_val[5]+c_neg_val[5]), itera)
-                    self.exp.log_scalar("synch_class_pos_val_{}".format(ea_itera), c_pos_val[6]/(c_pos_val[6]+c_neg_val[6]), itera)
-                    self.exp.log_scalar("none_class_pos_val_{}".format(ea_itera), c_pos_val[7]/(c_pos_val[7]+c_neg_val[7]), itera)
+                    if c_pos_val[0] == 0:
+                        self.exp.log_scalar("standing_pos_val_{}".format(ea_itera), c_pos_val[0], itera)
+                    else:
+                        self.exp.log_scalar("standing_pos_val_{}".format(ea_itera), c_pos_val[0]/(c_pos_val[0]+c_neg_val[0]), itera)
+                    if c_pos_val[1] == 0:
+                        self.exp.log_scalar("walking_pos_val_{}".format(ea_itera), c_pos_val[1], itera)
+                    else:
+                        self.exp.log_scalar("walking_pos_val_{}".format(ea_itera), c_pos_val[1]/(c_pos_val[1]+c_neg_val[1]), itera)
+                    if c_pos_val[2] == 0:
+                        self.exp.log_scalar("cart_pos_val_{}".format(ea_itera), c_pos_val[2], itera)
+                    else:
+                        self.exp.log_scalar("cart_pos_val_{}".format(ea_itera), c_pos_val[2]/(c_pos_val[2]+c_neg_val[2]), itera)
+                    if c_pos_val[3] == 0:
+                        self.exp.log_scalar("handling_up_pos_val_{}".format(ea_itera), c_pos_val[3], itera)
+                    else:
+                        self.exp.log_scalar("handling_up_pos_val_{}".format(ea_itera), c_pos_val[3]/(c_pos_val[3]+c_neg_val[3]), itera)
+                    if c_pos_val[4] == 0:
+                        self.exp.log_scalar("handling_cen_pos_val_{}".format(ea_itera), c_pos_val[4], itera)
+                    else:
+                        self.exp.log_scalar("handling_cen_pos_val_{}".format(ea_itera), c_pos_val[4]/(c_pos_val[4]+c_neg_val[4]), itera)
+                    if c_pos_val[5] == 0:
+                        self.exp.log_scalar("handling_down_pos_val_{}".format(ea_itera), c_pos_val[5], itera)
+                    else:
+                        self.exp.log_scalar("handling_down_pos_val_{}".format(ea_itera), c_pos_val[5]/(c_pos_val[5]+c_neg_val[5]), itera)
+                    if c_pos_val[6] == 0:
+                        self.exp.log_scalar("synch_pos_val_{}".format(ea_itera), c_pos_val[6], itera)
+                    else:
+                        self.exp.log_scalar("synch_pos_val_{}".format(ea_itera), c_pos_val[6]/(c_pos_val[6]+c_neg_val[6]), itera)
+                    if c_pos_val[7] == 0:
+                        self.exp.log_scalar("none_pos_val_{}".format(ea_itera), c_pos_val[7], itera)
+                    else:
+                        self.exp.log_scalar("none_pos_val_{}".format(ea_itera), c_pos_val[7]/(c_pos_val[7]+c_neg_val[7]), itera)
                     
-                    self.exp.log_scalar("standing_class_neg_val_{}".format(ea_itera), c_neg_val[0]/(c_pos_val[0]+c_neg_val[0]), itera)
-                    self.exp.log_scalar("walking_class_neg_val_{}".format(ea_itera), c_neg_val[1]/(c_pos_val[1]+c_neg_val[1]), itera)
-                    self.exp.log_scalar("cart_class_neg_val_{}".format(ea_itera), c_neg_val[2]/(c_pos_val[2]+c_neg_val[2]), itera)
-                    self.exp.log_scalar("handling_up_class_neg_val_{}".format(ea_itera), c_neg_val[3]/(c_pos_val[3]+c_neg_val[3]), itera)
-                    self.exp.log_scalar("handling_cen_class_neg_val_{}".format(ea_itera), c_neg_val[4]/(c_pos_val[4]+c_neg_val[4]), itera)
-                    self.exp.log_scalar("handling_down_class_neg_val_{}".format(ea_itera), c_neg_val[5]/(c_pos_val[5]+c_neg_val[5]), itera)
-                    self.exp.log_scalar("synch_class_neg_val_{}".format(ea_itera), c_neg_val[6]/(c_pos_val[6]+c_neg_val[6]), itera)
-                    self.exp.log_scalar("none_class_neg_val_{}".format(ea_itera), c_neg_val[7]/(c_pos_val[7]+c_neg_val[7]), itera)
+                    if c_neg_val[0] == 0:
+                        self.exp.log_scalar("standing_neg_val_{}".format(ea_itera), c_neg_val[0], itera)
+                    else:
+                        self.exp.log_scalar("standing_neg_val_{}".format(ea_itera), c_neg_val[0]/(c_pos_val[0]+c_neg_val[0]), itera)
+                    if c_neg_val[1] == 0:
+                        self.exp.log_scalar("walking_neg_val_{}".format(ea_itera), c_neg_val[1], itera)
+                    else:
+                        self.exp.log_scalar("walking_neg_val_{}".format(ea_itera), c_neg_val[1]/(c_pos_val[1]+c_neg_val[1]), itera)
+                    if c_neg_val[2] == 0:
+                        self.exp.log_scalar("cart_neg_val_{}".format(ea_itera), c_neg_val[2], itera)
+                    else:
+                        self.exp.log_scalar("cart_neg_val_{}".format(ea_itera), c_neg_val[2]/(c_pos_val[2]+c_neg_val[2]), itera)
+                    if c_neg_val[3] == 0:
+                        self.exp.log_scalar("handling_up_neg_val_{}".format(ea_itera), c_neg_val[3], itera)
+                    else:
+                        self.exp.log_scalar("handling_up_neg_val_{}".format(ea_itera), c_neg_val[3]/(c_pos_val[3]+c_neg_val[3]), itera)
+                    if c_neg_val[4] == 0:
+                        self.exp.log_scalar("handling_cen_neg_val_{}".format(ea_itera), c_neg_val[4], itera)
+                    else:
+                        self.exp.log_scalar("handling_cen_neg_val_{}".format(ea_itera), c_neg_val[4]/(c_pos_val[4]+c_neg_val[4]), itera)
+                    if c_neg_val[5] == 0:
+                        self.exp.log_scalar("handling_down_neg_val_{}".format(ea_itera), c_neg_val[5], itera)
+                    else:
+                        self.exp.log_scalar("handling_down_neg_val_{}".format(ea_itera), c_neg_val[5]/(c_pos_val[5]+c_neg_val[5]), itera)
+                    if c_neg_val[6] == 0:
+                        self.exp.log_scalar("synch_neg_val_{}".format(ea_itera), c_neg_val[6], itera)
+                    else:
+                        self.exp.log_scalar("synch_neg_val_{}".format(ea_itera), c_neg_val[6]/(c_pos_val[6]+c_neg_val[6]), itera)
+                    if c_neg_val[7] == 0:
+                        self.exp.log_scalar("none_neg_val_{}".format(ea_itera), c_neg_val[7], itera)
+                    else:
+                        self.exp.log_scalar("none_neg_val_{}".format(ea_itera), c_neg_val[7]/(c_pos_val[7]+c_neg_val[7]), itera)
                     
                     count_pos_val=np.array(count_pos_val)
                     count_neg_val=np.array(count_neg_val)
