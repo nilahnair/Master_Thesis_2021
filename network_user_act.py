@@ -459,7 +459,11 @@ class Network_User(object):
                     if self.config["fully_convolutional"] == "FCN":
                         train_batch_l = harwindow_batched["labels"][:, :, 1:]
                     elif self.config["fully_convolutional"] == "FC":
-                        train_batch_l = harwindow_batched["label"]
+                        sample = harwindow_batched["label"]
+                        sample = sample.reshape(-1)
+                        for i in range(0,sample.shape[0]):
+                            if sample[i]==self.attrs[i,0]:
+                                train_batch_l[i]= self.attrs[i,1:]
                         
                 '''
                 if self.config['output'] == 'softmax':

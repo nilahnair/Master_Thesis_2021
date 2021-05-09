@@ -21,6 +21,19 @@ path="/home/nnair/Master_Thesis_2021/id_attr_one.txt"
 att_rep = np.loadtxt(path, delimiter=',', skiprows=1)
 print(att_rep)
 print(att_rep.shape)
+for i in range(att_rep.shape[0]):
+    print(att_rep[i,1:])
+    a= att_rep[i,1:]
+    
+  
+sample=[1, 3, 5, 2, 4, 7, 6, 1, 2, 5, 2, 7, 5]   
+train_batch_l=np.zeros((sample.shape[0],att_rep.shape[1]-1)) 
+for i in range(sample.shape[0]):
+    if sample[i]==att_rep[i,0]:
+        train_batch_l[i]= att_rep[i,1:]
+    
+
+ 
 
 
 '''
