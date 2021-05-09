@@ -27,6 +27,7 @@ for i in range(att_rep.shape[0]):
     
   
 sample=[1, 3, 5, 2, 4, 7, 6, 1, 2, 5, 2, 7, 5]   
+sample=np.asarray(sample)
 train_batch_l=np.zeros((sample.shape[0],att_rep.shape[1]-1)) 
 for i in range(sample.shape[0]):
     if sample[i]==att_rep[i,0]:
