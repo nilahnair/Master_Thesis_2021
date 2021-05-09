@@ -467,7 +467,7 @@ class Network_User(object):
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
                                 train_batch_l[i]= self.attrs[sample[i],1:]
-        
+                        train_batch_l=list(train_batch_l)
                 '''
                 if self.config['output'] == 'softmax':
                     if self.config["fully_convolutional"] == "FCN":
