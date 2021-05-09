@@ -32,7 +32,7 @@ for i in range(sample.shape[0]):
     if sample[i]==att_rep[i,0]:
         train_batch_l[i]= att_rep[i,1:]
     
-
+print(train_batch_l)
  
 
 
