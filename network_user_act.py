@@ -409,7 +409,9 @@ class Network_User(object):
         best_acc_val = 0
 
         # initialising object for computing metrics
-        #metrics_obj = Metrics(self.config, self.device, self.attrs)
+        if  self.config['output'] == 'attribute':
+            metrics_obj = Metrics(self.config, self.device, self.attrs)
+        
         metrics_obj = Metrics(self.config, self.device)
 
         itera = 0
@@ -458,6 +460,7 @@ class Network_User(object):
                         train_batch_l = harwindow_batched["labels"][:, :, 1:]
                     elif self.config["fully_convolutional"] == "FC":
                         train_batch_l = harwindow_batched["label"]
+                        
                 '''
                 if self.config['output'] == 'softmax':
                     if self.config["fully_convolutional"] == "FCN":

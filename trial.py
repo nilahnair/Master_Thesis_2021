@@ -16,12 +16,21 @@ from sliding_window import sliding_window
 import pickle
 from torch.utils.data import DataLoader
 from HARWindows import HARWindows
+
+path="/home/nnair/Master_Thesis_2021/id_attr_one.txt"
+att_rep = np.loadtxt(path, delimiter=',', skiprows=1)
+print(att_rep)
+print(att_rep.shape)
+
+
+'''
 ws=5
 ss=1
 data_y = np.ones( (30,20) , dtype=np.int64)
 print(data_y)
 data_y=data_y[1]
 print(data_y)
+'''
 '''
 root='/data/nnair/output/type1/mocap/'
 root1='/data/nnair/output/type1/mocap/train.csv'
