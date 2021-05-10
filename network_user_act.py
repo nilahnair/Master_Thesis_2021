@@ -413,7 +413,7 @@ class Network_User(object):
 
         best_acc_val = 0
         
-        print(self.attrs)
+        
         # initialising object for computing metrics
         if self.config['output'] == 'softmax':
             metrics_obj = Metrics(self.config, self.device)
