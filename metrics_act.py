@@ -318,11 +318,7 @@ class Metrics(object):
             predictions[pred_idx, :] = predictions[pred_idx,:] / torch.norm(predictions[pred_idx, :])
         
         predictions = predictions.repeat(self.attr.shape[0], 1, 1)
-        print("check1")
-        print(predictions.shape)
-        predictions = predictions.permute(1, 0, 2)
-        print("check2")
-        print(predictions.shape)
+        
         # compute the distance among the predictions of the network
         # and the the attribute representation
         distances = euclidean(predictions[0], self.atts[:, 1:])
