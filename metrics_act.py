@@ -319,6 +319,8 @@ class Metrics(object):
         
         predictions = predictions.repeat(self.attr.shape[0], 1, 1)
         
+        predictions = predictions.permute(1, 0, 2)
+        
         # compute the distance among the predictions of the network
         # and the the attribute representation
         distances = euclidean(predictions[0], self.atts[:, 1:])
