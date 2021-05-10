@@ -467,12 +467,13 @@ class Network_User(object):
                         sample = harwindow_batched["label"]
                         sample = sample.reshape(-1)
                         train_batch_l=np.zeros([sample.shape[0],self.config['num_attributes']+1])
-                        print(train_batch_l.shape)
-                        print(train_batch_l)
+                        
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
-                                print(self.attrs[sample[i],:])
-                                train_batch_l[i,:]= self.attrs[sample[i],:]
+                                print(sample[i])
+                                print(self.attrs[sample[i],0])
+                                print(self.attrs[sample[i]])
+                                train_batch_l[i]= self.attrs[sample[i]]
                 print("check1")
                 print(train_batch_l)
                        
