@@ -897,11 +897,8 @@ class Network_User(object):
                       pred[i]= (predictions[i]>0.5).float()
                     
                     label=test_batch_l[:,1:]
-                    print("pred.shape[0]")
-                    print(pred.shape[0])
                     for i,k in enumerate([pred.shape[0]]):
-                        print(i)
-                        print(k)
+                        
                         print("pred")
                         print(pred[i])
                         print(type(pred[i]))
@@ -936,6 +933,9 @@ class Network_User(object):
                             if sample[i]==self.attrs[sample[i],0]:
                                 n=sample[i].item()
                                 test_labels[i]= self.attrs[n]
+                        
+                        test_labels=torch.from_numpy(test_labels)
+                        test_labels= test_labels.to(self.device, dtype=torch.float)
                 else:
                     predictions_val = torch.cat((predictions_val, predictions), dim=0)
                     if self.config['output'] == 'softmax':
@@ -950,6 +950,9 @@ class Network_User(object):
                             if sample[i]==self.attrs[sample[i],0]:
                                 n=sample[i].item()
                                 test_labels_batch[i]= self.attrs[n]
+                        
+                        test_labels_batch=torch.from_numpy(test_labels_batch)
+                        test_labels_batch = test_labels_batch.to(self.device, dtype=torch.float)
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
                     
                 
