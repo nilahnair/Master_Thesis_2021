@@ -77,7 +77,7 @@ class Network_User(object):
         '''
 
         att_rep = np.loadtxt(path, delimiter=',')
-        att_rep= torch.from_numpy(att_rep)
+        #att_rep= torch.from_numpy(att_rep)
         return att_rep
 
 
@@ -469,6 +469,8 @@ class Network_User(object):
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
                                 train_batch_l[i]= self.attrs[sample[i],:]
+                print("check1")
+                print(train_batch_l)
                        
                 '''
                 if self.config['output'] == 'softmax':
@@ -496,13 +498,17 @@ class Network_User(object):
                     train_batch_l = train_batch_l.to(self.device, dtype=torch.long) #labels for crossentropy needs long type
                 elif self.config['output'] == 'attribute':
                     train_batch_l=torch.from_numpy(train_batch_l)
+                    print("check2")
+                    print(train_batch_l)
                     train_batch_l=train_batch_l.to(self.device, dtype=torch.float) #labels for binerycrossentropy needs float type
-
+                
+                print("check3")
+                print(train_batch_l)
                 # forward + backward + optimize
                 
                 feature_maps = network_obj(train_batch_v)
+                print("featuremap")
                 print(feature_maps)
-                print(train_batch_l)
                 if self.config["fully_convolutional"] == "FCN":
                     feature_maps = feature_maps.reshape(-1, feature_maps.size()[2])
                 if self.config['output'] == 'softmax':
