@@ -412,12 +412,14 @@ class Network_User(object):
         count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0]
 
         best_acc_val = 0
-
+        
+        print(self.attrs)
         # initialising object for computing metrics
         if self.config['output'] == 'softmax':
             metrics_obj = Metrics(self.config, self.device)
         if self.config['output'] == 'attribute': 
             metrics_obj = Metrics(self.config, self.device, self.attrs)
+            print(self.attrs)
 
         itera = 0
         start_time_train = time.time()
@@ -453,7 +455,7 @@ class Network_User(object):
                 
                 #Selecting batch
                 train_batch_v = harwindow_batched["data"]
-                print(self.attrs)
+                
                 if self.config['output'] == 'softmax':
                     if self.config["fully_convolutional"] == "FCN":
                         train_batch_l = harwindow_batched["labels"][:, :, 0]
@@ -472,8 +474,7 @@ class Network_User(object):
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
                                 n=sample[i].item()
-                                print(n)
-                                print(type(n))
+                                
                                 print(self.attrs[n])
                                 train_batch_l[i]= self.attrs[n]
                 print("check1")
@@ -505,12 +506,15 @@ class Network_User(object):
                     train_batch_l = train_batch_l.to(self.device, dtype=torch.long) #labels for crossentropy needs long type
                 elif self.config['output'] == 'attribute':
                     train_batch_l=torch.from_numpy(train_batch_l)
+                    '''
                     print("check2")
                     print(train_batch_l)
+                    '''
                     train_batch_l=train_batch_l.to(self.device, dtype=torch.float) #labels for binerycrossentropy needs float type
-                
+                '''
                 print("check3")
                 print(train_batch_l)
+                '''
                 # forward + backward + optimize
                 
                 feature_maps = network_obj(train_batch_v)

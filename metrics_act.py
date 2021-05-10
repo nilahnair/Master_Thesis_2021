@@ -30,7 +30,9 @@ class Metrics(object):
 
         #self.atts = torch.from_numpy(self.attr).type(dtype=torch.FloatTensor)
         self.atts = torch.from_numpy(self.attr)
+        print(self.atts)
         self.atts = self.atts.type(dtype=torch.cuda.FloatTensor)
+        print(print(self.attrs))
         self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0,
                         'recall': 0}
 
