@@ -99,7 +99,8 @@ class Metrics(object):
         '''
         precision = torch.zeros((self.config['num_attributes']))
         recall = torch.zeros((self.config['num_attributes']))
-
+        print("precision shape")
+        print( precision.shape)
         x = torch.ones(predictions.size()[0])
         y = torch.zeros(predictions.size()[0])
         x = x.to(self.device, dtype=torch.long)
@@ -242,9 +243,11 @@ class Metrics(object):
         
         # Accuracy per attr
         acc_attrs = np.zeros(self.config["num_attributes"])
+        print(acc_attrs)
         for attr_idx in range(self.config["num_attributes"]):
             acc_attrs[attr_idx] = torch.sum(torch.round(targets)[:, attr_idx] == torch.round(predictions)[:, attr_idx])
             acc_attrs[attr_idx] = acc_attrs[attr_idx] / float(targets.size()[0])
+        print(acc_attrs)
         
         logging.info('            Metric:    Acc attr: \n{}'.format(acc_attrs))
         
