@@ -463,12 +463,7 @@ class Network_User(object):
                     elif self.config["fully_convolutional"] == "FC":
                         sample = harwindow_batched["label"]
                         sample = sample.reshape(-1)
-                        print("sampletype")
-                        print(type(sample))
                         train_batch_l=np.zeros((sample.shape[0],self.attrs.shape[1]))
-                        print("train_batch_l")
-                        print(train_batch_l.shape)
-                        print(type(train_batch_l))
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
                                 train_batch_l[i]= self.attrs[sample[i],:]
