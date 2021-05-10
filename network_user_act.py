@@ -892,6 +892,7 @@ class Network_User(object):
                 elif self.config['output'] == 'attribute':
                     print(predictions.shape)
                     pred=np.zeros([predictions.shape[0],predictions.shape[1]])
+                    pred=torch.from_numpy(pred)
                     print("pred shape and type")
                     print(pred.shape)
                     print(type(pred))
