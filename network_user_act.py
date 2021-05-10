@@ -712,23 +712,10 @@ class Network_User(object):
                         #activaciones.append(feature_maps[1].to("cpu", torch.double).detach().numpy()[0,0,:,:])
                         #activaciones.append(feature_maps[2].to("cpu", torch.double).detach().numpy()[0,0,:,:])
                         #activaciones.append(feature_maps[3].to("cpu", torch.double).detach().numpy()[0,0,:,:])
-                        if self.config['output'] == 'softmax':
-                             self.plot(fig, axis_list, plot_list, metrics_list, activaciones,
+                        self.plot(fig, axis_list, plot_list, metrics_list, activaciones,
                                   harwindow_batched["label"][0].item(),
                                   torch.argmax(feature_maps[0], dim=0).item())
-                        elif self.config['output'] == 'attribute':
-                             sample = harwindow_batched["label"]
-                             sample = sample.reshape(-1)
-                             train_batch_l=np.zeros([sample.shape[0],self.config['num_attributes']+1])
                         
-                             for i in range(0,sample.shape[0]):
-                                if sample[i]==self.attrs[sample[i],0]:
-                                    n=sample[i].item()
-                                    train_batch_l[i]= self.attrs[n]
-                             self.plot(fig, axis_list, plot_list, metrics_list, activaciones,
-                                  train_batch_l.item(),
-                                  torch.argmax(feature_maps, dim=0).item())
-
                     # print statistics
                     logging.info('        Network_User:            Dataset {} network {} lr {} '
                                  'lr_optimizer {} Reshape {} '.format(self.config["dataset"], self.config["network"],
