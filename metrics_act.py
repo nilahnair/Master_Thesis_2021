@@ -266,6 +266,7 @@ class Metrics(object):
         @param predictions: torch array with predictions (output from sigmoid)
         @return distances: Euclidean Distance to each of the vectors in the attribute representation
         '''
+        print(predictions)
         euclidean = torch.nn.PairwiseDistance()
 
         # Normalize the predictions of the network
@@ -299,7 +300,7 @@ class Metrics(object):
     ##################################################
 
     def metric(self, targets, predictions):
-        
+        print(predictions)
         # logging.info('        Network_User:    Metrics')
         if self.config['output'] == 'attribute':
             logging.info('\n')
