@@ -54,8 +54,7 @@ class Network_User(object):
         self.device = torch.device("cuda:{}".format(self.config["GPU"]) if torch.cuda.is_available() else "cpu")
 
         self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_one.txt")
-        print(self.attrs)
-        print(type(self.attrs))
+   
         #self.attrs = self.reader_att_rep("id_attr_two.txt")
         #self.attr_representation = self.reader_att_rep("atts_per_class_lara.txt")
 
@@ -470,7 +469,7 @@ class Network_User(object):
                         train_batch_l=np.zeros((sample.shape[0],self.attrs.shape[1]))
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
-                                
+                                print(self.attrs[sample[i],:])
                                 train_batch_l[i]= self.attrs[sample[i],:]
                 print("check1")
                 print(train_batch_l)
