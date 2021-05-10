@@ -495,7 +495,7 @@ class Network_User(object):
                     train_batch_l = train_batch_l.to(self.device, dtype=torch.long) #labels for crossentropy needs long type
                 elif self.config['output'] == 'attribute':
                     train_batch_l=torch.from_numpy(train_batch_l)
-                    train_batch_l =train_batch_l.to(self.device, dtype=torch.float) #labels for binerycrossentropy needs float type
+                    train_batch_l=train_batch_l.to(self.device, dtype=torch.float) #labels for binerycrossentropy needs float type
 
                 # forward + backward + optimize
                 
@@ -510,7 +510,10 @@ class Network_User(object):
                     loss=loss_id+loss_act
                     '''
                 elif self.config['output'] == 'attribute':
+                    print(feature_maps.shape)
+                    print(train_batch_l[:, 1:].shape)
                     loss = criterion(feature_maps, train_batch_l[:, 1:]) * (1 / self.config['accumulation_steps'])
+                    print(loss.shape)
                 loss.backward()
 
                 if (itera + 1) % self.config['accumulation_steps'] == 0:
