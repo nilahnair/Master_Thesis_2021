@@ -132,18 +132,26 @@ class Metrics(object):
         @return precision: torch array with precision of each class
         @return recall: torch array with recall of each class
         '''
-
+        print("get_precision_recall_attrs")
+        print(targets)
+        print(predictions)
+        
         precision = torch.zeros((self.config['num_attributes']))
         recall = torch.zeros((self.config['num_attributes']))
 
         x = torch.ones(predictions.size()[0])
         y = torch.zeros(predictions.size()[0])
+        print(x.shape)
+        print(y.shape)
 
         x = x.to(self.device, dtype=torch.long)
         y = y.to(self.device, dtype=torch.long)
 
         for c in range(self.config['num_attributes']):
+            print("c")
+            print(c)
             selected_elements = torch.where(predictions[:, c] == 1.0, x, y)
+            print(selected_elements)
             non_selected_elements = torch.where(predictions[:, c] == 1.0, y, x)
 
             target_elements = torch.where(targets[:, c] == 1.0, x, y)
@@ -283,20 +291,16 @@ class Metrics(object):
         @return acc_vc: Accuracy per attribute vector
         @return acc_atr: Accuracy per attribute
         '''
-        print("metric_attr")
-        print(predictions)
+        
         # Accuracy per attr
         acc_attrs = np.zeros(self.config["num_attributes"])
         for attr_idx in range(self.config["num_attributes"]):
             acc_attrs[attr_idx] = torch.sum(torch.round(targets)[:, attr_idx] == torch.round(predictions)[:, attr_idx])
             acc_attrs[attr_idx] = acc_attrs[attr_idx] / float(targets.size()[0])
         
-        print(acc_attrs)
-        
         logging.info('            Metric:    Acc attr: \n{}'.format(acc_attrs))
-        print(targets[:,:])
-        print(torch.round(predictions))
-        precision_attr, recall_attr = self.get_precision_recall_attrs(targets[:,:], torch.round(predictions))
+        
+        precision_attr, recall_attr = self.get_precision_recall_attrs(targets, torch.round(predictions))
         logging.info('            Metric:    Precision attr: \n{}'.format(precision_attr))
         logging.info('            Metric:    Recall attr: \n{}'.format(recall_attr))
         return
