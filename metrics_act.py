@@ -349,7 +349,7 @@ class Metrics(object):
             predictions = self.efficient_distance(predictions)
 
         # Accuracy
-        targets = targets.type(dtype=torch.FloatTensor)
+        #targets = targets.type(dtype=torch.FloatTensor)
         targets = targets.to(self.device)
         # if softmax = argmax(predictions)
         #if sigmoid = argmin(predictions) why? because predcitions are in this case distances
