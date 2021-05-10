@@ -28,8 +28,8 @@ class Metrics(object):
         for attr_idx in range(self.attr.shape[0]):
             self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
 
-        self.atts = torch.from_numpy(self.attr).type(dtype=torch.FloatTensor)
-        self.atts = self.atts.type(dtype=torch.cuda.FloatTensor)
+        #self.atts = torch.from_numpy(self.attr).type(dtype=torch.FloatTensor)
+        self.atts = self.attr.type(dtype=torch.cuda.FloatTensor)
         self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0,
                         'recall': 0}
 
