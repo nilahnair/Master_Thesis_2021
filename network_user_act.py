@@ -895,7 +895,7 @@ class Network_User(object):
                     for i in range(predictions.shape[0]):
                       pred[i]= (predictions[i]>0.5).float()
                     label=sample
-                    for i in range([pred.shape[0]]):
+                    for i,k in enumerate([pred.shape[0]]):
                         if pred[i]==label[i]:
                            for c,z in enumerate(count_pos_val):
                                 if c==act_class[i]:
@@ -1096,7 +1096,7 @@ class Network_User(object):
                 elif self.config['output'] == 'attribute':
                     pred=np.zeros([predictions.shape[0],predictions.shape[1]])
                     pred=torch.from_numpy(pred)
-                    for i in range(predictions.shape[0]):
+                    for i,k in enumerate(predictions.shape[0]):
                       pred[i]= (predictions[i]>0.5).float()
                     label=sample
                     for i in range([pred.shape[0]]):
