@@ -470,10 +470,11 @@ class Network_User(object):
                         
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
-                                print(sample[i])
-                                print(self.attrs[sample[i],0])
-                                print(self.attrs[sample[i]])
-                                train_batch_l[i]= self.attrs[sample[i]]
+                                n=sample[i].int()
+                                print(n)
+                                print(type(n))
+                                print(self.attrs[n])
+                                train_batch_l[i]= self.attrs[n]
                 print("check1")
                 print(train_batch_l)
                        
