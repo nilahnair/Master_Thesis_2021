@@ -506,10 +506,9 @@ class Network_User(object):
                     train_batch_l=train_batch_l.to(self.device, dtype=torch.float) #labels for binerycrossentropy needs float type
                 
                 # forward + backward + optimize
-                print(train_batch_l)
                 
                 feature_maps = network_obj(train_batch_v)
-                print(feature_maps)
+              
                 if self.config["fully_convolutional"] == "FCN":
                     feature_maps = feature_maps.reshape(-1, feature_maps.size()[2])
                 if self.config['output'] == 'softmax':

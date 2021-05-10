@@ -300,6 +300,8 @@ class Metrics(object):
     ##################################################
 
     def metric(self, targets, predictions):
+        print("metric")
+        print(targets)
         print(predictions)
         # logging.info('        Network_User:    Metrics')
         if self.config['output'] == 'attribute':
