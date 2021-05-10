@@ -179,34 +179,27 @@ class Metrics(object):
         @return F1_weighted: F1 weighted
         @return F1_mean: F1 mean
         '''
-        print("F1 metrics")
-        print(preds)
+       
         # Predictions
         if self.config['output'] == 'softmax':
             predictions = torch.argmax(preds, dim=1)
         elif self.config['output'] == 'attribute':
             # predictions = torch.argmin(preds, dim=1)
             predictions = self.atts[torch.argmin(preds, dim=1), 0]
-        
-        print(predictions)
-       
+            
         if self.config['output'] == 'softmax':
             precision, recall = self.get_precision_recall(targets, predictions)
         elif self.config['output'] == 'attribute':
-            precision, recall = self.get_precision_recall_attrs(targets[:, 1:], predictions)
+            precision, recall = self.get_precision_recall(targets[:, 0], predictions)
        
-        if self.config['output'] == 'softmax':
-            proportions = torch.zeros(self.config['num_classes'])
-        elif self.config['output'] == 'attribute': 
-            proportions = torch.zeros(self.config['num_attributes'])
-       
+        proportions = torch.zeros(self.config['num_classes'])
 
         if self.config['output'] == 'softmax':
             for c in range(self.config['num_classes']):
                 proportions[c] = torch.sum(targets == c).item() / float(targets.size()[0])
         elif self.config['output'] == 'attribute':
-            for c in range(self.config['num_attributes']):
-                proportions[c] = torch.sum(targets[:, 1:] == c).item() / float(targets[:, 1:].size()[0])
+            for c in range(self.config['num_classes']):
+                proportions[c] = torch.sum(targets[:, 0] == c).item() / float(targets[:, 0].size()[0])
         
         logging.info('            Metric:    \nPrecision: \n{}\nRecall\n{}'.format(precision, recall))
 
@@ -229,10 +222,7 @@ class Metrics(object):
         f1 = multi_pre_rec / sum_pre_rec
         f1[torch.isnan(f1)] = 0
 
-        if self.config['output'] == 'softmax':
-            F1_mean = torch.sum(f1) * 2 / self.config['num_classes']    
-        elif self.config['output'] == 'attribute':
-            F1_mean = torch.sum(f1) * 2 / self.config['num_attributes']
+        F1_mean = torch.sum(f1) * 2 / self.config['num_classes']
 
         return F1_weighted.item(), F1_mean.item()
 
@@ -312,9 +302,11 @@ class Metrics(object):
         @return distances: Euclidean Distance to each of the vectors in the attribute representation
         '''
         euclidean = torch.nn.PairwiseDistance()
-
+        print("distance")
         # Normalize the predictions of the network
         for pred_idx in range(predictions.size()[0]):
+            print(predictions[pred_idx,:])
+            print(torch.norm(predictions[pred_idx, :]))
             predictions[pred_idx, :] = predictions[pred_idx,:] / torch.norm(predictions[pred_idx, :])
         
         predictions = predictions.repeat(self.attr.shape[0], 1, 1)
@@ -345,18 +337,17 @@ class Metrics(object):
             logging.info('            Metric:    metric:    target example \n{}\n{}'.format(targets[0, 1:],
                                                                                             predictions[0]))
             logging.info('            Metric:    type targets vector: {}'.format(targets.type()))
-            acc, predicted_classes = self.metric_attr(targets[:, 1:], predictions)
+            self.metric_attr(targets[:, 1:], predictions)
             predictions = self.efficient_distance(predictions)
 
         # Accuracy
-        #targets = targets.type(dtype=torch.FloatTensor)
+        targets = targets.type(dtype=torch.FloatTensor)
         targets = targets.to(self.device)
         # if softmax = argmax(predictions)
         #if sigmoid = argmin(predictions) why? because predcitions are in this case distances
         #
         # with self.acc_metric, one computes the classes either from softmax os attributes
-        if self.config['output'] == 'softmax':
-            acc, predicted_classes = self.acc_metric(targets, predictions)
+        acc, predicted_classes = self.acc_metric(targets, predictions)
 
         # F1 metrics
         f1_weighted, f1_mean = self.f1_metric(targets, predictions)
