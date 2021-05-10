@@ -892,8 +892,10 @@ class Network_User(object):
                 elif self.config['output'] == 'attribute': 
                     pred=np.zeros([predictions.shape[0],predictions.shape[1]])
                     pred=torch.from_numpy(pred)
+                    pred= pred.to(self.device)
                     for i in range(predictions.shape[0]):
                       pred[i]= (predictions[i]>0.5).float()
+                    
                     label=test_batch_l[:,1:]
                     for i,k in enumerate([pred.shape[0]]):
                         print(i)
