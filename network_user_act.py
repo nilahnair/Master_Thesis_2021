@@ -889,21 +889,14 @@ class Network_User(object):
                             for c,z in enumerate(count_neg_val):
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
-                elif self.config['output'] == 'attribute':
-                    print(predictions.shape)
+                elif self.config['output'] == 'attribute': 
                     pred=np.zeros([predictions.shape[0],predictions.shape[1]])
                     pred=torch.from_numpy(pred)
-                    print("pred shape and type")
-                    print(pred.shape)
-                    print(type(pred))
                     for i in range(predictions.shape[0]):
-                        print(i)
-                        pred[i]= (predictions[i]>0.5).float()
-                    
-                    print(pred) 
+                      pred[i]= (predictions[i]>0.5).float()
                     label=sample
-                    for i,x in enumerate(pred_index):
-                        if pred_index[i]==label[i]:
+                    for i in range([pred.shape[0]]):
+                        if pred[i]==label[i]:
                            for c,z in enumerate(count_pos_val):
                                 if c==act_class[i]:
                                     count_pos_val[c]+=1
@@ -1101,11 +1094,13 @@ class Network_User(object):
                                 if c==act_class[i]:
                                     count_neg_test[c]+=1
                 elif self.config['output'] == 'attribute':
-                    pred_index= predictions
-                    
+                    pred=np.zeros([predictions.shape[0],predictions.shape[1]])
+                    pred=torch.from_numpy(pred)
+                    for i in range(predictions.shape[0]):
+                      pred[i]= (predictions[i]>0.5).float()
                     label=sample
-                    for i,x in enumerate(pred_index):
-                        if pred_index[i]==label[i]:
+                    for i in range([pred.shape[0]]):
+                        if pred[i]==label[i]:
                            for c,z in enumerate(count_pos_test):
                                 if c==act_class[i]:
                                     count_pos_test[c]+=1
