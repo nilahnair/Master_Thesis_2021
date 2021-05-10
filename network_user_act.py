@@ -468,6 +468,7 @@ class Network_User(object):
                         train_batch_l=np.zeros((sample.shape[0],self.attrs.shape[1]))
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
+                                
                                 train_batch_l[i]= self.attrs[sample[i],:]
                 print("check1")
                 print(train_batch_l)

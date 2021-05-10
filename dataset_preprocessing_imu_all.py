@@ -267,6 +267,10 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                       hist_classes = np.bincount(y[:, 0], minlength=NUM_CLASSES)
                       hist_classes_all += hist_classes
                       print("\nNumber of seq per class {}".format(hist_classes_all))
+                      
+                      print(type(y))
+                      print(type(y_all))
+                      print(type(labels_persons[P]))
 
                       for f in range(X.shape[0]):
                           try:
@@ -279,7 +283,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                               # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                               seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
                               seq = np.require(seq, dtype=np.float)
-
+                              print(type(seq))
+                              
                               obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "label": labels_persons[P]}
                                            
                               file_name = open(os.path.join(data_dir,
