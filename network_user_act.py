@@ -494,7 +494,7 @@ class Network_User(object):
                 if self.config['output'] == 'softmax':
                     train_batch_l = train_batch_l.to(self.device, dtype=torch.long) #labels for crossentropy needs long type
                 elif self.config['output'] == 'attribute':
-                    train_batch_l = train_batch_l.to(self.device, dtype=torch.float) #labels for binerycrossentropy needs float type
+                    train_batch_l = torch.from_numpy(train_batch_l).to(self.device, dtype=torch.float) #labels for binerycrossentropy needs float type
 
                 # forward + backward + optimize
                 
