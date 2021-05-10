@@ -712,9 +712,22 @@ class Network_User(object):
                         #activaciones.append(feature_maps[1].to("cpu", torch.double).detach().numpy()[0,0,:,:])
                         #activaciones.append(feature_maps[2].to("cpu", torch.double).detach().numpy()[0,0,:,:])
                         #activaciones.append(feature_maps[3].to("cpu", torch.double).detach().numpy()[0,0,:,:])
-                        self.plot(fig, axis_list, plot_list, metrics_list, activaciones,
+                        if self.config['output'] == 'softmax':
+                             self.plot(fig, axis_list, plot_list, metrics_list, activaciones,
                                   harwindow_batched["label"][0].item(),
                                   torch.argmax(feature_maps[0], dim=0).item())
+                        elif self.config['output'] == 'attribute':
+                             sample = harwindow_batched["label"]
+                             sample = sample.reshape(-1)
+                             train_batch_l=np.zeros([sample.shape[0],self.config['num_attributes']+1])
+                        
+                             for i in range(0,sample.shape[0]):
+                                if sample[i]==self.attrs[sample[i],0]:
+                                    n=sample[i].item()
+                                    train_batch_l[i]= self.attrs[n]
+                             self.plot(fig, axis_list, plot_list, metrics_list, activaciones,
+                                  train_batch_l.item(),
+                                  torch.argmax(feature_maps, dim=0).item())
 
                     # print statistics
                     logging.info('        Network_User:            Dataset {} network {} lr {} '
@@ -864,21 +877,13 @@ class Network_User(object):
                     loss = criterion(predictions, test_batch_l[:, 1:])
                     
                 loss_val = loss_val + loss.item()
-                '''
-                act_class=harwindow_batched_val["act_label"] 
-                act_class = act_class.reshape(-1)
-                act_class = act_class.detach().numpy()
-                '''
+               
                 act_class=harwindow_batched_val["act_label"] 
                 act_class = act_class.reshape(-1)
                 
                 if self.config['output'] == 'softmax':
                     pred_index= predictions.argmax(1)
-                    '''
-                    pred_index=pred_index.cpu().numpy()
                     
-                    label=test_batch_l.detach().cpu().numpy()
-                    '''
                     label=test_batch_l
                     for i,x in enumerate(pred_index):
                         if pred_index[i]==label[i]:
@@ -898,21 +903,11 @@ class Network_User(object):
                     
                     label=test_batch_l[:,1:]
                     for i,k in enumerate([pred.shape[0]]):
-                        
-                        print("pred")
-                        print(pred[i])
-                        print(type(pred[i]))
-                        print("label")
-                        print(label[i])
-                        print(type(label[i]))
-                        
                         if torch.all(pred[i].eq(label[i])):
-                           print("yes")
                            for c,z in enumerate(count_pos_val):
                                 if c==act_class[i]:
                                     count_pos_val[c]+=1
                         else:
-                            print("no")
                             for c,z in enumerate(count_neg_val):
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
@@ -1114,11 +1109,12 @@ class Network_User(object):
                 elif self.config['output'] == 'attribute':
                     pred=np.zeros([predictions.shape[0],predictions.shape[1]])
                     pred=torch.from_numpy(pred)
-                    for i,k in enumerate(predictions.shape[0]):
+                    pred=pred.to(self.device, dtype=torch.float)
+                    for i in range(predictions.shape[0]):
                       pred[i]= (predictions[i]>0.5).float()
-                    label=sample
-                    for i in range([pred.shape[0]]):
-                        if pred[i]==label[i]:
+                    label=test_batch_l[:,1:]
+                    for i,k in enumerate([pred.shape[0]]):
+                        if torch.all(pred[i].eq(label[i])):
                            for c,z in enumerate(count_pos_test):
                                 if c==act_class[i]:
                                     count_pos_test[c]+=1
@@ -1144,7 +1140,7 @@ class Network_User(object):
                             if sample[i]==self.attrs[sample[i],0]:
                                 n=sample[i].item()
                                 test_labels[i]= self.attrs[n]
-                       
+                        test_labels=torch.from_numpy(test_labels)   
                 else:
                     predictions_test = torch.cat((predictions_test, predictions), dim=0)
                     if self.config['output'] == 'softmax':
@@ -1159,6 +1155,7 @@ class Network_User(object):
                             if sample[i]==self.attrs[sample[i],0]:
                                 n=sample[i].item()
                                 test_labels_batch[i]= self.attrs[n]
+                        test_labels_batch=torch.from_numpy(test_labels_batch) 
                       
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
                     
