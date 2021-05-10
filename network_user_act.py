@@ -807,7 +807,11 @@ class Network_User(object):
         network_obj.eval()
 
         # Creating metric object
-        metrics_obj = Metrics(self.config, self.device)
+        if self.config['output'] == 'softmax':
+            metrics_obj = Metrics(self.config, self.device)
+        if self.config['output'] == 'attribute': 
+            metrics_obj = Metrics(self.config, self.device, self.attrs)
+       
         loss_val = 0
         count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0]
         count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -1015,7 +1019,10 @@ class Network_User(object):
         count_neg_test = [0, 0, 0, 0, 0, 0, 0, 0]
 
         # Creating metric object
-        metrics_obj = Metrics(self.config, self.device)
+        if self.config['output'] == 'softmax':
+            metrics_obj = Metrics(self.config, self.device)
+        if self.config['output'] == 'attribute': 
+            metrics_obj = Metrics(self.config, self.device, self.attrs)
 
         logging.info('        Network_User:    Testing')
         start_time_test = time.time()
