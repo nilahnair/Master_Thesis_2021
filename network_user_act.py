@@ -512,10 +512,13 @@ class Network_User(object):
                 elif self.config['output'] == 'attribute':
                     print(feature_maps.shape)
                     print(train_batch_l[:, 1:].shape)
-                    if feature_maps==train_batch_l[:,1:]:
-                        loss = criterion(feature_maps, train_batch_l[:, 1:]) * (1 / self.config['accumulation_steps'])
+                    for i,k enumerate(feature_maps):
+                        if feature_maps[i]==train_batch_l[i,1:]:
+                            print("size is equal")
+                        
                     else:
                         print("prediction size and the label size wrong")
+                    loss = criterion(feature_maps, train_batch_l[:, 1:]) * (1 / self.config['accumulation_steps'])
                    
                 loss.backward()
 
