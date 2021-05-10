@@ -506,7 +506,7 @@ class Network_User(object):
                     train_batch_l=train_batch_l.to(self.device, dtype=torch.float) #labels for binerycrossentropy needs float type
                 
                 # forward + backward + optimize
-                print(train_batch_l.shape)
+               
                 feature_maps = network_obj(train_batch_v)
               
                 if self.config["fully_convolutional"] == "FCN":
@@ -685,6 +685,8 @@ class Network_User(object):
                 
                 if (itera) % self.config['train_show'] == 0:
                     # Metrics for training
+                    print(train_batch_l)
+                    print(feature_maps)
                     results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps)
 
                     activaciones = []
