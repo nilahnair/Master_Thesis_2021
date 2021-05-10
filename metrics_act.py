@@ -283,15 +283,19 @@ class Metrics(object):
         @return acc_vc: Accuracy per attribute vector
         @return acc_atr: Accuracy per attribute
         '''
-
+        print("metric_attr")
+        print(predictions)
         # Accuracy per attr
         acc_attrs = np.zeros(self.config["num_attributes"])
         for attr_idx in range(self.config["num_attributes"]):
             acc_attrs[attr_idx] = torch.sum(torch.round(targets)[:, attr_idx] == torch.round(predictions)[:, attr_idx])
             acc_attrs[attr_idx] = acc_attrs[attr_idx] / float(targets.size()[0])
-
+        
+        print(acc_attrs)
+        
         logging.info('            Metric:    Acc attr: \n{}'.format(acc_attrs))
-
+        print(targets[:,:])
+        print(torch.round(predictions))
         precision_attr, recall_attr = self.get_precision_recall_attrs(targets[:,:], torch.round(predictions))
         logging.info('            Metric:    Precision attr: \n{}'.format(precision_attr))
         logging.info('            Metric:    Recall attr: \n{}'.format(recall_attr))
@@ -332,8 +336,7 @@ class Metrics(object):
     ##################################################
 
     def metric(self, targets, predictions):
-        print(predictions)
-        print(targets)
+        
         # logging.info('        Network_User:    Metrics')
         if self.config['output'] == 'attribute':
             logging.info('\n')
