@@ -891,6 +891,8 @@ class Network_User(object):
                                     count_neg_val[c]+=1
                 elif self.config['output'] == 'attribute':
                     pred_index= predictions
+                    print("predictions")
+                    print(predictions)
                     label=sample
                     for i,x in enumerate(pred_index):
                         if pred_index[i]==label[i]:
