@@ -495,8 +495,6 @@ class Network_User(object):
                     train_batch_l = train_batch_l.to(self.device, dtype=torch.long) #labels for crossentropy needs long type
                 elif self.config['output'] == 'attribute':
                     train_batch_l=torch.from_numpy(train_batch_l)
-                    print(train_batch_l.shape)
-                    print(type(train_batch_l))
                     train_batch_l=train_batch_l.to(self.device, dtype=torch.float) #labels for binerycrossentropy needs float type
 
                 # forward + backward + optimize
@@ -881,6 +879,7 @@ class Network_User(object):
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
                 elif self.config['output'] == 'attribute':
+                    pred_index= predictions
                     label=sample
                     for i,x in enumerate(pred_index):
                         if pred_index[i]==label[i]:
@@ -1040,6 +1039,7 @@ class Network_User(object):
                     # labels for crossentropy needs long type
                 elif self.config['output'] == 'attribute':
                     # labels for binerycrossentropy needs float type
+                    test_batch_l=torch.from_numpy(test_batch_l)
                     test_batch_l = test_batch_l.to(self.device, dtype=torch.float)
 
                 #forward
