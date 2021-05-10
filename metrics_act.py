@@ -276,7 +276,7 @@ class Metrics(object):
         if self.config['num_attributes'] == 4:
             predictions = predictions.repeat(6, 1, 1)
         else:
-            predictions = predictions.repeat(7, 1, 1)
+            predictions = predictions.repeat(8, 1, 1)
             
         predictions = predictions.permute(1, 0, 2)
         

@@ -66,8 +66,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     
-    num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
-    #num_attributes = {'mocap': 11, 'mbientlab': 11, 'motionminers_flw': 11}
+    #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    num_attributes = {'mocap': 11, 'mbientlab': 11, 'motionminers_flw': 11}
     
     num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
     
@@ -109,7 +109,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                         'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'mbientlab': {'cnn': {'softmax': 10, 'attribute': 10},
                             'lstm': {'softmax': 10, 'attribute': 10},
-                            'cnn_imu': {'softmax': 10, 'attribute': 50}},
+                            'cnn_imu': {'softmax': 10, 'attribute': 30}},
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}}
