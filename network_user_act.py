@@ -905,11 +905,13 @@ class Network_User(object):
                         print(label[i])
                         print(type(label[i]))
                         
-                        if pred[i]==label[i]:
+                        if torch.all(pred[i].eq(label[i])):
+                           print("yes")
                            for c,z in enumerate(count_pos_val):
                                 if c==act_class[i]:
                                     count_pos_val[c]+=1
                         else:
+                            print("no")
                             for c,z in enumerate(count_neg_val):
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
