@@ -453,6 +453,7 @@ class Network_User(object):
                 
                 #Selecting batch
                 train_batch_v = harwindow_batched["data"]
+                print(self.attrs)
                 if self.config['output'] == 'softmax':
                     if self.config["fully_convolutional"] == "FCN":
                         train_batch_l = harwindow_batched["labels"][:, :, 0]
