@@ -50,72 +50,37 @@ class Metrics(object):
         @return precision: torch array with precision of each class
         @return recall: torch array with recall of each class
         '''
-        if self.config['output'] == 'softmax':
-            precision = torch.zeros((self.config['num_classes']))
-            recall = torch.zeros((self.config['num_classes']))
-        '''
-        elif self.config['output'] == 'attribute':
-            precision = torch.zeros((self.config['num_attributes']))
-            recall = torch.zeros((self.config['num_attributes']))
-        '''    
+        precision = torch.zeros((self.config['num_classes']))
+        recall = torch.zeros((self.config['num_classes']))
+          
         x = torch.ones(predictions.size())
         y = torch.zeros(predictions.size())
 
-        if self.config['output'] == 'softmax':
-            x = x.to(self.device, dtype=torch.long)
-            y = y.to(self.device, dtype=torch.long)
-        '''
-        elif self.config['output'] == 'attribute':
-            x = x.to(self.device, dtype=torch.float)
-            y = y.to(self.device, dtype=torch.float)
-        '''
-        
-        if self.config['output'] == 'softmax':
-            for c in range(self.config['num_classes']):
-                selected_elements = torch.where(predictions == c, x, y)
-                non_selected_elements = torch.where(predictions == c, y, x)
+        x = x.to(self.device, dtype=torch.long)
+        y = y.to(self.device, dtype=torch.long)
+       
+        for c in range(self.config['num_classes']):
+            selected_elements = torch.where(predictions == c, x, y)
+            non_selected_elements = torch.where(predictions == c, y, x)
 
-                target_elements = torch.where(targets == c, x, y)
-                non_target_elements = torch.where(targets == c, y, x)
+            target_elements = torch.where(targets == c, x, y)
+            non_target_elements = torch.where(targets == c, y, x)
             
-                true_positives = torch.sum(target_elements * selected_elements)
-                false_positives = torch.sum(non_target_elements * selected_elements)
+            true_positives = torch.sum(target_elements * selected_elements)
+            false_positives = torch.sum(non_target_elements * selected_elements)
+           
+            false_negatives = torch.sum(target_elements * non_selected_elements)
 
-                false_negatives = torch.sum(target_elements * non_selected_elements)
+            try:
+                precision[c] = true_positives.item() / float((true_positives + false_positives).item())
+                recall[c] = true_positives.item() / float((true_positives + false_negatives).item())
 
-                try:
-                    precision[c] = true_positives.item() / float((true_positives + false_positives).item())
-                    recall[c] = true_positives.item() / float((true_positives + false_negatives).item())
-
-                except:
+            except:
                     # logging.error('        Network_User:    Train:    In Class {} true_positives {} false_positives {} false_negatives {}'.format(c, true_positives.item(),
                     #                                                                                                                              false_positives.item(),
                     #                                                                                                                              false_negatives.item()))
-                    continue
-        '''
-        elif self.config['output'] == 'attribute':
-            for c in range(self.config['num_attributes']):
-                selected_elements = torch.where(predictions[:, c] == 1.0, x, y)
-                non_selected_elements = torch.where(predictions[:, c] == 1.0, y, x)
-
-                target_elements = torch.where(targets[:, c] == 1.0, x, y)
-                non_target_elements = torch.where(targets[:, c] == 1.0, y, x)
-
-                true_positives = torch.sum(target_elements * selected_elements)
-                false_positives = torch.sum(non_target_elements * selected_elements)
-
-                false_negatives = torch.sum(target_elements * non_selected_elements)
-
-                try:
-                    precision[c] = true_positives.item() / float((true_positives + false_positives).item())
-                    recall[c] = true_positives.item() / float((true_positives + false_negatives).item())
-                
-                except:
-                    # logging.error('        Network_User:    Train:    In Class {} true_positives {} false_positives {} false_negatives {}'.format(c, true_positives.item(),
-                    #                                                                                                                              false_positives.item(),
-                    #                                                                                                                              false_negatives.item()))
-                    continue
-        '''
+                continue
+       
         return precision, recall
 
 
@@ -302,11 +267,10 @@ class Metrics(object):
         @return distances: Euclidean Distance to each of the vectors in the attribute representation
         '''
         euclidean = torch.nn.PairwiseDistance()
-        print("distance")
+       
         # Normalize the predictions of the network
         for pred_idx in range(predictions.size()[0]):
-            print(predictions[pred_idx,:])
-            print(torch.norm(predictions[pred_idx, :]))
+            
             predictions[pred_idx, :] = predictions[pred_idx,:] / torch.norm(predictions[pred_idx, :])
         
         predictions = predictions.repeat(self.attr.shape[0], 1, 1)
