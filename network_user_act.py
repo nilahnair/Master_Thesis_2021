@@ -890,7 +890,8 @@ class Network_User(object):
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
                 elif self.config['output'] == 'attribute':
-                    pred=np.zeros([predictions.shape[0]])
+                    print(predictions.shape)
+                    pred=np.zeros([predictions.shape[0],predictions.shape[1]])
                     print("pred shape and type")
                     print(pred.shape)
                     print(type(pred))
