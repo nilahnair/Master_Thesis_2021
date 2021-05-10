@@ -329,7 +329,8 @@ class Network_User(object):
             if self.config["fully_convolutional"] == "FCN":
                 criterion = nn.BCELoss()
             elif self.config["fully_convolutional"] == "FC":
-                criterion = nn.BCELoss()
+               #criterion = nn.BCELoss()
+                criterion = nn.BCEWithLogitsLoss()
 
         # Setting the freezing or not freezing from conv layers
         if self.config['freeze_options']:
