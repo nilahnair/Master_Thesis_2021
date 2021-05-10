@@ -242,12 +242,11 @@ class Metrics(object):
         
         # Accuracy per attr
         acc_attrs = np.zeros(self.config["num_attributes"])
-        print(acc_attrs)
+        
         for attr_idx in range(self.config["num_attributes"]):
             acc_attrs[attr_idx] = torch.sum(torch.round(targets)[:, attr_idx] == torch.round(predictions)[:, attr_idx])
             acc_attrs[attr_idx] = acc_attrs[attr_idx] / float(targets.size()[0])
-        print(acc_attrs)
-        
+      
         logging.info('            Metric:    Acc attr: \n{}'.format(acc_attrs))
         
         precision_attr, recall_attr = self.get_precision_recall_attrs(targets, torch.round(predictions))
@@ -268,7 +267,7 @@ class Metrics(object):
         @param predictions: torch array with predictions (output from sigmoid)
         @return distances: Euclidean Distance to each of the vectors in the attribute representation
         '''
-        print(predictions)
+       
         euclidean = torch.nn.PairwiseDistance()
 
         # Normalize the predictions of the network
@@ -302,8 +301,7 @@ class Metrics(object):
     ##################################################
 
     def metric(self, targets, predictions):
-        print("metric")
-        
+       
         # logging.info('        Network_User:    Metrics')
         if self.config['output'] == 'attribute':
             logging.info('\n')
@@ -311,8 +309,7 @@ class Metrics(object):
                                                                                             predictions[0]))
             logging.info('            Metric:    type targets vector: {}'.format(targets.type()))
             self.metric_attr(targets[:, 1:], predictions)
-            print(targets)
-            print(predictions)
+            
             predictions = self.efficient_distance(predictions)
 
         # Accuracy
