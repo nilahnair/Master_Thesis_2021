@@ -500,6 +500,7 @@ class Network_User(object):
                 # forward + backward + optimize
                 
                 feature_maps = network_obj(train_batch_v)
+                print(feature_maps)
                 if self.config["fully_convolutional"] == "FCN":
                     feature_maps = feature_maps.reshape(-1, feature_maps.size()[2])
                 if self.config['output'] == 'softmax':
@@ -510,12 +511,6 @@ class Network_User(object):
                     loss=loss_id+loss_act
                     '''
                 elif self.config['output'] == 'attribute':
-                    print(feature_maps.shape)
-                    print(train_batch_l[:, 1:].shape)
-                    if feature_maps.shape==train_batch_l[:, 1:].shape:
-                        print("shape is same")
-                    else:
-                        print("prediction size and the label size wrong")
                     loss = criterion(feature_maps, train_batch_l[:, 1:]) * (1 / self.config['accumulation_steps'])
                    
                 loss.backward()
