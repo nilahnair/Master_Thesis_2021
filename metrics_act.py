@@ -132,26 +132,18 @@ class Metrics(object):
         @return precision: torch array with precision of each class
         @return recall: torch array with recall of each class
         '''
-        print("get_precision_recall_attrs")
-        print(targets)
-        print(predictions)
-        
         precision = torch.zeros((self.config['num_attributes']))
         recall = torch.zeros((self.config['num_attributes']))
 
         x = torch.ones(predictions.size()[0])
         y = torch.zeros(predictions.size()[0])
-        print(x.shape)
-        print(y.shape)
-
         x = x.to(self.device, dtype=torch.long)
         y = y.to(self.device, dtype=torch.long)
 
         for c in range(self.config['num_attributes']):
-            print("c")
-            print(c)
+          
             selected_elements = torch.where(predictions[:, c] == 1.0, x, y)
-            print(selected_elements)
+           
             non_selected_elements = torch.where(predictions[:, c] == 1.0, y, x)
 
             target_elements = torch.where(targets[:, c] == 1.0, x, y)
@@ -187,6 +179,7 @@ class Metrics(object):
         @return F1_weighted: F1 weighted
         @return F1_mean: F1 mean
         '''
+        print("F1 metrics")
         print(preds)
         # Predictions
         if self.config['output'] == 'softmax':
@@ -303,7 +296,10 @@ class Metrics(object):
         precision_attr, recall_attr = self.get_precision_recall_attrs(targets, torch.round(predictions))
         logging.info('            Metric:    Precision attr: \n{}'.format(precision_attr))
         logging.info('            Metric:    Recall attr: \n{}'.format(recall_attr))
-        return
+        
+        predicted_classes = self.atts[torch.argmin(predictions, dim=1), 0]
+        
+        return acc_attrs,predicted_classes 
 
     ##################################################
     ###################  metric  ######################
@@ -331,7 +327,8 @@ class Metrics(object):
         for i in range(1, predictions.shape[0]):
             dist = euclidean(predictions[i], self.atts[:, 1:])
             distances = torch.cat((distances, dist.view(1, -1)), dim=0)
-
+        
+        logging.info('            Metric:   distance attr: \n{}'.format(distances))
         # return the distances
         return distances
 
@@ -347,7 +344,7 @@ class Metrics(object):
             logging.info('            Metric:    metric:    target example \n{}\n{}'.format(targets[0, 1:],
                                                                                             predictions[0]))
             logging.info('            Metric:    type targets vector: {}'.format(targets.type()))
-            self.metric_attr(targets[:, 1:], predictions)
+            acc, predicted_classes = self.metric_attr(targets[:, 1:], predictions)
             predictions = self.efficient_distance(predictions)
 
         # Accuracy
@@ -357,7 +354,8 @@ class Metrics(object):
         #if sigmoid = argmin(predictions) why? because predcitions are in this case distances
         #
         # with self.acc_metric, one computes the classes either from softmax os attributes
-        acc, predicted_classes = self.acc_metric(targets, predictions)
+        if self.config['output'] == 'softmax':
+            acc, predicted_classes = self.acc_metric(targets, predictions)
 
         # F1 metrics
         f1_weighted, f1_mean = self.f1_metric(targets, predictions)
