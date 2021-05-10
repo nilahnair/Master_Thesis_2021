@@ -265,8 +265,9 @@ class Metrics(object):
         # Normalize the predictions of the network
         for pred_idx in range(predictions.size()[0]):
             predictions[pred_idx, :] = predictions[pred_idx,:] / torch.norm(predictions[pred_idx, :])
-
-        predictions = predictions.repeat(self.attr.shape[0], 1, 1)
+        
+        #predictions = predictions.repeat(self.attr.shape[0], 1, 1)
+        predictions = predictions.repeat(self.attrs.shape[0], 1, 1)
         predictions = predictions.permute(1, 0, 2)
 
         # compute the distance among the predictions of the network
