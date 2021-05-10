@@ -13,8 +13,8 @@ class Metrics(object):
     classdocs
     '''
 
-    def __init__(self, config, dev, attributes):
-    #def __init__(self, config, dev):
+    #def __init__(self, config, dev, attributes):
+    def __init__(self, config, dev):
         '''
         Constructor
         '''
