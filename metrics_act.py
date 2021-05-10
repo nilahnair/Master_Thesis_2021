@@ -270,13 +270,13 @@ class Metrics(object):
        
         # Normalize the predictions of the network
         for pred_idx in range(predictions.size()[0]):
-            
             predictions[pred_idx, :] = predictions[pred_idx,:] / torch.norm(predictions[pred_idx, :])
         
-        if self.config['num_attributes'] == 4:
-            predictions = predictions.repeat(6, 1, 1)
-        else:
-            predictions = predictions.repeat(8, 1, 1)
+        #if self.config['num_attributes'] == 4:
+         #   predictions = predictions.repeat(6, 1, 1)
+        #lse:
+            
+        predictions = predictions.repeat(8, 1, 1)
             
         predictions = predictions.permute(1, 0, 2)
         
