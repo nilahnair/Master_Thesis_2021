@@ -99,8 +99,7 @@ class Metrics(object):
         '''
         precision = torch.zeros((self.config['num_attributes']))
         recall = torch.zeros((self.config['num_attributes']))
-        print("precision shape")
-        print( precision.shape)
+       
         x = torch.ones(predictions.size()[0])
         y = torch.zeros(predictions.size()[0])
         x = x.to(self.device, dtype=torch.long)
@@ -255,9 +254,9 @@ class Metrics(object):
         logging.info('            Metric:    Precision attr: \n{}'.format(precision_attr))
         logging.info('            Metric:    Recall attr: \n{}'.format(recall_attr))
         
-        predicted_classes = self.atts[torch.argmin(predictions, dim=1), 0]
+        #predicted_classes = self.atts[torch.argmin(predictions, dim=1), 0]
         
-        return acc_attrs,predicted_classes 
+        return 
 
     ##################################################
     ###################  metric  ######################
