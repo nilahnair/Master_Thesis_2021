@@ -896,6 +896,15 @@ class Network_User(object):
                       pred[i]= (predictions[i]>0.5).float()
                     label=sample
                     for i,k in enumerate([pred.shape[0]]):
+                        print(i)
+                        print(k)
+                        print("pred")
+                        print(pred[i])
+                        print(type(pred[i]))
+                        print("label")
+                        print(label[i])
+                        print(type(label[i]))
+                        
                         if pred[i]==label[i]:
                            for c,z in enumerate(count_pos_val):
                                 if c==act_class[i]:
