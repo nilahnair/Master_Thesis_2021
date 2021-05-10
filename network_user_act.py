@@ -470,7 +470,7 @@ class Network_User(object):
                         
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
-                                n=sample[i].int()
+                                n=sample[i].item()
                                 print(n)
                                 print(type(n))
                                 print(self.attrs[n])
