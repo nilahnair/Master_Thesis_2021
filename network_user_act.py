@@ -329,8 +329,8 @@ class Network_User(object):
             if self.config["fully_convolutional"] == "FCN":
                 criterion = nn.BCELoss()
             elif self.config["fully_convolutional"] == "FC":
-               #criterion = nn.BCELoss()
-                criterion = nn.BCEWithLogitsLoss()
+               criterion = nn.BCELoss()
+               #criterion = nn.BCEWithLogitsLoss()
 
         # Setting the freezing or not freezing from conv layers
         if self.config['freeze_options']:
@@ -502,6 +502,7 @@ class Network_User(object):
                 
                 feature_maps = network_obj(train_batch_v)
                 print(feature_maps)
+                print(train_batch_l)
                 if self.config["fully_convolutional"] == "FCN":
                     feature_maps = feature_maps.reshape(-1, feature_maps.size()[2])
                 if self.config['output'] == 'softmax':
