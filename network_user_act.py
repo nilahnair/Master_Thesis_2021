@@ -77,6 +77,7 @@ class Network_User(object):
         '''
 
         att_rep = np.loadtxt(path, delimiter=',')
+        att_rep= torch.from_numpy(att_rep)
         return att_rep
 
 
@@ -467,7 +468,7 @@ class Network_User(object):
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
                                 train_batch_l[i]= self.attrs[sample[i],:]
-                        train_batch_l=torch.from_numpy(train_batch_l)
+                       
                 '''
                 if self.config['output'] == 'softmax':
                     if self.config["fully_convolutional"] == "FCN":
@@ -825,7 +826,7 @@ class Network_User(object):
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
                                 test_batch_l[i]= self.attrs[sample[i],:]
-                        test_batch_l=torch.from_numpy(test_batch_l)
+                        
                             
                 # Creating torch tensors
                 # test_batch_v = torch.from_numpy(test_batch_v)
@@ -1023,7 +1024,7 @@ class Network_User(object):
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
                                 test_batch_l[i]= self.attrs[sample[i],:]
-                        test_batch_l=torch.from_numpy(test_batch_l)
+                        
                         
                 # Sending to GPU
                 test_batch_v = test_batch_v.to(self.device, dtype=torch.float)
@@ -1091,7 +1092,7 @@ class Network_User(object):
                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
                                 test_labels[i]= self.attrs[sample[i],:]
-                        test_labels=torch.from_numpy(test_labels)
+                       
                 else:
                     predictions_test = torch.cat((predictions_test, predictions), dim=0)
                     if self.config['output'] == 'softmax':
@@ -1104,7 +1105,7 @@ class Network_User(object):
                        for i in range(0,sample.shape[0]):
                            if sample[i]==self.attrs[sample[i],0]:
                               test_labels_batch[i]= self.attrs[sample[i],:]
-                       test_labels_batch=torch.from_numpy(test_labels_batch)
+                      
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
                     
             
