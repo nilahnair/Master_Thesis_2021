@@ -890,9 +890,15 @@ class Network_User(object):
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
                 elif self.config['output'] == 'attribute':
-                    pred_index= predictions
-                    print("predictions")
-                    print(predictions)
+                    pred=np.zeros([predictions.shape[0]])
+                    print("pred shape and type")
+                    print(pred.shape)
+                    print(type(pred))
+                    for i in range(predictions.shape[0]):
+                        print(i)
+                        pred[i]= (predictions[i]>0.5).float()
+                    
+                    print(pred) 
                     label=sample
                     for i,x in enumerate(pred_index):
                         if pred_index[i]==label[i]:
