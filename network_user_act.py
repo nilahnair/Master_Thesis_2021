@@ -685,8 +685,7 @@ class Network_User(object):
                 
                 if (itera) % self.config['train_show'] == 0:
                     # Metrics for training
-                    print(train_batch_l)
-                    print(feature_maps)
+                    
                     results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps)
 
                     activaciones = []

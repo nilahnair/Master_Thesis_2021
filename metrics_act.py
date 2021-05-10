@@ -301,8 +301,7 @@ class Metrics(object):
 
     def metric(self, targets, predictions):
         print("metric")
-        print(targets)
-        print(predictions)
+        
         # logging.info('        Network_User:    Metrics')
         if self.config['output'] == 'attribute':
             logging.info('\n')
@@ -310,6 +309,8 @@ class Metrics(object):
                                                                                             predictions[0]))
             logging.info('            Metric:    type targets vector: {}'.format(targets.type()))
             self.metric_attr(targets[:, 1:], predictions)
+            print(targets)
+            print(predictions)
             predictions = self.efficient_distance(predictions)
 
         # Accuracy
