@@ -181,6 +181,11 @@ class Metrics(object):
         @return F1_weighted: F1 weighted
         @return F1_mean: F1 mean
         '''
+        print("F1 metric")
+        print("preds")
+        print(preds)
+        print(torch.argmin(preds, dim=1))
+        print(self.center[torch.argmin(preds, dim=1), 0])
         # Predictions
         if self.config['output'] == 'softmax':
             predictions = torch.argmax(preds, dim=1)
@@ -188,7 +193,7 @@ class Metrics(object):
             # predictions = torch.argmin(preds, dim=1)
             #predictions = self.atts[torch.argmin(preds, dim=1), 0]
             predictions = self.center[torch.argmin(preds, dim=1), 0]
-        print("F1 metric")
+        
         print("predictions")
         print(predictions)
         if self.config['output'] == 'softmax':
