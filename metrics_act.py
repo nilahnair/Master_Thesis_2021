@@ -33,6 +33,12 @@ class Metrics(object):
         #self.atts = torch.from_numpy(self.attr)
         self.atts = self.atts.type(dtype=torch.cuda.FloatTensor)
         
+        if self.config['num_attributes'] == 4:
+            self.center= self.atts[0:6,1:]
+        elif self.config['num_attributes'] == 11:
+            self.center= self.atts[0:6,1:]
+            self.center= torch.cat((self.center, self.atts[7:8,1:]), 0)
+        
         self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0,
                         'recall': 0}
 
@@ -150,7 +156,8 @@ class Metrics(object):
             predictions = torch.argmax(preds, dim=1)
         elif self.config['output'] == 'attribute':
             # predictions = torch.argmin(preds, dim=1)
-            predictions = self.atts[torch.argmin(preds, dim=1), 0]
+            #predictions = self.atts[torch.argmin(preds, dim=1), 0]
+            predictions = self.center[torch.argmin(preds, dim=1), 0]
             
         if self.config['output'] == 'softmax':
             precision, recall = self.get_precision_recall(targets, predictions)
@@ -214,7 +221,8 @@ class Metrics(object):
             # with this self.atts[torch.argmin(predictions, dim=1), 0]
             #  one computes the class that correspond to the argument with min distance
             # self.atts.size() = [# of windows, classes and 19 attributes] = [# of windows, 20], [#, 20]
-            predicted_classes = self.atts[torch.argmin(predictions, dim=1), 0]
+            #predicted_classes = self.atts[torch.argmin(predictions, dim=1), 0]
+            predicted_classes = self.center[torch.argmin(predictions, dim=1), 0]
             logging.info('            Metric:    Acc:    Target     class {}'.format(targets[0, 0]))
             logging.info('            Metric:    Acc:    Prediction class {}'.format(predicted_classes[0]))
             acc = torch.sum(targets[:, 0] == predicted_classes.type(dtype=torch.cuda.FloatTensor))
@@ -279,22 +287,18 @@ class Metrics(object):
         
         if self.config['num_attributes'] == 4:
             predictions = predictions.repeat(6, 1, 1)
-            center= self.atts[0:6,1:]
         elif self.config['num_attributes'] == 11:
             predictions = predictions.repeat(7, 1, 1)
-            center= self.atts[0:6,1:]
-            center= torch.cat((center, self.atts[7:8,1:]), 0)
-            
+       
         #predictions = predictions.repeat(8, 1, 1)
-            
         predictions = predictions.permute(1, 0, 2)
         
         # compute the distance among the predictions of the network
         # and the the attribute representation
-        distances = euclidean(predictions[0], center)
+        distances = euclidean(predictions[0], self.center)
         distances = distances.view(1, -1)
         for i in range(1, predictions.shape[0]):
-            dist = euclidean(predictions[i], center)
+            dist = euclidean(predictions[i], self.center)
             distances = torch.cat((distances, dist.view(1, -1)), dim=0)
         
         #logging.info('            Metric:   distance attr: \n{}'.format(distances))
