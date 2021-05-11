@@ -276,10 +276,24 @@ class Metrics(object):
             predictions[pred_idx, :] = predictions[pred_idx,:] / torch.norm(predictions[pred_idx, :])
         
         #predictions = predictions.repeat(self.attr.shape[0], 1, 1)
-        predictions = predictions.repeat(self.atts.shape[0], 1, 1)
-        #if self.config['num_attributes'] == 4:
-         #   predictions = predictions.repeat(6, 1, 1)
-        #lse:
+        #predictions = predictions.repeat(self.atts.shape[0], 1, 1)
+        
+        center= self.atts[0:5,1:]
+        print("type 1")
+        print(center)
+        center= self.atts[0:5,1:]
+        center= torch.cat(self.atts[7,1:], 0)
+        print("type 2")
+        print(center)
+        
+        
+        if self.config['num_attributes'] == 4:
+            predictions = predictions.repeat(6, 1, 1)
+            center= self.atts[0:5,1:]
+        elif self.config['num_attributes'] == 11:
+            predictions = predictions.repeat(7, 1, 1)
+            center= self.atts[0:5,1:]
+            center= torch.cat(self.atts[7,1:], 0)
             
         #predictions = predictions.repeat(8, 1, 1)
             
