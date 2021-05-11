@@ -57,8 +57,6 @@ class Metrics(object):
         @return recall: torch array with recall of each class
         '''
         print("get_precision_recall")
-        print("predictions")
-        print(predictions)
         if self.config['output'] == 'softmax':
             precision = torch.zeros((self.config['num_classes']))
             recall = torch.zeros((self.config['num_classes']))
@@ -191,22 +189,6 @@ class Metrics(object):
             #predictions = self.atts[torch.argmin(preds, dim=1), 0]
             predictions = self.center[torch.argmin(preds, dim=1), 0]
        
-        if self.config['output'] == 'softmax':
-            precision, recall = self.get_precision_recall(targets, predictions)
-        elif self.config['output'] == 'attribute':
-            if self.config['num_attributes'] == 4:
-                for i in range(0, targets.shape[0]):
-                    if targets[i,0]==6:
-                        targets[i,0]=5
-                    elif targets[i,0]==7:
-                        targets[i,0]=3
-            elif self.config['num_attributes'] == 11:
-                for i in range(0, targets.shape[0]):
-                    if targets[i,0]==6:
-                        targets[i,0]=5
-                    elif targets[i,0]==7:
-                        targets[i,0]=6
-            precision, recall = self.get_precision_recall(targets[:, 0], predictions)
         print(targets)
         print(precision)
         print(recall)
@@ -380,7 +362,28 @@ class Metrics(object):
             self.metric_attr(targets[:, 1:], predictions)
             
             predictions = self.efficient_distance(predictions)
-
+        print('metric')
+        print("predictions")
+        print(predictions)
+        print("targets")
+        print(targets)
+        
+        if self.config['output'] == 'attribute':
+            if self.config['num_attributes'] == 4:
+                for i in range(0, targets.shape[0]):
+                    if targets[i,0]==6:
+                        targets[i,0]=5
+                    elif targets[i,0]==7:
+                        targets[i,0]=3
+            elif self.config['num_attributes'] == 11:
+                for i in range(0, targets.shape[0]):
+                    if targets[i,0]==6:
+                        targets[i,0]=5
+                    elif targets[i,0]==7:
+                        targets[i,0]=6
+        print("new targets")
+        print(targets)
+            
         # Accuracy
         targets = targets.type(dtype=torch.FloatTensor)
         targets = targets.to(self.device)
@@ -388,6 +391,7 @@ class Metrics(object):
         #if sigmoid = argmin(predictions) why? because predcitions are in this case distances
         #
         # with self.acc_metric, one computes the classes either from softmax os attributes
+        
         acc, predicted_classes = self.acc_metric(targets, predictions)
 
         # F1 metrics
