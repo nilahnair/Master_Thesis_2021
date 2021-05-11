@@ -278,7 +278,7 @@ class Metrics(object):
         #predictions = predictions.repeat(self.attr.shape[0], 1, 1)
         #predictions = predictions.repeat(self.atts.shape[0], 1, 1)
         
-        center= self.atts[0:5,1:]
+        center= self.atts[0:6,1:]
         print("type 1")
         print(center)
         center= self.atts[0:5,1:]
