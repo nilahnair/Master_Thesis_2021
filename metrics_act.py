@@ -281,8 +281,8 @@ class Metrics(object):
         print("type 1")
         print(center)
         center= self.atts[0:6,1:]
-        print(self.atts[7,1:])
-        center= torch.cat((center, self.atts[7,1:]), 0)
+        print(self.atts[7:8,1:])
+        center= torch.cat((center, self.atts[7:8,1:]), 0)
         print("type 2")
         print(center)
         
