@@ -272,7 +272,11 @@ class Metrics(object):
             predicted_classes = torch.argmax(predictions, dim=1).type(dtype=torch.cuda.FloatTensor)
             acc = torch.sum(targets == predicted_classes)
         acc = acc.item() / float(targets.size()[0])
-
+        
+        print("predicted_classes")
+        print(predicted_classes)
+        print("acc")
+        print(acc)
         # returning accuracy and predicted classes
         return acc, predicted_classes
 
@@ -363,11 +367,7 @@ class Metrics(object):
             
             predictions = self.efficient_distance(predictions)
         print('metric')
-        print("predictions")
-        print(predictions)
-        print("targets")
-        print(targets)
-        
+                
         if self.config['output'] == 'attribute':
             if self.config['num_attributes'] == 4:
                 for i in range(0, targets.shape[0]):
