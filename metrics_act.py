@@ -282,7 +282,7 @@ class Metrics(object):
         print(center)
         center= self.atts[0:6,1:]
         print(self.atts[7,1:])
-        center= torch.cat((center, self.atts[7,1:]), 0)
+        center= torch.cat((center, self.atts[7,1:]), 1)
         print("type 2")
         print(center)
         
@@ -293,7 +293,7 @@ class Metrics(object):
         elif self.config['num_attributes'] == 11:
             predictions = predictions.repeat(7, 1, 1)
             center= self.atts[0:6,1:]
-            center= torch.cat((center, self.atts[7,1:]), 0)
+            center= torch.cat((center, self.atts[7,1:]), 1)
             
         #predictions = predictions.repeat(8, 1, 1)
             
