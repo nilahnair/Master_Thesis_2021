@@ -25,14 +25,13 @@ class Metrics(object):
         # Here, you need to extract the attributes from the network.pt
         #self,attr= network["att_rep"]
         self.attr = attributes
-        print(self.attr)
+       
         #for attr_idx in range(self.attr.shape[0]):
         #    self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
 
         self.atts = torch.from_numpy(self.attr).type(dtype=torch.FloatTensor)
         #self.atts = torch.from_numpy(self.attr)
         self.atts = self.atts.type(dtype=torch.cuda.FloatTensor)
-        print(self.atts)
         
         self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0,
                         'recall': 0}
@@ -281,9 +280,9 @@ class Metrics(object):
         center= self.atts[0:6,1:]
         print("type 1")
         print(center)
-        center= self.atts[0:5,1:]
+        center= self.atts[0:6,1:]
         print(self.atts[7,1:])
-        center= torch.cat(self.atts[7,1:], 0)
+        center= torch.cat((center, self.atts[7,1:]), 0)
         print("type 2")
         print(center)
         
@@ -293,8 +292,8 @@ class Metrics(object):
             center= self.atts[0:6,1:]
         elif self.config['num_attributes'] == 11:
             predictions = predictions.repeat(7, 1, 1)
-            center= self.atts[0:5,1:]
-            center= torch.cat(self.atts[7,1:], 0)
+            center= self.atts[0:6,1:]
+            center= torch.cat((center, self.atts[7,1:]), 0)
             
         #predictions = predictions.repeat(8, 1, 1)
             
