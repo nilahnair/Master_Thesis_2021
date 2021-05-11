@@ -150,7 +150,6 @@ class Metrics(object):
         @return F1_weighted: F1 weighted
         @return F1_mean: F1 mean
         '''
-        print(preds)
         # Predictions
         if self.config['output'] == 'softmax':
             predictions = torch.argmax(preds, dim=1)
@@ -158,11 +157,15 @@ class Metrics(object):
             # predictions = torch.argmin(preds, dim=1)
             #predictions = self.atts[torch.argmin(preds, dim=1), 0]
             predictions = self.center[torch.argmin(preds, dim=1), 0]
-        print(predictions)    
+       
         if self.config['output'] == 'softmax':
             precision, recall = self.get_precision_recall(targets, predictions)
         elif self.config['output'] == 'attribute':
+            print(targets)
+            targets=torch.where(targets[:,0]==7, 6)
+            print(targets)
             precision, recall = self.get_precision_recall(targets[:, 0], predictions)
+            
        
         proportions = torch.zeros(self.config['num_classes'])
 
@@ -170,7 +173,8 @@ class Metrics(object):
             for c in range(self.config['num_classes']):
                 proportions[c] = torch.sum(targets == c).item() / float(targets.size()[0])
         elif self.config['output'] == 'attribute':
-            for c in range(self.config['num_classes']):
+            #for c in range(self.config['num_classes']):
+            for c in range(self.center.shape[0]):
                 proportions[c] = torch.sum(targets[:, 0] == c).item() / float(targets[:, 0].size()[0])
         
         logging.info('            Metric:    \nPrecision: \n{}\nRecall\n{}'.format(precision, recall))
