@@ -64,6 +64,11 @@ class Metrics(object):
             precision = torch.zeros((self.center.shape[0]))
             recall = torch.zeros((self.center.shape[0]))
         
+        print("precision")
+        print(precision)
+        print("recall")
+        print(recall)
+                
         x = torch.ones(predictions.size())
         y = torch.zeros(predictions.size())
 
@@ -95,7 +100,7 @@ class Metrics(object):
                     continue
         elif self.config['output'] == 'attribute':
             for c in range(self.center.shape[0]):
-                selected_elements = torch.where(predictions == c[c,], x, y)
+                selected_elements = torch.where(predictions == c, x, y)
                 print("selected_elements")
                 print(selected_elements)
                 non_selected_elements = torch.where(predictions == c, y, x)
