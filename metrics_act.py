@@ -56,19 +56,14 @@ class Metrics(object):
         @return precision: torch array with precision of each class
         @return recall: torch array with recall of each class
         '''
-        print("get_precision_recall")
+       
         if self.config['output'] == 'softmax':
             precision = torch.zeros((self.config['num_classes']))
             recall = torch.zeros((self.config['num_classes']))
         elif self.config['output'] == 'attribute':
             precision = torch.zeros((self.center.shape[0]))
             recall = torch.zeros((self.center.shape[0]))
-        
-        print("precision")
-        print(precision)
-        print("recall")
-        print(recall)
-                
+       
         x = torch.ones(predictions.size())
         y = torch.zeros(predictions.size())
 
@@ -101,10 +96,9 @@ class Metrics(object):
         elif self.config['output'] == 'attribute':
             for c in range(self.center.shape[0]):
                 selected_elements = torch.where(predictions == c, x, y)
-                print("selected_elements")
-                print(selected_elements)
+               
                 non_selected_elements = torch.where(predictions == c, y, x)
-
+               
                 target_elements = torch.where(targets == c, x, y)
                 non_target_elements = torch.where(targets == c, y, x)
             
@@ -122,10 +116,7 @@ class Metrics(object):
                     #                                                                                                                              false_positives.item(),
                     #                                                                                                                              false_negatives.item()))
                     continue
-        print("precision")
-        print(precision)
-        print("recall")
-        print(recall)
+       
         return precision, recall
 
 
@@ -200,25 +191,16 @@ class Metrics(object):
             #predictions = self.center[torch.argmin(preds, dim=1), 0]
             predictions=torch.argmin(preds, dim=1)
         
-        print("predictions")
-        print(predictions)
         if self.config['output'] == 'softmax':
             precision, recall = self.get_precision_recall(targets, predictions)
         elif self.config['output'] == 'attribute':
             precision, recall = self.get_precision_recall(targets[:, 0], predictions)
        
-        print(targets)
-        print(precision)
-        print(recall)
-        
         if self.config['output'] == 'softmax':
             proportions = torch.zeros(self.config['num_classes'])
         elif self.config['output'] == 'attribute':
             proportions = torch.zeros(self.center.shape[0])
    
-        print("proportions")
-        print(proportions)
-        
         if self.config['output'] == 'softmax':
             for c in range(self.config['num_classes']):
                 proportions[c] = torch.sum(targets == c).item() / float(targets.size()[0])
@@ -226,8 +208,7 @@ class Metrics(object):
             #for c in range(self.config['num_classes']):
             for c in range(self.center.shape[0]):
                 proportions[c] = torch.sum(targets[:, 0] == c).item() / float(targets[:, 0].size()[0])
-        print("proportions")
-        print(proportions)
+        
         logging.info('            Metric:    \nPrecision: \n{}\nRecall\n{}'.format(precision, recall))
 
         self.results['precision'] = precision
@@ -244,9 +225,7 @@ class Metrics(object):
         weighted_f1[np.isnan(weighted_f1)] = 0
 
         F1_weighted = torch.sum(weighted_f1) * 2
-        print(' F1_weighted ')
-        print( F1_weighted )
-
+       
         # F1 mean
         f1 = multi_pre_rec / sum_pre_rec
         f1[torch.isnan(f1)] = 0
