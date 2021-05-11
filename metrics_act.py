@@ -56,8 +56,12 @@ class Metrics(object):
         @return precision: torch array with precision of each class
         @return recall: torch array with recall of each class
         '''
-        precision = torch.zeros((self.config['num_classes']))
-        recall = torch.zeros((self.config['num_classes']))
+        if self.config['output'] == 'softmax':
+            precision = torch.zeros((self.config['num_classes']))
+            recall = torch.zeros((self.config['num_classes']))
+        elif self.config['output'] == 'attribute':
+            precision = torch.zeros((self.center.shape[0]))
+            recall = torch.zeros((self.center.shape[0]))
           
         x = torch.ones(predictions.size())
         y = torch.zeros(predictions.size())
@@ -65,27 +69,50 @@ class Metrics(object):
         x = x.to(self.device, dtype=torch.long)
         y = y.to(self.device, dtype=torch.long)
        
-        for c in range(self.config['num_classes']):
-            selected_elements = torch.where(predictions == c, x, y)
-            non_selected_elements = torch.where(predictions == c, y, x)
+        if self.config['output'] == 'softmax':
+            for c in range(self.config['num_classes']):
+                selected_elements = torch.where(predictions == c, x, y)
+                non_selected_elements = torch.where(predictions == c, y, x)
 
-            target_elements = torch.where(targets == c, x, y)
-            non_target_elements = torch.where(targets == c, y, x)
+                target_elements = torch.where(targets == c, x, y)
+                non_target_elements = torch.where(targets == c, y, x)
             
-            true_positives = torch.sum(target_elements * selected_elements)
-            false_positives = torch.sum(non_target_elements * selected_elements)
+                true_positives = torch.sum(target_elements * selected_elements)
+                false_positives = torch.sum(non_target_elements * selected_elements)
            
-            false_negatives = torch.sum(target_elements * non_selected_elements)
+                false_negatives = torch.sum(target_elements * non_selected_elements)
 
-            try:
-                precision[c] = true_positives.item() / float((true_positives + false_positives).item())
-                recall[c] = true_positives.item() / float((true_positives + false_negatives).item())
+                try:
+                    precision[c] = true_positives.item() / float((true_positives + false_positives).item())
+                    recall[c] = true_positives.item() / float((true_positives + false_negatives).item())
 
-            except:
+                except:
                     # logging.error('        Network_User:    Train:    In Class {} true_positives {} false_positives {} false_negatives {}'.format(c, true_positives.item(),
                     #                                                                                                                              false_positives.item(),
                     #                                                                                                                              false_negatives.item()))
-                continue
+                    continue
+        elif self.config['output'] == 'attribute':
+            for c in range(self.center.shape[0]):
+                selected_elements = torch.where(predictions == c, x, y)
+                non_selected_elements = torch.where(predictions == c, y, x)
+
+                target_elements = torch.where(targets == c, x, y)
+                non_target_elements = torch.where(targets == c, y, x)
+            
+                true_positives = torch.sum(target_elements * selected_elements)
+                false_positives = torch.sum(non_target_elements * selected_elements)
+           
+                false_negatives = torch.sum(target_elements * non_selected_elements)
+
+                try:
+                    precision[c] = true_positives.item() / float((true_positives + false_positives).item())
+                    recall[c] = true_positives.item() / float((true_positives + false_negatives).item())
+
+                except:
+                    # logging.error('        Network_User:    Train:    In Class {} true_positives {} false_positives {} false_negatives {}'.format(c, true_positives.item(),
+                    #                                                                                                                              false_positives.item(),
+                    #                                                                                                                              false_negatives.item()))
+                    continue
        
         return precision, recall
 
@@ -161,16 +188,25 @@ class Metrics(object):
         if self.config['output'] == 'softmax':
             precision, recall = self.get_precision_recall(targets, predictions)
         elif self.config['output'] == 'attribute':
-            for i in range(0, targets.shape[0]):
-                print(i)
-                if targets[i,0]==6:
-                    targets[i,0]=5
-                elif targets[i,0]==7:
-                    targets[i,0]=6
+            if self.config['num_attributes'] == 4:
+                for i in range(0, targets.shape[0]):
+                    if targets[i,0]==6:
+                        targets[i,0]=5
+                    elif targets[i,0]==7:
+                        targets[i,0]=3
+            elif self.config['num_attributes'] == 11:
+                for i in range(0, targets.shape[0]):
+                    if targets[i,0]==6:
+                        targets[i,0]=5
+                    elif targets[i,0]==7:
+                        targets[i,0]=6
             precision, recall = self.get_precision_recall(targets[:, 0], predictions)
             
        
-        proportions = torch.zeros(self.config['num_classes'])
+        if self.config['output'] == 'softmax':
+            proportions = torch.zeros(self.config['num_classes'])
+        elif self.config['output'] == 'attribute':
+            proportions = torch.zeros(self.center.shape[0])
 
         if self.config['output'] == 'softmax':
             for c in range(self.config['num_classes']):
@@ -201,7 +237,10 @@ class Metrics(object):
         f1 = multi_pre_rec / sum_pre_rec
         f1[torch.isnan(f1)] = 0
 
-        F1_mean = torch.sum(f1) * 2 / self.config['num_classes']
+        if self.config['output'] == 'softmax':
+            F1_mean = torch.sum(f1) * 2 / self.config['num_classes']
+        elif self.config['output'] == 'attribute':
+            F1_mean = torch.sum(f1) * 2 / self.center.shape[0]
 
         return F1_weighted.item(), F1_mean.item()
 
