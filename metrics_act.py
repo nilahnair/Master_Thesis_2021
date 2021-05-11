@@ -117,7 +117,10 @@ class Metrics(object):
                     #                                                                                                                              false_positives.item(),
                     #                                                                                                                              false_negatives.item()))
                     continue
-       
+        print("precision")
+        print(precision)
+        print("recall")
+        print(recall)
         return precision, recall
 
 
@@ -182,17 +185,15 @@ class Metrics(object):
         @return F1_mean: F1 mean
         '''
         print("F1 metric")
-        print("preds")
-        print(preds)
-        print(torch.argmin(preds, dim=1))
-        print(self.center[torch.argmin(preds, dim=1), 0])
+       
         # Predictions
         if self.config['output'] == 'softmax':
             predictions = torch.argmax(preds, dim=1)
         elif self.config['output'] == 'attribute':
             # predictions = torch.argmin(preds, dim=1)
             #predictions = self.atts[torch.argmin(preds, dim=1), 0]
-            predictions = self.center[torch.argmin(preds, dim=1), 0]
+            #predictions = self.center[torch.argmin(preds, dim=1), 0]
+            predictions=torch.argmin(preds, dim=1)
         
         print("predictions")
         print(predictions)
