@@ -150,7 +150,7 @@ class Metrics(object):
         @return F1_weighted: F1 weighted
         @return F1_mean: F1 mean
         '''
-       
+        print(preds)
         # Predictions
         if self.config['output'] == 'softmax':
             predictions = torch.argmax(preds, dim=1)
@@ -158,7 +158,7 @@ class Metrics(object):
             # predictions = torch.argmin(preds, dim=1)
             #predictions = self.atts[torch.argmin(preds, dim=1), 0]
             predictions = self.center[torch.argmin(preds, dim=1), 0]
-            
+        print(predictions)    
         if self.config['output'] == 'softmax':
             precision, recall = self.get_precision_recall(targets, predictions)
         elif self.config['output'] == 'attribute':
