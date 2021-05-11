@@ -161,7 +161,7 @@ class Metrics(object):
         if self.config['output'] == 'softmax':
             precision, recall = self.get_precision_recall(targets, predictions)
         elif self.config['output'] == 'attribute':
-            for i in range(0, targets[0]):
+            for i in range(0, targets.shape[0]):
                 print(i)
                 if targets[i,0]==6:
                     targets[i,0]=5
