@@ -56,6 +56,9 @@ class Metrics(object):
         @return precision: torch array with precision of each class
         @return recall: torch array with recall of each class
         '''
+        print("get_precision_recall")
+        print("predictions")
+        print(predictions)
         if self.config['output'] == 'softmax':
             precision = torch.zeros((self.config['num_classes']))
             recall = torch.zeros((self.config['num_classes']))
@@ -63,8 +66,6 @@ class Metrics(object):
             precision = torch.zeros((self.center.shape[0]))
             recall = torch.zeros((self.center.shape[0]))
         
-        print(precision)
-          
         x = torch.ones(predictions.size())
         y = torch.zeros(predictions.size())
 
@@ -74,6 +75,7 @@ class Metrics(object):
         if self.config['output'] == 'softmax':
             for c in range(self.config['num_classes']):
                 selected_elements = torch.where(predictions == c, x, y)
+                
                 non_selected_elements = torch.where(predictions == c, y, x)
 
                 target_elements = torch.where(targets == c, x, y)
@@ -95,7 +97,8 @@ class Metrics(object):
                     continue
         elif self.config['output'] == 'attribute':
             for c in range(self.center.shape[0]):
-                selected_elements = torch.where(predictions == c, x, y)
+                selected_elements = torch.where(predictions == c[c,], x, y)
+                print("selected_elements")
                 print(selected_elements)
                 non_selected_elements = torch.where(predictions == c, y, x)
 
@@ -116,8 +119,6 @@ class Metrics(object):
                     #                                                                                                                              false_positives.item(),
                     #                                                                                                                              false_negatives.item()))
                     continue
-        print(precision)
-        print(recall)
        
         return precision, recall
 
