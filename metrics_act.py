@@ -188,16 +188,23 @@ class Metrics(object):
             # predictions = torch.argmin(preds, dim=1)
             #predictions = self.atts[torch.argmin(preds, dim=1), 0]
             predictions = self.center[torch.argmin(preds, dim=1), 0]
+        print("F1 metric")
+        print("predictions")
+        print(predictions)
+        if self.config['output'] == 'softmax':
+            precision, recall = self.get_precision_recall(targets, predictions)
+        elif self.config['output'] == 'attribute':
+            precision, recall = self.get_precision_recall(targets[:, 0], predictions)
        
         print(targets)
         print(precision)
         print(recall)
-       
+        
         if self.config['output'] == 'softmax':
             proportions = torch.zeros(self.config['num_classes'])
         elif self.config['output'] == 'attribute':
             proportions = torch.zeros(self.center.shape[0])
-        
+   
         print("proportions")
         print(proportions)
         
@@ -208,7 +215,7 @@ class Metrics(object):
             #for c in range(self.config['num_classes']):
             for c in range(self.center.shape[0]):
                 proportions[c] = torch.sum(targets[:, 0] == c).item() / float(targets[:, 0].size()[0])
-        
+        print("proportions")
         print(proportions)
         logging.info('            Metric:    \nPrecision: \n{}\nRecall\n{}'.format(precision, recall))
 
@@ -273,10 +280,6 @@ class Metrics(object):
             acc = torch.sum(targets == predicted_classes)
         acc = acc.item() / float(targets.size()[0])
         
-        print("predicted_classes")
-        print(predicted_classes)
-        print("acc")
-        print(acc)
         # returning accuracy and predicted classes
         return acc, predicted_classes
 
@@ -381,9 +384,7 @@ class Metrics(object):
                         targets[i,0]=5
                     elif targets[i,0]==7:
                         targets[i,0]=6
-        print("new targets")
-        print(targets)
-            
+       
         # Accuracy
         targets = targets.type(dtype=torch.FloatTensor)
         targets = targets.to(self.device)
