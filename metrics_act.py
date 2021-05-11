@@ -261,7 +261,7 @@ class Metrics(object):
             #  one computes the class that correspond to the argument with min distance
             # self.atts.size() = [# of windows, classes and 19 attributes] = [# of windows, 20], [#, 20]
             #predicted_classes = self.atts[torch.argmin(predictions, dim=1), 0]
-            predicted_classes = self.center[torch.argmin(predictions, dim=1), 0]
+            predicted_classes = torch.argmin(predictions, dim=1)
             logging.info('            Metric:    Acc:    Target     class {}'.format(targets[0, 0]))
             logging.info('            Metric:    Acc:    Prediction class {}'.format(predicted_classes[0]))
             acc = torch.sum(targets[:, 0] == predicted_classes.type(dtype=torch.cuda.FloatTensor))
