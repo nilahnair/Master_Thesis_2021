@@ -161,9 +161,12 @@ class Metrics(object):
         if self.config['output'] == 'softmax':
             precision, recall = self.get_precision_recall(targets, predictions)
         elif self.config['output'] == 'attribute':
-            print(targets)
-            targets=torch.where(targets[:,0]==7, 6)
-            print(targets)
+            for i in range(0, targets[0]):
+                print(i)
+                if targets[i,0]==6:
+                    targets[i,0]=5
+                elif targets[i,0]==7:
+                    targets[i,0]=6
             precision, recall = self.get_precision_recall(targets[:, 0], predictions)
             
        
