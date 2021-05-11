@@ -277,23 +277,13 @@ class Metrics(object):
         #predictions = predictions.repeat(self.attr.shape[0], 1, 1)
         #predictions = predictions.repeat(self.atts.shape[0], 1, 1)
         
-        center= self.atts[0:6,1:]
-        print("type 1")
-        print(center)
-        center= self.atts[0:6,1:]
-        print(self.atts[7:8,1:])
-        center= torch.cat((center, self.atts[7:8,1:]), 0)
-        print("type 2")
-        print(center)
-        
-        
         if self.config['num_attributes'] == 4:
             predictions = predictions.repeat(6, 1, 1)
             center= self.atts[0:6,1:]
         elif self.config['num_attributes'] == 11:
             predictions = predictions.repeat(7, 1, 1)
             center= self.atts[0:6,1:]
-            center= torch.cat((center, self.atts[7,1:]), 1)
+            center= torch.cat((center, self.atts[7:8,1:]), 0)
             
         #predictions = predictions.repeat(8, 1, 1)
             
@@ -301,10 +291,10 @@ class Metrics(object):
         
         # compute the distance among the predictions of the network
         # and the the attribute representation
-        distances = euclidean(predictions[0], self.atts[:, 1:])
+        distances = euclidean(predictions[0], center)
         distances = distances.view(1, -1)
         for i in range(1, predictions.shape[0]):
-            dist = euclidean(predictions[i], self.atts[:, 1:])
+            dist = euclidean(predictions[i], center)
             distances = torch.cat((distances, dist.view(1, -1)), dim=0)
         
         #logging.info('            Metric:   distance attr: \n{}'.format(distances))
