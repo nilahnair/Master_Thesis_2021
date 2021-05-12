@@ -286,7 +286,7 @@ class Modus_Selecter(object):
             else:
                 self.exp.log_scalar("walking_neg_test{}".format(iter_evl), count_neg_test[1]/(count_pos_test[1]+count_neg_test[1]))
             if count_neg_test[2] == 0:
-                self.exp.log_scalar("cart_pos_test{}".format(iter_evl), count_neg_test[2])
+                self.exp.log_scalar("cart_neg_test{}".format(iter_evl), count_neg_test[2])
             else:
                 self.exp.log_scalar("cart_neg_test{}".format(iter_evl), count_neg_test[2]/(count_pos_test[2]+count_neg_test[2]))
             if count_neg_test[3] == 0:
