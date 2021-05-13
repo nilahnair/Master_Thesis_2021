@@ -22,6 +22,7 @@ class Metrics(object):
         logging.info('            Metrics: Constructor')
         self.config = config
         self.device = dev
+        
         # Here, you need to extract the attributes from the network.pt
         #self,attr= network["att_rep"]
         self.attr = attributes
@@ -39,8 +40,8 @@ class Metrics(object):
             self.center= self.atts[0:6,1:]
             self.center= torch.cat((self.center, self.atts[7:8,1:]), 0)
         
-        self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0,
-                        'recall': 0}
+        self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0, 'recall': 0, 'acc_attrs': 0, 
+                        'precision_attr': 0, 'recall_attr': 0,}
 
         return
 
@@ -302,7 +303,7 @@ class Metrics(object):
         
         #predicted_classes = self.atts[torch.argmin(predictions, dim=1), 0]
         
-        return 
+        return acc_attrs, precision_attr, recall_attr
 
     ##################################################
     ###################  metric  ######################
@@ -356,7 +357,7 @@ class Metrics(object):
             logging.info('            Metric:    metric:    target example \n{}\n{}'.format(targets[0, 1:],
                                                                                             predictions[0]))
             logging.info('            Metric:    type targets vector: {}'.format(targets.type()))
-            self.metric_attr(targets[:, 1:], predictions)
+            acc_attrs, precision_attr, recall_attr =self.metric_attr(targets[:, 1:], predictions)
             
             predictions = self.efficient_distance(predictions)
         print('metric')
@@ -392,5 +393,8 @@ class Metrics(object):
         self.results['f1_weighted'] = f1_weighted
         self.results['f1_mean'] = f1_mean
         self.results['predicted_classes'] = predicted_classes
+        self.results['acc_attrs'] = acc_attrs
+        self.results['precision_attr'] = precision_attr
+        self.results['recall_attr'] = recall_attr
         #return acc, f1_weighted, f1_mean, predicted_classes
         return self.results

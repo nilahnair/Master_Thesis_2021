@@ -568,6 +568,7 @@ class Network_User(object):
                     self.exp.log_scalar("accuracy_val_int_{}".format(ea_itera),results_val['acc'], itera)
                     self.exp.log_scalar("f1_w_val_int_{}".format(ea_itera),results_val['f1_weighted'], itera)
                     self.exp.log_scalar("f1_m_val_int_{}".format(ea_itera), results_val['f1_mean'], itera)
+                    self.exp.log_scalar("accuracy_attr_val_int_{}".format(ea_itera),results_val['acc_attrs'], itera)
                     
                     if c_pos_val[0] == 0:
                         self.exp.log_scalar("standing_pos_val_{}".format(ea_itera), c_pos_val[0], itera)
@@ -745,6 +746,7 @@ class Network_User(object):
                         self.exp.log_scalar("f1_w_train_int_{}".format(ea_itera),results_train['f1_weighted'], itera)
                         self.exp.log_scalar("f1_m_train_int_{}".format(ea_itera), results_train['f1_mean'], itera)
                         self.exp.log_scalar("loss_train_int_{}".format(ea_itera), loss_train, itera)
+                        self.exp.log_scalar("acc_attr_train_int_{}".format(ea_itera),results_train['acc_attrs'], itera)
                     
                                            
                 itera+=1
@@ -1162,9 +1164,15 @@ class Network_User(object):
         results_test = metrics_obj.metric(test_labels, predictions_test)
 
         # print statistics
-        logging.info(
+        if self.config['output'] == 'softmax':
+            logging.info(
             '        Network_User:        Testing:    elapsed time {} acc {}, f1_weighted {}, f1_mean {}'.format(
                 elapsed_time_test, results_test['acc'], results_test['f1_weighted'], results_test['f1_mean']))
+        elif self.config['output'] == 'attribute':
+            logging.info(
+            '        Network_User:        Testing:    elapsed time {} acc {}, f1_weighted {}, f1_mean {}, acc_attr {}'.format(
+                elapsed_time_test, results_test['acc'], results_test['f1_weighted'], results_test['f1_mean'], results_test['acc_attrs'] ))
+        
 
         #predictions_labels = torch.argmax(predictions_test, dim=1)
         predictions_labels = results_test['predicted_classes'].to("cpu", torch.double).numpy()
