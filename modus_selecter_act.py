@@ -163,7 +163,9 @@ class Modus_Selecter(object):
             self.exp.log_scalar("f1_w_train_mo_{}".format(iter_evl),results_train['f1_weighted'])
             self.exp.log_scalar("f1_m_train_mo_{}".format(iter_evl), results_train['f1_mean'])
             self.exp.log_scalar("best_iter_{}".format(iter_evl), best_itera)
-            self.exp.log_scalar("acc_attr_train_mo_{}".format(iter_evl),results_train['acc_attrs'])
+            p=results_train['acc_attrs']
+            for i in range(0,p.shape[0]):
+                self.exp.log_scalar("acc_attr_{}_train_mo_{}".format(i, iter_evl),p[i])
             
             if c_pos_val[0] == 0:
                 self.exp.log_scalar("standing_pos_val_final{}".format(iter_evl), c_pos_val[0])
@@ -259,7 +261,9 @@ class Modus_Selecter(object):
             self.exp.log_scalar("accuracy_test_mo_{}".format(iter_evl),results_test['acc'])
             self.exp.log_scalar("f1_w_test_mo_{}".format(iter_evl),results_test['f1_weighted'])
             self.exp.log_scalar("f1_m_test_mo_{}".format(iter_evl),results_test['f1_mean'])
-            self.exp.log_scalar("acc_attr_test_mo_{}".format(iter_evl),results_test['acc_attrs'])
+            p=results_test['acc_attrs']
+            for i in range(0,p.shape[0]):
+                self.exp.log_scalar("acc_attr_{}_test_mo_{}".format(i, iter_evl),p[i])
             
             if count_pos_test[0] == 0:
                 self.exp.log_scalar("standing_pos_test{}".format(iter_evl), count_pos_test[0])

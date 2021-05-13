@@ -568,7 +568,9 @@ class Network_User(object):
                     self.exp.log_scalar("accuracy_val_int_{}".format(ea_itera),results_val['acc'], itera)
                     self.exp.log_scalar("f1_w_val_int_{}".format(ea_itera),results_val['f1_weighted'], itera)
                     self.exp.log_scalar("f1_m_val_int_{}".format(ea_itera), results_val['f1_mean'], itera)
-                    self.exp.log_scalar("acc_attr_val_int_{}".format(ea_itera),results_val['acc_attrs'], itera)
+                    p=results_val['acc_attrs']
+                    for i in range(0,p.shape[0]):
+                        self.exp.log_scalar("acc_attr_{}_val_int_{}".format(i, ea_itera),p[i], itera)
                     
                     if c_pos_val[0] == 0:
                         self.exp.log_scalar("standing_pos_val_{}".format(ea_itera), c_pos_val[0], itera)
@@ -746,7 +748,9 @@ class Network_User(object):
                         self.exp.log_scalar("f1_w_train_int_{}".format(ea_itera),results_train['f1_weighted'], itera)
                         self.exp.log_scalar("f1_m_train_int_{}".format(ea_itera), results_train['f1_mean'], itera)
                         self.exp.log_scalar("loss_train_int_{}".format(ea_itera), loss_train, itera)
-                        self.exp.log_scalar("acc_attr_train_int_{}".format(ea_itera),results_train['acc_attrs'], itera)
+                        p=results_train['acc_attrs']
+                        for i in range(0,p.shape[0]):
+                            self.exp.log_scalar("acc_attr_{}_train_int_{}".format(i, ea_itera),p[i], itera)
                     
                                            
                 itera+=1
