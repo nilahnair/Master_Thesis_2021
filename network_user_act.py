@@ -1275,7 +1275,7 @@ class Network_User(object):
 
             else:
                 logging.info('        Network_User: Not selected modus')
-                
+            
 
        return results, confusion_matrix, best_itera, c_pos, c_neg
   
