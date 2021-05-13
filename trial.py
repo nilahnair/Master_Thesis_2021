@@ -20,6 +20,8 @@ from HARWindows import HARWindows
 import torch
 torch.cuda.empty_cache()
 
+torch.cuda.memory_summary(device=None, abbreviated=False)
+
 '''
 path="/home/nnair/Master_Thesis_2021/id_attr_one.txt"
 att_rep = np.loadtxt(path, delimiter=',')
