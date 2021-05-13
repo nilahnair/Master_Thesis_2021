@@ -4,7 +4,7 @@ Created on Tue Mar  2 21:56:46 2021
 
 @author: nilah
 """
-
+'''
 import numpy as np
 import csv
 import os
@@ -16,7 +16,11 @@ from sliding_window import sliding_window
 import pickle
 from torch.utils.data import DataLoader
 from HARWindows import HARWindows
+'''
+import torch
+torch.cuda.empty_cache()
 
+'''
 path="/home/nnair/Master_Thesis_2021/id_attr_one.txt"
 att_rep = np.loadtxt(path, delimiter=',')
 print(att_rep)
@@ -34,7 +38,7 @@ for i in range(sample.shape[0]):
         train_batch_l[i]= att_rep[sample[i],1:]
     
 print(train_batch_l)
- 
+'''
 
 
 '''
