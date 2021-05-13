@@ -782,7 +782,7 @@ class Network_User(object):
         del loss_train_val, accs_train_val, f1w_train_val, f1m_train_val
         del metrics_list, feature_maps
         del network_obj
-
+       
         torch.cuda.empty_cache()
 
         if self.config['plotting']:
@@ -1275,6 +1275,7 @@ class Network_User(object):
 
             else:
                 logging.info('        Network_User: Not selected modus')
+                
 
        return results, confusion_matrix, best_itera, c_pos, c_neg
   

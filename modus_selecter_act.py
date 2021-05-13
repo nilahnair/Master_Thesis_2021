@@ -11,6 +11,7 @@ import os
 from network_user_act import Network_User
 import numpy as np
 
+import torch
 import time
 
 import xml.etree.ElementTree as ET
@@ -335,6 +336,25 @@ class Modus_Selecter(object):
         if self.config["usage_modus"] == "train":
             logging.info('    Network_selecter:    Train:    eliminating network file')
             os.remove(self.config['folder_exp'] + 'network.pt')
+        
+            
+        torch.cuda.empty_cache()
+        del count_neg_test,count_pos_test
+        del results_test
+        del c_neg_val, c_pos_val
+        del p
+        del results_train
+        del acc_train_ac
+        del f1_weighted_train_ac 
+        del f1_mean_train_ac
+        del precisions_test
+        del recalls_test 
+        del precisions_attr_test
+        del recalls_attr_test 
+        del acc_test_ac 
+        del f1_weighted_test_ac
+        del f1_mean_test_ac
+        del acc_attr_test_ac 
 
         return
 
@@ -377,7 +397,13 @@ class Modus_Selecter(object):
                       recalls=np.array(recalls_test), acc_attr_test=[results_test['acc_attrs']], precisions_attr=np.array(precisions_attr_test),
                       recalls_attr=np.array(recalls_attr_test)  )
             return
-
+        
+        torch.cuda.empty_cache()
+        del precisions_test 
+        del recalls_test 
+        del precisions_attr_test 
+        del recalls_attr_test 
+        
         return results_test, confusion_matrix_test, c_pos_test, c_neg_test
 
 
