@@ -568,7 +568,7 @@ class Network_User(object):
                     self.exp.log_scalar("accuracy_val_int_{}".format(ea_itera),results_val['acc'], itera)
                     self.exp.log_scalar("f1_w_val_int_{}".format(ea_itera),results_val['f1_weighted'], itera)
                     self.exp.log_scalar("f1_m_val_int_{}".format(ea_itera), results_val['f1_mean'], itera)
-                    self.exp.log_scalar("accuracy_attr_val_int_{}".format(ea_itera),results_val['acc_attrs'], itera)
+                    self.exp.log_scalar("acc_attr_val_int_{}".format(ea_itera),results_val['acc_attrs'], itera)
                     
                     if c_pos_val[0] == 0:
                         self.exp.log_scalar("standing_pos_val_{}".format(ea_itera), c_pos_val[0], itera)
