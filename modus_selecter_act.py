@@ -79,13 +79,13 @@ class Modus_Selecter(object):
         for expi in range(len(acc_test)):
             child = ET.SubElement(child_dataset, "metrics", acc_test=str(acc_test[expi]),
                                   f1_weighted_test=str(f1_weighted_test[expi]),
-                                  f1_mean_test=str(f1_mean_test[expi]), acc_attr_test=str(acc_attr_test[expi]))
+                                  f1_mean_test=str(f1_mean_test[expi]))
         child = ET.SubElement(child_dataset, "metrics_mean", acc_test_mean=str(np.mean(acc_test)),
                               f1_weighted_test_mean=str(np.mean(f1_weighted_test)),
-                              f1_mean_test_mean=str(np.mean(f1_mean_test)), acc_attr_test_mean=str(np.mean(acc_attr_test)))
+                              f1_mean_test_mean=str(np.mean(f1_mean_test)))
         child = ET.SubElement(child_dataset, "metrics_std", acc_test_mean=str(np.std(acc_test)),
                               f1_weighted_test_mean=str(np.std(f1_weighted_test)),
-                              f1_mean_test_mean=str(np.std(f1_mean_test)), acc_attr_test_mean=str(np.std(acc_attr_test)))
+                              f1_mean_test_mean=str(np.std(f1_mean_test)))
         child = ET.SubElement(child_dataset, "confusion_matrix_last",
                               confusion_matrix_last=str(confusion_matrix))
         if type_simple == 'training':
@@ -94,6 +94,8 @@ class Modus_Selecter(object):
             child = ET.SubElement(child_dataset, "precision_attr_mean", precision_mean=str(precisions_attr))
             child = ET.SubElement(child_dataset, "precision_attr_std", precision_std=str(recalls_attr))
         else:
+            child = ET.SubElement(child_dataset, "acc_attr_mean", precision_mean=str(np.mean(acc_attr_test, axis=0)))
+            child = ET.SubElement(child_dataset, "acc_attr_std", precision_std=str(np.std(acc_attr_test, axis=0)))
             child = ET.SubElement(child_dataset, "precision_mean", precision_mean=str(np.mean(precisions, axis=0)))
             child = ET.SubElement(child_dataset, "precision_std", precision_std=str(np.std(precisions, axis=0)))
             child = ET.SubElement(child_dataset, "recall_mean", recall_mean=str(np.mean(recalls, axis=0)))
