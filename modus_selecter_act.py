@@ -258,8 +258,8 @@ class Modus_Selecter(object):
         if testing:
             self.save(acc_test_ac, f1_weighted_test_ac, f1_mean_test_ac, type_simple='testing',
                       confusion_matrix=confusion_matrix_test, time_iter=time_test, precisions=np.array(precisions_test),
-                      recalls=np.array(recalls_test), best_itera=0, acc_attr_test=acc_attr_test_ac, precisions_attr_test=np.array(precisions_attr_test), 
-                      recalls_attr_test=np.array(recalls_attr_test))
+                      recalls=np.array(recalls_test), best_itera=0, acc_attr_test=acc_attr_test_ac, precisions_attr=np.array(precisions_attr_test), 
+                      recalls_attr=np.array(recalls_attr_test))
            
             self.exp.log_scalar("accuracy_test_mo_{}".format(iter_evl),results_test['acc'])
             self.exp.log_scalar("f1_w_test_mo_{}".format(iter_evl),results_test['f1_weighted'])
