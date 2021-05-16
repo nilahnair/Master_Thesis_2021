@@ -364,19 +364,21 @@ class Modus_Selecter(object):
         del count_neg_test,count_pos_test
         del results_test
         del c_neg_val, c_pos_val
-        del p
         del results_train
         del acc_train_ac
         del f1_weighted_train_ac 
         del f1_mean_train_ac
         del precisions_test
         del recalls_test 
-        del precisions_attr_test
-        del recalls_attr_test 
         del acc_test_ac 
         del f1_weighted_test_ac
         del f1_mean_test_ac
-        del acc_attr_test_ac 
+        
+        if self.config['output']== 'attribute':
+            del p
+            del precisions_attr_test
+            del recalls_attr_test
+            del acc_attr_test_ac 
 
         return
 
@@ -436,8 +438,9 @@ class Modus_Selecter(object):
         torch.cuda.empty_cache()
         del precisions_test 
         del recalls_test 
-        del precisions_attr_test 
-        del recalls_attr_test 
+        if self.config['output']== 'attribute':
+            del precisions_attr_test 
+            del recalls_attr_test 
         
         return results_test, confusion_matrix_test, c_pos_test, c_neg_test
 
