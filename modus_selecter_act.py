@@ -91,19 +91,22 @@ class Modus_Selecter(object):
         if type_simple == 'training':
             child = ET.SubElement(child_dataset, "precision_mean", precision_mean=str(precisions))
             child = ET.SubElement(child_dataset, "precision_std", precision_std=str(recalls))
-            child = ET.SubElement(child_dataset, "precision_attr_mean", precision_mean=str(precisions_attr))
-            child = ET.SubElement(child_dataset, "precision_attr_std", precision_std=str(recalls_attr))
+            if self.config['output']== 'attribute':
+                child = ET.SubElement(child_dataset, "precision_attr_mean", precision_mean=str(precisions_attr))
+                child = ET.SubElement(child_dataset, "precision_attr_std", precision_std=str(recalls_attr))
         else:
-            child = ET.SubElement(child_dataset, "acc_attr_mean", precision_mean=str(np.mean(acc_attr_test, axis=0)))
-            child = ET.SubElement(child_dataset, "acc_attr_std", precision_std=str(np.std(acc_attr_test, axis=0)))
+            if self.config['output']== 'attribute':
+                child = ET.SubElement(child_dataset, "acc_attr_mean", precision_mean=str(np.mean(acc_attr_test, axis=0)))
+                child = ET.SubElement(child_dataset, "acc_attr_std", precision_std=str(np.std(acc_attr_test, axis=0)))
             child = ET.SubElement(child_dataset, "precision_mean", precision_mean=str(np.mean(precisions, axis=0)))
             child = ET.SubElement(child_dataset, "precision_std", precision_std=str(np.std(precisions, axis=0)))
             child = ET.SubElement(child_dataset, "recall_mean", recall_mean=str(np.mean(recalls, axis=0)))
             child = ET.SubElement(child_dataset, "recall_std", recall_std=str(np.std(recalls, axis=0)))
-            child = ET.SubElement(child_dataset, "precision_attr_mean", precision_mean=str(np.mean(precisions_attr, axis=0)))
-            child = ET.SubElement(child_dataset, "precision_attr_std", precision_std=str(np.std(precisions_attr, axis=0)))
-            child = ET.SubElement(child_dataset, "recall_attr_mean", recall_mean=str(np.mean(recalls_attr, axis=0)))
-            child = ET.SubElement(child_dataset, "recall_attr_std", recall_std=str(np.std(recalls_attr, axis=0)))
+            if self.config['output']== 'attribute':
+                child = ET.SubElement(child_dataset, "precision_attr_mean", precision_mean=str(np.mean(precisions_attr, axis=0)))
+                child = ET.SubElement(child_dataset, "precision_attr_std", precision_std=str(np.std(precisions_attr, axis=0)))
+                child = ET.SubElement(child_dataset, "recall_attr_mean", recall_mean=str(np.mean(recalls_attr, axis=0)))
+                child = ET.SubElement(child_dataset, "recall_attr_std", recall_std=str(np.std(recalls_attr, axis=0)))
             
 
         xmlstr = minidom.parseString(ET.tostring(xml_root)).toprettyxml(indent="   ")
@@ -130,15 +133,17 @@ class Modus_Selecter(object):
         f1_mean_train_ac = []
         precisions_test = []
         recalls_test = []
-        precisions_attr_test = []
-        recalls_attr_test = []
+        if self.config['output']== 'attribute':
+            precisions_attr_test = []
+            recalls_attr_test = []
         
         
         if testing:
             acc_test_ac = []
             f1_weighted_test_ac = []
             f1_mean_test_ac = []
-            acc_attr_test_ac = []
+            if self.config['output']== 'attribute':
+                acc_attr_test_ac = []
 
         #There will be only one iteration
         #As there is not evolution
@@ -157,7 +162,13 @@ class Modus_Selecter(object):
 
             time_train = time.time() - start_time_train
 
-            logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
+            
+            if self.config['output']== 'softmax':
+                logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
+                         'f1_weighted {}, f1_mean {}'.format(time_train, results_train['acc'],
+                                                             results_train['f1_weighted'], results_train['f1_mean']))
+            elif self.config['output']== 'attribute':
+                logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
                          'f1_weighted {}, f1_mean {}, acc_attr {}'.format(time_train, results_train['acc'],
                                                              results_train['f1_weighted'], results_train['f1_mean'], results_train['acc_attrs'] ))
             
@@ -166,9 +177,10 @@ class Modus_Selecter(object):
             self.exp.log_scalar("f1_w_train_mo_{}".format(iter_evl),results_train['f1_weighted'])
             self.exp.log_scalar("f1_m_train_mo_{}".format(iter_evl), results_train['f1_mean'])
             self.exp.log_scalar("best_iter_{}".format(iter_evl), best_itera)
-            p=results_train['acc_attrs']
-            for i in range(0,p.shape[0]):
-                self.exp.log_scalar("acc_attr_{}_train_mo_{}".format(i, iter_evl),p[i])
+            if self.config['output']== 'attribute':
+                p=results_train['acc_attrs']
+                for i in range(0,p.shape[0]):
+                    self.exp.log_scalar("acc_attr_{}_train_mo_{}".format(i, iter_evl),p[i])
             
             if c_pos_val[0] == 0:
                 self.exp.log_scalar("standing_pos_val_final{}".format(iter_evl), c_pos_val[0])
@@ -249,14 +261,20 @@ class Modus_Selecter(object):
                 f1_mean_test_ac.append(results_test['f1_mean'])
                 precisions_test.append(results_test['precision'].numpy())
                 recalls_test.append(results_test['recall'].numpy())
-                acc_attr_test_ac.append(results_test['acc_attrs'])
-                precisions_attr_test.append(results_test['precision_attr'].numpy())
-                recalls_attr_test.append(results_test['recall_attr'].numpy())
+                if self.config['output']== 'attribute':
+                    acc_attr_test_ac.append(results_test['acc_attrs'])
+                    precisions_attr_test.append(results_test['precision_attr'].numpy())
+                    recalls_attr_test.append(results_test['recall_attr'].numpy())
                 
                 time_test = time.time() - start_time_test
 
         if testing:
-            self.save(acc_test_ac, f1_weighted_test_ac, f1_mean_test_ac, type_simple='testing',
+            if self.config['output']== 'softmax':
+                self.save(acc_test_ac, f1_weighted_test_ac, f1_mean_test_ac, type_simple='testing',
+                      confusion_matrix=confusion_matrix_test, time_iter=time_test, precisions=np.array(precisions_test),
+                      recalls=np.array(recalls_test), best_itera=0)
+            elif self.config['output']== 'attribute':
+                self.save(acc_test_ac, f1_weighted_test_ac, f1_mean_test_ac, type_simple='testing',
                       confusion_matrix=confusion_matrix_test, time_iter=time_test, precisions=np.array(precisions_test),
                       recalls=np.array(recalls_test), best_itera=0, acc_attr_test=acc_attr_test_ac, precisions_attr=np.array(precisions_attr_test), 
                       recalls_attr=np.array(recalls_attr_test))
@@ -264,9 +282,11 @@ class Modus_Selecter(object):
             self.exp.log_scalar("accuracy_test_mo_{}".format(iter_evl),results_test['acc'])
             self.exp.log_scalar("f1_w_test_mo_{}".format(iter_evl),results_test['f1_weighted'])
             self.exp.log_scalar("f1_m_test_mo_{}".format(iter_evl),results_test['f1_mean'])
-            p=results_test['acc_attrs']
-            for i in range(0,p.shape[0]):
-                self.exp.log_scalar("acc_attr_{}_test_mo_{}".format(i, iter_evl),p[i])
+            
+            if self.config['output']== 'attribute':
+                p=results_test['acc_attrs']
+                for i in range(0,p.shape[0]):
+                    self.exp.log_scalar("acc_attr_{}_test_mo_{}".format(i, iter_evl),p[i])
             
             if count_pos_test[0] == 0:
                 self.exp.log_scalar("standing_pos_test{}".format(iter_evl), count_pos_test[0])
@@ -373,8 +393,9 @@ class Modus_Selecter(object):
         start_time_test = time.time()
         precisions_test = []
         recalls_test = []
-        precisions_attr_test = []
-        recalls_attr_test = []
+        if self.config['output']== 'attribute':
+            precisions_attr_test = []
+            recalls_attr_test = []
 
         # Testing the network in folder (according to the conf)
         results_test, confusion_matrix_test, _ , c_pos_test, c_neg_test = self.network.evolution_evaluation(ea_iter=0, testing=testing)
@@ -384,16 +405,28 @@ class Modus_Selecter(object):
         # Appending results for later saving in results file
         precisions_test.append(results_test['precision'].numpy())
         recalls_test.append(results_test['recall'].numpy())
-        precisions_attr_test.append(results_test['precision_attr'].numpy())
-        recalls_attr_test.append(results_test['recall_attr'].numpy())
-
-        logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
+        if self.config['output']== 'attribute':
+            precisions_attr_test.append(results_test['precision_attr'].numpy())
+            recalls_attr_test.append(results_test['recall_attr'].numpy())
+        
+        if self.config['output']== 'softmax':
+                logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
+                     'f1_weighted {}, f1_mean {}'.format(elapsed_time_test, results_test['acc'],
+                                                         results_test['f1_weighted'], results_test['f1_mean']))
+        elif self.config['output']== 'attribute':
+                logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
                      'f1_weighted {}, f1_mean {}, acc_attr {}'.format(elapsed_time_test, results_test['acc'],
                                                          results_test['f1_weighted'], results_test['f1_mean'], results_test['acc_attrs']))
 
         # Saving the results
         if not testing:
-            self.save([results_test['acc']], [results_test['f1_weighted']], [results_test['f1_mean']],
+            if self.config['output']== 'softmax':
+                self.save([results_test['acc']], [results_test['f1_weighted']], [results_test['f1_mean']],
+                      type_simple='testing', confusion_matrix=confusion_matrix_test,
+                      time_iter=elapsed_time_test, precisions=np.array(precisions_test),
+                      recalls=np.array(recalls_test))
+            elif self.config['output']== 'attribute':
+                self.save([results_test['acc']], [results_test['f1_weighted']], [results_test['f1_mean']],
                       type_simple='testing', confusion_matrix=confusion_matrix_test,
                       time_iter=elapsed_time_test, precisions=np.array(precisions_test),
                       recalls=np.array(recalls_test), acc_attr_test=[results_test['acc_attrs']], precisions_attr=np.array(precisions_attr_test),
