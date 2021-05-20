@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Exp27 Type3 mocap norm clean downsampled lr0 batch100')
+ex= Experiment('Exp28 Type3 mocap norm clean downsampled lr0 batch200')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -165,11 +165,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap': 100, 'mbientlab':100, 'motionminers_flw': 100}}
+        'cnn_imu': {'mocap': 200, 'mbientlab':100, 'motionminers_flw': 100}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap': 100, 'mbientlab':100, 'motionminers_flw': 100}}
+                      'cnn_imu': {'mocap': 200, 'mbientlab':100, 'motionminers_flw': 100}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
@@ -215,7 +215,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'experiment27/'
+        folder_exp = folder_base + 'experiment28/'
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
@@ -304,7 +304,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     path_to_datasets_folder='/data/nnair/output/type4/mocap/'
     '''
     #type1
-   
+    
     dataset_root = {'mocap': '/data/nnair/output/type3/mocap/downsampled/',
                     'mbientlab': '/data/nnair/output/type1/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
