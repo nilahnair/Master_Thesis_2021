@@ -53,7 +53,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     @return configuration: dict with all the configurations
     """
     # Flags
-    plotting = True
+    plotting = False
 
     # Options
     dataset = {0: 'mocap', 1: 'mbientlab', 2: 'motionminers_flw'}
@@ -329,7 +329,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     ''' 
     
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     GPU = 0
    
     
