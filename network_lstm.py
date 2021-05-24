@@ -381,6 +381,14 @@ class Network(nn.Module):
                 self.fc5 = nn.Linear(256, self.config['num_attributes'])
             elif self.config['output'] == 'identity':
                 self.fc5 = nn.Linear(256, self.config['num_classes'])
+            '''
+            if self.config['output'] == 'softmax':
+                self.fc5 = nn.Linear(256, self.config['num_classes'])
+            elif self.config['output'] == 'attribute':
+                self.fc5 = nn.Linear(256, self.config['num_attributes'])
+            elif self.config['output'] == 'identity':
+                self.fc5 = nn.Linear(256, self.config['num_classes'])
+            '''
 
         self.avgpool = nn.AvgPool2d(kernel_size=[1, self.config['NB_sensor_channels']])
 
