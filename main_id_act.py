@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('id_count_imu_avg_b50_lr3)')
+ex= Experiment('avg type1 lr0 b50)')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -71,7 +71,50 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
     
+    #raw type1
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
+    #raw type2
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 39323, 'motionminers_flw': 93712}
+    #raw type3
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
+    #raw type4
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
+     
+     
+    #unclean type1
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
+    #unclean type2
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 39323, 'motionminers_flw': 93712}
+    #unclean type3
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
+    #unclean type4
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
+    
+    #clean type1
+    #num_tr_inputs = {'mocap': 65948, 'mbientlab': 32428, 'motionminers_flw': 93712}
+    #clean type2
+    #num_tr_inputs = {'mocap': 77841, 'mbientlab': 36414, 'motionminers_flw': 93712}
+    #clean type3
+    #num_tr_inputs = {'mocap': 89142, 'mbientlab': 43749, 'motionminers_flw': 93712}
+    #clean type4
+    #num_tr_inputs = {'mocap': 104361, 'mbientlab': 50151, 'motionminers_flw': 93712}
+    
     num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
+    
+    # Number of classes for either for activity recognition
+    #type1&2
+    
+    #num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
+    
+    #type3
+    '''
+    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
+    '''
+    #type4
+   
+    num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+  
+    
     
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
