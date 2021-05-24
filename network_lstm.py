@@ -100,7 +100,8 @@ class Network(nn.Module):
                     self.fc3 = nn.Linear(self.config['num_filters'] *
                                          int(Wx) * int(self.config['NB_sensor_channels'] / 3), 256)
                 else:
-                    self.fc3 = nn.Linear(self.config['num_filters'] * int(Wx) * self.config['NB_sensor_channels'], 256)
+                    #self.fc3 = nn.Linear(self.config['num_filters'] * int(Wx) * self.config['NB_sensor_channels'], 256)
+                    self.fc3 = nn.lstm(self.config['num_filters']* int(Wx) * self.config['NB_sensor_channels'], 256)
         
          # set the Conv layers
         if self.config["network"] == "cnn_imu":
@@ -135,6 +136,7 @@ class Network(nn.Module):
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 10, 256)
             else:
+                '''
                 if self.config["NB_sensor_channels"] == 27:
                     self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 3), 256)
@@ -143,6 +145,15 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 5), 256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
+                '''
+                if self.config["NB_sensor_channels"] == 27:
+                    self.fc3_LA = nn.lstm(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 3), 256)
+                elif self.config["NB_sensor_channels"] == 30:
+                    self.fc3_LA = nn.lstm(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 5), 256)
+                elif self.config["NB_sensor_channels"] == 126:
+                    self.fc3_LA = nn.lstm(self.config['num_filters'] * int(Wx) * 30, 256)
 
             # LL
             self.conv_LL_1_1 = nn.Conv2d(in_channels=in_channels,
@@ -172,11 +183,18 @@ class Network(nn.Module):
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 8, 256)
             else:
+                '''
                 if self.config["NB_sensor_channels"] == 30:
                     self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 5), 256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
+                '''
+                if self.config["NB_sensor_channels"] == 30:
+                    self.fc3_LL = nn.lstm(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 5), 256)
+                elif self.config["NB_sensor_channels"] == 126:
+                    self.fc3_LL = nn.lstm(self.config['num_filters'] * int(Wx) * 24, 256)
 
             # N
             self.conv_N_1_1 = nn.Conv2d(in_channels=in_channels,
@@ -209,6 +227,7 @@ class Network(nn.Module):
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) * 6, 256)
             else:
+                '''
                 if self.config["NB_sensor_channels"] == 27:
                     self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
                                            int(self.config['NB_sensor_channels'] / 3), 256)
@@ -217,6 +236,15 @@ class Network(nn.Module):
                                            int(self.config['NB_sensor_channels'] / 5), 256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) * 18, 256)
+                '''
+                if self.config["NB_sensor_channels"] == 27:
+                    self.fc3_N = nn.lstm(self.config['num_filters'] * int(Wx) *
+                                           int(self.config['NB_sensor_channels'] / 3), 256)
+                elif self.config["NB_sensor_channels"] == 30:
+                    self.fc3_N = nn.lstm(self.config['num_filters'] * int(Wx) *
+                                           int(self.config['NB_sensor_channels'] / 5), 256)
+                elif self.config["NB_sensor_channels"] == 126:
+                    self.fc3_N = nn.lstm(self.config['num_filters'] * int(Wx) * 18, 256)
 
 
             # RA
@@ -250,6 +278,7 @@ class Network(nn.Module):
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) * 10, 256)
             else:
+                '''
                 if self.config["NB_sensor_channels"] == 27:
                     self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 3), 256)
@@ -258,6 +287,15 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 5), 256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
+                '''
+                if self.config["NB_sensor_channels"] == 27:
+                    self.fc3_RA = nn.lstm(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 3), 256)
+                elif self.config["NB_sensor_channels"] == 30:
+                    self.fc3_RA = nn.lstm(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 5), 256)
+                elif self.config["NB_sensor_channels"] == 126:
+                    self.fc3_RA = nn.lstm(self.config['num_filters'] * int(Wx) * 30, 256)
 
             # RL
             self.conv_RL_1_1 = nn.Conv2d(in_channels=in_channels,
@@ -287,11 +325,18 @@ class Network(nn.Module):
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) * 8, 256)
             else:
+                '''
                 if self.config["NB_sensor_channels"] == 30:
                     self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 5), 256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
+                '''
+                if self.config["NB_sensor_channels"] == 30:
+                    self.fc3_RL = nn.lstm(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 5), 256)
+                elif self.config["NB_sensor_channels"] == 126:
+                    self.fc3_RL = nn.lstm(self.config['num_filters'] * int(Wx) * 24, 256)
                     
         # MLP
         if self.config["fully_convolutional"] == "FCN":
@@ -308,9 +353,15 @@ class Network(nn.Module):
             if self.config["network"] == "cnn":
                 self.fc4 = nn.Linear(256, 256)
             elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] in [30, 126]:
-                self.fc4 = nn.Linear(256 * 5, 256)
+                self.fc4 = nn.lstm(256 * 5, 256)
             elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] == 27:
-                self.fc4 = nn.Linear(256 * 3, 256)
+                self.fc4 = nn.lstm(256 * 3, 256)
+            '''    
+             elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] in [30, 126]:
+                 self.fc4 = nn.Linear(256 * 5, 256)
+             elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] == 27:
+                 self.fc4 = nn.Linear(256 * 3, 256)
+             '''
 
         if self.config["fully_convolutional"] == "FCN":
             if self.config['output'] == 'softmax':
