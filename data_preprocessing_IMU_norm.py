@@ -24,11 +24,50 @@ SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02'
             'R22': 'L03', 'R23': 'L03', 'R24': 'L03', 'R25': 'L03', 'R26': 'L03', 'R27': 'L03', 'R28': 'L03',
             'R29': 'L03', 'R30': 'L03'}
 
-def opp_sliding_window(data_x, ws, ss, label_pos_end=True):
+def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
+    '''
     print('check1')
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
     print(data_x.shape)   
     return data_x.astype(np.float32)
+    '''
+    print("Sliding window: Creating windows {} with step {}".format(ws, ss))
+
+    data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
+
+    count_l = 0
+    idy = 0
+    # Label from the end
+    if label_pos_end:
+        data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+    else:
+        if False:
+            # Label from the middle
+            # not used in experiments
+            data_y_labels = np.asarray(
+                [[i[i.shape[0] // 2]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+        else:
+            # Label according to mode
+            try:
+                data_y_labels = []
+                for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
+                    labels = np.zeros((1)).astype(int)
+                    count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
+                    idy = np.argmax(count_l)
+                   
+                    labels[0] = idy
+                   
+                    data_y_labels.append(labels)
+                data_y_labels = np.asarray(data_y_labels)
+            except:
+                print("Sliding window: error with the counting {}".format(count_l))
+                print("Sliding window: error with the counting {}".format(idy))
+                return np.Inf
+
+            # All labels per window
+            data_y_all = np.asarray([i[:] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+
+    return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
 
 def norm_mbientlab(data):
     """
@@ -230,7 +269,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                try:
                     S = SCENARIO[R]
                     file_name_data = "{}/{}_{}_{}.csv".format(P, S, P, R)
-                    #file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
+                    file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
                     print("\n{}\n".format(file_name_data))
                     try:
                         data = reader_data(FOLDER_PATH + file_name_data)
@@ -246,7 +285,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     except:
                         print("\n1 In loading data,  in file {}".format(FOLDER_PATH + file_name_data))
                         continue
-                    '''
+               
                     try:
                         # Getting labels and attributes
                         labels = csv_reader.reader_labels(FOLDER_PATH + file_name_label)
@@ -263,7 +302,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             "2 In generating data, Error getting the data {}".format(FOLDER_PATH
                                                                                        + file_name_data))
                         continue
-                    '''
+                    
                     labelid=ID[P]
                     print("printing label")
                     print(labelid)
@@ -279,7 +318,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         if data_x.shape[0] == data_x.shape[0]:
                             # Sliding window approach
                             print("\nStarting sliding window")
-                            X = opp_sliding_window(data_x, sliding_window_length, sliding_window_step, label_pos_end=False)
+                            X, y, y_all = opp_sliding_window(data_x, labels.astype(int), sliding_window_length, sliding_window_step, label_pos_end=False)
                             print("\nWindows are extracted")
                             
                             for f in range(X.shape[0]):
@@ -293,8 +332,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                     seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
                                     seq = np.require(seq, dtype=np.float)
                                     #print(seq.shape)
-                                    obj = {"data": seq, "label": labelid}
-                                    
+                                    #obj = {"data": seq, "label": labelid}
+                                    obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "label": labelid}
                                     file_name = open(os.path.join(data_dir,
                                                                   'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                     
@@ -311,7 +350,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             del data
                             del data_x
                             del X
-                            del label
+                            del labels
+                            del class_labels
                             
                            
                         else:
@@ -392,7 +432,8 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory='/data/nnair/output/type1/imu_norm/unclean/'
+    #base_directory='/data/nnair/output/type1/imu_norm/unclean/'
+    base_directory='/data/nnair/output/activities/type1/imu/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'

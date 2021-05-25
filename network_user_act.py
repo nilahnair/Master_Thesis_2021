@@ -30,8 +30,7 @@ from matplotlib.collections import PolyCollection
 
 from network_act import Network
 
-#from HARWindows_act import HARWindows
-from HARWindows import HARWindows
+from HARWindows_act import HARWindows
 
 from metrics import Metrics
 #from metrics_act import Metrics
