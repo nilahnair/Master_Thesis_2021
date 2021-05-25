@@ -78,7 +78,7 @@ def norm_mbientlab(data):
     @return data_norm: Normalized sensor data
     """
     ####type1
-    
+    '''
     mean_values = np.array([-0.604270513,  0.152956490,  0.322321324,  0.389408162,
                             0.197817624, -0.653126441,  0.0476041071,  1.00963016,
                             -0.142480054,  0.211524953,  1.17799808, -1.41275496,
@@ -99,9 +99,9 @@ def norm_mbientlab(data):
                            0.596013311,  0.425130372,  0.351205656,  42.0825727,
                            58.0533664,  64.0456206])
     
-    
-    #type2
     '''
+    #type2
+   
     mean_values =np.array([-0.60783108,  0.1640153,   0.39861219,  1.27958508, -0.31284539, -4.34756889,
                            -0.01402777,  1.03604567, -0.11950175,  4.56493369,  4.4879063,  -1.46518256,
                            -0.9852407,  -0.08997262,  0.12401219,  1.11027397,  1.77619783,  0.17006392,
@@ -115,7 +115,7 @@ def norm_mbientlab(data):
                            0.55615973, 113.02446618,  80.81807919,  99.70208161,   1.09609546,
                            0.58862733,   0.85753087,  36.82159178,  62.39001861,  64.16056807])
     
-    '''
+    
     #type3
     '''
     mean_values= np.array([-0.6200914,   0.14143905,  0.36254782,  0.98599565, -0.21967514, -2.97762359,
@@ -219,23 +219,23 @@ def reader_data(path):
 def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None, identity_bool=False, usage_modus='train'):
     
     #type1-avoiding person 12
-    
+    '''
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S13": 5, "S14": 6}
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
-    
+    '''
     #type2- avoiding person 11
     
-    '''
+   
     persons = ["S07", "S08", "S09", "S10", "S12", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S12": 4, "S13": 5, "S14": 6}
     train_ids =["R11", "R12", "R15", "R18", "R19","R21"]
     val_ids = ["R22"]
     test_ids = ["R23"]
     
-    '''
+    
     #type3- Avoiding person 11 and 12
     '''
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
@@ -406,17 +406,17 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
                     
 def create_dataset():
     #type1-avoiding person 12
-    
+    '''
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
-    
-    #type2- avoiding person 11
     '''
+    #type2- avoiding person 11
+    
     train_ids = ["R11", "R12", "R15", "R18", "R19", "R21"]
     val_ids = ["R22"]
     test_ids = ["R23"]
-    '''
+   
     
     #type3- Avoiding person 11 and 12
     '''
@@ -433,7 +433,7 @@ def create_dataset():
     '''
     
     #base_directory='/data/nnair/output/type1/imu_norm/unclean/'
-    base_directory='/data/nnair/output/activities/type1/imu/'
+    base_directory='/data/nnair/output/activities/type2/imu/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
