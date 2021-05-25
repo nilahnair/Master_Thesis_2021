@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Activity test type 4 imu_norm clean')
+ex= Experiment('Activity test type 1 mocap_norm clean')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -91,20 +91,20 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
     
     #clean type1
-    #num_tr_inputs = {'mocap': 32834, 'mbientlab': 32428, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 32834, 'mbientlab': 32428, 'motionminers_flw': 93712}
     #clean type2
     #num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
     #clean type3
     #num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
     #clean type4
-    num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
     #num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
     
     # Number of classes for either for activity recognition
     #type1&2
     
-    #num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
+    num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
     
     #type3
     
@@ -112,7 +112,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     #type4
    
-    num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    #num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
   
     
     
@@ -213,7 +213,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp4/'
+        folder_exp = folder_base + 'exp5/'
         #folder_exp = folder_base + 'attr_imu/'
         print(folder_exp)
         '''
@@ -364,7 +364,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
