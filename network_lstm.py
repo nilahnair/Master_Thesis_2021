@@ -100,8 +100,8 @@ class Network(nn.Module):
                     self.fc3 = nn.Linear(self.config['num_filters'] *
                                          int(Wx) * int(self.config['NB_sensor_channels'] / 3), 256)
                 else:
-                    #self.fc3 = nn.Linear(self.config['num_filters'] * int(Wx) * self.config['NB_sensor_channels'], 256)
-                    self.fc3 = nn.lstm(self.config['num_filters']* int(Wx) * self.config['NB_sensor_channels'], 256)
+                    self.fc3 = nn.Linear(self.config['num_filters'] * int(Wx) * self.config['NB_sensor_channels'], 256)
+                    
         
          # set the Conv layers
         if self.config["network"] == "cnn_imu":
@@ -191,8 +191,8 @@ class Network(nn.Module):
                     self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
                 '''
                 if self.config["NB_sensor_channels"] == 30:
-                    self.fc3_LL = nn.lstm(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 5), 256)
+                    self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 5)), hidden_size=256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_LL = nn.lstm(self.config['num_filters'] * int(Wx) * 24, 256)
 
