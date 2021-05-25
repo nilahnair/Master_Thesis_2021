@@ -78,7 +78,7 @@ class Network_User(object):
         '''
 
         att_rep = np.loadtxt(path, delimiter=',')
-        att_rep= torch.from_numpy(att_rep)
+        #att_rep= torch.from_numpy(att_rep)
         return att_rep
 
 
