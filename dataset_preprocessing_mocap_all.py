@@ -613,8 +613,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     @param identity_bool: selecting for identity experiment
     @param usage_modus: selecting Train, Val or testing
     '''
-
-    persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+    if usage_modus == 'train':
+           persons = ["S07", "S08", "S09", "S10", "S11", "S12"]
+    elif usage_modus == 'val':
+           persons = ["S07", "S08", "S09", "S10", "S11", "S12"]
+    elif usage_modus == 'test':
+           persons = ["S13", "S14"]
+    #persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S12":5, "S13": 6, "S14": 7}
     train_ids = ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10", 
                  "R13", "R14", "R16", "R17", "R18", "R19", "R20", "R21", "R22", "R23", 
@@ -870,7 +875,8 @@ def create_dataset(half=False):
    
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/all/mocap/downsampled/'
+        #base_directory = '/data/nnair/all/mocap/downsampled/'
+        base_directory = '/data/nnair/output/attributes/no67/mocap/input/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
@@ -880,7 +886,8 @@ def create_dataset(half=False):
         sliding_window_step = 25
   
     
-    base_directory = '/data/nnair/all/mocap/downsampled/'
+    #base_directory = '/data/nnair/all/mocap/downsampled/'
+    base_directory = '/data/nnair/output/attributes/no67/mocap/input/'
     sliding_window_length = 100
     sliding_window_step = 12
     
