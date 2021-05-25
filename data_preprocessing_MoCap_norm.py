@@ -96,7 +96,7 @@ NORM_MIN_THRESHOLDS = [-382.62, -363.81, -315.691, -472.2, -471.4, -152.398,
                        -351.1281, -290.558, -269.311, -159.9403, -153.482, -162.718]
 '''
 #type1 - avoiding subject 12
-'''
+
 NORM_MAX_THRESHOLDS = [ 393.989,    287.475,    284.478,    460.544,    455.63,     460.81,
                        393.989,    287.475,    284.478,    574.258,    567.25,     575.75,
                        384.232,    425.469,    428.713,    319.7402,   328.464,    332.26,
@@ -140,7 +140,7 @@ NORM_MIN_THRESHOLDS = [ -356.7484,  -350.385,   -275.538,   -426.97,    -459.003
                        -405.712,   -457.251,   -565.544,   -796.613,   -767.2,     -692.469,
                        -405.712,   -457.251,  -565.544,   -887.707,   -815.67,   -712.609,
                        -260.2279,   -98.0932,   -66.7167,  -122.788,   -107.3,     -162.189]
-'''
+
 #type2 - avoiding subject 11
 '''
 NORM_MAX_THRESHOLDS = [ 385.977,   315.51,    284.478,   460.544,   455.554,   460.81,    385.977,
@@ -186,7 +186,7 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,   -451.56,     -413.
 
 '''
 #type3 - avoiding subjects 11 and 12
-
+'''
 NORM_MAX_THRESHOLDS = [ 385.977,   287.475,   284.478,   460.544,   455.63,    460.81,    385.977,
                        287.475,   284.478,   574.258,   567.25,    575.79,    407.0898,  425.469,
                        438.49,    319.7402,  328.464,   332.26,    501.277,   458.856,   441.221,
@@ -228,7 +228,7 @@ NORM_MIN_THRESHOLDS = [ -356.7484,   -350.385,    -287.806,   -451.56,     -459.
                        -405.712,    -407.182,    -565.544,    -887.707,    -947.151,    -753.931,
                        -78.9523,    -98.0932,   -164.68537,  -131.22,     -117.78,     -162.387]
 
-
+'''
 #type4 - avoiding subjects 10,11 and 12
 '''
 NORM_MAX_THRESHOLDS = [ 385.977,    315.51,     284.478,    460.544,    455.63,     460.55,
@@ -277,14 +277,62 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,    -451.56,     -459
 '''
 
 #def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
-def opp_sliding_window(data_x, ws, ss, label_pos_end=True):
+def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
+    '''
     print("check1")
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
     print(data_x.shape)
     
     #return data_x.astype(np.float32), data_y.astype(np.uint8)
     return data_x.astype(np.float32)
-    
+    '''
+    print("Sliding window: Creating windows {} with step {}".format(ws, ss))
+
+    data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
+    print(data_x.shape)
+    # Label from the end
+    if label_pos_end:
+        
+        data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+    else:
+        if False:
+            # Label from the middle
+            # not used in experiments
+           
+            data_y_labels = np.asarray(
+                [[i[i.shape[0] // 2]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+        else:
+            # Label according to mode
+            try:
+                
+                data_y_labels = []
+                for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
+                   
+                    labels = np.zeros((1)).astype(int)
+                    count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
+                    idy = np.argmax(count_l)
+                    labels[0] = idy
+                   
+                    data_y_labels.append(labels)
+                data_y_labels = np.asarray(data_y_labels)
+
+
+            except:
+                print("Sliding window: error with the counting {}".format(count_l))
+                print("Sliding window: error with the counting {}".format(idy))
+                return np.Inf
+
+            # All labels per window
+            data_y_all = np.asarray([i[:,0] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+            print(data_y_all.shape)
+            
+    print("daya_y_labels")
+    print(data_y_labels.shape)
+    print("daya_y_all")
+    print(data_y_all.shape)
+
+    return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
+
 
 def normalize(data):
     """
@@ -343,13 +391,13 @@ def select_columns_opp(data):
 
 def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None, identity_bool=False, usage_modus='train'):
      #type1-avoiding person 12
-    '''
+    
     persons = ["S07", "S08", "S09", "S10", "S11", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S13": 5, "S14": 6}
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
-    '''
+    
     #type2- avoiding person 11
     '''
     persons = ["S07", "S08", "S09", "S10", "S12", "S13", "S14"]
@@ -360,13 +408,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     
     '''
     #type3- Avoiding person 11 and 12
-    
+    '''
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S13": 4, "S14": 5}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
-    
+    '''
     
     #type4-Avoiding persons 11,12,10
     '''
@@ -426,9 +474,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         # Deleting rows containing the "none" class
                         data = np.delete(data, class_labels, 0)
                         labels = np.delete(labels, class_labels, 0)
-                       
+                        act_class= labels
+                        
                         downsampling = range(0, data.shape[0], 2)
                         data = data[downsampling]
+                        act_class = act_class[downsampling]
                     except:
                         print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_norm))
                         continue
@@ -449,7 +499,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                                 
                         if data_x.shape[0] == data_x.shape[0]:
                             print("Starting sliding window")
-                            X = opp_sliding_window(data_x, sliding_window_length, sliding_window_step, label_pos_end = True)
+                            X, y, y_all = opp_sliding_window(data_x, act_class.astype(int), sliding_window_length, sliding_window_step, label_pos_end = False)
                             print("Windows are extracted")
                                                         
                             for f in range(X.shape[0]):
@@ -464,7 +514,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                     seq = np.require(seq, dtype=np.float)
                                     
                                     # Storing the sequences
-                                    obj = {"data": seq, "label": labelid}
+                                    #obj = {"data": seq, "label": labelid}
+                                    obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "label": labelid}
                                     f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                     pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
                                     f.close()
@@ -536,11 +587,11 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
                             
 def create_dataset():
     #type1-avoiding person 12
-    '''
+    
     train_ids = ["R03", "R07", "R08", "R10", "R11"]
     val_ids = ["R12"]
     test_ids = ["R15"]
-    '''
+   
     #type2- avoiding person 11
     '''
     train_ids = ["R11", "R12", "R15", "R18", "R19", "R21"]
@@ -549,11 +600,11 @@ def create_dataset():
     
     '''
     #type3- Avoiding person 11 and 12
-    
+    '''
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
-   
+    '''
     
     #type4-Avoiding persons 11,12,10
     '''
@@ -562,7 +613,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory = '/data/nnair/output/type3/mocap/downsampled/'
+    base_directory = '/data/nnair/output/activities/type1/mocap/'
     sliding_window_length = 100
     sliding_window_step = 12
     
