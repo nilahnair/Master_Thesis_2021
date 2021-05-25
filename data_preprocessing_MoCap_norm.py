@@ -186,7 +186,7 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,   -451.56,     -413.
 
 '''
 #type3 - avoiding subjects 11 and 12
-
+'''
 NORM_MAX_THRESHOLDS = [ 385.977,   287.475,   284.478,   460.544,   455.63,    460.81,    385.977,
                        287.475,   284.478,   574.258,   567.25,    575.79,    407.0898,  425.469,
                        438.49,    319.7402,  328.464,   332.26,    501.277,   458.856,   441.221,
@@ -227,10 +227,10 @@ NORM_MIN_THRESHOLDS = [ -356.7484,   -350.385,    -287.806,   -451.56,     -459.
                        -405.712,    -407.182,    -565.544,    -796.613,    -852.581,    -695.073,
                        -405.712,    -407.182,    -565.544,    -887.707,    -947.151,    -753.931,
                        -78.9523,    -98.0932,   -164.68537,  -131.22,     -117.78,     -162.387]
-
+'''
 
 #type4 - avoiding subjects 10,11 and 12
-'''
+
 NORM_MAX_THRESHOLDS = [ 385.977,    315.51,     284.478,    460.544,    455.63,     460.55,
                         385.977,    315.51,     284.478,    574.258,    567.25,     575.14,
                         407.0898,   425.469,    438.49,    319.7402,   316.33,     320.13,
@@ -274,7 +274,7 @@ NORM_MIN_THRESHOLDS = [ -380.281,    -350.385,    -289.473,    -451.56,     -459
                        -405.712,    -478.784,    -565.544,    -906.02,     -852.581,    -692.469,
                        -405.712,    -478.784,    -565.544,    -990.83,     -947.151,    -703.37,
                        -351.1281,   -290.558,    -269.311,    -131.22,     -117.78,     -162.545]
-'''
+
 
 #def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
 def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
@@ -408,22 +408,22 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     '''
    
     #type3- Avoiding person 11 and 12
-    
+    '''
     persons = ["S07", "S08", "S09", "S10", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S13": 4, "S14": 5}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
-    
+    '''
     
     #type4-Avoiding persons 11,12,10
-    '''
+    
     persons = ["S07", "S08", "S09", "S13", "S14"]
     ID = {"S07": 0, "S08": 1, "S09": 2, "S13": 3, "S14": 4}
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
+    
     counter_seq = 0
     
     for P in persons:
@@ -600,20 +600,20 @@ def create_dataset():
     '''
     
     #type3- Avoiding person 11 and 12
-    
+    '''
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18"]
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
-    
+    '''
     
     #type4-Avoiding persons 11,12,10
-    '''
+    
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-    '''
     
-    base_directory = '/data/nnair/output/activities/type3/mocap/'
+    
+    base_directory = '/data/nnair/output/activities/type4/mocap/'
     sliding_window_length = 100
     sliding_window_step = 12
     
