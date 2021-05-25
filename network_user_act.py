@@ -78,7 +78,7 @@ class Network_User(object):
         '''
 
         att_rep = np.loadtxt(path, delimiter=',')
-        #att_rep= torch.from_numpy(att_rep)
+        att_rep= torch.from_numpy(att_rep)
         return att_rep
 
 
@@ -678,7 +678,7 @@ class Network_User(object):
 
                         torch.save({'state_dict': network_obj.state_dict(),
                                     'network_config': network_config,
-                                    #'att_rep': self.attr_representation
+                                    'att_rep': self.attr_representation
                                     },
                                    self.config['folder_exp'] + 'network.pt')
                         best_acc_val = results_val['acc']
