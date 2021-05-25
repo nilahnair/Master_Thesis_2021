@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Activity test type 3 mocap_norm clean')
+ex= Experiment('Activity test type 4 mocap_norm clean')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -95,9 +95,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type2
     #num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
     #clean type3
-    num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
     #clean type4
-    #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
     #num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
     
@@ -108,11 +108,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     #type3
     
-    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
+    #num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
     
     #type4
    
-    #num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
   
     
     
@@ -213,7 +213,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp7/'
+        folder_exp = folder_base + 'exp8/'
         #folder_exp = folder_base + 'attr_imu/'
         print(folder_exp)
         '''
@@ -258,7 +258,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     
-    dataset_root = {'mocap': '/data/nnair/output/activities/type3/mocap/',
+    dataset_root = {'mocap': '/data/nnair/output/activities/type4/mocap/',
                     'mbientlab': '/data/nnair/output/activities/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
     '''  
