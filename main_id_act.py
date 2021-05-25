@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Activity test all imu_norm clean')
+ex= Experiment('Attr t1 no67 imu_norm clean')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -66,10 +66,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     
-    #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     #num_attributes = {'mocap': 11, 'mbientlab': 11, 'motionminers_flw': 11}
-    
-    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
+    #all
+    #num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
+    #attr without 6 and 7
+    num_tr_inputs = {'mocap': 120679, 'mbientlab': 104338, 'motionminers_flw': 93712}
     
     #raw type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
@@ -99,7 +101,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type4
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
-    num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
+    #num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
+    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}    
     
     # Number of classes for either for activity recognition
     #type1&2
@@ -199,7 +202,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_base = "/data/nnair/trial/activities/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
-        folder_base = "/data/nnair/trial/"
+        #folder_base = "/data/nnair/trial/"
+        folder_base = "/data/nnair/output/attributes/no67/imu/output/"
         
     print("folderbase selected")
     print(folder_base)
@@ -213,7 +217,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp10/'
+        folder_exp = folder_base + 'exp1/'
         #folder_exp = folder_base + 'attr_imu/'
         print(folder_exp)
         '''
@@ -262,8 +266,13 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab': '/data/nnair/output/activities/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
     '''  
+    '''
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/trial/imu_all/',
+                    'motionminers_flw': '/data/nnair/output/type1/momin/'}
+    '''
+    dataset_root = {'mocap': '/data/nnair/output/attributes/no67/mocap/input/',
+                    'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
   
@@ -366,7 +375,7 @@ def my_config():
     print("configuration function began")
     config = configuration(dataset_idx=1,
                            network_idx=2,
-                           output_idx=0,
+                           output_idx=1,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
