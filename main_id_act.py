@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Activity test type 1 imu_norm clean')
+ex= Experiment('Activity test type 2 imu_norm clean')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -91,9 +91,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
     
     #clean type1
-    num_tr_inputs = {'mocap': 32834, 'mbientlab': 32428, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 32834, 'mbientlab': 32428, 'motionminers_flw': 93712}
     #clean type2
-    #num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
     #clean type3
     #num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
     #clean type4
@@ -213,7 +213,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp1/'
+        folder_exp = folder_base + 'exp2/'
         #folder_exp = folder_base + 'attr_imu/'
         print(folder_exp)
         '''
@@ -259,7 +259,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     
     dataset_root = {'mocap': '/data/nnair/output/activities/type1/mocap/',
-                    'mbientlab': '/data/nnair/output/activities/type1/imu/',
+                    'mbientlab': '/data/nnair/output/activities/type2/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
     '''  
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
