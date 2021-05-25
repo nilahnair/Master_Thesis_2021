@@ -320,6 +320,14 @@ class Modus_Selecter(object):
                 self.exp.log_scalar("none_pos_test{}".format(iter_evl), count_pos_test[7])
             else:
                 self.exp.log_scalar("none_pos_test{}".format(iter_evl), count_pos_test[7]/(count_pos_test[7]+count_neg_test[7]))
+                
+            self.exp.log_scalar("total_standing_pos_test{}".format(iter_evl), count_pos_test[0])
+            self.exp.log_scalar("total_walking_pos_test{}".format(iter_evl), count_pos_test[1])
+            self.exp.log_scalar("total_cart_pos_test{}".format(iter_evl), count_pos_test[2])
+            self.exp.log_scalar("total_handling_up_pos_test{}".format(iter_evl), count_pos_test[3])
+            self.exp.log_scalar("total_handling_cen_pos_test{}".format(iter_evl), count_pos_test[4])
+            self.exp.log_scalar("total_handling_down_pos_test{}".format(iter_evl), count_pos_test[5])
+            self.exp.log_scalar("total_synch_pos_test{}".format(iter_evl), count_pos_test[6])
             
             if count_neg_test[0] == 0:
                 self.exp.log_scalar("standing_neg_test{}".format(iter_evl), count_neg_test[0])
@@ -451,7 +459,7 @@ class Modus_Selecter(object):
         """
         logging.info('    Network_selecter: Net modus: {}'.format(self.config['usage_modus']))
         if self.config['usage_modus'] == 'train':
-            self.train(itera=5, testing=True)
+            self.train(itera=1, testing=True)
         elif self.config['usage_modus'] == 'test':
             self.test()
         #elif self.config['usage_modus'] == 'evolution':
