@@ -485,7 +485,8 @@ class Network(nn.Module):
         if not self.training:
             if self.config['output'] == 'softmax' or self.config['output'] == 'identity':
                 x = self.softmax(x)
-
+        print('outx')
+        print(x.shape)  
         return x
         #return x11.clone(), x12.clone(), x21.clone(), x22.clone(), x
 
