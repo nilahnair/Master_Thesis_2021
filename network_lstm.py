@@ -478,7 +478,8 @@ class Network(nn.Module):
             x, (h_4n, h_4c) = self.fc4(x)
             x = F.dropout(x, training=self.training)
             x = self.fc5(x)
-            
+            print('forward11')
+            print(x.shape)
         if self.config['output'] == 'attribute':
             x = self.sigmoid(x)
 
