@@ -102,7 +102,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
     #num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
-    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}    
+    num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}    
     
     # Number of classes for either for activity recognition
     #type1&2
