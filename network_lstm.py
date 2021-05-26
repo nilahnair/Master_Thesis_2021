@@ -564,8 +564,14 @@ class Network(nn.Module):
                 x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, 0:6]))
             elif self.config["NB_sensor_channels"] == 126:
                 idx_LA = np.arange(12, 24)
+                print('idx_LA')
+                print(idx_LA.shape)
                 idx_LA = np.concatenate([idx_LA, np.arange(36, 42)])
+                print('idx_LA2')
+                print(idx_LA.shape)
                 idx_LA = np.concatenate([idx_LA, np.arange(54, 66)])
+                print('idx_LA3')
+                print(idx_LA.shape)
                 x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_LA]))
                 
         print('shape1')
