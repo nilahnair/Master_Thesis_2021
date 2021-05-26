@@ -470,6 +470,8 @@ class Network(nn.Module):
             x = x.view(x.size()[0], x.size()[1], x.size()[2])
             x = x.permute(0, 2, 1)
         elif self.config["fully_convolutional"] == "FC":
+            print('forward01')
+            print(x.shape)
             x = F.dropout(x, training=self.training)
             print('forward1')
             print(x.shape) 
