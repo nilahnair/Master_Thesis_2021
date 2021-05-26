@@ -567,14 +567,18 @@ class Network(nn.Module):
                 idx_LA = np.concatenate([idx_LA, np.arange(36, 42)])
                 idx_LA = np.concatenate([idx_LA, np.arange(54, 66)])
                 x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_LA]))
-
+                
+        print('shape1')
+        print(x_LA.shape)
         x_LA = F.relu(self.conv_LA_1_2(x_LA))
         x_LA = F.relu(self.conv_LA_2_1(x_LA))
         x_LA = F.relu(self.conv_LA_2_2(x_LA))
         # view is reshape
+        print('shape2')
+        print(x_LA.shape)
         x_LA = x_LA.reshape(-1, x_LA.size()[1] * x_LA.size()[2] * x_LA.size()[3])
-        print('error point')
-        print('shape')
+       
+        print('shape3')
         print(x_LA.shape)
         x_LA, (h_LA, h_LA) = self.fc3_LA(x_LA)
 
