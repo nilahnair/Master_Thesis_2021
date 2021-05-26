@@ -612,7 +612,7 @@ class Network(nn.Module):
         print(x_LA.shape)
         # view is reshape
         #x_LA = x_LA.reshape(-1, x_LA.size()[1] * x_LA.size()[2] * x_LA.size()[3])
-        x_LA = x_LA.reshape(-1, x_LA.size()[0], x_LA.size()[1])
+        x_LA = x_LA.reshape(-1, x_LA.size()[0], x_LA.size()[1]*x_LA.size()[3])
        
         print('shape3')
         print(x_LA.shape)
@@ -639,7 +639,7 @@ class Network(nn.Module):
             x_LL = F.relu(self.conv_LL_2_1(x_LL))
             x_LL = F.relu(self.conv_LL_2_2(x_LL))
             # view is reshape
-            x_LL = x_LL.reshape(-1, x_LL.size()[1] * x_LL.size()[2] * x_LL.size()[3])
+            x_LL = x_LL.reshape(-1, x_LL.size()[0], x_LL.size()[1] * x_LL.size()[3])
             x_LL, (h_LLn, h_LLc) = self.fc3_LL(x_LL)
 
         # N
@@ -665,7 +665,7 @@ class Network(nn.Module):
         x_N = F.relu(self.conv_N_2_1(x_N))
         x_N = F.relu(self.conv_N_2_2(x_N))
         # view is reshape
-        x_N = x_N.reshape(-1, x_N.size()[1] * x_N.size()[2] * x_N.size()[3])
+        x_N = x_N.reshape(-1, x_N.size()[0], x_N.size()[1] * x_N.size()[3])
         x_N, (h_Nn, h_Nc) = self.fc3_N(x_N)
 
         # RA
@@ -694,7 +694,7 @@ class Network(nn.Module):
         x_RA = F.relu(self.conv_RA_2_1(x_RA))
         x_RA = F.relu(self.conv_RA_2_2(x_RA))
         # view is reshape
-        x_RA = x_RA.reshape(-1, x_RA.size()[1] * x_RA.size()[2] * x_RA.size()[3])
+        x_RA = x_RA.reshape(-1, x_RA.size()[0], x_RA.size()[1] * x_RA.size()[3])
         x_RA, (h_RAn, h_RAc) = self.fc3_RA(x_RA)
 
         # RL
@@ -718,7 +718,7 @@ class Network(nn.Module):
             x_RL = F.relu(self.conv_RL_2_1(x_RL))
             x_RL = F.relu(self.conv_RL_2_2(x_RL))
             # view is reshape
-            x_RL = x_RL.reshape(-1, x_RL.size()[1] * x_RL.size()[2] * x_RL.size()[3])
+            x_RL = x_RL.reshape(-1, x_RL.size()[0], x_RL.size()[1] * x_RL.size()[3])
             x_RL, (h_RLn, h_RLc) = self.fc3_RL(x_RL)
 
         if self.config["NB_sensor_channels"] == 27:
