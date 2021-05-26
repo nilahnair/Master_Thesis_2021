@@ -458,7 +458,8 @@ class Network(nn.Module):
             else:
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 1)
-                
+        print('forward0')
+        print(x.shape)       
         # Selecting MLP, either FC or FCN
         if self.config["fully_convolutional"] == "FCN":
             x = F.dropout(x, training=self.training)
@@ -470,6 +471,8 @@ class Network(nn.Module):
             x = x.permute(0, 2, 1)
         elif self.config["fully_convolutional"] == "FC":
             x = F.dropout(x, training=self.training)
+            print('forward1')
+            print(x.shape) 
             x, (h_4n, h_4c) = self.fc4(x)
             x = F.dropout(x, training=self.training)
             x = self.fc5(x)
