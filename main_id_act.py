@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('Attr t1 no67 mocap_norm clean')
+ex= Experiment('lstm trial')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -66,12 +66,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     
-    num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     #num_attributes = {'mocap': 11, 'mbientlab': 11, 'motionminers_flw': 11}
     #all
-    #num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
     #attr without 6 and 7
-    num_tr_inputs = {'mocap': 120679, 'mbientlab': 104338, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 120679, 'mbientlab': 104338, 'motionminers_flw': 93712}
     
     #raw type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
@@ -101,8 +101,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type4
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
-    #num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
-    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}    
+    num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
+    #num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}    
     
     # Number of classes for either for activity recognition
     #type1&2
@@ -199,7 +199,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
-        folder_base = "/data/nnair/trial/activities/"
+        folder_base = "/data/nnair/trial/lstm/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/trial/"
@@ -266,15 +266,16 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab': '/data/nnair/output/activities/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
     '''  
-    '''
+    
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/trial/imu_all/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
+    
     '''
     dataset_root = {'mocap': '/data/nnair/output/attributes/no67/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
-    
+    '''
   
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "1"
@@ -375,7 +376,7 @@ def my_config():
     print("configuration function began")
     config = configuration(dataset_idx=0,
                            network_idx=2,
-                           output_idx=1,
+                           output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
