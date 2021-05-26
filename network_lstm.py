@@ -389,9 +389,9 @@ class Network(nn.Module):
             if self.config["network"] == "cnn":
                 self.fc4 = nn.Linear(256, 256)
             elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] in [30, 126]:
-                self.fc4 = nn.LSTM(input_size=(256 * 5),hidden_size= 256)
+                self.fc4 = nn.LSTM(input_size=(256),hidden_size= 256)
             elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] == 27:
-                self.fc4 = nn.LSTM(input_size=(256 * 3), hidden_layer=256)
+                self.fc4 = nn.LSTM(input_size=(256), hidden_layer=256)
             '''    
              elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] in [30, 126]:
                  self.fc4 = nn.Linear(256 * 5, 256)
