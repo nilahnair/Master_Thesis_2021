@@ -53,8 +53,8 @@ class Network_User(object):
         self.config = config
         self.device = torch.device("cuda:{}".format(self.config["GPU"]) if torch.cuda.is_available() else "cpu")
 
-        self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_one.txt")
-        #self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_two.txt")
+        #self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_one.txt")
+        self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_two.txt")
         
         #self.attr_representation = self.reader_att_rep("atts_per_class_lara.txt")
 
@@ -669,7 +669,7 @@ class Network_User(object):
                             'network': self.config['network'],
                             'output': self.config['output'],
                             'num_classes': self.config['num_classes'],
-                            #'num_attributes': self.config['num_attributes'],
+                            'num_attributes': self.config['num_attributes'],
                             'fully_convolutional': self.config['fully_convolutional'],
                             'labeltype': self.config['labeltype']
                         }
