@@ -573,7 +573,9 @@ class Network(nn.Module):
         x_LA = F.relu(self.conv_LA_2_2(x_LA))
         # view is reshape
         x_LA = x_LA.reshape(-1, x_LA.size()[1] * x_LA.size()[2] * x_LA.size()[3])
-        print(x_LA.size)
+        print('error point')
+        print('shape')
+        print(x_LA.shape)
         x_LA, (h_LA, h_LA) = self.fc3_LA(x_LA)
 
         # LL
