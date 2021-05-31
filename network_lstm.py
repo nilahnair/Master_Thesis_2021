@@ -412,7 +412,7 @@ class Network(nn.Module):
                                      out_channels=self.config['num_classes'], kernel_size=(1, 1), stride=1, padding=0)
         elif self.config["fully_convolutional"] == "FC":
             if self.config['output'] == 'softmax':
-                self.fc5 = nn.Linear(self.config["NB_sensor_channels"]*256*int(Wx), self.config['num_classes'])
+                self.fc5 = nn.Linear(256, self.config['num_classes'])
             elif self.config['output'] == 'attribute':
                 self.fc5 = nn.Linear(256, self.config['num_attributes'])
             elif self.config['output'] == 'identity':
@@ -477,7 +477,7 @@ class Network(nn.Module):
             print(x.shape) 
             x, (h_4n, h_4c) = self.fc4(x)
             x = F.dropout(x, training=self.training)
-            x = x.view(x.size()[0], -1)
+            
             print('beforefc5')
             print(x.shape)
             x = self.fc5(x)
