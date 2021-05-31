@@ -199,13 +199,13 @@ class Network(nn.Module):
                     self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
                 '''
                 if self.config["NB_sensor_channels"] == 30:
-                    self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'] / 5)), hidden_size=256)
+                    self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'] / 5)), hidden_size=256, batch_first=True)
                     '''
                     self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 5)), hidden_size=256)
                     '''
                 elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters']*24 ), hidden_size=256)
+                    self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters']*24 ), hidden_size=256, batch_first=True)
                     '''
                     self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) * 24), hidden_size=256)
                     '''
@@ -477,6 +477,8 @@ class Network(nn.Module):
             print(x.shape) 
             x, (h_4n, h_4c) = self.fc4(x)
             x = F.dropout(x, training=self.training)
+            print('beforefc5')
+            print(x.shape)
             x = self.fc5(x)
             print('forward11')
             print(x.shape)
