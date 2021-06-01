@@ -508,14 +508,16 @@ class Network_User(object):
                 # forward + backward + optimize
                
                 feature_maps = network_obj(train_batch_v)
+                '''
                 print("feature_maps")
                 print(feature_maps.shape)
                 print("train_batch_l")
                 print(train_batch_l.shape)
+                '''
                 if self.config["fully_convolutional"] == "FCN":
                     feature_maps = feature_maps.reshape(-1, feature_maps.size()[2])
                 if self.config['output'] == 'softmax':
-                    print()
+                    #print()
                     loss = criterion(feature_maps, train_batch_l) * (1 / self.config['accumulation_steps'])
                     '''
                     loss_id = criterion(feature_maps, train_batch_l) * (1 / self.config['accumulation_steps'])
