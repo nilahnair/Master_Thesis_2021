@@ -369,7 +369,7 @@ class Metrics(object):
                         targets[i,0]=5
                     elif targets[i,0]==7:
                         targets[i,0]=3
-            elif self.config['num_attributes'] == 11:
+            elif self.config['num_attributes'] == 10:
                 for i in range(0, targets.shape[0]):
                     if targets[i,0]==6:
                         targets[i,0]=5
