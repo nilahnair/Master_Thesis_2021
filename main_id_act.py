@@ -67,7 +67,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     
     #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
-    #num_attributes = {'mocap': 11, 'mbientlab': 11, 'motionminers_flw': 11}
+    num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1}
     #all
     num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
     #attr without 6 and 7
@@ -101,8 +101,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type4
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
-    num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
-    #num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}    
+    #num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
+    num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}    
     
     # Number of classes for either for activity recognition
     #type1&2
@@ -199,11 +199,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
-        folder_base = "/data/nnair/trial/lstm/"
+        #folder_base = "/data/nnair/trial/lstm/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
-        #folder_base = "/data/nnair/trial/"
-        folder_base = "/data/nnair/output/attributes/no67/mocap/output/"
+        folder_base = "/data/nnair/trial/"
+        #folder_base = "/data/nnair/output/attributes/no67/mocap/output/"
         
     print("folderbase selected")
     print(folder_base)
@@ -217,8 +217,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp1/'
-        #folder_exp = folder_base + 'attr_imu/'
+        #folder_exp = folder_base + 'exp1/'
+        folder_exp = folder_base + 'attr_imu/'
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
@@ -376,7 +376,7 @@ def my_config():
     print("configuration function began")
     config = configuration(dataset_idx=0,
                            network_idx=2,
-                           output_idx=0,
+                           output_idx=1,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,

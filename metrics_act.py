@@ -36,7 +36,7 @@ class Metrics(object):
         
         if self.config['num_attributes'] == 4:
             self.center= self.atts[0:6,1:]
-        elif self.config['num_attributes'] == 11:
+        elif self.config['num_attributes'] == 10:
             self.center= self.atts[0:6,1:]
             self.center= torch.cat((self.center, self.atts[7:8,1:]), 0)
         
@@ -327,7 +327,7 @@ class Metrics(object):
         
         if self.config['num_attributes'] == 4:
             predictions = predictions.repeat(6, 1, 1)
-        elif self.config['num_attributes'] == 11:
+        elif self.config['num_attributes'] == 10:
             predictions = predictions.repeat(7, 1, 1)
        
         #predictions = predictions.repeat(8, 1, 1)
