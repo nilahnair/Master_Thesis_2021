@@ -191,11 +191,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     '''
     
     if usage_modus == 'train':
-           persons = [ "S07", "S09", "S10", "S11", "S12", "S13", "S14"]
+           persons = [ "S07", "S08", "S10", "S11", "S12", "S13", "S14"]
     elif usage_modus == 'val':
-           persons = ["S07", "S09", "S10", "S11", "S12", "S13", "S14"]
+           persons = ["S07", "S08", "S10", "S11", "S12", "S13", "S14"]
     elif usage_modus == 'test':
-           persons = ["S08"]
+           persons = ["S09"]
     #persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S12":5, "S13": 6, "S14": 7}
@@ -384,7 +384,7 @@ def create_dataset(identity_bool = False):
     # base_directory = '/path_where_sequences_will_ve_stored/mbientlab_10_recordings/'
     #base_directory = '/path_where_sequences_will_ve_stored/mbientlab_50_recordings/'
     #base_directory = '/data/nnair/trial/imu_all/'
-    base_directory = '/data/nnair/output/attributes/no1/imu/input/'
+    base_directory = '/data/nnair/output/attributes/no2/imu/input/'
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
