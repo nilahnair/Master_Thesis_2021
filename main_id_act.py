@@ -73,6 +73,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #attr without 6 and 7
     num_tr_inputs = {'mocap': 120679, 'mbientlab': 104338, 'motionminers_flw': 93712}
     
+    #crossvalno0
+    num_tr_inputs = {'mocap': 147409, 'mbientlab': 104338, 'motionminers_flw': 93712}
+    
     #raw type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
     #raw type2
@@ -116,6 +119,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #type4
    
     #num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    
+    
   
     
     
