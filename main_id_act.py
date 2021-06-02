@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('attr 10 mocap no0')
+ex= Experiment('attr 10 mocap no1')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -75,6 +75,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     #crossvalno0
     num_tr_inputs = {'mocap': 147409, 'mbientlab': 104338, 'motionminers_flw': 93712}
+    #crossvalno1
+    num_tr_inputs = {'mocap': 148510, 'mbientlab': 104338, 'motionminers_flw': 93712}
     
     #raw type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
@@ -208,7 +210,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/trial/"
-        folder_base = "/data/nnair/output/attributes/no0/mocap/output/"
+        folder_base = "/data/nnair/output/attributes/no1/mocap/output/"
         
     print("folderbase selected")
     print(folder_base)
@@ -281,7 +283,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     '''
-    dataset_root = {'mocap': '/data/nnair/output/attributes/no0/mocap/input/',
+    dataset_root = {'mocap': '/data/nnair/output/attributes/no1/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no0/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
   
