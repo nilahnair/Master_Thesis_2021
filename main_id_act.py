@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('attr 10 mocap no1')
+ex= Experiment('attr 10 mocap no2')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -74,9 +74,21 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_tr_inputs = {'mocap': 120679, 'mbientlab': 104338, 'motionminers_flw': 93712}
     
     #crossvalno0
-    num_tr_inputs = {'mocap': 147409, 'mbientlab': 104338, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 147409, 'mbientlab': 126843, 'motionminers_flw': 93712}
     #crossvalno1
-    num_tr_inputs = {'mocap': 148510, 'mbientlab': 104338, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 148510, 'mbientlab': 131501, 'motionminers_flw': 93712}
+    #crossvalno2
+    num_tr_inputs = {'mocap': 147552, 'mbientlab': 129267, 'motionminers_flw': 93712}
+    #crossvalno3
+    #num_tr_inputs = {'mocap': 153266, 'mbientlab': 137512, 'motionminers_flw': 93712}
+    #crossvalno4
+    #num_tr_inputs = {'mocap': 162147, 'mbientlab': 141304, 'motionminers_flw': 93712}
+    #crossvalno5
+    #num_tr_inputs = {'mocap': 155802, 'mbientlab': 138732, 'motionminers_flw': 93712}
+    #crossvalno6
+    #num_tr_inputs = {'mocap': 147019, 'mbientlab': 127658, 'motionminers_flw': 93712}
+    #crossvalno7
+    #num_tr_inputs = {'mocap': 146221, 'mbientlab': 128263, 'motionminers_flw': 93712}
     
     #raw type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
@@ -210,7 +222,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/trial/"
-        folder_base = "/data/nnair/output/attributes/no1/mocap/output/"
+        folder_base = "/data/nnair/output/attributes/no2/mocap/output/"
         
     print("folderbase selected")
     print(folder_base)
@@ -283,7 +295,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     '''
-    dataset_root = {'mocap': '/data/nnair/output/attributes/no1/mocap/input/',
+    dataset_root = {'mocap': '/data/nnair/output/attributes/no2/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no0/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
   
