@@ -158,8 +158,7 @@ def normalize(data):
         max_list, min_list = np.array(NORM_MAX_THRESHOLDS), np.array(NORM_MIN_THRESHOLDS)
        
         diffs = max_list - min_list
-        print(data.shape)
-        print(data.shape[1])
+        
         for i in np.arange(data.shape[1]):
             data[:, i] = (data[:, i]-min_list[i])/diffs[i]
         #     Checking the boundaries
@@ -203,7 +202,7 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
         if False:
             # Label from the middle
             # not used in experiments
-           
+            print("this one?")
             data_y_labels = np.asarray(
                 [[i[i.shape[0] // 2]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
         else:
@@ -231,10 +230,7 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
             data_y_all = np.asarray([i[:,0] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
             print(data_y_all.shape)
             
-    print("daya_y_labels")
-    print(data_y_labels.shape)
-    print("daya_y_all")
-    print(data_y_all.shape)
+    
 
     return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
 
@@ -614,12 +610,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     @param usage_modus: selecting Train, Val or testing
     '''
     if usage_modus == 'train':
-           persons = ["S07", "S08", "S09", "S10", "S11", "S12"]
+           persons = ["S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     elif usage_modus == 'val':
-           persons = ["S07", "S08", "S09", "S10", "S11", "S12"]
+           persons = ["S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     elif usage_modus == 'test':
-           persons = ["S13", "S14"]
+           persons = ["S07"]
     #persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+    print(persons)
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S12":5, "S13": 6, "S14": 7}
     train_ids = ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10", 
                  "R13", "R14", "R16", "R17", "R18", "R19", "R20", "R21", "R22", "R23", 
@@ -685,11 +682,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     data = np.delete(data, null_labels, 0)
                     labels = np.delete(act_labels, null_labels, 0)
                     
-                    print("data size")
-                    print(data.shape)
+                    
                     act_class= labels
-                    print("act_class")
-                    print(act_class.shape)
+                    
                 except:
                     print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_label))
                     continue
@@ -720,20 +715,15 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                 act_class = act_class[downsampling]
                 
                 data_t, data_x, data_y = divide_x_y(data)
-                print("data_x")
-                print(data_x.shape)
-                print("data_y")
-                print(data_y.shape)
-                print("act_class")
-                print(act_class.shape)
+                
+               
                 del data_t
                 
                 try:
                 
                     # checking if annotations are consistent
                     data_x = normalize(data_x)
-                    print("data shape")
-                    print(data_x.shape)
+                    
                     
                     if np.sum(data_y == act_class[:,0]) == data_y.shape[0]:
 
@@ -876,7 +866,7 @@ def create_dataset(half=False):
     if half:
         "Path to the segmented sequences"
         #base_directory = '/data/nnair/all/mocap/downsampled/'
-        base_directory = '/data/nnair/output/attributes/no67/mocap/input/'
+        base_directory = '/data/nnair/output/attributes/no0/mocap/input/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
@@ -887,7 +877,7 @@ def create_dataset(half=False):
   
     
     #base_directory = '/data/nnair/all/mocap/downsampled/'
-    base_directory = '/data/nnair/output/attributes/no67/mocap/input/'
+    base_directory = '/data/nnair/output/attributes/no0/mocap/input/'
     sliding_window_length = 100
     sliding_window_step = 12
     
