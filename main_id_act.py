@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('attr 10 mocap no4')
+ex= Experiment('attr 10 mocap no5')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -82,9 +82,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #crossvalno3
     #num_tr_inputs = {'mocap': 153266, 'mbientlab': 137512, 'motionminers_flw': 93712}
     #crossvalno4
-    num_tr_inputs = {'mocap': 162147, 'mbientlab': 141304, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 162147, 'mbientlab': 141304, 'motionminers_flw': 93712}
     #crossvalno5
-    #num_tr_inputs = {'mocap': 155802, 'mbientlab': 138732, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 155802, 'mbientlab': 138732, 'motionminers_flw': 93712}
     #crossvalno6
     #num_tr_inputs = {'mocap': 147019, 'mbientlab': 127658, 'motionminers_flw': 93712}
     #crossvalno7
@@ -222,7 +222,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/trial/"
-        folder_base = "/data/nnair/output/attributes/no4/mocap/output/"
+        folder_base = "/data/nnair/output/attributes/no5/mocap/output/"
         
     print("folderbase selected")
     print(folder_base)
@@ -295,7 +295,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     '''
-    dataset_root = {'mocap': '/data/nnair/output/attributes/no4/mocap/input/',
+    dataset_root = {'mocap': '/data/nnair/output/attributes/no5/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no0/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
   
