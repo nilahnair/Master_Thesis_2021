@@ -508,9 +508,9 @@ class Network_User(object):
                 # forward + backward + optimize
                 
                 feature_maps = network_obj(train_batch_v)
-                feature_maps2= feature_maps[:,-1,:]
+                feature_maps= feature_maps[:,-1,:]
                 print("feature_maps2")
-                print(feature_maps2.shape)
+                print(feature_maps.shape)
                
                 print("feature_maps")
                 print(feature_maps.shape)
@@ -519,7 +519,7 @@ class Network_User(object):
                     feature_maps = feature_maps.reshape(-1, feature_maps.size()[2])
                 if self.config['output'] == 'softmax':
                     #print()
-                    loss = criterion(feature_maps2, train_batch_l) * (1 / self.config['accumulation_steps'])
+                    loss = criterion(feature_maps, train_batch_l) * (1 / self.config['accumulation_steps'])
                     '''
                     loss_id = criterion(feature_maps, train_batch_l) * (1 / self.config['accumulation_steps'])
                     loss_act = criterion(feature_maps_act, train_batch_l_activity) * (1 / self.config['accumulation_steps'])
@@ -697,7 +697,7 @@ class Network_User(object):
                 if (itera) % self.config['train_show'] == 0:
                     # Metrics for training
                     
-                    results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps2)
+                    results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps)
 
                     activaciones = []
                     metrics_list = []
