@@ -242,7 +242,7 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 5), 256)
             '''    
         elif self.config["NB_sensor_channels"] == 126:
-            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*30*24*18*30*24),hidden_size= 256, batch_first=True)
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*126),hidden_size= 256, batch_first=True)
             '''
             self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
             self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
