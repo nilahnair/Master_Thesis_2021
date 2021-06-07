@@ -70,6 +70,7 @@ class Network(nn.Module):
         logging.info('            Network: Wx {} and Hx {}'.format(Wx, Hx))
         
         # set the Conv layers
+        '''
         if self.config["network"] == "cnn":
             self.conv1_1 = nn.Conv2d(in_channels=in_channels,
                                      out_channels=self.config['num_filters'],
@@ -101,6 +102,7 @@ class Network(nn.Module):
                                          int(Wx) * int(self.config['NB_sensor_channels'] / 3), 256)
                 else:
                     self.fc3 = nn.Linear(self.config['num_filters'] * int(Wx) * self.config['NB_sensor_channels'], 256)
+        '''
                     
         
          # set the Conv layers
@@ -126,43 +128,7 @@ class Network(nn.Module):
                                           kernel_size=(self.config['filter_size'], 1),
                                           stride=1, padding=padding)
 
-            if self.config["reshape_input"]:
-                if self.config["NB_sensor_channels"] == 27:
-                    self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 9), 256)
-                elif self.config["NB_sensor_channels"] == 30:
-                    self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 15), 256)
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 10, 256)
-            else:
-                '''
-                if self.config["NB_sensor_channels"] == 27:
-                    self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 3), 256)
-                elif self.config["NB_sensor_channels"] == 30:
-                    self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 5), 256)
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
-                '''
-                if self.config["NB_sensor_channels"] == 27:
-                    self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'] / 3) ), hidden_size=256, batch_first=True)
-                    '''
-                    self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 3)), hidden_size=256)
-                    '''
-                elif self.config["NB_sensor_channels"] == 30:
-                    self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters']* int(self.config['NB_sensor_channels'] / 5)), hidden_size=256, batch_first=True)
-                    '''
-                    self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 5)), hidden_size=256)
-                    '''
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters'] * 30), hidden_size=256, batch_first=True)
-                    '''
-                    self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) * 30), hidden_size=256)
-                    '''
+           
             # LL
             self.conv_LL_1_1 = nn.Conv2d(in_channels=in_channels,
                                      out_channels=self.config['num_filters'],
@@ -184,31 +150,7 @@ class Network(nn.Module):
                                           kernel_size=(self.config['filter_size'], 1),
                                           stride=1, padding=padding)
             
-            if self.config["reshape_input"]:
-                if self.config["NB_sensor_channels"] == 30:
-                    self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 15), 256)
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 8, 256)
-            else:
-                '''
-                if self.config["NB_sensor_channels"] == 30:
-                    self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 5), 256)
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
-                '''
-                if self.config["NB_sensor_channels"] == 30:
-                    self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'] / 5)), hidden_size=256, batch_first=True)
-                    '''
-                    self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 5)), hidden_size=256)
-                    '''
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters']*24 ), hidden_size=256, batch_first=True)
-                    '''
-                    self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) * 24), hidden_size=256)
-                    '''
+            
             # N
             self.conv_N_1_1 = nn.Conv2d(in_channels=in_channels,
                                      out_channels=self.config['num_filters'],
@@ -230,43 +172,6 @@ class Network(nn.Module):
                                           kernel_size=(self.config['filter_size'], 1),
                                           stride=1, padding=padding)
 
-            if self.config["reshape_input"]:
-                if self.config["NB_sensor_channels"] == 27:
-                    self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                           int(self.config['NB_sensor_channels'] / 9), 256)
-                elif self.config["NB_sensor_channels"] == 30:
-                    self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                           int(self.config['NB_sensor_channels'] / 15), 256)
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) * 6, 256)
-            else:
-                '''
-                if self.config["NB_sensor_channels"] == 27:
-                    self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                           int(self.config['NB_sensor_channels'] / 3), 256)
-                elif self.config["NB_sensor_channels"] == 30:
-                    self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                           int(self.config['NB_sensor_channels'] / 5), 256)
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) * 18, 256)
-                '''
-                if self.config["NB_sensor_channels"] == 27:
-                    self.fc3_N = nn.LSTM(input_size=(self.config['num_filters'] * int(self.config['NB_sensor_channels'] / 3)), hidden_size=256, batch_first=True)
-                    '''
-                    self.fc3_N = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) *
-                                           int(self.config['NB_sensor_channels'] / 3)), hidden_size=256)
-                    '''
-                elif self.config["NB_sensor_channels"] == 30:
-                    self.fc3_N = nn.LSTM(input_size=(self.config['num_filters'] * int(self.config['NB_sensor_channels'] / 5)), hidden_size= 256, batch_first=True)
-                    '''
-                    self.fc3_N = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) *
-                                           int(self.config['NB_sensor_channels'] / 5)), hidden_size= 256)
-                    '''
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_N = nn.LSTM(input_size=(self.config['num_filters'] * 18), hidden_size=256, batch_first=True)
-                    '''
-                    self.fc3_N = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) * 18), hidden_size=256)
-                    '''
 
             # RA
             self.conv_RA_1_1 = nn.Conv2d(in_channels=in_channels,
@@ -289,44 +194,7 @@ class Network(nn.Module):
                                           kernel_size=(self.config['filter_size'], 1),
                                           stride=1, padding=padding)
 
-            if self.config["reshape_input"]:
-                if self.config["NB_sensor_channels"] == 27:
-                    self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 9), 256)
-                elif self.config["NB_sensor_channels"] == 30:
-                    self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 15), 256)
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) * 10, 256)
-            else:
-                '''
-                if self.config["NB_sensor_channels"] == 27:
-                    self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 3), 256)
-                elif self.config["NB_sensor_channels"] == 30:
-                    self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 5), 256)
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
-                '''
-                if self.config["NB_sensor_channels"] == 27:
-                    self.fc3_RA = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'] / 3) ), hidden_size= 256, batch_first=True)
-                    '''
-                    self.fc3_RA = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 3)), hidden_size= 256)
-                    '''
-                elif self.config["NB_sensor_channels"] == 30:
-                    self.fc3_RA = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'] / 5) ), hidden_size= 256, batch_first=True)
-                    '''
-                    self.fc3_RA = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 5)), hidden_size= 256)
-                    '''
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_RA = nn.LSTM(input_size=(self.config['num_filters']*30 ), hidden_size=256, batch_first=True)
-                    '''
-                    self.fc3_RA = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) * 30), hidden_size=256)
-                    '''
-
+            
             # RL
             self.conv_RL_1_1 = nn.Conv2d(in_channels=in_channels,
                                      out_channels=self.config['num_filters'],
@@ -348,31 +216,40 @@ class Network(nn.Module):
                                           kernel_size=(self.config['filter_size'], 1),
                                           stride=1, padding=padding)
 
-            if self.config["reshape_input"]:
-                if self.config["NB_sensor_channels"] == 30:
-                    self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 15), 256)
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) * 8, 256)
-            else:
-                '''
-                if self.config["NB_sensor_channels"] == 30:
-                    self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) *
+        
+        if self.config["NB_sensor_channels"] == 27:
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, batch_first=True)
+            '''
+            self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 3), 256)
+            self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
+                                           int(self.config['NB_sensor_channels'] / 3), 256)
+            self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 3), 256)
+            '''
+        elif self.config["NB_sensor_channels"] == 30:
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, batch_first=True)
+            '''
+            self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 5), 256)
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
-                '''
-                if self.config["NB_sensor_channels"] == 30:
-                    self.fc3_RL = nn.LSTM(input_size=( self.config['num_filters']*int(self.config['NB_sensor_channels'] / 5)),hidden_size= 256, batch_first=True)
-                    '''
-                    self.fc3_RL = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) *
-                                            int(self.config['NB_sensor_channels'] / 5)),hidden_size= 256)
-                    '''
-                elif self.config["NB_sensor_channels"] == 126:
-                    self.fc3_RL = nn.LSTM(input_size=(self.config['num_filters'] *24),hidden_size= 256, batch_first=True)
-                    '''
-                    self.fc3_RL = nn.LSTM(input_size=(self.config['num_filters'] * int(Wx) * 24),hidden_size= 256)
-                    '''
+            self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 5), 256)
+            self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
+                                           int(self.config['NB_sensor_channels'] / 5), 256)
+            self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 5), 256)
+            self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 5), 256)
+            '''    
+        elif self.config["NB_sensor_channels"] == 126:
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*30*24*18*30*24),hidden_size= 256, batch_first=True)
+            '''
+            self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
+            self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
+            self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) * 18, 256)
+            self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
+            self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
+            '''
                     
         # MLP
         if self.config["fully_convolutional"] == "FCN":
@@ -397,7 +274,7 @@ class Network(nn.Module):
                  self.fc4 = nn.Linear(256 * 5, 256)
              elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] == 27:
                  self.fc4 = nn.Linear(256 * 3, 256)
-             '''
+            '''
 
         if self.config["fully_convolutional"] == "FCN":
             if self.config['output'] == 'softmax':
@@ -443,10 +320,12 @@ class Network(nn.Module):
         '''
 
         # Reshaping the input sequence to [batch, 3, Sensors, Time]
+        '''
         if self.config["reshape_input"]:
             x = x.permute(0, 2, 1, 3)
             x = x.view(x.size()[0], x.size()[1], int(x.size()[3] / 3), 3)
             x = x.permute(0, 3, 1, 2)
+        '''
 
         # Selecting the one ot the two networks, tCNN or tCNN-IMU
         if self.config["network"] == "cnn":
@@ -613,20 +492,17 @@ class Network(nn.Module):
                 idx_LA = np.concatenate([idx_LA, np.arange(36, 42)])
                 idx_LA = np.concatenate([idx_LA, np.arange(54, 66)])
                 x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_LA]))
-        print('shape1')
-        print(x_LA.shape)        
+           
         x_LA = F.relu(self.conv_LA_1_2(x_LA))
         x_LA = F.relu(self.conv_LA_2_1(x_LA))
         x_LA = F.relu(self.conv_LA_2_2(x_LA))
-        print('shape2')
-        print(x_LA.shape)
+        
         # view is reshape
         #x_LA = x_LA.reshape(-1, x_LA.size()[1] * x_LA.size()[2] * x_LA.size()[3])
         x_LA = x_LA.reshape(x_LA.size()[0], -1,  x_LA.size()[1]*x_LA.size()[3])
-       
-        print('shape3')
+        print("x_LA")
         print(x_LA.shape)
-        x_LA, (h_LA, h_LA) = self.fc3_LA(x_LA)
+        #x_LA, (h_LA, h_LA) = self.fc3_LA(x_LA)
 
         # LL
         if self.config["NB_sensor_channels"] in [30, 126]:
@@ -650,9 +526,9 @@ class Network(nn.Module):
             x_LL = F.relu(self.conv_LL_2_2(x_LL))
             # view is reshape
             x_LL = x_LL.reshape(x_LL.size()[0], -1, x_LL.size()[1] * x_LL.size()[3])
-            print('shape4')
+            print("x_LL")
             print(x_LL.shape)
-            x_LL, (h_LLn, h_LLc) = self.fc3_LL(x_LL)
+            #x_LL, (h_LLn, h_LLc) = self.fc3_LL(x_LL)
 
         # N
         if self.config["reshape_input"]:
@@ -678,9 +554,9 @@ class Network(nn.Module):
         x_N = F.relu(self.conv_N_2_2(x_N))
         # view is reshape
         x_N = x_N.reshape(x_N.size()[0], -1, x_N.size()[1] * x_N.size()[3])
-        print('shape5')
+        print("x_N")
         print(x_N.shape)
-        x_N, (h_Nn, h_Nc) = self.fc3_N(x_N)
+        #x_N, (h_Nn, h_Nc) = self.fc3_N(x_N)
 
         # RA
         if self.config["reshape_input"]:
@@ -709,9 +585,9 @@ class Network(nn.Module):
         x_RA = F.relu(self.conv_RA_2_2(x_RA))
         # view is reshape
         x_RA = x_RA.reshape(x_RA.size()[0], -1, x_RA.size()[1] * x_RA.size()[3])
-        print('shape6')
+        print("x_RA")
         print(x_RA.shape)
-        x_RA, (h_RAn, h_RAc) = self.fc3_RA(x_RA)
+        #x_RA, (h_RAn, h_RAc) = self.fc3_RA(x_RA)
 
         # RL
         if self.config["NB_sensor_channels"] in [30, 126]:
@@ -735,9 +611,9 @@ class Network(nn.Module):
             x_RL = F.relu(self.conv_RL_2_2(x_RL))
             # view is reshape
             x_RL = x_RL.reshape(x_RL.size()[0], -1, x_RL.size()[1] * x_RL.size()[3])
-            print('shape7')
+            print("x_RL")
             print(x_RL.shape)
-            x_RL, (h_RLn, h_RLc) = self.fc3_RL(x_RL)
+            #x_RL, (h_RLn, h_RLc) = self.fc3_RL(x_RL)
 
         if self.config["NB_sensor_channels"] == 27:
             return x_LA, x_N, x_RA

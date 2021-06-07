@@ -218,7 +218,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
-        #folder_base = "/data/nnair/trial/lstm/"
+        folder_base = "/data/nnair/trial/lstm/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/trial/"
@@ -236,7 +236,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp2/'
+        folder_exp = folder_base + 'exp1/'
         #folder_exp = folder_base + 'attr_imu/'
         print(folder_exp)
         '''
@@ -285,20 +285,21 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab': '/data/nnair/output/activities/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
     '''  
-    '''
+
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/trial/imu_all/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
-    '''
+    
     '''
     dataset_root = {'mocap': '/data/nnair/output/attributes/no67/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     '''
+    '''
     dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no7/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
-  
+    '''
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     GPU = 0
@@ -398,7 +399,7 @@ def my_config():
     print("configuration function began")
     config = configuration(dataset_idx=0,
                            network_idx=2,
-                           output_idx=1,
+                           output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
