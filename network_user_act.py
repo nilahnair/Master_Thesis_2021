@@ -515,12 +515,6 @@ class Network_User(object):
                 print("feature_maps")
                 print(feature_maps.shape)
                 
-                print("feature_maps2")
-                print(feature_maps2)
-                
-                print("feature_maps")
-                print(feature_maps)
-                
                 if self.config["fully_convolutional"] == "FCN":
                     feature_maps = feature_maps.reshape(-1, feature_maps.size()[2])
                 if self.config['output'] == 'softmax':
@@ -703,7 +697,7 @@ class Network_User(object):
                 if (itera) % self.config['train_show'] == 0:
                     # Metrics for training
                     
-                    results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps)
+                    results_train = metrics_obj.metric(targets=train_batch_l, predictions=feature_maps2)
 
                     activaciones = []
                     metrics_list = []
