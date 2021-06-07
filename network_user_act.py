@@ -518,6 +518,9 @@ class Network_User(object):
                 print("feature_maps2")
                 print(feature_maps2)
                 
+                print("feature_maps")
+                print(feature_maps)
+                
                 if self.config["fully_convolutional"] == "FCN":
                     feature_maps = feature_maps2.reshape(-1, feature_maps.size()[2])
                 if self.config['output'] == 'softmax':
