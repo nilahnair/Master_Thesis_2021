@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('attr 4 mocap no7')
+ex= Experiment('lstm trial')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -66,10 +66,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     
-    num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     #num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1}
     #all
-    #num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
     #attr without 6 and 7
     #num_tr_inputs = {'mocap': 120679, 'mbientlab': 104338, 'motionminers_flw': 93712}
     
@@ -88,7 +88,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #crossvalno6
     #num_tr_inputs = {'mocap': 147019, 'mbientlab': 127658, 'motionminers_flw': 93712}
     #crossvalno7
-    num_tr_inputs = {'mocap': 146221, 'mbientlab': 128263, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 146221, 'mbientlab': 128263, 'motionminers_flw': 93712}
     
     #raw type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
@@ -118,8 +118,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type4
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
-    #num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
-    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}    
+    num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
+    #num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}    
     
     # Number of classes for either for activity recognition
     #type1&2
@@ -342,7 +342,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'NB_sensor_channels': NB_sensor_channels[dataset[dataset_idx]],
                      'sliding_window_length': sliding_window_length[dataset[dataset_idx]],
                      'sliding_window_step': sliding_window_step[dataset[dataset_idx]],
-                     'num_attributes': num_attributes[dataset[dataset_idx]],
+                     #'num_attributes': num_attributes[dataset[dataset_idx]],
                      'batch_size_train': batch_size_train[network[network_idx]][dataset[dataset_idx]],
                      'batch_size_val': batch_size_val[network[network_idx]][dataset[dataset_idx]],
                      'num_tr_inputs': num_tr_inputs[dataset[dataset_idx]],
