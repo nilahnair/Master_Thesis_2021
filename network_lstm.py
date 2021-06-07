@@ -218,7 +218,7 @@ class Network(nn.Module):
 
         
         if self.config["NB_sensor_channels"] == 27:
-            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256,dropout= 0.5, num_layers=2, batch_first=True)
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, num_layers=2, batch_first=True)
             '''
             self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 3), 256)
@@ -228,7 +228,7 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 3), 256)
             '''
         elif self.config["NB_sensor_channels"] == 30:
-            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, dropout= 0.5, num_layers=2, batch_first=True)
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, num_layers=2, batch_first=True)
             '''
             self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 5), 256)
@@ -242,7 +242,7 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 5), 256)
             '''    
         elif self.config["NB_sensor_channels"] == 126:
-            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*126),hidden_size= 256, dropout= 0.5, num_layers=2, batch_first=True)
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*126),hidden_size= 256, num_layers=2, batch_first=True)
             '''
             self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
             self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
@@ -339,10 +339,11 @@ class Network(nn.Module):
             else:
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
+                x = F.dropout(x, training=self.training)
                 x, (h_3, h_3) = self.fc3(x)
                 #x = F.dropout(x, training=self.training)
-            
                 #x, (h_4, h_4) = self.fc4(x)
+                x = F.dropout(x, training=self.training)
                 x = self.fc5(x)
         '''   
         # Selecting MLP, either FC or FCN
