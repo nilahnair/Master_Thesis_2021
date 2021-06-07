@@ -513,9 +513,10 @@ class Network_User(object):
                 print(feature_maps2.shape)
                
                 print("feature_maps")
-                print(feature_maps2.shape)
-                print("train_batch_l")
-                print(train_batch_l.shape)
+                print(feature_maps.shape)
+                
+                print("feature_maps2")
+                print(feature_maps2)
                 
                 if self.config["fully_convolutional"] == "FCN":
                     feature_maps = feature_maps2.reshape(-1, feature_maps.size()[2])
