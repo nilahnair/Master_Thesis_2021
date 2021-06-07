@@ -356,7 +356,7 @@ class Network(nn.Module):
             #x = F.dropout(x, training=self.training)
             print('beforefc4')
             print(x.shape)
-            x, (h_4, h_4) = self.fc3(x)
+            x, (h_4, h_4) = self.fc4(x)
             print('beforefc5')
             print(x.shape)
             x = self.fc5(x)
