@@ -218,7 +218,7 @@ class Network(nn.Module):
 
         
         if self.config["NB_sensor_channels"] == 27:
-            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, batch_first=True)
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256,dropout= 0.5, num_layers=2, batch_first=True)
             '''
             self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 3), 256)
@@ -228,7 +228,7 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 3), 256)
             '''
         elif self.config["NB_sensor_channels"] == 30:
-            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, batch_first=True)
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, dropout= 0.5, num_layers=2, batch_first=True)
             '''
             self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 5), 256)
@@ -242,7 +242,7 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 5), 256)
             '''    
         elif self.config["NB_sensor_channels"] == 126:
-            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*126),hidden_size= 256, batch_first=True)
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*126),hidden_size= 256, dropout= 0.5, num_layers=2, batch_first=True)
             '''
             self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
             self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
@@ -252,6 +252,7 @@ class Network(nn.Module):
             '''
                     
         # MLP
+        '''
         if self.config["fully_convolutional"] == "FCN":
             if self.config["network"] == "cnn":
                 self.fc4 = nn.Conv2d(in_channels=256,
@@ -269,12 +270,13 @@ class Network(nn.Module):
                 self.fc4 = nn.LSTM(input_size=(256),hidden_size= 256, batch_first=True)
             elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] == 27:
                 self.fc4 = nn.LSTM(input_size=(256), hidden_layer=256, batch_first=True)
-            '''    
+        '''
+        '''    
              elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] in [30, 126]:
                  self.fc4 = nn.Linear(256 * 5, 256)
              elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] == 27:
                  self.fc4 = nn.Linear(256 * 3, 256)
-            '''
+        '''
 
         if self.config["fully_convolutional"] == "FCN":
             if self.config['output'] == 'softmax':
@@ -337,7 +339,12 @@ class Network(nn.Module):
             else:
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
-           
+                x, (h_3, h_3) = self.fc3(x)
+                #x = F.dropout(x, training=self.training)
+            
+                #x, (h_4, h_4) = self.fc4(x)
+                x = self.fc5(x)
+        '''   
         # Selecting MLP, either FC or FCN
         if self.config["fully_convolutional"] == "FCN":
             x = F.dropout(x, training=self.training)
@@ -349,11 +356,7 @@ class Network(nn.Module):
             x = x.permute(0, 2, 1)
         elif self.config["fully_convolutional"] == "FC":
             x = F.dropout(x, training=self.training)
-            
-            x, (h_3, h_3) = self.fc3(x)
-            #x = F.dropout(x, training=self.training)
-            x, (h_4, h_4) = self.fc4(x)
-            x = self.fc5(x)
+        '''
             
         if self.config['output'] == 'attribute':
             x = self.sigmoid(x)
