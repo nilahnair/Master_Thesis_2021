@@ -336,7 +336,8 @@ class Network(nn.Module):
                 x = torch.cat((x_LA, x_N, x_RA), 1)
             else:
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
-                x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 1)
+                x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
+    
         print('forward0')
         print(x.shape)       
         # Selecting MLP, either FC or FCN
