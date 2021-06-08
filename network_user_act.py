@@ -438,7 +438,7 @@ class Network_User(object):
             logging.info('\n        Network_User:    Train:    Training epoch {}'.format(e))
             start_time_batch = time.time()
             
-            hidden, cell = self.network_obj.init_hidden(batch_size=self.config['batch_size_train'])
+            hidden, cell = self.init_hidden(batch_size=self.config['batch_size_train'])
             
             #loop per batch:
             for b, harwindow_batched in enumerate(dataLoader_train):
@@ -509,7 +509,7 @@ class Network_User(object):
                 
                 # forward + backward + optimize
                 
-                feature_maps = network_obj(train_batch_v, hidden, cell)
+                feature_maps, hidden, cell = network_obj(train_batch_v, hidden, cell)
                 feature_maps= feature_maps[:,-1,:]
                 
                 if self.config["fully_convolutional"] == "FCN":
@@ -557,7 +557,7 @@ class Network_User(object):
                     # Validation
                     # Calling the val() function with the current network and criterion
                     del train_batch_v, noise
-                    results_val, loss_val, c_pos_val, c_neg_val = self.validate(network_obj, criterion)
+                    results_val, loss_val, c_pos_val, c_neg_val = self.validate(network_obj, criterion, hidden, cell)
                  
                     self.exp.log_scalar("loss_val_int_{}".format(ea_itera), loss_val, itera)
 
@@ -795,14 +795,14 @@ class Network_User(object):
             plt.savefig(self.config['folder_exp'] + 'training_final.png')
             plt.close()
 
-        return results_val, best_itera, count_pos_val, count_neg_val
+        return results_val, best_itera, count_pos_val, count_neg_val, hidden, cell
 
 
     ##################################################
     ################  Validate  ######################
     ##################################################
 
-    def validate(self, network_obj, criterion):
+    def validate(self, network_obj, criterion, hidden, cell):
         '''
         Validating a network
 
@@ -811,7 +811,6 @@ class Network_User(object):
         @return results_val: dict with validation results
         @return loss: loss of the validation
         '''
-        hidden, cell = self.network_obj.init_hidden(batch_size=self.config['batch_size_train'])
             
         # Setting validation set and dataloader
         harwindows_val = HARWindows(csv_file=self.config['dataset_root'] + "val.csv",
@@ -1251,7 +1250,7 @@ class Network_User(object):
     ############  evolution_evaluation  ##############
     ##################################################
     
-    def evolution_evaluation(self, ea_iter, testing = False):
+    def evolution_evaluation(self, ea_iter, testing = False, hidden=0, cell=0):
        '''
         Organises the evolution, training, testing or validating
 
@@ -1268,12 +1267,12 @@ class Network_User(object):
        best_itera = 0
        if testing:
             logging.info('        Network_User: Testing')
-            results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+            results, confusion_matrix, c_pos, c_neg = self.test(ea_iter, hidden, cell)
        else:
             if self.config['usage_modus'] == 'train':
                 logging.info('        Network_User: Training')
 
-                results, best_itera, c_pos, c_neg = self.train(ea_iter)
+                results, best_itera, c_pos, c_neg, hidden, cell = self.train(ea_iter)
 
             elif self.config['usage_modus'] == 'fine_tuning':
                 logging.info('        Network_User: Fine Tuning')
@@ -1288,5 +1287,5 @@ class Network_User(object):
                 logging.info('        Network_User: Not selected modus')
             
 
-       return results, confusion_matrix, best_itera, c_pos, c_neg
+       return results, confusion_matrix, best_itera, c_pos, c_neg, hidden, cell
   
