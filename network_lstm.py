@@ -230,7 +230,7 @@ class Network(nn.Module):
         elif self.config["NB_sensor_channels"] == 30:
             self.hs = torch.randn(2, self.config['batch_size_train'], 256)
             self.cs = torch.randn(2, self.config['batch_size_train'], 256)
-            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])), hidden_size= (self.hs, self.cs), dropout=0.5, num_layers=2, batch_first=True)
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])), hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
             
             '''
             self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
