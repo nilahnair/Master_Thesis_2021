@@ -174,7 +174,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                         'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'mbientlab': {'cnn': {'softmax': 10, 'attribute': 10},
                             'lstm': {'softmax': 10, 'attribute': 10},
-                            'cnn_imu': {'softmax': 10, 'attribute': 10}},
+                            'cnn_imu': {'softmax': 50, 'attribute': 10}},
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}}

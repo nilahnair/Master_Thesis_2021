@@ -343,7 +343,7 @@ class Network(nn.Module):
                 x, _ = self.fc3(x)
                 #x = F.dropout(x, training=self.training)
                 #x, (h_4, h_4) = self.fc4(x)
-                #x = F.dropout(x, training=self.training)
+                x = F.dropout(x, training=self.training)
                 x= x[:,-1,:]
                 x = self.fc5(x)
         '''   
