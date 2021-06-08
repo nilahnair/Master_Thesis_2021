@@ -304,7 +304,7 @@ class Network_User(object):
         # Setting the network
         logging.info('        Network_User:    Train:    creating network')
         if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':
-            network_obj = Network(self.config, self.device)
+            network_obj = Network(self.config)
             network_obj.init_weights()
 
             # IF finetuning, load the weights from a source dataset
