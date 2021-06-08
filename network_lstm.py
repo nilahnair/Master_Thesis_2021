@@ -216,7 +216,8 @@ class Network(nn.Module):
                                           kernel_size=(self.config['filter_size'], 1),
                                           stride=1, padding=padding)
 
-        
+        self.h0= torch.zeros(2, self.config['batch_size_train'], 256)
+        self.c0= torch.zeros(2, self.config['batch_size_train'], 256)
         if self.config["NB_sensor_channels"] == 27:
             self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, num_layers=2, batch_first=True)
             '''
@@ -333,8 +334,7 @@ class Network(nn.Module):
             x = x.view(x.size()[0], x.size()[1], int(x.size()[3] / 3), 3)
             x = x.permute(0, 3, 1, 2)
         '''
-        h0= torch.zeros(2, self.config['batch_size_train'], 256)
-        c0= torch.zeros(2, self.config['batch_size_train'], 256)
+        
         # Selecting the one ot the two networks, tCNN or tCNN-IMU
         if self.config["network"] == "cnn":
             x = self.tcnn(x)
