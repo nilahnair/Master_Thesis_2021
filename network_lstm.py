@@ -399,9 +399,11 @@ class Network(nn.Module):
         if isinstance(m, nn.Linear):
             nn.init.orthogonal_(m.weight, gain = np.sqrt(2))
             nn.init.constant_(m.bias.data, 0)
+        '''    
         if isinstance(m, nn.LSTM):
             nn.init.xavier_normal_(m.hs)
             nn.init.xavier_normal_(m.cs)
+        '''
             
 
         return
