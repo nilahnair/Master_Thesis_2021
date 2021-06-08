@@ -438,8 +438,6 @@ class Network_User(object):
             logging.info('\n        Network_User:    Train:    Training epoch {}'.format(e))
             start_time_batch = time.time()
             
-            hidden, cell = self.init_hidden(batch_size=self.config['batch_size_train'])
-            
             #loop per batch:
             for b, harwindow_batched in enumerate(dataLoader_train):
                 start_time_batch = time.time()
@@ -509,7 +507,7 @@ class Network_User(object):
                 
                 # forward + backward + optimize
                 
-                feature_maps, hidden, cell = network_obj(train_batch_v, hidden, cell)
+                feature_maps= network_obj(train_batch_v)
                 feature_maps= feature_maps[:,-1,:]
                 
                 if self.config["fully_convolutional"] == "FCN":
@@ -557,7 +555,7 @@ class Network_User(object):
                     # Validation
                     # Calling the val() function with the current network and criterion
                     del train_batch_v, noise
-                    results_val, loss_val, c_pos_val, c_neg_val = self.validate(network_obj, criterion, hidden, cell)
+                    results_val, loss_val, c_pos_val, c_neg_val = self.validate(network_obj, criterion)
                  
                     self.exp.log_scalar("loss_val_int_{}".format(ea_itera), loss_val, itera)
 
@@ -795,14 +793,14 @@ class Network_User(object):
             plt.savefig(self.config['folder_exp'] + 'training_final.png')
             plt.close()
 
-        return results_val, best_itera, count_pos_val, count_neg_val, hidden, cell
+        return results_val, best_itera, count_pos_val, count_neg_val
 
 
     ##################################################
     ################  Validate  ######################
     ##################################################
 
-    def validate(self, network_obj, criterion, hidden, cell):
+    def validate(self, network_obj, criterion):
         '''
         Validating a network
 
@@ -871,7 +869,7 @@ class Network_User(object):
                     # labels for crossentropy needs long type
 
                 # forward
-                predictions = network_obj(test_batch_v, hidden, cell)
+                predictions = network_obj(test_batch_v)
                 predictions= predictions[:,-1,:]
                
                 if self.config['output'] == 'softmax':
@@ -1015,7 +1013,7 @@ class Network_User(object):
         # network is loaded from saved file in the folder of experiment
         logging.info('        Network_User:    Test:    creating network')
         if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':
-            network_obj = Network(self.config, self.device)
+            network_obj = Network(self.config)
 
             #Loading the model
             network_obj.load_state_dict(torch.load(self.config['folder_exp'] + 'network.pt')['state_dict'])
@@ -1043,8 +1041,6 @@ class Network_User(object):
         elif self.config['output'] == 'attribute': 
             metrics_obj = Metrics(self.config, self.device, self.attrs)
         
-        hidden, cell = self.network_obj.init_hidden(batch_size=self.config['batch_size_train'])
-            
         logging.info('        Network_User:    Testing')
         start_time_test = time.time()
         # loop for testing
@@ -1085,7 +1081,7 @@ class Network_User(object):
 
                 #forward
                 
-                predictions = network_obj(test_batch_v, hidden, cell)
+                predictions = network_obj(test_batch_v)
                 predictions = predictions[:, -1, :]
                 if self.config['output'] == 'softmax':
                     loss = criterion(predictions, test_batch_l)
@@ -1250,7 +1246,7 @@ class Network_User(object):
     ############  evolution_evaluation  ##############
     ##################################################
     
-    def evolution_evaluation(self, ea_iter, testing = False, hidden=0, cell=0):
+    def evolution_evaluation(self, ea_iter, testing = False):
        '''
         Organises the evolution, training, testing or validating
 
@@ -1267,12 +1263,12 @@ class Network_User(object):
        best_itera = 0
        if testing:
             logging.info('        Network_User: Testing')
-            results, confusion_matrix, c_pos, c_neg = self.test(ea_iter, hidden, cell)
+            results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
        else:
             if self.config['usage_modus'] == 'train':
                 logging.info('        Network_User: Training')
 
-                results, best_itera, c_pos, c_neg, hidden, cell = self.train(ea_iter)
+                results, best_itera, c_pos, c_neg = self.train(ea_iter)
 
             elif self.config['usage_modus'] == 'fine_tuning':
                 logging.info('        Network_User: Fine Tuning')
@@ -1287,5 +1283,5 @@ class Network_User(object):
                 logging.info('        Network_User: Not selected modus')
             
 
-       return results, confusion_matrix, best_itera, c_pos, c_neg, hidden, cell
+       return results, confusion_matrix, best_itera, c_pos, c_neg
   
