@@ -216,7 +216,8 @@ class Network(nn.Module):
                                           kernel_size=(self.config['filter_size'], 1),
                                           stride=1, padding=padding)
 
-        
+        self.h0= torch.zeros(2, self.config['batch_size_train'], 256)
+        self.c0= torch.zeros(2, self.config['batch_size_train'], 256)
         if self.config["NB_sensor_channels"] == 27:
             self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, num_layers=2, batch_first=True)
             '''
@@ -345,9 +346,8 @@ class Network(nn.Module):
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
                 x = F.dropout(x, training=self.training)
-                h0= torch.zeros(2, x.size(0), 256).to(self.device)
-                c0= torch.zeros(2, x.size(0), 256).to(self.device)
-                x, _ = self.fc3(x, (h0, c0))
+                
+                x, _ = self.fc3(x, (self.h0, self.c0))
                 #x = F.dropout(x, training=self.training)
                 #x, (h_4, h_4) = self.fc4(x)
                 x = F.dropout(x, training=self.training)
