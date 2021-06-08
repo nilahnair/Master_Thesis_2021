@@ -228,7 +228,7 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 3), 256)
             '''
         elif self.config["NB_sensor_channels"] == 30:
-            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 128, dropout=0.5, num_layers=2, batch_first=True)
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
             '''
             self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 5), 256)
@@ -291,7 +291,7 @@ class Network(nn.Module):
                                      out_channels=self.config['num_classes'], kernel_size=(1, 1), stride=1, padding=0)
         elif self.config["fully_convolutional"] == "FC":
             if self.config['output'] == 'softmax':
-                self.fc5 = nn.Linear(128, self.config['num_classes'])
+                self.fc5 = nn.Linear(256, self.config['num_classes'])
             elif self.config['output'] == 'attribute':
                 self.fc5 = nn.Linear(256, self.config['num_attributes'])
             elif self.config['output'] == 'identity':
