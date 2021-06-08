@@ -340,7 +340,8 @@ class Network_User(object):
 
         # Setting optimizer
         optimizer = optim.RMSprop(network_obj.parameters(), lr=self.config['lr'], alpha=0.95)
-
+        #optimizer = torch.optim.SGD(network_obj.parameters(), lr=self.config['lr'])
+        
         # Setting scheduler
         step_lr = self.config['epochs'] / 3
         scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=math.ceil(step_lr), gamma=0.1)
