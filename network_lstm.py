@@ -228,7 +228,7 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 3), 256)
             '''
         elif self.config["NB_sensor_channels"] == 30:
-            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])), hidden_size= 256, dropout=0.75, num_layers=2, batch_first=True)
+            self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])), hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
             
             '''
             self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
@@ -340,7 +340,6 @@ class Network(nn.Module):
             else:
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
-                x = F.dropout(x, training=self.training)
                 x, _ = self.fc3(x)
                 #x = F.dropout(x, training=self.training)
                 #x, (h_4, h_4) = self.fc4(x)
