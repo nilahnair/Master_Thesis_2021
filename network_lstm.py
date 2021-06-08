@@ -229,10 +229,6 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 3), 256)
             '''
         elif self.config["NB_sensor_channels"] == 30:
-            '''
-            self.hs = torch.randn(2, self.config['batch_size_train'], 256)
-            self.cs = torch.randn(2, self.config['batch_size_train'], 256)
-            '''
             self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])), hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
             
             '''
@@ -319,7 +315,7 @@ class Network(nn.Module):
 
         return
     
-    def forward(self, x):
+    def forward(self, x, hidden, cell):
         '''
         Forwards function, required by torch.
 
@@ -346,9 +342,7 @@ class Network(nn.Module):
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
                 x = F.dropout(x, training=self.training)
-                self.h0= torch.zeros(2, x.size(0), 256).to(self.device)
-                self.c0= torch.zeros(2, x.size(0), 256).to(self.device)
-                x, _ = self.fc3(x, (self.h0, self.c0))
+                x, (hidden, cell) = self.fc3(x, (hidden, cell))
                 #x = F.dropout(x, training=self.training)
                 #x, (h_4, h_4) = self.fc4(x)
                 x = F.dropout(x, training=self.training)
@@ -373,8 +367,13 @@ class Network(nn.Module):
         if not self.training:
             if self.config['output'] == 'softmax' or self.config['output'] == 'identity':
                 x = self.softmax(x)
-        return x
+        return x, hidden, cell
         #return x11.clone(), x12.clone(), x21.clone(), x22.clone(), x
+        
+    def init_hidden(self, batch_size):
+        hidden= torch.zeros(2,batch_size, 256).to(self.device)
+        cell = torch.zeros(2,batch_size, 256).to(self.device)
+        return hidden, cell
 
 
     def init_weights(self):

@@ -437,7 +437,9 @@ class Network_User(object):
             start_time_train = time.time()
             logging.info('\n        Network_User:    Train:    Training epoch {}'.format(e))
             start_time_batch = time.time()
-
+            
+            hidden, cell = self.network_obj.init_hidden(batch_size=self.config['batch_size_train'])
+            
             #loop per batch:
             for b, harwindow_batched in enumerate(dataLoader_train):
                 start_time_batch = time.time()
@@ -507,7 +509,7 @@ class Network_User(object):
                 
                 # forward + backward + optimize
                 
-                feature_maps = network_obj(train_batch_v)
+                feature_maps = network_obj(train_batch_v, hidden, cell)
                 feature_maps= feature_maps[:,-1,:]
                 
                 if self.config["fully_convolutional"] == "FCN":
@@ -809,7 +811,8 @@ class Network_User(object):
         @return results_val: dict with validation results
         @return loss: loss of the validation
         '''
-
+        hidden, cell = self.network_obj.init_hidden(batch_size=self.config['batch_size_train'])
+            
         # Setting validation set and dataloader
         harwindows_val = HARWindows(csv_file=self.config['dataset_root'] + "val.csv",
                                     root_dir=self.config['dataset_root'])
@@ -869,7 +872,7 @@ class Network_User(object):
                     # labels for crossentropy needs long type
 
                 # forward
-                predictions = network_obj(test_batch_v)
+                predictions = network_obj(test_batch_v, hidden, cell)
                 predictions= predictions[:,-1,:]
                
                 if self.config['output'] == 'softmax':
@@ -1013,7 +1016,7 @@ class Network_User(object):
         # network is loaded from saved file in the folder of experiment
         logging.info('        Network_User:    Test:    creating network')
         if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':
-            network_obj = Network(self.config)
+            network_obj = Network(self.config, self.device)
 
             #Loading the model
             network_obj.load_state_dict(torch.load(self.config['folder_exp'] + 'network.pt')['state_dict'])
@@ -1040,7 +1043,9 @@ class Network_User(object):
             metrics_obj = Metrics(self.config, self.device)
         elif self.config['output'] == 'attribute': 
             metrics_obj = Metrics(self.config, self.device, self.attrs)
-
+        
+        hidden, cell = self.network_obj.init_hidden(batch_size=self.config['batch_size_train'])
+            
         logging.info('        Network_User:    Testing')
         start_time_test = time.time()
         # loop for testing
@@ -1081,7 +1086,7 @@ class Network_User(object):
 
                 #forward
                 
-                predictions = network_obj(test_batch_v)
+                predictions = network_obj(test_batch_v, hidden, cell)
                 predictions = predictions[:, -1, :]
                 if self.config['output'] == 'softmax':
                     loss = criterion(predictions, test_batch_l)
