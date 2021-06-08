@@ -32,6 +32,7 @@ class Network(nn.Module):
         logging.info('            Network: Constructor')
         
         self.config = config
+        self.device = device
         
         if self.config["reshape_input"]:
             in_channels = 3
