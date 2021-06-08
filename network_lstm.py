@@ -341,7 +341,7 @@ class Network(nn.Module):
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
                 x = F.dropout(x, training=self.training)
-                _, (x, _) = self.fc3(x)
+                x, _ = self.fc3(x)
                 #x = F.dropout(x, training=self.training)
                 #x, (h_4, h_4) = self.fc4(x)
                 x = F.dropout(x, training=self.training)
