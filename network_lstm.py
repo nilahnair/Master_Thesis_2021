@@ -228,8 +228,10 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 3), 256)
             '''
         elif self.config["NB_sensor_channels"] == 30:
+            '''
             self.hs = torch.randn(2, self.config['batch_size_train'], 256)
             self.cs = torch.randn(2, self.config['batch_size_train'], 256)
+            '''
             self.fc3 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])), hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
             
             '''
@@ -331,7 +333,7 @@ class Network(nn.Module):
             x = x.view(x.size()[0], x.size()[1], int(x.size()[3] / 3), 3)
             x = x.permute(0, 3, 1, 2)
         '''
-
+        
         # Selecting the one ot the two networks, tCNN or tCNN-IMU
         if self.config["network"] == "cnn":
             x = self.tcnn(x)
@@ -343,7 +345,9 @@ class Network(nn.Module):
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
                 x = F.dropout(x, training=self.training)
-                x, (self.hs, self.cs) = self.fc3(x, (self.hs, self.cs))
+                h0= torch.zeros(2, x.size(0), 256).to(self.device)
+                c0= torch.zeros(2, x.size(0), 256).to(self.device)
+                x, _ = self.fc3(x, (h0, c0))
                 #x = F.dropout(x, training=self.training)
                 #x, (h_4, h_4) = self.fc4(x)
                 x = F.dropout(x, training=self.training)
