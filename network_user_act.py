@@ -871,8 +871,6 @@ class Network_User(object):
                 # forward
                 predictions = network_obj(test_batch_v)
                 predictions= predictions[:,-1,:]
-                print("predictions val")
-                print(predictions.shape)
                
                 if self.config['output'] == 'softmax':
                     loss = criterion(predictions, test_batch_l)
