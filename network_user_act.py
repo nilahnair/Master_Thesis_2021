@@ -508,7 +508,6 @@ class Network_User(object):
                 # forward + backward + optimize
                 
                 feature_maps= network_obj(train_batch_v)
-                feature_maps= feature_maps[:,-1,:]
                 
                 if self.config["fully_convolutional"] == "FCN":
                     feature_maps = feature_maps.reshape(-1, feature_maps.size()[2])
@@ -870,8 +869,7 @@ class Network_User(object):
 
                 # forward
                 predictions = network_obj(test_batch_v)
-                predictions= predictions[:,-1,:]
-               
+                
                 if self.config['output'] == 'softmax':
                     loss = criterion(predictions, test_batch_l)
                 elif self.config['output'] == 'attribute':
@@ -1082,7 +1080,7 @@ class Network_User(object):
                 #forward
                 
                 predictions = network_obj(test_batch_v)
-                predictions = predictions[:, -1, :]
+                
                 if self.config['output'] == 'softmax':
                     loss = criterion(predictions, test_batch_l)
                 elif self.config['output'] == 'attribute':
