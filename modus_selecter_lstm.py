@@ -153,7 +153,7 @@ class Modus_Selecter(object):
             
             # Training the network and obtaining the validation results
             logging.info('    Network_selecter:    Train iter {}'.format(iter_evl))
-            results_train, confusion_matrix_train, best_itera, c_pos_val, c_neg_val= self.network.evolution_evaluation(ea_iter=iter_evl)
+            results_train, confusion_matrix_train, best_itera, c_pos_val, c_neg_val, hidden, cell = self.network.evolution_evaluation(ea_iter=iter_evl)
             
             # Appending results for later saving in results file
             acc_train_ac.append(results_train['acc'])
@@ -255,7 +255,7 @@ class Modus_Selecter(object):
             # Testing the network
             if testing:
                 start_time_test = time.time()
-                results_test, confusion_matrix_test, count_pos_test, count_neg_test = self.test(testing=True)
+                results_test, confusion_matrix_test, count_pos_test, count_neg_test = self.test(testing=True, hidden= hidden, cell=cell)
                 acc_test_ac.append(results_test['acc'])
                 f1_weighted_test_ac.append(results_test['f1_weighted'])
                 f1_mean_test_ac.append(results_test['f1_mean'])
@@ -391,7 +391,7 @@ class Modus_Selecter(object):
         return
 
 
-    def test(self, testing = False):
+    def test(self, testing = False, hidden=0, cell=0):
         """
         Test method. Testing the network , saving the performances
 
@@ -408,7 +408,7 @@ class Modus_Selecter(object):
             recalls_attr_test = []
 
         # Testing the network in folder (according to the conf)
-        results_test, confusion_matrix_test, _ , c_pos_test, c_neg_test = self.network.evolution_evaluation(ea_iter=0, testing=testing)
+        results_test, confusion_matrix_test, _ , c_pos_test, c_neg_test = self.network.evolution_evaluation(ea_iter=0, testing=testing, hidden=hidden, cell=cell)
 
         elapsed_time_test = time.time() - start_time_test
 
