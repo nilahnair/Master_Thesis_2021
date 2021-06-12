@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('lstm imu type4 batch 200 lr1')
+ex= Experiment('lstm mocap all avg batch 50 lr0')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -69,7 +69,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     #num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1}
     #all
-    #num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
     #attr without 6 and 7
     #num_tr_inputs = {'mocap': 120679, 'mbientlab': 104338, 'motionminers_flw': 93712}
     
@@ -116,9 +116,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type3
     #num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
     #clean type4
-    num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
-    #num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
+    num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
     #num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}    
     
     # Number of classes for either for activity recognition
@@ -185,11 +185,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap': 100, 'mbientlab':200, 'motionminers_flw': 100}}
+        'cnn_imu': {'mocap': 50, 'mbientlab':200, 'motionminers_flw': 100}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap':100, 'mbientlab': 200, 'motionminers_flw': 100}}
+                      'cnn_imu': {'mocap':50, 'mbientlab': 200, 'motionminers_flw': 100}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
@@ -236,7 +236,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp1/'
+        folder_exp = folder_base + 'exp2/'
         #folder_exp = folder_base + 'attr_imu/'
         print(folder_exp)
         '''
@@ -280,16 +280,16 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 ################################################################################################################################3
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
-    
+    '''
     dataset_root = {'mocap': '/data/nnair/output/activities/type4/mocap/',
                     'mbientlab': '/data/nnair/output/activities/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
-     
-    '''
+    ''' 
+    
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/trial/imu_all/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
-    '''
+    
     '''
     dataset_root = {'mocap': '/data/nnair/output/attributes/no67/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
@@ -397,13 +397,13 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=1,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
