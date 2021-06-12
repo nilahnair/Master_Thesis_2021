@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('lstm imu raw type4 lr0 b100')
+ex= Experiment('lstm imu raw type3 lr0 b100')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -71,9 +71,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #raw type2
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 39323, 'motionminers_flw': 93712}
     #raw type3
-    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
     #raw type4
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
      
      
     #unclean type1
@@ -110,11 +110,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     #type3
     
-    #num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
+    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
     
     #type4
    
-    num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    #num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
   
     
 
@@ -307,7 +307,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #type1
     
     dataset_root = {'mocap': '/data/nnair/output/type4/mocap/downsampled/',
-                    'mbientlab': '/data/nnair/output/type4/imu/',
+                    'mbientlab': '/data/nnair/output/type3/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
     #type2
