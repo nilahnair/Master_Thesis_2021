@@ -32,7 +32,7 @@ ex.observers.append(MongoObserver.create(url='curtiz',
 
 def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, dataset_fine_tuning_idx=0,
                   reshape_input=False, learning_rates_idx=0, name_counter=0, freeze=0, percentage_idx=0,
-                  fully_convolutional=False, sacred=True):
+                  fully_convolutional=False, sacred=True, dist_idx):
     
     """
     Set a configuration of all the possible variables that were set in the experiments.
@@ -319,6 +319,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         train_show = {'cnn': int(train_show_value / 100), 'lstm': 100, 'cnn_imu': int(train_show_value / 100)}
         valid_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
     
+    dist = {0: 'euclidean', 1: 'BCELoss'}
+    
     
     now = datetime.datetime.now()
     
@@ -361,7 +363,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      #'percentages_names': percentages_names[percentage_idx],
                      'fully_convolutional': fully_convolutional,
                      'sacred': sacred,
-                     'labeltype': labeltype}
+                     'labeltype': labeltype,
+                     'distance': dist[dist_idx]}
 
     return configuration
 
@@ -408,7 +411,8 @@ def my_config():
                            freeze=0,
                            fully_convolutional=False,
                            #percentage_idx=12,
-                           #pooling=0
+                           #pooling=0,
+                           dist_idx=1
                            )
     
     dataset = config["dataset"]
@@ -420,6 +424,7 @@ def my_config():
     #pooling = config["pooling"]
     lr = config["lr"]
     bsize = config["batch_size_train"]
+    dist = config["distance"]
     
 @ex.capture
 def run(config, dataset, network, output, usageModus):

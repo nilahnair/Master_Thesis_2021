@@ -315,32 +315,47 @@ class Metrics(object):
         @param predictions: torch array with predictions (output from sigmoid)
         @return distances: Euclidean Distance to each of the vectors in the attribute representation
         '''
-       
-        euclidean = torch.nn.PairwiseDistance()
-
+        if self.config["distance"] == "euclidean":
+            dist_funct = torch.nn.PairwiseDistance()
+        
         # Normalize the predictions of the network
-        for pred_idx in range(predictions.size()[0]):
-            predictions[pred_idx, :] = predictions[pred_idx,:] / torch.norm(predictions[pred_idx, :])
+            for pred_idx in range(predictions.size()[0]):
+                predictions[pred_idx, :] = predictions[pred_idx,:] / torch.norm(predictions[pred_idx, :])
         
-        #predictions = predictions.repeat(self.attr.shape[0], 1, 1)
-        #predictions = predictions.repeat(self.atts.shape[0], 1, 1)
+            #predictions = predictions.repeat(self.attr.shape[0], 1, 1)
+            #predictions = predictions.repeat(self.atts.shape[0], 1, 1)
         
-        if self.config['num_attributes'] == 4:
-            predictions = predictions.repeat(6, 1, 1)
-        elif self.config['num_attributes'] == 10:
-            predictions = predictions.repeat(7, 1, 1)
+            if self.config['num_attributes'] == 4:
+                predictions = predictions.repeat(6, 1, 1)
+            elif self.config['num_attributes'] == 10:
+                predictions = predictions.repeat(7, 1, 1)
        
-        #predictions = predictions.repeat(8, 1, 1)
-        predictions = predictions.permute(1, 0, 2)
+            #predictions = predictions.repeat(8, 1, 1)
+            predictions = predictions.permute(1, 0, 2)
         
-        # compute the distance among the predictions of the network
-        # and the the attribute representation
-        distances = euclidean(predictions[0], self.center)
-        distances = distances.view(1, -1)
-        for i in range(1, predictions.shape[0]):
-            dist = euclidean(predictions[i], self.center)
-            distances = torch.cat((distances, dist.view(1, -1)), dim=0)
+            # compute the distance among the predictions of the network
+            # and the the attribute representation
+            distances = dist_funct(predictions[0], self.center)
+            distances = distances.view(1, -1)
+            for i in range(1, predictions.shape[0]):
+                dist = dist_funct(predictions[i], self.center)
+                distances = torch.cat((distances, dist.view(1, -1)), dim=0)
         
+        elif self.config["distance"] == "BCELoss":
+            dist_funct = torch.nn.BCELoss(reduce=False, reduction="sum")
+            attrs_repeat = np.reshape(self.attr, newshape=[1, self.attr.shape[0], self.attr.shape[1]]) #[1, 302,19]
+            attrs_repeat = np.repeat(attrs_repeat, predictions.shape[0], axis=0) #[batches, 302,19] = #[200, 302,19]
+            attrs_repeat = torch.from_numpy(attrs_repeat[:, :, 1:])
+            attrs_repeat = attrs_repeat.to(self.device, dtype=torch.float)
+            predictions = predictions.repeat(self.attr.shape[0], 1, 1) ##[200, 19] = #[302, 200,19]
+            predictions = predictions.permute(1, 0, 2) ##[200, 302,19]
+            # compute the distance among the predictions of the network
+            # and the the attribute representation
+            distances = dist_funct(predictions, attrs_repeat) #predictions [200, 302,19] vs #attr rep[200, 302,19]
+            #distances [200, 302, 19]
+            #### one - distances /100
+            distances = distances.sum(axis=2) #[200, 302]
+
         #logging.info('            Metric:   distance attr: \n{}'.format(distances))
         # return the distances
         return distances
