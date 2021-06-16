@@ -1189,6 +1189,20 @@ class Network_User(object):
             test_labels = test_labels
         elif self.config['output'] == 'attribute':
             test_labels = test_labels[:, 0]
+            
+        if self.config['output'] == 'attribute':
+            if self.config['num_attributes'] == 4:
+                for i in range(0, test_labels[0]):
+                    if test_labels[i,0]==6:
+                        test_labels[i,0]=5
+                    elif test_labels[i,0]==7:
+                        test_labels[i,0]=3
+            elif self.config['num_attributes'] == 10:
+                for i in range(0, test_labels.shape[0]):
+                    if test_labels[i,0]==6:
+                        test_labels[i,0]=5
+                    elif test_labels[i,0]==7:
+                       test_labels[i,0]=6
 
         # Computing confusion matrix
         confusion_matrix = np.zeros((self.config['num_classes'], self.config['num_classes']))
