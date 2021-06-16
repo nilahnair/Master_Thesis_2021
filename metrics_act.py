@@ -31,10 +31,7 @@ class Metrics(object):
         elif self.config['num_attributes'] == 10:
             self.mid= self.attr[0:6,:]
             self.mid= np.concatenate((self.mid, self.attr[7:8,:]), 0)
-            #self.mid[6,0]=6
-            
-        print("printing mid")
-        print(self.mid)
+            self.mid[6,0]=6
         
         #for attr_idx in range(self.attr.shape[0]):
         #    self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
@@ -355,25 +352,13 @@ class Metrics(object):
             dist_funct = torch.nn.BCELoss(reduce=False, reduction="sum")
             
             attrs_repeat = np.reshape(self.mid, newshape=[1, self.mid.shape[0], self.mid.shape[1]]) #[1, 302,19]
-            print("attrs_repeat ")
-            print(attrs_repeat.shape)
-            #print(attrs_repeat)
             
             attrs_repeat = np.repeat(attrs_repeat, predictions.shape[0], axis=0) #[batches, 302,19] = #[200, 302,19]
-            print("attrs_repeat")
-            #print(attrs_repeat)
-            print(attrs_repeat.shape)
-            
+           
             attrs_repeat = torch.from_numpy(attrs_repeat[:, :, 1:])
             attrs_repeat = attrs_repeat.to(self.device, dtype=torch.float)
             predictions = predictions.repeat(self.mid.shape[0], 1, 1) ##[200, 19] = #[302, 200,19]
-            print("predictions")
-            #print(attrs_repeat)
-            print(predictions.shape)
             predictions = predictions.permute(1, 0, 2) ##[200, 302,19]
-            print("predictions")
-            #print(attrs_repeat)
-            print(predictions.shape)
             # compute the distance among the predictions of the network
             # and the the attribute representation
             distances = dist_funct(predictions, attrs_repeat) #predictions [200, 302,19] vs #attr rep[200, 302,19]
@@ -390,11 +375,7 @@ class Metrics(object):
     ##################################################
 
     def metric(self, targets, predictions):
-        print("metric targets")
-        print(targets.shape)
-        print("metric predictions")
-        print(predictions.shape)
-       
+        
         # logging.info('        Network_User:    Metrics')
         if self.config['output'] == 'attribute':
             logging.info('\n')
