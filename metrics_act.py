@@ -39,8 +39,6 @@ class Metrics(object):
         elif self.config['num_attributes'] == 10:
             self.center= self.atts[0:6,1:]
             self.center= torch.cat((self.center, self.atts[7:8,1:]), 0)
-            print("center")
-            print(self.center)
         
         self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0, 'recall': 0, 'acc_attrs': 0, 
                         'precision_attr': 0, 'recall_attr': 0,}
@@ -346,7 +344,8 @@ class Metrics(object):
         elif self.config["distance"] == "BCELoss":
             print("BCELOSS")
             dist_funct = torch.nn.BCELoss(reduce=False, reduction="sum")
-            attrs_repeat = np.reshape(self.attr, newshape=[1, self.attr.shape[0], self.attr.shape[1]]) #[1, 302,19]
+            
+            attrs_repeat = np.reshape(self.center, newshape=[1, self.center.shape[0], self.center.shape[1]]) #[1, 302,19]
             print("attrs_repeat ")
             print(attrs_repeat.shape)
             #print(attrs_repeat)
@@ -358,7 +357,7 @@ class Metrics(object):
             
             attrs_repeat = torch.from_numpy(attrs_repeat[:, :, 1:])
             attrs_repeat = attrs_repeat.to(self.device, dtype=torch.float)
-            predictions = predictions.repeat(self.attr.shape[0], 1, 1) ##[200, 19] = #[302, 200,19]
+            predictions = predictions.repeat(self.center.shape[0], 1, 1) ##[200, 19] = #[302, 200,19]
             print("predictions")
             #print(attrs_repeat)
             print(predictions.shape)
