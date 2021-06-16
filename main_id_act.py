@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('imu all attr10 bceloss')
+ex= Experiment('mocap all attr10 bceloss')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -221,7 +221,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_base = "/data/nnair/trial/lstm/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
-        folder_base = "/data/nnair/output/attributes/all/imu/"
+        folder_base = "/data/nnair/output/attributes/all/mocap/"
         #folder_base = "/data/nnair/output/attributes/no7/mocap/output/"
         
     print("folderbase selected")
@@ -399,7 +399,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=1,
                            usage_modus_idx=0,
