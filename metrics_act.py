@@ -30,7 +30,7 @@ class Metrics(object):
             self.mid= self.attr[0:6,:]
         elif self.config['num_attributes'] == 10:
             self.mid= self.attr[0:6,:]
-            self.mid= np.concatenate((self.mid, self.attr[7:8,1:]), 0)
+            self.mid= np.concatenate((self.mid, self.attr[7:8,:]), 0)
             
         print("printing mid")
         print(self.mid)
