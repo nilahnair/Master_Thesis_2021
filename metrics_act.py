@@ -26,6 +26,11 @@ class Metrics(object):
         # Here, you need to extract the attributes from the network.pt
         #self,attr= network["att_rep"]
         self.attr = attributes
+        if self.config['num_attributes'] == 4:
+            self.mid= self.attr[0:6,1:]
+        elif self.config['num_attributes'] == 10:
+            self.mid= self.attr[0:6,1:]
+            self.mid= torch.cat((self.mid, self.attr[7:8,1:]), 0)
         
         #for attr_idx in range(self.attr.shape[0]):
         #    self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
@@ -345,7 +350,7 @@ class Metrics(object):
             print("BCELOSS")
             dist_funct = torch.nn.BCELoss(reduce=False, reduction="sum")
             
-            attrs_repeat = np.reshape(self.center, newshape=[1, self.center.shape[0], self.center.shape[1]]) #[1, 302,19]
+            attrs_repeat = np.reshape(self.mid, newshape=[1, self.mid.shape[0], self.mid.shape[1]]) #[1, 302,19]
             print("attrs_repeat ")
             print(attrs_repeat.shape)
             #print(attrs_repeat)
@@ -357,7 +362,7 @@ class Metrics(object):
             
             attrs_repeat = torch.from_numpy(attrs_repeat[:, :, 1:])
             attrs_repeat = attrs_repeat.to(self.device, dtype=torch.float)
-            predictions = predictions.repeat(self.center.shape[0], 1, 1) ##[200, 19] = #[302, 200,19]
+            predictions = predictions.repeat(self.mid.shape[0], 1, 1) ##[200, 19] = #[302, 200,19]
             print("predictions")
             #print(attrs_repeat)
             print(predictions.shape)
