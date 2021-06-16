@@ -27,11 +27,11 @@ class Metrics(object):
         #self,attr= network["att_rep"]
         self.attr = attributes
         if self.config['num_attributes'] == 4:
-            self.mid= self.attr[0:6,:]
+            self.mid= self.attr[0:6,1:]
         elif self.config['num_attributes'] == 10:
-            self.mid= self.attr[0:6,:]
-            self.mid= np.concatenate((self.mid, self.attr[7:8,:]), 0)
-            self.mid[6,0]=6
+            self.mid= self.attr[0:6,1:]
+            self.mid= np.concatenate((self.mid, self.attr[7:8,1:]), 0)
+            #self.mid[6,0]=6
             
         print("printing mid")
         print(self.mid)
