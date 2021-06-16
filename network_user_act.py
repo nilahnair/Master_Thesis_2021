@@ -55,7 +55,7 @@ class Network_User(object):
         self.device = torch.device("cuda:{}".format(self.config["GPU"]) if torch.cuda.is_available() else "cpu")
 
         #self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_one.txt")
-        #self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_two.txt")
+        self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_two.txt")
         
         #self.attr_representation = self.reader_att_rep("atts_per_class_lara.txt")
 
