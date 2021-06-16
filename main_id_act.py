@@ -174,7 +174,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                         'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'mbientlab': {'cnn': {'softmax': 10, 'attribute': 10},
                             'lstm': {'softmax': 10, 'attribute': 10},
-                            'cnn_imu': {'softmax': 10, 'attribute': 10}},
+                            'cnn_imu': {'softmax': 3, 'attribute': 10}},
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}}
@@ -320,6 +320,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         valid_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
     
     dist = {0: 'euclidean', 1: 'BCELoss'}
+    print(dist)
     
     
     now = datetime.datetime.now()

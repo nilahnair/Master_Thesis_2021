@@ -342,6 +342,7 @@ class Metrics(object):
                 distances = torch.cat((distances, dist.view(1, -1)), dim=0)
         
         elif self.config["distance"] == "BCELoss":
+            print("BCELOSS")
             dist_funct = torch.nn.BCELoss(reduce=False, reduction="sum")
             attrs_repeat = np.reshape(self.attr, newshape=[1, self.attr.shape[0], self.attr.shape[1]]) #[1, 302,19]
             attrs_repeat = np.repeat(attrs_repeat, predictions.shape[0], axis=0) #[batches, 302,19] = #[200, 302,19]

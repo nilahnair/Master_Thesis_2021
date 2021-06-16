@@ -1189,6 +1189,9 @@ class Network_User(object):
             test_labels = test_labels
         elif self.config['output'] == 'attribute':
             test_labels = test_labels[:, 0]
+        
+        print("testlabels shape")
+        print(test_labels.shape)
             
         if self.config['output'] == 'attribute':
             if self.config['num_attributes'] == 4:
