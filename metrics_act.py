@@ -26,7 +26,7 @@ class Metrics(object):
         # Here, you need to extract the attributes from the network.pt
         #self,attr= network["att_rep"]
         self.attr = attributes
-       
+        
         #for attr_idx in range(self.attr.shape[0]):
         #    self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
 
@@ -39,6 +39,8 @@ class Metrics(object):
         elif self.config['num_attributes'] == 10:
             self.center= self.atts[0:6,1:]
             self.center= torch.cat((self.center, self.atts[7:8,1:]), 0)
+            print("center")
+            print(self.center)
         
         self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0, 'recall': 0, 'acc_attrs': 0, 
                         'precision_attr': 0, 'recall_attr': 0,}
