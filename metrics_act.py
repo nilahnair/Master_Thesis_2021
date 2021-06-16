@@ -30,7 +30,10 @@ class Metrics(object):
             self.mid= self.attr[0:6,1:]
         elif self.config['num_attributes'] == 10:
             self.mid= self.attr[0:6,1:]
-            self.mid= torch.cat((self.mid, self.attr[7:8,1:]), 0)
+            self.mid= np.concatenate((self.mid, self.attr[7:8,1:]), 0)
+            
+        print("printing mid")
+        print(self.mid)
         
         #for attr_idx in range(self.attr.shape[0]):
         #    self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
