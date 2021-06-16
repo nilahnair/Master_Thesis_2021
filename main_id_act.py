@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mocap all attr10 bceloss')
+ex= Experiment('imu all attr4 bceloss')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -66,8 +66,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     
-    #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
-    num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1}
+    num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    #num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1}
     #all
     num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
     #attr without 6 and 7
@@ -119,7 +119,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
     #num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
-    num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}    
+    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 7}    
     
     # Number of classes for either for activity recognition
     #type1&2
@@ -221,7 +221,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_base = "/data/nnair/trial/lstm/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
-        folder_base = "/data/nnair/output/attributes/all/mocap/"
+        folder_base = "/data/nnair/output/attributes/all/imu/"
         #folder_base = "/data/nnair/output/attributes/no7/mocap/output/"
         
     print("folderbase selected")
@@ -399,7 +399,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=0,
+    config = configuration(dataset_idx=1,
                            network_idx=2,
                            output_idx=1,
                            usage_modus_idx=0,
