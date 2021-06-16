@@ -347,11 +347,25 @@ class Metrics(object):
             print("BCELOSS")
             dist_funct = torch.nn.BCELoss(reduce=False, reduction="sum")
             attrs_repeat = np.reshape(self.attr, newshape=[1, self.attr.shape[0], self.attr.shape[1]]) #[1, 302,19]
+            print("attrs_repeat ")
+            print(attrs_repeat.shape)
+            #print(attrs_repeat)
+            
             attrs_repeat = np.repeat(attrs_repeat, predictions.shape[0], axis=0) #[batches, 302,19] = #[200, 302,19]
+            print("attrs_repeat")
+            #print(attrs_repeat)
+            print(attrs_repeat.shape)
+            
             attrs_repeat = torch.from_numpy(attrs_repeat[:, :, 1:])
             attrs_repeat = attrs_repeat.to(self.device, dtype=torch.float)
             predictions = predictions.repeat(self.attr.shape[0], 1, 1) ##[200, 19] = #[302, 200,19]
+            print("predictions")
+            #print(attrs_repeat)
+            print(predictions.shape)
             predictions = predictions.permute(1, 0, 2) ##[200, 302,19]
+            print("predictions")
+            #print(attrs_repeat)
+            print(predictions.shape)
             # compute the distance among the predictions of the network
             # and the the attribute representation
             distances = dist_funct(predictions, attrs_repeat) #predictions [200, 302,19] vs #attr rep[200, 302,19]

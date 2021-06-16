@@ -1192,7 +1192,7 @@ class Network_User(object):
         
         print("testlabels shape")
         print(test_labels.shape)
-            
+        '''    
         if self.config['output'] == 'attribute':
             if self.config['num_attributes'] == 4:
                 for i in range(0, test_labels[0]):
@@ -1206,6 +1206,7 @@ class Network_User(object):
                         test_labels[i,0]=5
                     elif test_labels[i,0]==7:
                        test_labels[i,0]=6
+        '''
 
         # Computing confusion matrix
         confusion_matrix = np.zeros((self.config['num_classes'], self.config['num_classes']))
