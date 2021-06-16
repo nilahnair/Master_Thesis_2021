@@ -402,7 +402,7 @@ def my_config():
     print("configuration function began")
     config = configuration(dataset_idx=1,
                            network_idx=2,
-                           output_idx=0,
+                           output_idx=1,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
