@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('distance check')
+ex= Experiment('imu all attr10 bceloss')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -174,7 +174,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                         'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'mbientlab': {'cnn': {'softmax': 10, 'attribute': 10},
                             'lstm': {'softmax': 10, 'attribute': 10},
-                            'cnn_imu': {'softmax': 10, 'attribute': 3}},
+                            'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}}
@@ -221,8 +221,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_base = "/data/nnair/trial/lstm/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
-        #folder_base = "/data/nnair/trial/"
-        folder_base = "/data/nnair/output/attributes/no7/mocap/output/"
+        folder_base = "/data/nnair/output/attributes/all/imu/"
+        #folder_base = "/data/nnair/output/attributes/no7/mocap/output/"
         
     print("folderbase selected")
     print(folder_base)
@@ -320,8 +320,6 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         valid_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
     
     dist = {0: 'euclidean', 1: 'BCELoss'}
-    print(dist)
-    
     
     now = datetime.datetime.now()
     
