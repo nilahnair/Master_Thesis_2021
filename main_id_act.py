@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mocap no7 attr4 bceloss')
+ex= Experiment('mocap no0 attr10 bceloss')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -66,15 +66,15 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     
-    num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
-    #num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1}
+    #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1}
     #all
     #num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
     #attr without 6 and 7
     #num_tr_inputs = {'mocap': 120679, 'mbientlab': 104338, 'motionminers_flw': 93712}
     
     #crossvalno0
-    #num_tr_inputs = {'mocap': 147409, 'mbientlab': 126843, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 147409, 'mbientlab': 126843, 'motionminers_flw': 93712}
     #crossvalno1
     #num_tr_inputs = {'mocap': 148510, 'mbientlab': 131501, 'motionminers_flw': 93712}
     #crossvalno2
@@ -88,7 +88,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #crossvalno6
     #num_tr_inputs = {'mocap': 147019, 'mbientlab': 127658, 'motionminers_flw': 93712}
     #crossvalno7
-    num_tr_inputs = {'mocap': 146221, 'mbientlab': 128263, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 146221, 'mbientlab': 128263, 'motionminers_flw': 93712}
     
     #raw type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
@@ -119,7 +119,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
     #num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
-    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 7}    
+    num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}    
     
     # Number of classes for either for activity recognition
     #type1&2
@@ -222,7 +222,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
-        folder_base = "/data/nnair/output/attributes/no7/mocap/output/"
+        folder_base = "/data/nnair/output/attributes/no0/mocap/output/"
         
     print("folderbase selected")
     print(folder_base)
@@ -236,7 +236,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp3/'
+        folder_exp = folder_base + 'exp4/'
         #folder_exp = folder_base + 'attr_imu/'
         print(folder_exp)
         '''
@@ -296,7 +296,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     '''
     
-    dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
+    dataset_root = {'mocap': '/data/nnair/output/attributes/no0/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no7/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
