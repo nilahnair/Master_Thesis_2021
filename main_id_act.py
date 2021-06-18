@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mocap no7 attr10 bceloss')
+ex= Experiment('imu no0 attr10 bceloss')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -74,7 +74,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_tr_inputs = {'mocap': 120679, 'mbientlab': 104338, 'motionminers_flw': 93712}
     
     #crossvalno0
-    #num_tr_inputs = {'mocap': 147409, 'mbientlab': 126843, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 147409, 'mbientlab': 126843, 'motionminers_flw': 93712}
     #crossvalno1
     #num_tr_inputs = {'mocap': 148510, 'mbientlab': 131501, 'motionminers_flw': 93712}
     #crossvalno2
@@ -88,7 +88,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #crossvalno6
     #num_tr_inputs = {'mocap': 147019, 'mbientlab': 127658, 'motionminers_flw': 93712}
     #crossvalno7
-    num_tr_inputs = {'mocap': 146221, 'mbientlab': 128263, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 146221, 'mbientlab': 128263, 'motionminers_flw': 93712}
     
     #raw type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
@@ -222,7 +222,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
-        folder_base = "/data/nnair/output/attributes/no7/mocap/output/"
+        folder_base = "/data/nnair/output/attributes/no0/imu/output/"
         
     print("folderbase selected")
     print(folder_base)
@@ -297,7 +297,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
     
     dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
-                    'mbientlab': '/data/nnair/output/attributes/no7/imu/input/',
+                    'mbientlab': '/data/nnair/output/attributes/no0/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
     # GPU
@@ -399,7 +399,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=0,
+    config = configuration(dataset_idx=1,
                            network_idx=2,
                            output_idx=1,
                            usage_modus_idx=0,
