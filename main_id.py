@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('lstm imu raw type1 lr0 b50')
+ex= Experiment('lstm imu raw type4 lr0 b50')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -67,13 +67,13 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
     
     #raw type1
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
     #raw type2
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 39323, 'motionminers_flw': 93712}
     #raw type3
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
     #raw type4
-    #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
      
      
     #unclean type1
@@ -106,7 +106,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Number of classes for either for activity recognition
     #type1&2
     
-    num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
+    #num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
     
     #type3
     
@@ -114,7 +114,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     #type4
    
-    #num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
   
     
 
@@ -307,7 +307,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #type1
     
     dataset_root = {'mocap': '/data/nnair/output/type4/mocap/downsampled/',
-                    'mbientlab': '/data/nnair/output/type1/imu/',
+                    'mbientlab': '/data/nnair/output/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
     #type2
