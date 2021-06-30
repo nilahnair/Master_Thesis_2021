@@ -219,7 +219,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
         #folder_base = "/data/nnair/trial/lstm/"
-        folder_base = "/data/nnair/all/experiments/exp1/"
+        folder_base = "/data/nnair/all/experiments/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
@@ -237,7 +237,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp3/'
+        folder_exp = folder_base + 'exp1/'
         #folder_exp = folder_base + 'attr_imu/'
         print(folder_exp)
         '''
