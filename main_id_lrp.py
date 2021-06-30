@@ -13,7 +13,7 @@ import numpy as np
 import random
 
 import platform
-from modus_selecter_act import Modus_Selecter
+from modus_selecter_lrp import Modus_Selecter
 
 import datetime
 
