@@ -32,7 +32,6 @@ from network_act import Network
 #from network_lstm import Network
 
 import model_io
-import data_io
 import modules
 
 from HARWindows_act import HARWindows
