@@ -457,9 +457,10 @@ class Modus_Selecter(object):
         """
         Setting the training, validation, evolution and final training.
         """
-        logging.info('    Network_selecter: Net modus: {}'.format(self.config['usage_modus']))
+        
         self.test()
         '''
+        logging.info('    Network_selecter: Net modus: {}'.format(self.config['usage_modus']))
         if self.config['usage_modus'] == 'train':
             self.train(itera=1, testing=True)
         elif self.config['usage_modus'] == 'test':

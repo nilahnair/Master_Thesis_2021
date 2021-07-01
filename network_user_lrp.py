@@ -1294,6 +1294,10 @@ class Network_User(object):
 
        confusion_matrix = 0
        best_itera = 0
+       
+       results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+       
+       '''
        if testing:
             logging.info('        Network_User: Testing')
             results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
@@ -1314,7 +1318,7 @@ class Network_User(object):
 
             else:
                 logging.info('        Network_User: Not selected modus')
-            
+       '''     
 
        return results, confusion_matrix, best_itera, c_pos, c_neg
   
