@@ -280,7 +280,7 @@ def write(model, path, fmt = None):
         specification of the plain text representation of neural network models
     '''
 
-    model.clean()
+    #model.clean()
     if not np == numpy: #np = cupy
         model.to_numpy() #TODO reconvert after writing?
     if fmt is None:
