@@ -783,7 +783,7 @@ class Network_User(object):
         np.savetxt(self.config['folder_exp'] + 'plots/loss_val.txt', losses_val, delimiter=",", fmt='%s')
                 
         torch.save(network_obj.state_dict(), '../Master_Thesis_2021/model/model_save_mocap.pt')
-        
+        model_io.write(network_obj, '../Master_Thesis_2021/model/model_save_mocap2.pkl')
         del losses_train, accs_train, f1w_train, f1m_train
         del losses_val, accs_val, f1w_val, f1m_val
         del loss_train_val, accs_train_val, f1w_train_val, f1m_train_val
