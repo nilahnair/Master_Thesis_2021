@@ -4,7 +4,7 @@ Created on Tue Mar  2 21:56:46 2021
 
 @author: nilah
 """
-'''
+
 import numpy as np
 import csv
 import os
@@ -16,11 +16,20 @@ from sliding_window import sliding_window
 import pickle
 from torch.utils.data import DataLoader
 from HARWindows import HARWindows
+import torch
+import torch.nn as nn
+from network_act import Network
+
+network_obj = Network(self.config)
+model.load_state_dict(torch.load(PATH))
+model.eval()
+
 '''
 import torch
 torch.cuda.empty_cache()
 
 torch.cuda.memory_summary(device=None, abbreviated=False)
+'''
 
 '''
 path="/home/nnair/Master_Thesis_2021/id_attr_one.txt"

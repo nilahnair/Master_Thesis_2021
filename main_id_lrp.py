@@ -21,6 +21,10 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
+import torch
+import torch.nn as nn
+from network_act import Network
+
 ex= Experiment('find classes')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
@@ -439,11 +443,17 @@ def run(config, dataset, network, output, usageModus):
     logging.info('Finished')
     logging.info('Dataset {} Network {} Output {} Modus {}'.format(dataset, network, output, usageModus))
 
-    modus = Modus_Selecter(config, ex)
+    #modus = Modus_Selecter(config, ex)
 
     # Starting process
-    modus.net_modus()
-
+    #modus.net_modus()
+    
+    network_obj = Network(config)
+    print(network_obj)
+    network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_mocap.pt'))
+    network_obj.eval()
+    print(network_obj)
+    
     print("Done")
 
 
