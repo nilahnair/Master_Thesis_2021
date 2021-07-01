@@ -1015,6 +1015,7 @@ class Network_User(object):
         # Creating a network and loading the weights for testing
         # network is loaded from saved file in the folder of experiment
         logging.info('        Network_User:    Test:    creating network')
+        '''
         if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':
             network_obj = Network(self.config)
 
@@ -1024,6 +1025,17 @@ class Network_User(object):
 
             logging.info('        Network_User:    Test:    setting device')
             network_obj.to(self.device)
+        '''
+        
+        network_obj = Network(self.config)
+        #print(network_obj)
+        #print(network_obj.conv_LA_1_1.weight)
+        network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_mocap.pt'))
+        network_obj.eval()
+        #print(network_obj)
+        #print(network_obj.conv_LA_1_1.weight)
+        logging.info('        Network_User:    Test:    setting device')
+        network_obj.to(self.device)
 
         # Setting loss, only for being measured. Network wont be trained
         if self.config['output'] == 'softmax':

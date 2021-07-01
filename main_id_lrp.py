@@ -443,19 +443,10 @@ def run(config, dataset, network, output, usageModus):
     logging.info('Finished')
     logging.info('Dataset {} Network {} Output {} Modus {}'.format(dataset, network, output, usageModus))
 
-    #modus = Modus_Selecter(config, ex)
+    modus = Modus_Selecter(config, ex)
 
     # Starting process
-    #modus.net_modus()
-    
-    
-    network_obj = Network(config)
-    print(network_obj)
-    print(network_obj.conv_LA_1_1.weight)
-    network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_mocap.pt'))
-    network_obj.eval()
-    print(network_obj)
-    print(network_obj.conv_LA_1_1.weight)
+    modus.net_modus()
     
     print("Done")
 
