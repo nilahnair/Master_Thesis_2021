@@ -451,11 +451,11 @@ def run(config, dataset, network, output, usageModus):
     
     network_obj = Network(config)
     print(network_obj)
-    print(network_obj[3].weight)
+    print(network_obj.layer[3].weight)
     network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_mocap.pt'))
     network_obj.eval()
     print(network_obj)
-    print(network_obj[3].weight)
+    print(network_obj.layer[3].weight)
     
     print("Done")
 
