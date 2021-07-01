@@ -1015,7 +1015,7 @@ class Network_User(object):
         # Creating a network and loading the weights for testing
         # network is loaded from saved file in the folder of experiment
         logging.info('        Network_User:    Test:    creating network')
-        '''
+        
         if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':
             network_obj = Network(self.config)
 
@@ -1025,8 +1025,8 @@ class Network_User(object):
 
             logging.info('        Network_User:    Test:    setting device')
             network_obj.to(self.device)
-        '''
         
+        '''
         network_obj = Network(self.config)
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
@@ -1036,7 +1036,8 @@ class Network_User(object):
         #print(network_obj.conv_LA_1_1.weight)
         logging.info('        Network_User:    Test:    setting device')
         network_obj.to(self.device)
-
+        '''
+        
         # Setting loss, only for being measured. Network wont be trained
         if self.config['output'] == 'softmax':
             logging.info('        Network_User:    Test:    setting criterion optimizer Softmax')
@@ -1295,9 +1296,8 @@ class Network_User(object):
        confusion_matrix = 0
        best_itera = 0
        
-       results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+       #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
        
-       '''
        if testing:
             logging.info('        Network_User: Testing')
             results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
@@ -1318,7 +1318,7 @@ class Network_User(object):
 
             else:
                 logging.info('        Network_User: Not selected modus')
-       '''     
+          
 
        return results, confusion_matrix, best_itera, c_pos, c_neg
   
