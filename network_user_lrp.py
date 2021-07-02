@@ -1178,6 +1178,7 @@ class Network_User(object):
                             print("i")
                             print(i)
                             print(a[i])
+                            print(a[i].shape)
                             print(b[i])
                             print(c[i])
                             print(d[i])
