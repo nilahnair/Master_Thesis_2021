@@ -1169,7 +1169,7 @@ class Network_User(object):
                         print(c.shape)
                         print(type(c))
                         #print(c)
-                        d= predictions.numpy()
+                        d= predictions.detach().cpu().numpy()
                         print("pred shape type")
                         print(d.shape)
                         print(type(d))
