@@ -1058,7 +1058,7 @@ class Network_User(object):
         elif self.config['output'] == 'attribute': 
             metrics_obj = Metrics(self.config, self.device, self.attrs)
             
-        hist=[]
+        dict_all=[]
         
         logging.info('        Network_User:    Testing')
         start_time_test = time.time()
@@ -1101,9 +1101,6 @@ class Network_User(object):
                 #forward
                 
                 predictions = network_obj(test_batch_v)
-                print("predictions shape and type")
-                print(predictions.shape)
-                print(type(predictions))
                 
                 if self.config['output'] == 'softmax':
                     loss = criterion(predictions, test_batch_l)
@@ -1157,7 +1154,24 @@ class Network_User(object):
                     if self.config['output'] == 'softmax':
                         test_labels = harwindow_batched_test["label"]
                         test_labels = test_labels.reshape(-1)
-                        hist=[predictions, act_class, test_batch_l]
+                        a= harwindow_batched_test["data"]
+                        print("har batch shape type")
+                        print(a.shape)
+                        print(type(a))
+                        b= harwindow_batched_test["label"]
+                        print("har label shape type")
+                        print(b.shape)
+                        print(type(b))
+                        c= harwindow_batched_test["act_label"]
+                        print("act label shape type")
+                        print(c.shape)
+                        print(type(c))
+                        d= predictions
+                        print("pred shape type")
+                        print(d.shape)
+                        print(type(d))
+                        #for i in range(predictions_test.shape):
+                         #   dict={"data": harwindow_batched_test["data"], "label": harwindow_batched_test["label"], "act_label": harwindow_batched_test["act_label"] , "pred": labels_persons[P]}
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
                         sample = sample.reshape(-1)
