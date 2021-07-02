@@ -1183,8 +1183,6 @@ class Network_User(object):
                         '''
                         #print(d)
                         for i in range(len(b)):
-                            print("i")
-                            print(i)
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
                             dict_all.append(dict)
                     elif self.config['output'] == 'attribute':
@@ -1231,8 +1229,6 @@ class Network_User(object):
                         '''
                         #print(d)
                         for i in range(len(b)):
-                            print("i")
-                            print(i)
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
                             dict_all.append(dict)
                     elif self.config['output'] == 'attribute':
@@ -1253,8 +1249,7 @@ class Network_User(object):
 
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
-
-        print(dict_all.shape)     
+    
         print(dict_all)
 
         elapsed_time_test = time.time() - start_time_test
