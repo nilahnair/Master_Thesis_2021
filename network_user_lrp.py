@@ -1158,18 +1158,22 @@ class Network_User(object):
                         print("har batch shape type")
                         print(a.shape)
                         print(type(a))
+                        print(a)
                         b= harwindow_batched_test["label"]
                         print("har label shape type")
                         print(b.shape)
                         print(type(b))
+                        print(b)
                         c= harwindow_batched_test["act_label"]
                         print("act label shape type")
                         print(c.shape)
                         print(type(c))
+                        print(c)
                         d= predictions
                         print("pred shape type")
                         print(d.shape)
                         print(type(d))
+                        print(d)
                         #for i in range(predictions_test.shape):
                          #   dict={"data": harwindow_batched_test["data"], "label": harwindow_batched_test["label"], "act_label": harwindow_batched_test["act_label"] , "pred": labels_persons[P]}
                     elif self.config['output'] == 'attribute':
