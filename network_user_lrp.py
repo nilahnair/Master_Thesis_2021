@@ -1155,34 +1155,38 @@ class Network_User(object):
                         test_labels = harwindow_batched_test["label"]
                         test_labels = test_labels.reshape(-1)
                         a= harwindow_batched_test["data"].numpy()
+                        '''
                         print("har batch shape type")
                         print(a.shape)
                         print(type(a))
+                        '''
                         #print(a)
                         b= harwindow_batched_test["label"].numpy()
+                        '''
                         print("har label shape type")
                         print(b.shape)
                         print(type(b))
+                        '''
                         #print(b)
                         c= harwindow_batched_test["act_label"].numpy()
+                        '''
                         print("act label shape type")
                         print(c.shape)
                         print(type(c))
+                        '''
                         #print(c)
                         d= predictions.detach().cpu().numpy()
+                        '''
                         print("pred shape type")
                         print(d.shape)
                         print(type(d))
+                        '''
                         #print(d)
-                        for i in range(3):
+                        for i in range(b.shape):
                             print("i")
                             print(i)
-                            print(a[i])
-                            print(a[i].shape)
-                            print(b[i])
-                            print(c[i])
-                            print(d[i])
-                         #   dict={"data": harwindow_batched_test["data"], "label": harwindow_batched_test["label"], "act_label": harwindow_batched_test["act_label"] , "pred": labels_persons[P]}
+                            dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
+                            dict_all.append(dict)
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
                         sample = sample.reshape(-1)
@@ -1198,7 +1202,39 @@ class Network_User(object):
                     if self.config['output'] == 'softmax':
                         test_labels_batch = harwindow_batched_test["label"]
                         test_labels_batch = test_labels_batch.reshape(-1)
-                        hist_new=[predictions, act_class, test_batch_l]
+                        a= harwindow_batched_test["data"].numpy()
+                        '''
+                        print("har batch shape type")
+                        print(a.shape)
+                        print(type(a))
+                        '''
+                        #print(a)
+                        b= harwindow_batched_test["label"].numpy()
+                        '''
+                        print("har label shape type")
+                        print(b.shape)
+                        print(type(b))
+                        '''
+                        #print(b)
+                        c= harwindow_batched_test["act_label"].numpy()
+                        '''
+                        print("act label shape type")
+                        print(c.shape)
+                        print(type(c))
+                        '''
+                        #print(c)
+                        d= predictions.detach().cpu().numpy()
+                        '''
+                        print("pred shape type")
+                        print(d.shape)
+                        print(type(d))
+                        '''
+                        #print(d)
+                        for i in range(b.shape):
+                            print("i")
+                            print(i)
+                            dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
+                            dict_all.append(dict)
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
                         sample = sample.reshape(-1)
@@ -1211,12 +1247,15 @@ class Network_User(object):
                         test_labels_batch=torch.from_numpy(test_labels_batch) 
                       
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
-                    hist = torch.cat((hist, hist_new), dim=0)
+                    
                 
             
 
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
+
+        print(dict_all.shape)     
+        print(dict_all)
 
         elapsed_time_test = time.time() - start_time_test
 
