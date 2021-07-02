@@ -1057,6 +1057,8 @@ class Network_User(object):
             metrics_obj = Metrics(self.config, self.device)
         elif self.config['output'] == 'attribute': 
             metrics_obj = Metrics(self.config, self.device, self.attrs)
+            
+        hist=[]
         
         logging.info('        Network_User:    Testing')
         start_time_test = time.time()
@@ -1099,9 +1101,13 @@ class Network_User(object):
                 #forward
                 
                 predictions = network_obj(test_batch_v)
+                print("predictions shape and type")
+                print(predictions.shape)
+                print(type(predictions))
                 
                 if self.config['output'] == 'softmax':
                     loss = criterion(predictions, test_batch_l)
+                    
                 elif self.config['output'] == 'attribute':
                     loss = criterion(predictions, test_batch_l[:, 1:])
                 loss_test = loss_test + loss.item()
@@ -1146,10 +1152,12 @@ class Network_User(object):
                 # and not only for a batch
                 # As creating an empty tensor and sending to device and then concatenating isnt working
                 if v == 0:
+                    
                     predictions_test = predictions
                     if self.config['output'] == 'softmax':
                         test_labels = harwindow_batched_test["label"]
                         test_labels = test_labels.reshape(-1)
+                        hist=[predictions, act_class, test_batch_l]
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
                         sample = sample.reshape(-1)
@@ -1165,6 +1173,7 @@ class Network_User(object):
                     if self.config['output'] == 'softmax':
                         test_labels_batch = harwindow_batched_test["label"]
                         test_labels_batch = test_labels_batch.reshape(-1)
+                        hist_new=[predictions, act_class, test_batch_l]
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
                         sample = sample.reshape(-1)
@@ -1177,7 +1186,8 @@ class Network_User(object):
                         test_labels_batch=torch.from_numpy(test_labels_batch) 
                       
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
-                    
+                    hist = torch.cat((hist, hist_new), dim=0)
+                
             
 
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
