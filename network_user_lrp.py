@@ -33,6 +33,7 @@ from network_act import Network
 
 import model_io
 import modules
+import csv
 
 from HARWindows_act import HARWindows
 
@@ -1244,14 +1245,10 @@ class Network_User(object):
                       
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
                     
-                
-            
-
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
     
-        print(dict_all)
-
+    
         elapsed_time_test = time.time() - start_time_test
 
         #Computing metrics for the entire testing set
@@ -1280,6 +1277,16 @@ class Network_User(object):
         
         print("testlabels shape")
         print(test_labels.shape)
+        
+        csv_file = "../Master_Thesis_2021/test_files.csv"
+        csv_columns=['data','label','act_label','pred']
+        
+        with open(csv_file, 'w') as csvfile:
+             writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+             writer.writeheader()
+             for data in dict_all:
+                writer.writerow(data)
+                    
         '''    
         if self.config['output'] == 'attribute':
             if self.config['num_attributes'] == 4:
