@@ -1174,7 +1174,13 @@ class Network_User(object):
                         print(d.shape)
                         print(type(d))
                         #print(d)
-                        #for i in range(predictions_test.shape):
+                        for i in range(3):
+                            print("i")
+                            print(i)
+                            print(a[i])
+                            print(b[i])
+                            print(c[i])
+                            print(d[i])
                          #   dict={"data": harwindow_batched_test["data"], "label": harwindow_batched_test["label"], "act_label": harwindow_batched_test["act_label"] , "pred": labels_persons[P]}
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
