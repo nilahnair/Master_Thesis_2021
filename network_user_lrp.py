@@ -1182,7 +1182,7 @@ class Network_User(object):
                         print(type(d))
                         '''
                         #print(d)
-                        for i in range(b.shape):
+                        for i in range(len(b)):
                             print("i")
                             print(i)
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
@@ -1230,7 +1230,7 @@ class Network_User(object):
                         print(type(d))
                         '''
                         #print(d)
-                        for i in range(b.shape):
+                        for i in range(len(b)):
                             print("i")
                             print(i)
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
