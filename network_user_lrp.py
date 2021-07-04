@@ -1242,7 +1242,8 @@ class Network_User(object):
         #print("testlabels shape")
         #print(test_labels.shape)
         
-        csv_file = "../Master_Thesis_2021/test_mocap.csv"
+        csv_file = "../Master_Thesis_2021/test_mocap.npz"
+        np.savez(csv_file, d=d, l=l, al=al, p=p)
         #csv_columns=['data','label','act_label','pred']
         
         '''
