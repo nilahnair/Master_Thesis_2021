@@ -1155,37 +1155,15 @@ class Network_User(object):
                     if self.config['output'] == 'softmax':
                         test_labels = harwindow_batched_test["label"]
                         test_labels = test_labels.reshape(-1)
-                        a= harwindow_batched_test["data"].numpy()
+                        d= harwindow_batched_test["data"].numpy()
+                        l= harwindow_batched_test["label"].numpy()
+                        al= harwindow_batched_test["act_label"].numpy()
+                        p= predictions.detach().cpu().numpy()
                         '''
-                        print("har batch shape type")
-                        print(a.shape)
-                        print(type(a))
-                        '''
-                        #print(a)
-                        b= harwindow_batched_test["label"].numpy()
-                        '''
-                        print("har label shape type")
-                        print(b.shape)
-                        print(type(b))
-                        '''
-                        #print(b)
-                        c= harwindow_batched_test["act_label"].numpy()
-                        '''
-                        print("act label shape type")
-                        print(c.shape)
-                        print(type(c))
-                        '''
-                        #print(c)
-                        d= predictions.detach().cpu().numpy()
-                        '''
-                        print("pred shape type")
-                        print(d.shape)
-                        print(type(d))
-                        '''
-                        #print(d)
                         for i in range(len(b)):
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
                             dict_all.append(dict)
+                        '''
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
                         sample = sample.reshape(-1)
@@ -1202,36 +1180,14 @@ class Network_User(object):
                         test_labels_batch = harwindow_batched_test["label"]
                         test_labels_batch = test_labels_batch.reshape(-1)
                         a= harwindow_batched_test["data"].numpy()
-                        '''
-                        print("har batch shape type")
-                        print(a.shape)
-                        print(type(a))
-                        '''
-                        #print(a)
                         b= harwindow_batched_test["label"].numpy()
-                        '''
-                        print("har label shape type")
-                        print(b.shape)
-                        print(type(b))
-                        '''
-                        #print(b)
                         c= harwindow_batched_test["act_label"].numpy()
+                        pre= predictions.detach().cpu().numpy()
                         '''
-                        print("act label shape type")
-                        print(c.shape)
-                        print(type(c))
-                        '''
-                        #print(c)
-                        d= predictions.detach().cpu().numpy()
-                        '''
-                        print("pred shape type")
-                        print(d.shape)
-                        print(type(d))
-                        '''
-                        #print(d)
                         for i in range(len(b)):
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
                             dict_all.append(dict)
+                        '''
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
                         sample = sample.reshape(-1)
@@ -1244,10 +1200,18 @@ class Network_User(object):
                         test_labels_batch=torch.from_numpy(test_labels_batch) 
                       
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
+                    d.append(a)
+                    l.append(b)
+                    al.append(c)
+                    p.append(pre)
                     
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
-    
+        
+        print(d.shape)
+        print(l.shape)
+        print(al.shape)
+        print(p.shape)
     
         elapsed_time_test = time.time() - start_time_test
 
@@ -1275,17 +1239,19 @@ class Network_User(object):
         elif self.config['output'] == 'attribute':
             test_labels = test_labels[:, 0]
         
-        print("testlabels shape")
-        print(test_labels.shape)
+        #print("testlabels shape")
+        #print(test_labels.shape)
         
-        csv_file = "../Master_Thesis_2021/test_files_mocap.csv"
-        csv_columns=['data','label','act_label','pred']
+        csv_file = "../Master_Thesis_2021/test_mocap.csv"
+        #csv_columns=['data','label','act_label','pred']
         
+        '''
         with open(csv_file, 'w') as csvfile:
              writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
              writer.writeheader()
              for data in dict_all:
                 writer.writerow(data)
+        '''
                     
         '''    
         if self.config['output'] == 'attribute':
