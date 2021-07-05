@@ -1034,7 +1034,9 @@ class Network_User(object):
         #network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_mocap.pt'))
         network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_imu.pt'))
         network_obj.eval()
-        #print(network_obj)
+        print(network_obj)
+        network_obj= nn.Sequential(*list(network_obj.children())[:-1])
+        print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
         logging.info('        Network_User:    Test:    setting device')
         network_obj.to(self.device)
@@ -1209,20 +1211,23 @@ class Network_User(object):
                     l=np.concatenate((l,b),)
                     al=np.concatenate((al,c), axis=0)
                     p=np.concatenate((p,pre), axis=0)
+                    '''
                     print("hence forth")
                     print(d.shape)
                     print(l.shape)
                     print(al.shape)
                     print(p.shape)
+                    '''
                     
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
-        
+        '''
         print("final")
         print(d.shape)
         print(l.shape)
         print(al.shape)
         print(p.shape)
+        '''
     
         elapsed_time_test = time.time() - start_time_test
 
@@ -1253,8 +1258,10 @@ class Network_User(object):
         #print("testlabels shape")
         #print(test_labels.shape)
         
+        '''
         csv_file = "../Master_Thesis_2021/test_imu.npz"
         np.savez(csv_file, d=d, l=l, al=al, p=p)
+        '''
         #csv_columns=['data','label','act_label','pred']
         
         '''
