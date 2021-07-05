@@ -1159,6 +1159,11 @@ class Network_User(object):
                         l= harwindow_batched_test["label"].numpy()
                         al= harwindow_batched_test["act_label"].numpy()
                         p= predictions.detach().cpu().numpy()
+                        print("first time")
+                        print(d.shape)
+                        print(l.shape)
+                        print(al.shape)
+                        print(p.shape)
                         '''
                         for i in range(len(b)):
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
@@ -1204,6 +1209,11 @@ class Network_User(object):
                     np.append(l,b, axis=0)
                     np.append(al,c, axis=0)
                     np.append(p,pre, axis=0)
+                    print("hence forth")
+                    print(d.shape)
+                    print(l.shape)
+                    print(al.shape)
+                    print(p.shape)
                     
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
