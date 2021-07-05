@@ -20,9 +20,22 @@ import torch
 import torch.nn as nn
 from network_act import Network
 
+
+with np.load("../Master_Thesis_2021/test_imu.npz") as data:
+    d2=data['d']
+    l2=data['l']
+    al2=data['al']
+    p2=data['p']
+    
+print(d2.shape)
+print(l2.shape)
+print(al2.shape)
+print(p2.shape)
+'''
 network_obj = Network(self.config)
 model.load_state_dict(torch.load(PATH))
 model.eval()
+'''
 
 '''
 import torch
