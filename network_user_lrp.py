@@ -1031,8 +1031,8 @@ class Network_User(object):
         network_obj = Network(self.config)
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
-        network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_mocap.pt'))
-        #network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_imu.pt'))
+        #network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_mocap.pt'))
+        network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_imu.pt'))
         network_obj.eval()
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
@@ -1253,7 +1253,7 @@ class Network_User(object):
         #print("testlabels shape")
         #print(test_labels.shape)
         
-        csv_file = "../Master_Thesis_2021/test_mocap.npz"
+        csv_file = "../Master_Thesis_2021/test_imu.npz"
         np.savez(csv_file, d=d, l=l, al=al, p=p)
         #csv_columns=['data','label','act_label','pred']
         
