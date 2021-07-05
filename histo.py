@@ -124,7 +124,6 @@ for i in range(len(label)):
             counter7.append(k[j])
 '''
 
-# now save the index of the low values
 for i in range(len(label)):
     k=pred[i]
     #print(k)
