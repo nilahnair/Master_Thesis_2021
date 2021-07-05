@@ -21,7 +21,7 @@ import torch.nn as nn
 from network_act import Network
 
 
-with np.load("../Master_Thesis_2021/test_imu.npz") as data:
+with np.load("../Master_Thesis_2021/test_mocap.npz") as data:
     d2=data['d']
     l2=data['l']
     al2=data['al']
