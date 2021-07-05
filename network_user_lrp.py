@@ -1200,10 +1200,10 @@ class Network_User(object):
                         test_labels_batch=torch.from_numpy(test_labels_batch) 
                       
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
-                    np.append([d,a], axis=0)
-                    np.append([l,b], axis=0)
-                    np.append([al,c], axis=0)
-                    np.append([p,pre], axis=0)
+                    np.append(d,a, axis=0)
+                    np.append(l,b, axis=0)
+                    np.append(al,c, axis=0)
+                    np.append(p,pre, axis=0)
                     
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
