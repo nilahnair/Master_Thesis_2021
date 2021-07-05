@@ -1206,7 +1206,7 @@ class Network_User(object):
                       
                     test_labels = torch.cat((test_labels, test_labels_batch), dim=0)
                     np.append(d,a, axis=0)
-                    np.append(l,b, axis=0)
+                    np.append(l,b)
                     np.append(al,c, axis=0)
                     np.append(p,pre, axis=0)
                     print("hence forth")
@@ -1218,6 +1218,7 @@ class Network_User(object):
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
         
+        print("final")
         print(d.shape)
         print(l.shape)
         print(al.shape)
