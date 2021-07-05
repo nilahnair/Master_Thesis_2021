@@ -28,7 +28,7 @@ with np.load("../Master_Thesis_2021/test_imu.npz") as data:
     p2=data['p']
     
 print(d2.shape)
-print(l2.shape)
+print(l2)
 print(al2.shape)
 print(p2.shape)
 
