@@ -199,9 +199,8 @@ print(len(counter6))
 print(len(counter7))
 '''
   
-
-fig, ((ax0, ax1), (ax2, ax3), (ax4, ax5), (ax6, ax7), (ax8, ax9), (ax10, ax11), (ax12, ax13), (ax14, ax15)) = plt.subplots(nrows=8, ncols=2)
-
+#fig, ((ax0, ax1), (ax2, ax3), (ax4, ax5), (ax6, ax7), (ax8, ax9), (ax10, ax11), (ax12, ax13), (ax14, ax15)) = plt.subplots(nrows=8, ncols=2)
+'''
 ax0.hist(counterp0, bins = 10)
 ax0.set_title('counter0 pos')
 
@@ -249,14 +248,14 @@ ax14.set_title('counter7 pos')
 
 ax15.hist(countern7, bins = 10)
 ax15.set_title('counter7 neg')
-
 '''
-plt.hist(counterp3, bins = 10)
+
+plt.hist(countern3, bins = 10)
 #plt.set_title('counter0 pos')
 
-print(counterp3)
-print(indxp3)
-'''
+print(countern3)
+print(indxn3)
+
 
 #fig.tight_layout()
 plt.show()
