@@ -1706,6 +1706,7 @@ class Network_User(object):
                         countern7.append(k[j])
                         indxn7.append(i)
         
+        '''
         for i in range(len(indxp1)):
             if counterp1[i]>=0.9:
                 print("positive value and index greater than 0.9")
@@ -1725,6 +1726,25 @@ class Network_User(object):
                 print("neg value and index greater than 0.4 and less than 0.5")
                 print(countern1[i])
                 print(indxn1[i])
+        '''
+        
+        lrp_test_indx=[]
+        
+        for i in range(len(indxp1)):
+            if indxp1[i] == 947:
+                lrp_test_indx.append(indxp1[i])
+            elif indxp1[i] == 1105:
+                lrp_test_indx.append(indxp1[i])
+                
+        for i in range (len(indxn1)):
+            if indxn1[i] == 1090:
+                lrp_test_indx.append(indxn1[i])
+            elif indxn1[i] == 1081:
+                lrp_test_indx.append(indxn1[i])
+        
+        print(lrp_test_indx)
+                
+            
         
         return
 
