@@ -1745,6 +1745,22 @@ class Network_User(object):
         print("selected indexes")
         print(lrp_test_indx)
         
+        
+        harwindows_test = HARWindows(csv_file=self.config['dataset_root'] + "test.csv",
+                                     root_dir=self.config['dataset_root'])
+
+        dataLoader_test = DataLoader(harwindows_test, batch_size=self.config['batch_size_train'], shuffle=False)
+        
+        for v, harwindow_batched_test in enumerate(dataLoader_test):
+            test_batch_v = harwindow_batched_test["data"]
+            print(type(test_batch_v))
+        
+            test_batch_l = harwindow_batched_test["label"]
+            test_batch_l = test_batch_l.reshape(-1)
+            print(type(test_batch_l))
+            
+                
+        
         for i in range(len(lrp_test_indx)):
             test_v=d[lrp_test_indx[i]]
             test_l=l[lrp_test_indx[i]]
