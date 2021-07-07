@@ -1266,8 +1266,122 @@ class Network_User(object):
         #print(test_labels.shape)
         
         
-        csv_file = "/data/nnair/lrp/exp1/test_mocap.npz"
-        np.savez(csv_file, d=d, l=l, al=al, p=p)
+        npz_file = "/data/nnair/lrp/exp1/test_mocap.npz"
+        np.savez(npz_file, d=d, l=l, al=al, p=p)
+        
+        counterp0=[]
+        counterp1=[]
+        counterp2=[]
+        counterp3=[]
+        counterp4=[]
+        counterp5=[]
+        counterp6=[]
+        counterp7=[]
+        countern0=[]
+        countern1=[]
+        countern2=[]
+        countern3=[]
+        countern4=[]
+        countern5=[]
+        countern6=[]
+        countern7=[]
+
+        indxp0=[]
+        indxp1=[]
+        indxp2=[]
+        indxp3=[]
+        indxp4=[]
+        indxp5=[]
+        indxp6=[]
+        indxp7=[]
+        indxn0=[]
+        indxn1=[]
+        indxn2=[]
+        indxn3=[]
+        indxn4=[]
+        indxn5=[]
+        indxn6=[]
+        indxn7=[]
+        
+        for i in range(len(l)):
+            k=p[i]
+            #print(k)
+            for j in range(len(k)):
+                if j==0:
+                    if (l[i] == 0) and (np.argmax(k)==0):
+                        counterp0.append(k[j])
+                        indxp0.append(i)
+                    elif (l[i] == 0) and (np.argmax(k) !=0):
+                        countern0.append(k[j])
+                        indxn0.append(i)
+                elif j==1:
+                    if (l[i] == 1) and (np.argmax(k)==1):
+                        counterp1.append(k[j])
+                        indxp1.append(i)
+                    elif (l[i] == 1) and (np.argmax(k)!=1):
+                        countern1.append(k[j])
+                        indxn1.append(i)
+                elif j==2:
+                    if (l[i] == 2) and (np.argmax(k)==2):
+                        counterp2.append(k[j])
+                        indxp2.append(i)
+                    elif (l[i] == 2) and (np.argmax(k)!=2):
+                        countern2.append(k[j])
+                        indxn2.append(i)
+                elif j==3:
+                    if (l[i] == 3) and (np.argmax(k)==3):
+                        counterp3.append(k[j])
+                        indxp3.append(i)
+                    elif (l[i] == 3) and (np.argmax(k)!=3):
+                        countern3.append(k[j])
+                        indxn3.append(i)
+                elif j==4:
+                    if (l[i] == 4) and (np.argmax(k)==4):
+                        counterp4.append(k[j])
+                        indxp4.append(i)
+                    elif (l[i] == 4) and (np.argmax(k)==4):
+                        countern4.append(k[j])
+                        indxn4.append(i)
+                elif j==5:
+                    if (l[i] == 5) and (np.argmax(k)==5):
+                        counterp5.append(k[j])
+                        indxp5.append(i)
+                    elif (l[i] == 5) and (np.argmax(k)==5):
+                        countern5.append(k[j])
+                        indxn5.append(i)
+                elif j==6:    
+                    if (l[i] == 6) and (np.argmax(k)==6):
+                        counterp6.append(k[j])
+                        indxp6.append(i)
+                    elif (l[i] == 6) and (np.argmax(k)==6):
+                        countern6.append(k[j])
+                        indxn6.append(i)
+                elif j==7:
+                    if (l[i] == 7) and (np.argmax(k)==7):
+                        counterp7.append(k[j])
+                        indxp7.append(i)
+                    elif (l[i] == 7) and (np.argmax(k)==7):
+                        countern7.append(k[j])
+                        indxn7.append(i)
+                        
+                    
+        b_div=[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+        
+        fig1,axs1 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
+        axs1.hist(counterp0, bins= b_div)
+        plt.xlabel("Softmax")
+        plt.ylabel("No: of values")
+        plt.title('Sub 0 - +ve')
+        plt.savefig("/proj/Master_Thesis_2021/images/m_sub0_p.png")
+        
+        '''
+        fig2,axs2 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
+        axs1.hist(counterp0, bins= b_div)
+        plt.xlabel("Softmax")
+        plt.ylabel("No: of values")
+        plt.title('Sub 0 - +ve')
+        plt.savefig("/proj/Master_Thesis_2021/images/m_sub0_p.png")
+        '''
         
         #csv_columns=['data','label','act_label','pred']
         
