@@ -1031,12 +1031,17 @@ class Network_User(object):
         network_obj = Network(self.config)
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
-        #network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_mocap.pt'))
-        network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_imu.pt'))
+        if self.config["dataset"]=='mocap':
+            network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_mocap.pt'))
+            print("network loaded from model_save_mocap.pt")
+        elif self.config["dataset"]=='mbientlab':
+            network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
+            print("network loaded from model_save_imu.pt")
+        
         network_obj.eval()
         print(network_obj)
-        network_obj= nn.Sequential(*list(network_obj.children())[:-1])
-        print(network_obj)
+        #network_obj= nn.Sequential(*list(network_obj.children())[:-1])
+        #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
         logging.info('        Network_User:    Test:    setting device')
         network_obj.to(self.device)
@@ -1161,11 +1166,13 @@ class Network_User(object):
                         l= harwindow_batched_test["label"].numpy()
                         al= harwindow_batched_test["act_label"].numpy()
                         p= predictions.detach().cpu().numpy()
+                        '''
                         print("first time")
                         print(d.shape)
                         print(l.shape)
                         print(al.shape)
                         print(p.shape)
+                        '''
                         '''
                         for i in range(len(b)):
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
@@ -1258,10 +1265,10 @@ class Network_User(object):
         #print("testlabels shape")
         #print(test_labels.shape)
         
-        '''
-        csv_file = "../Master_Thesis_2021/test_imu.npz"
+        
+        csv_file = "/data/nnair/lrp/exp1/test_mocap.npz"
         np.savez(csv_file, d=d, l=l, al=al, p=p)
-        '''
+        
         #csv_columns=['data','label','act_label','pred']
         
         '''

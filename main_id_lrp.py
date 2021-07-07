@@ -223,7 +223,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
         #folder_base = "/data/nnair/trial/lstm/"
-        folder_base = "/data/nnair/all/experiments/"
+        #folder_base = "/data/nnair/all/experiments/"
+        folder_base = "/data/nnair/lrp/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
@@ -405,7 +406,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
