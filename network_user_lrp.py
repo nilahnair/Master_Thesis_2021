@@ -1754,7 +1754,8 @@ class Network_User(object):
             print(test_l)
             print(test_act)
             
-            #test_v= test_v.to(self.device, dtype=torch.float)        
+            test_v= np.require(test_v, dtype=np.float)
+            test_v= test_v.to(self.device, dtype=torch.float)        
             test_l= test_l.to(self.device, dtype=torch.long)        
             
             '''
