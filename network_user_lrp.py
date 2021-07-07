@@ -1016,6 +1016,7 @@ class Network_User(object):
         # Creating a network and loading the weights for testing
         # network is loaded from saved file in the folder of experiment
         logging.info('        Network_User:    Test:    creating network')
+        
         '''
         if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':
             network_obj = Network(self.config)
@@ -1059,14 +1060,14 @@ class Network_User(object):
         
         count_pos_test = [0, 0, 0, 0, 0, 0, 0, 0]
         count_neg_test = [0, 0, 0, 0, 0, 0, 0, 0]
-
+        
         # Creating metric object
         if self.config['output'] == 'softmax':
             metrics_obj = Metrics(self.config, self.device)
         elif self.config['output'] == 'attribute': 
             metrics_obj = Metrics(self.config, self.device, self.attrs)
             
-        dict_all=[]
+        #dict_all=[]
         
         logging.info('        Network_User:    Testing')
         start_time_test = time.time()
@@ -1166,6 +1167,7 @@ class Network_User(object):
                         l= harwindow_batched_test["label"].numpy()
                         al= harwindow_batched_test["act_label"].numpy()
                         p= predictions.detach().cpu().numpy()
+        
                         '''
                         print("first time")
                         print(d.shape)
@@ -1178,6 +1180,7 @@ class Network_User(object):
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
                             dict_all.append(dict)
                         '''
+        
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
                         sample = sample.reshape(-1)
@@ -1202,6 +1205,7 @@ class Network_User(object):
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
                             dict_all.append(dict)
                         '''
+
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
                         sample = sample.reshape(-1)
@@ -1225,9 +1229,10 @@ class Network_User(object):
                     print(al.shape)
                     print(p.shape)
                     '''
-                    
+                                
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
+        
         '''
         print("final")
         print(d.shape)
@@ -1235,7 +1240,7 @@ class Network_User(object):
         print(al.shape)
         print(p.shape)
         '''
-    
+        
         elapsed_time_test = time.time() - start_time_test
 
         #Computing metrics for the entire testing set
@@ -1270,7 +1275,15 @@ class Network_User(object):
         elif self.config["dataset"]=='mbientlab':
             npz_file = "/data/nnair/lrp/exp1/test_imu.npz"
         
-        np.savez(npz_file, d=d, l=l, al=al, p=p)
+        #np.savez(npz_file, d=d, l=l, al=al, p=p)
+        
+        
+        with np.load("../Master_Thesis_2021/test_imu.npz") as data:
+            d=data['d']
+            l=data['l']
+            al=data['al']
+            p=data['p']
+        
         
         counterp0=[]
         counterp1=[]
@@ -1367,7 +1380,7 @@ class Network_User(object):
                         countern7.append(k[j])
                         indxn7.append(i)
                         
-                    
+        '''            
         b_div=[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
         
         fig1,axs1 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
@@ -1483,23 +1496,8 @@ class Network_User(object):
         plt.savefig("i_sub7_n.png")
         
         '''
-        fig2,axs2 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
-        axs1.hist(counterp0, bins= b_div)
-        plt.xlabel("Softmax")
-        plt.ylabel("No: of values")
-        plt.title('Sub 0 - +ve')
-        plt.savefig("/proj/Master_Thesis_2021/images/m_sub0_p.png")
-        '''
         
-        #csv_columns=['data','label','act_label','pred']
         
-        '''
-        with open(csv_file, 'w') as csvfile:
-             writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
-             writer.writeheader()
-             for data in dict_all:
-                writer.writerow(data)
-        '''
                     
         '''    
         if self.config['output'] == 'attribute':
@@ -1516,7 +1514,7 @@ class Network_User(object):
                     elif test_labels[i,0]==7:
                        test_labels[i,0]=6
         '''
-
+        
         # Computing confusion matrix
         confusion_matrix = np.zeros((self.config['num_classes'], self.config['num_classes']))
         for cl in range(self.config['num_classes']):
@@ -1559,12 +1557,176 @@ class Network_User(object):
         del test_batch_v, test_batch_l
         del predictions, predictions_test
         del test_labels, predictions_labels
+        
+        
         del network_obj
 
         torch.cuda.empty_cache()
 
-        return results_test, confusion_matrix.astype(int), count_pos_test, count_neg_test
+        #return results_test, confusion_matrix.astype(int), count_pos_test, count_neg_test
+        return
+    
+    def lrp(self):
+        logging.info('        Network_User:    LRP ---->')
+        logging.info('        Network_User:    LRP:    creating network')
+        
+        network_obj = Network(self.config)
+        if self.config["dataset"]=='mocap':
+            network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_mocap.pt'))
+            print("network loaded from model_save_mocap.pt")
+        elif self.config["dataset"]=='mbientlab':
+            network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
+            print("network loaded from model_save_imu.pt")
+        
+        network_obj.eval()
+        print(network_obj)
+        logging.info('        Network_User:    Test:    setting device')
+        network_obj.to(self.device)
+        
+        # Setting loss, only for being measured. Network wont be trained
+        if self.config['output'] == 'softmax':
+            logging.info('        Network_User:    Test:    setting criterion optimizer Softmax')
+            criterion = nn.CrossEntropyLoss()
+        elif self.config['output'] == 'attribute':
+            logging.info('        Network_User:    Test:    setting criterion optimizer Attribute')
+            criterion = nn.BCELoss()
+            
+        # Creating metric object
+        if self.config['output'] == 'softmax':
+            metrics_obj = Metrics(self.config, self.device)
+        elif self.config['output'] == 'attribute': 
+            metrics_obj = Metrics(self.config, self.device, self.attrs)
+            
+        if self.config["dataset"]=='mocap':
+            npz_file = "/data/nnair/lrp/exp1/test_mocap.npz"
+            print("mocap output loaded")
+        elif self.config["dataset"]=='mbientlab':
+            npz_file = "/data/nnair/lrp/exp1/test_imu.npz"
+            print("imu output loaded")
+        
+        with np.load(npz_file) as data:
+            d=data['d']
+            l=data['l']
+            al=data['al']
+            p=data['p']
+        
+        
+        counterp0=[]
+        counterp1=[]
+        counterp2=[]
+        counterp3=[]
+        counterp4=[]
+        counterp5=[]
+        counterp6=[]
+        counterp7=[]
+        countern0=[]
+        countern1=[]
+        countern2=[]
+        countern3=[]
+        countern4=[]
+        countern5=[]
+        countern6=[]
+        countern7=[]
 
+        indxp0=[]
+        indxp1=[]
+        indxp2=[]
+        indxp3=[]
+        indxp4=[]
+        indxp5=[]
+        indxp6=[]
+        indxp7=[]
+        indxn0=[]
+        indxn1=[]
+        indxn2=[]
+        indxn3=[]
+        indxn4=[]
+        indxn5=[]
+        indxn6=[]
+        indxn7=[]
+        
+        for i in range(len(l)):
+            k=p[i]
+            #print(k)
+            for j in range(len(k)):
+                if j==0:
+                    if (l[i] == 0) and (np.argmax(k)==0):
+                        counterp0.append(k[j])
+                        indxp0.append(i)
+                    elif (l[i] == 0) and (np.argmax(k) !=0):
+                        countern0.append(k[j])
+                        indxn0.append(i)
+                elif j==1:
+                    if (l[i] == 1) and (np.argmax(k)==1):
+                        counterp1.append(k[j])
+                        indxp1.append(i)
+                    elif (l[i] == 1) and (np.argmax(k)!=1):
+                        countern1.append(k[j])
+                        indxn1.append(i)
+                elif j==2:
+                    if (l[i] == 2) and (np.argmax(k)==2):
+                        counterp2.append(k[j])
+                        indxp2.append(i)
+                    elif (l[i] == 2) and (np.argmax(k)!=2):
+                        countern2.append(k[j])
+                        indxn2.append(i)
+                elif j==3:
+                    if (l[i] == 3) and (np.argmax(k)==3):
+                        counterp3.append(k[j])
+                        indxp3.append(i)
+                    elif (l[i] == 3) and (np.argmax(k)!=3):
+                        countern3.append(k[j])
+                        indxn3.append(i)
+                elif j==4:
+                    if (l[i] == 4) and (np.argmax(k)==4):
+                        counterp4.append(k[j])
+                        indxp4.append(i)
+                    elif (l[i] == 4) and (np.argmax(k)==4):
+                        countern4.append(k[j])
+                        indxn4.append(i)
+                elif j==5:
+                    if (l[i] == 5) and (np.argmax(k)==5):
+                        counterp5.append(k[j])
+                        indxp5.append(i)
+                    elif (l[i] == 5) and (np.argmax(k)==5):
+                        countern5.append(k[j])
+                        indxn5.append(i)
+                elif j==6:    
+                    if (l[i] == 6) and (np.argmax(k)==6):
+                        counterp6.append(k[j])
+                        indxp6.append(i)
+                    elif (l[i] == 6) and (np.argmax(k)==6):
+                        countern6.append(k[j])
+                        indxn6.append(i)
+                elif j==7:
+                    if (l[i] == 7) and (np.argmax(k)==7):
+                        counterp7.append(k[j])
+                        indxp7.append(i)
+                    elif (l[i] == 7) and (np.argmax(k)==7):
+                        countern7.append(k[j])
+                        indxn7.append(i)
+        
+        for i in range(len(indxp1)):
+            if counterp1[i]>=0.9:
+                print("positive value and index greater than 0.9")
+                print(counterp1[i])
+                print(indxp1[i])
+            elif counterp1[i]>=0.4 and counterp1[i]<=0.5:
+                print("positive value and index greater than 0.4 and less than 0.5")
+                print(counterp1[i])
+                print(indxp1[i])
+        
+        for i in range(len(indxn1)):
+            if countern1[i]>=0.2 and countern1[i]<=0.3:
+                print("neg value and index greater than 0.2 and less than 0.3")
+                print(countern1[i])
+                print(indxn1[i])
+            elif countern1[i]>=0.4 and countern1[i]<=0.5:
+                print("neg value and index greater than 0.4 and less than 0.5")
+                print(countern1[i])
+                print(indxn1[i])
+        
+        return
 
 
     ##################################################
@@ -1587,7 +1749,8 @@ class Network_User(object):
        confusion_matrix = 0
        best_itera = 0
        
-       results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+       #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+       self.lrp()
        '''
        if testing:
             logging.info('        Network_User: Testing')
