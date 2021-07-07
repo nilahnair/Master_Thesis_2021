@@ -1265,8 +1265,11 @@ class Network_User(object):
         #print("testlabels shape")
         #print(test_labels.shape)
         
+        if self.config["dataset"]=='mocap':
+            npz_file = "/data/nnair/lrp/exp1/test_mocap.npz"
+        elif self.config["dataset"]=='mbientlab':
+            npz_file = "/data/nnair/lrp/exp1/test_imu.npz"
         
-        npz_file = "/data/nnair/lrp/exp1/test_mocap.npz"
         np.savez(npz_file, d=d, l=l, al=al, p=p)
         
         counterp0=[]
@@ -1372,112 +1375,112 @@ class Network_User(object):
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 0 - +ve')
-        plt.savefig("m_sub0_p.png")
+        plt.savefig("i_sub0_p.png")
         
         fig2,axs2 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs2.hist(countern0, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 0 - -ve')
-        plt.savefig("m_sub0_n.png")
+        plt.savefig("i_sub0_n.png")
         
         fig3,axs3 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs3.hist(counterp1, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 1 - +ve')
-        plt.savefig("m_sub1_p.png")
+        plt.savefig("i_sub1_p.png")
         
         fig4,axs4 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs4.hist(countern1, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 1 - -ve')
-        plt.savefig("m_sub1_n.png")
+        plt.savefig("i_sub1_n.png")
         
         fig5,axs5 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs5.hist(counterp2, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 2 - +ve')
-        plt.savefig("m_sub2_p.png")
+        plt.savefig("i_sub2_p.png")
         
         fig6,axs6 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs6.hist(countern2, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 2 - -ve')
-        plt.savefig("m_sub2_n.png")
+        plt.savefig("i_sub2_n.png")
         
         fig7,axs7 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs7.hist(counterp3, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 3 - +ve')
-        plt.savefig("m_sub3_p.png")
+        plt.savefig("i_sub3_p.png")
         
         fig8,axs8 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs8.hist(countern3, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 3 - -ve')
-        plt.savefig("m_sub3_n.png")
+        plt.savefig("i_sub3_n.png")
         
         fig9,axs9 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs9.hist(counterp4, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 4 - +ve')
-        plt.savefig("m_sub4_p.png")
+        plt.savefig("i_sub4_p.png")
         
         fig10,axs10 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs10.hist(countern4, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 4 - -ve')
-        plt.savefig("m_sub4_n.png")
+        plt.savefig("i_sub4_n.png")
         
         fig11,axs11 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs11.hist(counterp5, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 5 - +ve')
-        plt.savefig("m_sub5_p.png")
+        plt.savefig("i_sub5_p.png")
         
         fig12,axs12 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs12.hist(countern5, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 5 - -ve')
-        plt.savefig("m_sub5_n.png")
+        plt.savefig("i_sub5_n.png")
         
         fig13,axs13 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs13.hist(counterp6, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 6 - +ve')
-        plt.savefig("m_sub6_p.png")
+        plt.savefig("i_sub6_p.png")
         
         fig14,axs14 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs14.hist(countern6, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 6 - -ve')
-        plt.savefig("m_sub6_n.png")
+        plt.savefig("i_sub6_n.png")
         
         fig15,axs15 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs15.hist(counterp7, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 7 - +ve')
-        plt.savefig("m_sub7_p.png")
+        plt.savefig("i_sub7_p.png")
         
         fig16,axs16 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
         axs16.hist(countern7, bins= b_div)
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 7 - -ve')
-        plt.savefig("m_sub7_n.png")
+        plt.savefig("i_sub7_n.png")
         
         '''
         fig2,axs2 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
