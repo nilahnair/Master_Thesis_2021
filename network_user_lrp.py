@@ -1581,7 +1581,19 @@ class Network_User(object):
         network_obj.eval()
         print(network_obj)
         logging.info('        Network_User:    Test:    setting device')
-        #network_obj.to(self.device)
+        
+         #layers = [module for module in network_obj][1:]
+         #print("layers")
+         #print(layers)
+         #L = len(layers)
+         L=28
+         print("L")
+         print(L)
+         A = [test_v] + [test_v] * L # Create a list to store the activation produced by each layer
+         print("A")
+         print(A)
+            
+        network_obj.to(self.device)
         
         # Setting loss, only for being measured. Network wont be trained
         if self.config['output'] == 'softmax':
@@ -1762,15 +1774,6 @@ class Network_User(object):
             test_l= torch.from_numpy(test_l)
             test_l= test_l.to(self.device, dtype=torch.long)  
             
-            layers = [module for module in network_obj][1:]
-            print("layers")
-            print(layers)
-            L = len(layers)
-            print("L")
-            print(L)
-            A = [test_v] + [test_v] * L # Create a list to store the activation produced by each layer
-            print("A")
-            print(A)
             
            
             
