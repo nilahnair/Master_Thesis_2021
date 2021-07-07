@@ -1770,6 +1770,7 @@ class Network_User(object):
             print(test_act)
             
             test_v= torch.from_numpy(test_v)
+            print(type(test_v))
             test_v= test_v.to(self.device, dtype=torch.float) 
             test_l: torch.from_numpy(test_l)
             test_l= test_l.to(self.device, dtype=torch.long)  
