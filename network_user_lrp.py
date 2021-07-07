@@ -1581,19 +1581,8 @@ class Network_User(object):
         network_obj.eval()
         print(network_obj)
         logging.info('        Network_User:    Test:    setting device')
-        
-         #layers = [module for module in network_obj][1:]
-         #print("layers")
-         #print(layers)
-         #L = len(layers)
-         L=28
-         print("L")
-         print(L)
-         A = [test_v] + [test_v] * L # Create a list to store the activation produced by each layer
-         print("A")
-         print(A)
             
-        network_obj.to(self.device)
+        #network_obj.to(self.device)
         
         # Setting loss, only for being measured. Network wont be trained
         if self.config['output'] == 'softmax':
@@ -1763,74 +1752,29 @@ class Network_User(object):
 
         dataLoader_test = DataLoader(harwindows_test, batch_size=self.config['batch_size_train'], shuffle=False)
         
-        for i in range(len(lrp_test_indx)):
-            test_v=d[lrp_test_indx[i]]
-            test_l=l[lrp_test_indx[i]]
-            test_act=al[lrp_test_indx[i]]
+        #for i in range(len(lrp_test_indx)):
+        test_v=d[lrp_test_indx[0]]
+        test_l=l[lrp_test_indx[0]]
+        test_act=al[lrp_test_indx[0]]
             
-            test_v= torch.from_numpy(test_v)
-            test_v= test_v.to(self.device, dtype=torch.float)
-            test_l= np.array(test_l, dtype=np.float64)
-            test_l= torch.from_numpy(test_l)
-            test_l= test_l.to(self.device, dtype=torch.long)  
-            
-            
-           
-            
-            '''
+        test_v= torch.from_numpy(test_v)
+        test_v= test_v.to(self.device, dtype=torch.float)
+        test_l= np.array(test_l, dtype=np.float64)
+        test_l= torch.from_numpy(test_l)
+        test_l= test_l.to(self.device, dtype=torch.long) 
         
-                #forward
-                
-                predictions = network_obj(test_batch_v)
-                
-                if self.config['output'] == 'softmax':
-                    loss = criterion(predictions, test_batch_l)
-                    
-                elif self.config['output'] == 'attribute':
-                    loss = criterion(predictions, test_batch_l[:, 1:])
-                loss_test = loss_test + loss.item()
+        #layers = [module for module in network_obj][1:]
+        #print("layers")
+        #print(layers)
+        #L = len(layers)
+        L=28
+        print("L")
+        print(L)
+        A = [test_v] + [test_v] * L # Create a list to store the activation produced by each layer
+        print("A")
+        print(A)
+            
 
-                # Summing the loss
-                loss_test = loss_test + loss.item()
-          
-                act_class=harwindow_batched_test["act_label"] 
-                act_class = act_class.reshape(-1)
-                
-                if self.config['output'] == 'softmax':
-                    pred_index= predictions.argmax(1)
-                    
-                    label=test_batch_l
-                    for i,x in enumerate(pred_index):
-                        if pred_index[i]==label[i]:
-                           for c,z in enumerate(count_pos_test):
-                                if c==act_class[i]:
-                                    count_pos_test[c]+=1
-                        else:
-                            for c,z in enumerate(count_neg_test):
-                                if c==act_class[i]:
-                                    count_neg_test[c]+=1
-                elif self.config['output'] == 'attribute':
-                    pred=np.zeros([predictions.shape[0],predictions.shape[1]])
-                    pred=torch.from_numpy(pred)
-                    pred=pred.to(self.device, dtype=torch.float)
-                    for i in range(predictions.shape[0]):
-                      pred[i]= (predictions[i]>0.5).float()
-                    label=test_batch_l[:,1:]
-                    for i,k in enumerate([pred.shape[0]]):
-                        if torch.all(pred[i].eq(label[i])):
-                           for c,z in enumerate(count_pos_test):
-                                if c==act_class[i]:
-                                    count_pos_test[c]+=1
-                        else:
-                            for c,z in enumerate(count_neg_test):
-                                if c==act_class[i]:
-                                    count_neg_test[c]+=1
-                                    
-            '''
-        
-                
-            
-        
         return
 
 
