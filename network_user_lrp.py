@@ -1754,7 +1754,7 @@ class Network_User(object):
     ############  evolution_evaluation  ##############
     ##################################################
     
-    def evolution_evaluation(self, ea_iter, testing = False):
+    def evolution_evaluation(self, ea_iter=0, testing = False):
        '''
         Organises the evolution, training, testing or validating
 
@@ -1764,12 +1764,12 @@ class Network_User(object):
         @return confusion_matrix: dict with validating/testing results
         @return best_itera: best iteration for training
        '''
-
+       '''
        logging.info('        Network_User: Evolution evaluation iter {}'.format(ea_iter))
 
        confusion_matrix = 0
        best_itera = 0
-       
+       '''
        #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
        self.lrp()
        '''
@@ -1795,5 +1795,5 @@ class Network_User(object):
                 logging.info('        Network_User: Not selected modus')
        '''   
 
-       return results, confusion_matrix, best_itera, c_pos, c_neg
-  
+       #return results, confusion_matrix, best_itera, c_pos, c_neg
+       return

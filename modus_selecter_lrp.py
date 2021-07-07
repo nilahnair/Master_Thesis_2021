@@ -451,7 +451,11 @@ class Modus_Selecter(object):
             del recalls_attr_test 
         
         return results_test, confusion_matrix_test, c_pos_test, c_neg_test
-
+    
+    def lrp_call(self):
+        self.network.evolution_evaluation()
+        
+        return
 
     def net_modus(self):
         """
