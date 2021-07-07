@@ -1767,12 +1767,13 @@ class Network_User(object):
         #print("layers")
         #print(layers)
         #L = len(layers)
+        print(test_v.shape)
         L=28
         print("L")
         print(L)
         A = [test_v] + [test_v] * L # Create a list to store the activation produced by each layer
         print("A")
-        print(A)
+        print(A.shape)
             
 
         return
