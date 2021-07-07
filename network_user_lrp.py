@@ -1581,7 +1581,7 @@ class Network_User(object):
         network_obj.eval()
         print(network_obj)
         logging.info('        Network_User:    Test:    setting device')
-        network_obj.to(self.device)
+        #network_obj.to(self.device)
         
         # Setting loss, only for being measured. Network wont be trained
         if self.config['output'] == 'softmax':
