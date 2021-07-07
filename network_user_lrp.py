@@ -1751,31 +1751,27 @@ class Network_User(object):
 
         dataLoader_test = DataLoader(harwindows_test, batch_size=self.config['batch_size_train'], shuffle=False)
         
-        
-        for v, harwindow_batched_test in enumerate(dataLoader_test):
-            test_batch_v = harwindow_batched_test["data"]
-            print(type(test_batch_v))
-            test_batch_l = harwindow_batched_test["label"]
-            test_batch_l = test_batch_l.reshape(-1)
-            print(type(test_batch_l))
-        
-            
         for i in range(len(lrp_test_indx)):
             test_v=d[lrp_test_indx[i]]
             test_l=l[lrp_test_indx[i]]
             test_act=al[lrp_test_indx[i]]
             
-            print(test_v.shape)
-            print(test_l)
-            print(test_act)
-            
             test_v= torch.from_numpy(test_v)
-            print(type(test_v))
             test_v= test_v.to(self.device, dtype=torch.float)
             test_l= np.array(test_l, dtype=np.float64)
             test_l= torch.from_numpy(test_l)
-            print(type(test_l))
             test_l= test_l.to(self.device, dtype=torch.long)  
+            
+            layers = [module for module in network_obj][1:]
+            print("layers")
+            print(layers)
+            L = len(layers)
+            print("L")
+            print(L)
+            A = [test_v] + [test_v] * L # Create a list to store the activation produced by each layer
+            print("A")
+            print(A)
+            
            
             
             '''
