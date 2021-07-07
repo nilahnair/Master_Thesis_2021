@@ -1751,14 +1751,14 @@ class Network_User(object):
 
         dataLoader_test = DataLoader(harwindows_test, batch_size=self.config['batch_size_train'], shuffle=False)
         
-        '''
+        
         for v, harwindow_batched_test in enumerate(dataLoader_test):
             test_batch_v = harwindow_batched_test["data"]
             print(type(test_batch_v))
             test_batch_l = harwindow_batched_test["label"]
             test_batch_l = test_batch_l.reshape(-1)
             print(type(test_batch_l))
-        '''
+        
             
         for i in range(len(lrp_test_indx)):
             test_v=d[lrp_test_indx[i]]
