@@ -1372,7 +1372,7 @@ class Network_User(object):
         plt.xlabel("Softmax")
         plt.ylabel("No: of values")
         plt.title('Sub 0 - +ve')
-        plt.savefig("/proj/Master_Thesis_2021/images/m_sub0_p.png")
+        plt.savefig("m_sub0_p.png")
         
         '''
         fig2,axs2 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
