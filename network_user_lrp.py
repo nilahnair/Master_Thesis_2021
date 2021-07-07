@@ -1032,7 +1032,7 @@ class Network_User(object):
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
         if self.config["dataset"]=='mocap':
-            network_obj.load_state_dict(torch.load('../Master_Thesis_2021/model/model_save_mocap.pt'))
+            network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_mocap.pt'))
             print("network loaded from model_save_mocap.pt")
         elif self.config["dataset"]=='mbientlab':
             network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
