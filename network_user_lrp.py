@@ -1758,17 +1758,19 @@ class Network_User(object):
         test_l= torch.from_numpy(test_l)
         test_l= test_l.to(self.device, dtype=torch.long) 
         
-        names, activations, weights = [], [], []
-        for layer in network_obj.layers:
-            print(layer)
-            name = layer.name 
-            names.append(name)
-            activations.append(layer.output)
-            weights.append(layer.get_weights())
+        '''
+        name = layer.name 
+        names.append(name)
+        activations.append(layer.output)
+        weights.append(layer.get_weights())
             
         print(names)
         print(activations)
         print(weights)
+        '''
+        print(network_obj.conv_LA_1_1.name)
+        print(network_obj.conv_LA_1_1.weight)
+        print(network_obj.conv_LA_1_1.output)
             
 
         return
