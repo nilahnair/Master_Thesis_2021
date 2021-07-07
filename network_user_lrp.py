@@ -1773,6 +1773,7 @@ class Network_User(object):
             print(type(test_v))
             test_v= test_v.to(self.device, dtype=torch.float)
             test_l= np.array(test_l, dtype=np.float64)
+            test_l= torch.from_numpy(test_l)
             print(type(test_l))
             test_l= test_l.to(self.device, dtype=torch.long)  
            
