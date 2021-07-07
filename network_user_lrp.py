@@ -1742,6 +1742,7 @@ class Network_User(object):
             elif indxn1[i] == 1081:
                 lrp_test_indx.append(indxn1[i])
         
+        print("selected indexes")
         print(lrp_test_indx)
                 
             
