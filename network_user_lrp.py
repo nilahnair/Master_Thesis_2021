@@ -1768,7 +1768,6 @@ class Network_User(object):
         print(activations)
         print(weights)
         '''
-        print(network_obj.conv_LA_1_1.name)
         print(network_obj.conv_LA_1_1.weight)
         print(network_obj.conv_LA_1_1.output)
             
