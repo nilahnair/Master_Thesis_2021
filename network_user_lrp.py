@@ -1758,21 +1758,15 @@ class Network_User(object):
         test_l= torch.from_numpy(test_l)
         test_l= test_l.to(self.device, dtype=torch.long) 
         
-        '''
-        name = layer.name 
-        names.append(name)
-        activations.append(layer.output)
-        weights.append(layer.get_weights())
-            
-        print(names)
-        print(activations)
-        print(weights)
-        '''
-        print(network_obj.conv_LA_1_1.weight)
-        print(network_obj.conv_LA_1_1.output)
-            
-
+        
         return
+    '''
+    def hook( m, i, o):
+            print( m._get_name() )
+
+        for ( mo ) in model.modules():
+            mo.register_forward_hook(hook)
+    '''
 
 
     ##################################################
