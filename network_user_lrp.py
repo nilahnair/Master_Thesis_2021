@@ -1751,16 +1751,15 @@ class Network_User(object):
 
         dataLoader_test = DataLoader(harwindows_test, batch_size=self.config['batch_size_train'], shuffle=False)
         
+        '''
         for v, harwindow_batched_test in enumerate(dataLoader_test):
             test_batch_v = harwindow_batched_test["data"]
             print(type(test_batch_v))
-        
             test_batch_l = harwindow_batched_test["label"]
             test_batch_l = test_batch_l.reshape(-1)
             print(type(test_batch_l))
+        '''
             
-                
-        
         for i in range(len(lrp_test_indx)):
             test_v=d[lrp_test_indx[i]]
             test_l=l[lrp_test_indx[i]]
@@ -1770,9 +1769,11 @@ class Network_User(object):
             print(test_l)
             print(test_act)
             
-            test_v= np.require(test_v, dtype=np.float)
-            test_v= test_v.to(self.device, dtype=torch.float)        
-            test_l= test_l.to(self.device, dtype=torch.long)        
+            test_v= torch.from_numpy(test_v)
+            test_v= test_v.to(self.device, dtype=torch.float) 
+            test_l: torch.from_numpy(test_l)
+            test_l= test_l.to(self.device, dtype=torch.long)  
+           
             
             '''
         
