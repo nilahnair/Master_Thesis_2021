@@ -1762,8 +1762,28 @@ class Network_User(object):
         for idx, m in enumerate(network_obj.modules()):
             print(idx, '->', m)
         '''
-        convlayers=[module for module in network_obj.modules() if isinstance(module, 'Conv2d')]
-        print(convlayers)
+        layers= network_obj.modules()
+        print("layers")
+        print(layers)
+        
+        convlayers1=layers[0:5]
+        print("convlayer1")
+        print(convlayers1)
+        convlayers2=layers[6:10]
+        print(convlayers2)
+        convlayers3=layers[11:15]
+        print(convlayers3)
+        convlayers4=layers[16:20]
+        print(convlayers4)
+        convlayers5=layers[21:25]
+        print(convlayers5)
+        
+        trans=[layers[5], layers[10], layers[15], layers[20], layers[25]]
+        print(trans)
+        
+        fc=layers[26:30]
+        print(fc)
+        
         
         
         
