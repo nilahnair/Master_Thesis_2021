@@ -1906,13 +1906,6 @@ class Network_User(object):
         # Create the list of relevances with (L + 1) elements and assign the value of the last one 
         R_fc = [None] * (fcl-1) + [(sml.cpu() * T).data + 1e-6]
         r=(sml.cpu() * T).data + 1e-6
-        print(len(R_fc))
-        print("A_fc5")
-        print(A_fc5)
-        print("fc[1]")
-        print(fc[1])
-        print("r")
-        print(r)
         
         temp=self.relprop(A_fc5, fc[1], r)
         print(temp)
