@@ -1861,8 +1861,8 @@ class Network_User(object):
         
         j=1
         for i in range(cl5):
-            A_RA[j]= convlayers5[i].forward(A_RL[j-1])
-            A_RA[j+1]=F.relu(A_RA[j])
+            A_RL[j]= convlayers5[i].forward(A_RL[j-1])
+            A_RL[j+1]=F.relu(A_RL[j])
             j+=2
         A_RL[8] = A_RL[8].reshape(-1, A_RL[8].size()[1] * A_RL[8].size()[2] * A_RL[8].size()[3])  
         A_t5=trans[4].forward(A_RL[4])
