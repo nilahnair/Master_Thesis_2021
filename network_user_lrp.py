@@ -1839,8 +1839,6 @@ class Network_User(object):
             print("i", i)
             print("j", j)
             A_LA[j]= convlayers1[i].forward(A_LA[j-1])
-            print("i", i)
-            print("j", j)
             A_LA[j+1]=F.relu(A_LA[j])
             j+=2
         
