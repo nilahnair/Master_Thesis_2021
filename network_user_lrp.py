@@ -1757,12 +1757,12 @@ class Network_User(object):
         test_act=al[lrp_test_indx[0]]
         '''
         
-        print(4000)
-        test_v=d[4000]
-        test_l=l[4000]
+        print(6000)
+        test_v=d[6000]
+        test_l=l[6000]
         print("test subject")
         print(test_l)
-        test_act=al[4000]
+        test_act=al[6000]
         
             
         test_v= torch.from_numpy(test_v)
