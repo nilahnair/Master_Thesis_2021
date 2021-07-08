@@ -1763,27 +1763,22 @@ class Network_User(object):
             print(idx, '->', m)
         '''
         layers= [module for module in network_obj.modules()]
-        print("layers")
-        print(layers)
-        print(len(layers))
-        
+        L=len(layers)
+        print(L)
         convlayers1=layers[0:5]
-        print("convlayer1")
-        print(convlayers1)
+        cl1len=len(convlayers1)
         convlayers2=layers[6:10]
-        print(convlayers2)
+        cl2=len(convlayers2)
         convlayers3=layers[11:15]
-        print(convlayers3)
+        cl3=len(convlayers3)
         convlayers4=layers[16:20]
-        print(convlayers4)
+        cl4=len(convlayers4)
         convlayers5=layers[21:25]
-        print(convlayers5)
-        
+        cl5=len(convlayers5)
         trans=[layers[5], layers[10], layers[15], layers[20], layers[25]]
-        print(trans)
-        
+        tl=len(trans)
         fc=layers[26:30]
-        print(fc)
+        fcl=len(fc)
         
         
         
