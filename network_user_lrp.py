@@ -1869,10 +1869,11 @@ class Network_User(object):
         A_t5=[A_t5]+[F.relu(A_t5)]
         
         grouped= torch.cat((A_t1[1], A_t2[1], A_t3[1], A_t4[1], A_t5[1]), 1)
-        print(grouped)
         
-        print(fc)
-        print(fcl)
+        A_fc=fc[0].forward(grouped)
+        print(A_fc)
+        
+            
         
         
         
