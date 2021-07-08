@@ -1841,6 +1841,10 @@ class Network_User(object):
             A_LA[j]= convlayers1[i].forward(A_LA[j-1])
             A_LA[j+1]=F.relu(A_LA[j])
             j+=2
+            
+        print("loop done")
+        print(A_LA)
+        print(len(A_LA))
         
         
         A_LA[4] = A_LA[4].reshape(-1, A_LA[4].size()[1] * A_LA[4].size()[2] * A_LA[4].size()[3])
