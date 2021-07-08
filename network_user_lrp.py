@@ -1925,7 +1925,7 @@ class Network_User(object):
             #A[layer] = A[layer].data.requires_grad_(True)
             A = A.data.requires_grad_(True)
             # Step 1: Transform the weights of the layer and executes a forward pass
-            z = self.newlayer(layers, rho).forward(A) + 1e-9
+            z = self.newlayer(layer=layers, g=rho).forward(A) + 1e-9
             # Step 2: Element-wise division between the relevance of the next layer and the denominator
             s = (R_1.to(self.device) / z).data
             # Step 3: Calculate the gradient and multiply it by the activation layer
@@ -1934,14 +1934,7 @@ class Network_User(object):
             out = (A * c).cpu().data  
             
             return out
-       
-      
-    def newlayer(layer, g):
-        """Clone a layer and pass its parameters through the function g."""
-        layer = copy.deepcopy(layer)
-        layer.weight = torch.nn.Parameter(g(layer.weight))
-        layer.bias = torch.nn.Parameter(g(layer.bias))
-        return layer
+
     '''
     def hook( m, i, o):
             print( m._get_name() )
