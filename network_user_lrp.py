@@ -1822,14 +1822,27 @@ class Network_User(object):
         
         for i in range(cl1):
             A_LA[i+1]= convlayers1[i].forward(A_LA[i])
+        for i in range(cl1):    
             A_LL[i+1]= convlayers2[i].forward(A_LL[i])
             A_N[i+1]= convlayers3[i].forward(A_N[i])
             A_RA[i+1]= convlayers4[i].forward(A_RA[i])
             A_RL[i+1]= convlayers5[i].forward(A_RL[i])
+        print("1")
+        print(A_LA)
+        print("2")
+        print(A_LL)
             
-        print(len(A_LA))
+        A_LA = A_LA.reshape(-1, A_LA.size()[1] * A_LA.size()[2] * A_LA.size()[3])
+        A_LL = A_LL.reshape(-1, A_LL.size()[1] * A_LL.size()[2] * A_LL.size()[3])
+        A_N = A_N.reshape(-1, A_N.size()[1] * A_N.size()[2] * A_N.size()[3])
+        A_RA = A_RA.reshape(-1, A_RA.size()[1] * A_RA.size()[2] * A_RA.size()[3])
+        A_RL = A_RL.reshape(-1, A_RL.size()[1] * A_RL.size()[2] * A_RL.size()[3])
         
         A_t1=trans[0].forward(A_LA[4])
+        A_t2=trans[1].forward(A_LL[4])
+        A_t3=trans[2].forward(A_LL[4])
+        A_t4=trans[3].forward(A_LL[4])
+        A_t5=trans[4].forward(A_LL[4])
         print(A_t1)
             
                 
