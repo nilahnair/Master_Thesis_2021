@@ -1766,18 +1766,25 @@ class Network_User(object):
         L=len(layers)
         convlayers1=layers[0:5]
         cl1=len(convlayers1)
+        print(cl1)
         convlayers2=layers[6:10]
         cl2=len(convlayers2)
+        print(cl2)
         convlayers3=layers[11:15]
         cl3=len(convlayers3)
+        print(cl3)
         convlayers4=layers[16:20]
         cl4=len(convlayers4)
+        print(cl4)
         convlayers5=layers[21:25]
         cl5=len(convlayers5)
+        print(cl5)
         trans=[layers[5], layers[10], layers[15], layers[20], layers[25]]
         tl=len(trans)
+        print(tl)
         fc=layers[26:30]
         fcl=len(fc)
+        print(fcl)
         
         ##############################################setting input
         
