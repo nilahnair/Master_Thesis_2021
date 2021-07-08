@@ -1883,7 +1883,7 @@ class Network_User(object):
         sml=fc[3].forward(A_fc5)
         
         
-        #print(sml)
+        print(sml)
         
             
         
