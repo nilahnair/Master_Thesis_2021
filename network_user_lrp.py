@@ -1748,22 +1748,22 @@ class Network_User(object):
         '''
         
         #for i in range(len(lrp_test_indx)):
-        '''
+        
         print(lrp_test_indx[0])
         test_v=d[lrp_test_indx[0]]
         test_l=l[lrp_test_indx[0]]
         print("test subject")
         print(test_l)
         test_act=al[lrp_test_indx[0]]
-        '''
         
+        '''
         print(6000)
         test_v=d[6000]
         test_l=l[6000]
         print("test subject")
         print(test_l)
         test_act=al[6000]
-        
+        '''
             
         test_v= torch.from_numpy(test_v)
         test_v= test_v.to(self.device, dtype=torch.float)
@@ -1778,6 +1778,8 @@ class Network_User(object):
         
         layers= [module for module in network_obj.modules()]
         L=len(layers)
+        print("layer 0")
+        print(layers[0])
         convlayers1=layers[1:5]
         cl1=len(convlayers1)
         convlayers2=layers[6:10]
