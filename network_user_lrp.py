@@ -1787,7 +1787,6 @@ class Network_User(object):
         
         
         test_v = test_v.unsqueeze(0)
-        print(test_v.shape)
         
         if self.config["dataset"]=='mocap':
                 idx_LA = np.arange(12, 24)
@@ -1818,12 +1817,14 @@ class Network_User(object):
                 in_N = test_v[:, :, :, 12:18]
                 in_RA = test_v[:, :, :, 18:24]
                 in_RL = test_v[:, :, :, 24:30]
+                
+        #############################setting activation layers
         
-        A_LA=[in_LA] + [in_LA]*(cl1*2)
-        A_LL=[in_LL] + [in_LL]*(cl2*2)
-        A_N=[in_N] + [in_N]*(cl3*2)
-        A_RA=[in_RA] + [in_RA]*(cl4*2)
-        A_RL=[in_RL] + [in_RL]*(cl5*2)
+        A_LA=[in_LA] + [None]*(cl1*2)
+        A_LL=[in_LL] + [None]*(cl2*2)
+        A_N=[in_N] + [None]*(cl3*2)
+        A_RA=[in_RA] + [None]*(cl4*2)
+        A_RL=[in_RL] + [None]*(cl5*2)
         
         j=1
         for i in range(cl1):
