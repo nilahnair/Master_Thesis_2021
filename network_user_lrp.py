@@ -1821,53 +1821,49 @@ class Network_User(object):
         A_RA=[in_RA] + [in_RA]*cl4
         A_RL=[in_RL] + [in_RL]*cl5
         
-        A_LA[1]= convlayers1[0].forward(A_LA[0])
-        A_LA[2]=F.relu(A_LA[1])
-        A_LA[3]= convlayers1[1].forward(A_LA[2])
-        A_LA[4]=F.relu(A_LA[3])
-        A_LA[5]= convlayers1[2].forward(A_LA[4])
-        A_LA[6]=F.relu(A_LA[5])
-        A_LA[7]= convlayers1[3].forward(A_LA[6])
-        A_LA[8]=F.relu(A_LA[7])
-        
-        print("separately done")
-        print(A_LA)
-        print(len(A_LA))
-        
         j=1
         for i in range(cl1):
-            print("i", i)
-            print("j", j)
             A_LA[j]= convlayers1[i].forward(A_LA[j-1])
             A_LA[j+1]=F.relu(A_LA[j])
             j+=2
             
-        print("loop done")
-        print(A_LA)
-        print(len(A_LA))
+        A_LA[8] = A_LA[8].reshape(-1, A_LA[8].size()[1] * A_LA[8].size()[2] * A_LA[8].size()[3])
+        A_t1=trans[0].forward(A_LA[8])
+        print(A_t1)
+        A_t1=A_t1+F.relu(A_t1)
+        print(A_t1)
         
+        j=1
+        for i in range(cl2):
+            A_LL[j]= convlayers2[i].forward(A_LL[j-1])
+            A_LL[j+1]=F.relu(A_LL[j])
+            j+=2
         
-        A_LA[4] = A_LA[4].reshape(-1, A_LA[4].size()[1] * A_LA[4].size()[2] * A_LA[4].size()[3])
-        A_t1=trans[0].forward(A_LA[4])
+        A_LL[8] = A_LL[8].reshape(-1, A_LL[8].size()[1] * A_LL[8].size()[2] * A_LL[8].size()[3])
+        A_t2=trans[1].forward(A_LL[8])
             
-        for i in range(cl2):    
-            A_LL[i+1]= convlayers2[i].forward(A_LL[i])
-        A_LL[4] = A_LL[4].reshape(-1, A_LL[4].size()[1] * A_LL[4].size()[2] * A_LL[4].size()[3])
-        A_t2=trans[1].forward(A_LL[4])
-            
+        j=1
         for i in range(cl3):
-            A_N[i+1]= convlayers3[i].forward(A_N[i])
-        A_N[4] = A_N[4].reshape(-1, A_N[4].size()[1] * A_N[4].size()[2] * A_N[4].size()[3])
-        A_t3=trans[2].forward(A_N[4])
+            A_N[j]= convlayers3[i].forward(A_N[j-1])
+            A_N[j+1]=F.relu(A_N[j])
+            j+=2
+        A_N[8] = A_N[8].reshape(-1, A_N[8].size()[1] * A_N[8].size()[2] * A_N[8].size()[3])
+        A_t3=trans[2].forward(A_N[8])
            
+        j=1
         for i in range(cl4):
-            A_RA[i+1]= convlayers4[i].forward(A_RA[i])
-        A_RA[4] = A_RA[4].reshape(-1, A_RA[4].size()[1] * A_RA[4].size()[2] * A_RA[4].size()[3])
-        A_t4=trans[3].forward(A_RA[4])
+            A_RA[j]= convlayers4[i].forward(A_RA[j-1])
+            A_RA[j+1]=F.relu(A_RA[j])
+            j+=2
+        A_RA[8] = A_RA[8].reshape(-1, A_RA[8].size()[1] * A_RA[8].size()[2] * A_RA[8].size()[3])
+        A_t4=trans[3].forward(A_RA[8])
         
-        for i in range(cl5):   
-            A_RL[i+1]= convlayers5[i].forward(A_RL[i])
-        A_RL[4] = A_RL[4].reshape(-1, A_RL[4].size()[1] * A_RL[4].size()[2] * A_RL[4].size()[3])  
+        j=1
+        for i in range(cl5):
+            A_RA[j]= convlayers5[i].forward(A_RL[j-1])
+            A_RA[j+1]=F.relu(A_RA[j])
+            j+=2
+        A_RL[8] = A_RL[8].reshape(-1, A_RL[8].size()[1] * A_RL[8].size()[2] * A_RL[8].size()[3])  
         A_t5=trans[4].forward(A_RL[4]) 
         
         print("1")
