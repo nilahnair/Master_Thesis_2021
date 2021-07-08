@@ -1868,27 +1868,14 @@ class Network_User(object):
         A_t5=trans[4].forward(A_RL[8])
         A_t5=[A_t5]+[F.relu(A_t5)]
         
-        print("1")
-        print(A_LA)
-        print("2")
-        print(A_LL)
-        print("3")
-        print(A_N)
-        print("4")
-        print(A_RA)
-        print("5")
-        print(A_RL)
+        grouped= torch.cat((A_t1, A_t2, A_t3, A_t4, A_t5), 1)
+        print(grouped)
         
-        print("1")
-        print(A_t1)
-        print("2")
-        print(A_t2)
-        print("3")
-        print(A_t3)
-        print("4")
-        print(A_t4)
-        print("5")
-        print(A_t5)
+        print(fc)
+        print(fcl)
+        
+        
+        
             
                 
                     
