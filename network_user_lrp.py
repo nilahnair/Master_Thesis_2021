@@ -1831,12 +1831,12 @@ class Network_User(object):
         print(A_LA)
         print("2")
         print(A_LL)
-            
-        A_LA = A_LA.reshape(-1, A_LA.size()[1] * A_LA.size()[2] * A_LA.size()[3])
-        A_LL = A_LL.reshape(-1, A_LL.size()[1] * A_LL.size()[2] * A_LL.size()[3])
-        A_N = A_N.reshape(-1, A_N.size()[1] * A_N.size()[2] * A_N.size()[3])
-        A_RA = A_RA.reshape(-1, A_RA.size()[1] * A_RA.size()[2] * A_RA.size()[3])
-        A_RL = A_RL.reshape(-1, A_RL.size()[1] * A_RL.size()[2] * A_RL.size()[3])
+        
+        A_LA[4] = A_LA[4].reshape(-1, A_LA[4].size()[1] * A_LA[4].size()[2] * A_LA[4].size()[3])
+        A_LL[4] = A_LL[4].reshape(-1, A_LL[4].size()[1] * A_LL[4].size()[2] * A_LL[4].size()[3])
+        A_N[4] = A_N[4].reshape(-1, A_N[4].size()[1] * A_N[4].size()[2] * A_N[4].size()[3])
+        A_RA[4] = A_RA[4].reshape(-1, A_RA[4].size()[1] * A_RA[4].size()[2] * A_RA[4].size()[3])
+        A_RL[4] = A_RL[4].reshape(-1, A_RL[4].size()[1] * A_RL[4].size()[2] * A_RL[4].size()[3])
         
         A_t1=trans[0].forward(A_LA[4])
         A_t2=trans[1].forward(A_LL[4])
