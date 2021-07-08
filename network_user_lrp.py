@@ -1821,6 +1821,7 @@ class Network_User(object):
         A_RL=[in_RL] + [in_RL]*cl5
         
         for i in range(cl1):
+            print(convlayers1[i])
             A_LA[i+1]= convlayers1[i].forward(A_LA[i])
         
         A_LA[4] = A_LA[4].reshape(-1, A_LA[4].size()[1] * A_LA[4].size()[2] * A_LA[4].size()[3])
