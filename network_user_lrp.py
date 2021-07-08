@@ -1929,8 +1929,10 @@ class Network_User(object):
         
     def relprop(self, A, layers, R_1):
             rho= lambda p: p;
+            print(rho)
             #A[layer] = A[layer].data.requires_grad_(True)
             A = A.data.requires_grad_(True)
+            print(A)
             # Step 1: Transform the weights of the layer and executes a forward pass
             z = self.newlayer(layer=layers, g=rho).forward(A) + 1e-9
             # Step 2: Element-wise division between the relevance of the next layer and the denominator
