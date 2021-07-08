@@ -1748,8 +1748,11 @@ class Network_User(object):
         '''
         
         #for i in range(len(lrp_test_indx)):
+        print(lrp_test_indx[0])
         test_v=d[lrp_test_indx[0]]
         test_l=l[lrp_test_indx[0]]
+        print("test subject")
+        print(test_l)
         test_act=al[lrp_test_indx[0]]
             
         test_v= torch.from_numpy(test_v)
