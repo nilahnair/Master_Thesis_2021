@@ -1834,7 +1834,7 @@ class Network_User(object):
         p=F.relu(A_t1)
         print("p")
         print(p)
-        A_t1=A_t1+F.relu(A_t1)
+        A_t1=[A_t1]+[F.relu(A_t1)]
         print(A_t1)
         
         j=1
