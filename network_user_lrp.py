@@ -1766,25 +1766,18 @@ class Network_User(object):
         L=len(layers)
         convlayers1=layers[1:5]
         cl1=len(convlayers1)
-        print(convlayers1)
         convlayers2=layers[6:10]
         cl2=len(convlayers2)
-        print(convlayers2)
         convlayers3=layers[11:15]
         cl3=len(convlayers3)
-        print(convlayers3)
         convlayers4=layers[16:20]
         cl4=len(convlayers4)
-        print(cl4)
         convlayers5=layers[21:25]
         cl5=len(convlayers5)
-        print(cl5)
         trans=[layers[5], layers[10], layers[15], layers[20], layers[25]]
         tl=len(trans)
-        print(tl)
         fc=layers[26:30]
         fcl=len(fc)
-        print(fcl)
         
         ##############################################setting input
         
@@ -1826,6 +1819,11 @@ class Network_User(object):
         A_N=[in_N] + [in_N]*cl3
         A_RA=[in_RA] + [in_RA]*cl4
         A_RL=[in_RL] + [in_RL]*cl5
+        
+        for i in range(cl1):
+            A_LA[i+1]= convlayers1[i].forward(A_LA[i])
+            
+        print(A_LA)
         
                 
                     
