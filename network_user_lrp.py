@@ -1870,15 +1870,9 @@ class Network_User(object):
         
         grouped= torch.cat((A_t1[1], A_t2[1], A_t3[1], A_t4[1], A_t5[1]), 1)
         
-        print(fcl)
-        
         A_fc4=fc[0].forward(grouped)
-        print(A_fc4)
         A_fc4=[A_fc4]+[F.relu(A_fc4)]
-        print(A_fc4)
         A_fc5=fc[1].forward(A_fc4[1])
-        print(A_fc5)
-        A_fc5=[A_fc5]+[fc[2].forward(A_fc5[0])]
         print(A_fc5)
         sml=fc[3].forward(A_fc5[1])
         
