@@ -1872,18 +1872,18 @@ class Network_User(object):
         
         print(fcl)
         
-        A_fc=fc[0].forward(grouped)
-        print(A_fc)
-        A_fc=[A_fc]+[F.relu(A_fc)]
-        print(A_fc)
-        A_fc=[A_fc]+[fc[1].forward(A_fc[1])]
-        print(A_fc)
-        A_fc=[A_fc]+[fc[2].forward(A_fc[2])]
-        print(A_fc)
-        A_fc=[A_fc]+[fc[3].forward(A_fc[3])]
+        A_fc4=fc[0].forward(grouped)
+        print(A_fc4)
+        A_fc4=[A_fc4]+[F.relu(A_fc4)]
+        print(A_fc4)
+        A_fc5=fc[1].forward(A_fc4[1])
+        print(A_fc5)
+        A_fc5=[A_fc5]+[fc[2].forward(A_fc5[0])]
+        print(A_fc5)
+        sml=fc[3].forward(A_fc5[1])
         
         
-        print(A_fc)
+        print(sml)
         
             
         
