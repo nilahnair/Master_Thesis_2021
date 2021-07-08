@@ -1829,7 +1829,11 @@ class Network_User(object):
             
         A_LA[8] = A_LA[8].reshape(-1, A_LA[8].size()[1] * A_LA[8].size()[2] * A_LA[8].size()[3])
         A_t1=trans[0].forward(A_LA[8])
+        print("A_t1")
         print(A_t1)
+        p=F.relu(A_t1)
+        print("p")
+        print(p)
         A_t1=A_t1+F.relu(A_t1)
         print(A_t1)
         
