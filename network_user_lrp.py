@@ -1884,6 +1884,21 @@ class Network_User(object):
         sml=fc[3].forward(A_fc5)
         print(sml)
         
+        print("Relevance part")
+        
+        T = A_fc5[1].cpu().detach().numpy().tolist()[0]
+        print(T)
+        index = T.index(max(T))
+        print(index)
+        T = np.abs(np.array(T)) * 0
+        print(T)
+        T[index] = 1
+        print(T)
+        T = torch.FloatTensor(T)
+        # Create the list of relevances with (L + 1) elements and assign the value of the last one 
+        R_fc = [None] * (fcl-2) + [(sml.cpu() * T).data + 1e-6]
+        print(R_fc)
+        
             
         
         
