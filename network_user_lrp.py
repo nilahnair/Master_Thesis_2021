@@ -1766,13 +1766,13 @@ class Network_User(object):
         L=len(layers)
         convlayers1=layers[0:5]
         cl1=len(convlayers1)
-        print(cl1)
+        print(convlayers1)
         convlayers2=layers[6:10]
         cl2=len(convlayers2)
-        print(cl2)
+        print(convlayers2)
         convlayers3=layers[11:15]
         cl3=len(convlayers3)
-        print(cl3)
+        print(convlayers3)
         convlayers4=layers[16:20]
         cl4=len(convlayers4)
         print(cl4)
