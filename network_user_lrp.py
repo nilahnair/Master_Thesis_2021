@@ -1764,7 +1764,6 @@ class Network_User(object):
         '''
         layers= [module for module in network_obj.modules()]
         L=len(layers)
-        print(L)
         convlayers1=layers[0:5]
         cl1len=len(convlayers1)
         convlayers2=layers[6:10]
@@ -1779,6 +1778,53 @@ class Network_User(object):
         tl=len(trans)
         fc=layers[26:30]
         fcl=len(fc)
+        
+        ##############################################setting input
+        
+        print(test_v)
+        print(test_v.shape)
+        test_v = test_v.unsqueeze(0)
+        print(test_v.shape)
+        print("subparts")
+        
+        if self.config["dataset"]=='mocap':
+                idx_LA = np.arange(12, 24)
+                idx_LA = np.concatenate([idx_LA, np.arange(36, 42)])
+                idx_LA = np.concatenate([idx_LA, np.arange(54, 66)])
+                in_LA = test_v[ :, :, :, idx_LA]
+                print(in_LA)
+                print(in_LA.shape)
+                idx_LL = np.arange(24, 36)
+                idx_LL = np.concatenate([idx_LL, np.arange(42, 54)])
+                in_LL = test_v[ :, :, :, idx_LL]
+                print(in_LL)
+                print(in_LL.shape)
+                idx_N = np.arange(0, 12)
+                idx_N = np.concatenate([idx_N, np.arange(120, 126)])
+                in_N = test_v[:, :, :, idx_N]
+                print(in_N)
+                print(in_N.shape)
+                idx_RA = np.arange(66, 78)
+                idx_RA = np.concatenate([idx_RA, np.arange(90, 96)])
+                idx_RA = np.concatenate([idx_RA, np.arange(108, 120)])
+                in_RA = test_v[:, :, :, idx_RA]
+                print(in_RA)
+                print(in_RA.shape)
+                idx_RL = np.arange(78, 90)
+                idx_RL = np.concatenate([idx_RL, np.arange(96, 108)])
+                in_RL = test_v[:, :, :, idx_RL]
+                print(in_RL)
+                print(in_RL.shape)
+        
+        elif self.config["dataset"]=='mbientlab':
+                in_LA = test_v[:, :, :, 0:6]
+                in_LL = test_v[:, :, :, 6:12]
+                in_N = test_v[:, :, :, 12:18]
+                in_RA = test_v[:, :, :, 18:24]
+                in_RL = test_v[:, :, :, 24:30]
+                
+                    
+        
         
         
         
