@@ -1865,7 +1865,7 @@ class Network_User(object):
             A_RL[j+1]=F.relu(A_RL[j])
             j+=2
         A_RL[8] = A_RL[8].reshape(-1, A_RL[8].size()[1] * A_RL[8].size()[2] * A_RL[8].size()[3])  
-        A_t5=trans[4].forward(A_RL[4])
+        A_t5=trans[4].forward(A_RL[8])
         A_t5=[A_t5]+[F.relu(A_t5)]
         
         print("1")
