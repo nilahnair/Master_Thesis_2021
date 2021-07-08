@@ -1881,9 +1881,7 @@ class Network_User(object):
         #print(A_fc4)
         A_fc5=fc[1].forward(A_fc4[1])
         print(A_fc5)
-        sml=fc[2].forward(A_fc5)
-        
-        
+        sml=fc[3].forward(A_fc5)
         print(sml)
         
             
