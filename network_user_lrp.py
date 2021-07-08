@@ -1815,13 +1815,13 @@ class Network_User(object):
                 in_RA = test_v[:, :, :, 18:24]
                 in_RL = test_v[:, :, :, 24:30]
         
-        A_LA=[in_LA] + [in_LA]*cl1
+        A_LA=[in_LA] + [in_LA]*(cl1*2)
         A_LL=[in_LL] + [in_LL]*cl2
         A_N=[in_N] + [in_N]*cl3
         A_RA=[in_RA] + [in_RA]*cl4
         A_RL=[in_RL] + [in_RL]*cl5
         
-        for i in range(0,cl1*2,2):
+        for i in range(cl1*2):
             print(i)
             print(convlayers1[i])
             print(i+1)
@@ -1832,6 +1832,25 @@ class Network_User(object):
             print(i+2)
             print("relu act")
             print(A_LA[i+2])
+        A_LA[1]= convlayers1[0].forward(A_LA[0])
+        A_LA[2]=F.relu(A_LA[1])
+        A_LA[3]= convlayers1[1].forward(A_LA[2])
+        A_LA[4]=F.relu(A_LA[3])
+        A_LA[5]= convlayers1[2].forward(A_LA[4])
+        A_LA[6]=F.relu(A_LA[5])
+        A_LA[7]= convlayers1[3].forward(A_LA[6])
+        A_LA[8]=F.relu(A_LA[7])
+        
+        j=1
+        for i in range(cl1):
+            print("i", i)
+            print("j", j)
+            A_LA[j]= convlayers1[i].forward(A_LA[j-1])
+            print("i", i)
+            print("j", j)
+            A_LA[j+1]=F.relu(A_LA[j])
+            j+=2
+        
         
         A_LA[4] = A_LA[4].reshape(-1, A_LA[4].size()[1] * A_LA[4].size()[2] * A_LA[4].size()[3])
         A_t1=trans[0].forward(A_LA[4])
