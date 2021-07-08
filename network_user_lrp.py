@@ -19,6 +19,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
+import torch.nn.functional as F 
 
 #from hdfs.config import catch
 
@@ -1820,9 +1821,12 @@ class Network_User(object):
         A_RA=[in_RA] + [in_RA]*cl4
         A_RL=[in_RL] + [in_RL]*cl5
         
-        for i in range(cl1):
+        for i in range(0,cl1*2,2):
             print(convlayers1[i])
             A_LA[i+1]= convlayers1[i].forward(A_LA[i])
+            print(A_LA[i+1])
+            A_LA[i+2]=F.relu(A_LA[i+1])
+            print(A_LA[i+2])
         
         A_LA[4] = A_LA[4].reshape(-1, A_LA[4].size()[1] * A_LA[4].size()[2] * A_LA[4].size()[3])
         A_t1=trans[0].forward(A_LA[4])
