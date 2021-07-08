@@ -1822,11 +1822,30 @@ class Network_User(object):
         
         for i in range(cl1):
             A_LA[i+1]= convlayers1[i].forward(A_LA[i])
-        for i in range(cl1):    
+        
+        A_LA[4] = A_LA[4].reshape(-1, A_LA[4].size()[1] * A_LA[4].size()[2] * A_LA[4].size()[3])
+        A_t1=trans[0].forward(A_LA[4])
+            
+        for i in range(cl2):    
             A_LL[i+1]= convlayers2[i].forward(A_LL[i])
+        A_LL[4] = A_LL[4].reshape(-1, A_LL[4].size()[1] * A_LL[4].size()[2] * A_LL[4].size()[3])
+        A_t2=trans[1].forward(A_LL[4])
+            
+        for i in range(cl3):
             A_N[i+1]= convlayers3[i].forward(A_N[i])
+        A_N[4] = A_N[4].reshape(-1, A_N[4].size()[1] * A_N[4].size()[2] * A_N[4].size()[3])
+        A_t3=trans[2].forward(A_N[4])
+           
+        for i in range(cl4):
             A_RA[i+1]= convlayers4[i].forward(A_RA[i])
+        A_RA[4] = A_RA[4].reshape(-1, A_RA[4].size()[1] * A_RA[4].size()[2] * A_RA[4].size()[3])
+        A_t4=trans[3].forward(A_RA[4])
+        
+        for i in range(cl5):   
             A_RL[i+1]= convlayers5[i].forward(A_RL[i])
+        A_RL[4] = A_RL[4].reshape(-1, A_RL[4].size()[1] * A_RL[4].size()[2] * A_RL[4].size()[3])  
+        A_t5=trans[4].forward(A_RL[4]) 
+        
         print("1")
         print(A_LA)
         print("2")
@@ -1838,17 +1857,6 @@ class Network_User(object):
         print("5")
         print(A_RL)
         
-        A_LA[4] = A_LA[4].reshape(-1, A_LA[4].size()[1] * A_LA[4].size()[2] * A_LA[4].size()[3])
-        A_LL[4] = A_LL[4].reshape(-1, A_LL[4].size()[1] * A_LL[4].size()[2] * A_LL[4].size()[3])
-        A_N[4] = A_N[4].reshape(-1, A_N[4].size()[1] * A_N[4].size()[2] * A_N[4].size()[3])
-        A_RA[4] = A_RA[4].reshape(-1, A_RA[4].size()[1] * A_RA[4].size()[2] * A_RA[4].size()[3])
-        A_RL[4] = A_RL[4].reshape(-1, A_RL[4].size()[1] * A_RL[4].size()[2] * A_RL[4].size()[3])
-        
-        A_t1=trans[0].forward(A_LA[4])
-        A_t2=trans[1].forward(A_LL[4])
-        A_t3=trans[2].forward(A_N[4])
-        A_t4=trans[3].forward(A_RA[4])
-        A_t5=trans[4].forward(A_RL[4])
         print("1")
         print(A_t1)
         print("2")
