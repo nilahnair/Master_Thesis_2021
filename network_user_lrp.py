@@ -1879,7 +1879,7 @@ class Network_User(object):
         A_fc4=[A_fc4]+[F.relu(A_fc4)]
         #print(A_fc4)
         A_fc5=fc[1].forward(A_fc4[1])
-        #print(A_fc5)
+        print(A_fc5)
         sml=fc[3].forward(A_fc5)
         
         
