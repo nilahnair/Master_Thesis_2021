@@ -1758,10 +1758,10 @@ class Network_User(object):
         test_l= torch.from_numpy(test_l)
         test_l= test_l.to(self.device, dtype=torch.long) 
         
-        '''
+        
         for idx, m in enumerate(network_obj.modules()):
             print(idx, '->', m)
-        '''
+        
         layers= [module for module in network_obj.modules()]
         L=len(layers)
         convlayers1=layers[0:5]
@@ -1820,9 +1820,6 @@ class Network_User(object):
         A_RA=[in_RA] + [in_RA]*cl4
         A_RL=[in_RL] + [in_RL]*cl5
         
-        print(A_LA)
-        print(len(A_LA))
-        print(type(A_LA))
                 
                     
         
