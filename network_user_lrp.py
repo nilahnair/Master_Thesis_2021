@@ -1764,7 +1764,7 @@ class Network_User(object):
         
         layers= [module for module in network_obj.modules()]
         L=len(layers)
-        convlayers1=layers[0:5]
+        convlayers1=layers[1:5]
         cl1=len(convlayers1)
         print(convlayers1)
         convlayers2=layers[6:10]
