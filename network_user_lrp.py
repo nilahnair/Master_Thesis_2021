@@ -14,6 +14,7 @@ import logging
 import numpy as np
 import time
 import math
+import copy
 
 import torch
 import torch.nn as nn
@@ -1790,13 +1791,11 @@ class Network_User(object):
         convlayers5=layers[21:25]
         cl5=len(convlayers5)
         trans=[layers[5], layers[10], layers[15], layers[20], layers[25]]
-        print(trans)
         tl=len(trans)
         fc=layers[26:30]
         fcl=len(fc)
         
         ##############################################setting input
-        
         
         test_v = test_v.unsqueeze(0)
         
@@ -1839,6 +1838,7 @@ class Network_User(object):
         A_RL=[in_RL] + [None]*(cl5*2)
         
         ###################################conv layer activations
+        
         j=1
         for i in range(cl1):
             A_LA[j]= convlayers1[i].forward(A_LA[j-1])
@@ -1905,63 +1905,43 @@ class Network_User(object):
         T = torch.FloatTensor(T)
         # Create the list of relevances with (L + 1) elements and assign the value of the last one 
         R_fc = [None] * (fcl-1) + [(sml.cpu() * T).data + 1e-6]
-        
-        '''
-        ###########################for conv layers
-         for layer in range(0, L)[::-1]:
-
-        if isinstance(layers[layer], torch.nn.Conv2d) or isinstance(layers[layer], torch.nn.Conv3d) \
-                or isinstance(layers[layer], torch.nn.AvgPool2d) or isinstance(layers[layer], 							torch.nn.Linear):
-			
-            # Specifies the rho function that will be applied to the weights of the layer
-            if 0 < layer <= 13:  # Gamma rule (LRP-gamma)
-                rho = lambda p: p + 0.25 * p.clamp(min=0)
-            else:  # Basic rule (LRP-0)
-                rho = lambda p: p
-
-            A[layer] = A[layer].data.requires_grad_(True)
-            # Step 1: Transform the weights of the layer and executes a forward pass
-            z = newlayer(layers[layer], rho).forward(A[layer]) + 1e-9
-            # Step 2: Element-wise division between the relevance of the next layer and the denominator
-            s = (R[layer + 1].to(device) / z).data
-            # Step 3: Calculate the gradient and multiply it by the activation layer
-            (z * s).sum().backward()
-            c = A[layer].grad  										   
-            R[layer] = (A[layer] * c).cpu().data  
-            
-            # Before going back, reshape the relevances of layers 4 and 17 back to their original form  
-            if layer == 17:
-                R[layer] = reshape(R[layer], (R[layer].shape[0], R[layer].shape[1], 1, 1))
-            elif layer == 4:
-                R[layer] = reshape(R[layer], (R[layer].shape[0], 16, int(R[layer].shape[1] / 16), 								   R[layer].shape[2], R[layer].shape[3]))
-        else:
-            R[layer] = R[layer + 1]
-    
-    # Return the relevance of the input layer
-    return R[0]
-
-
-def newlayer(layer, g):
-    """Clone a layer and pass its parameters through the function g."""
-    layer = copy.deepcopy(layer)
-    layer.weight = torch.nn.Parameter(g(layer.weight))
-    layer.bias = torch.nn.Parameter(g(layer.bias))
-    return layer
-        
-'''        
-            
-        
-        
-        
-            
-                
-                    
-        
-        
-        
+        r=(sml.cpu() * T).data + 1e-6
+        print(len(R_fc))
+        temp=self.relprop(A_fc5, fc[1], r)
+        print(temp)
         
         
         return
+        
+    def newlayer(self, layer, g):
+        """Clone a layer and pass its parameters through the function g."""
+        layer = copy.deepcopy(layer)
+        layer.weight = torch.nn.Parameter(g(layer.weight))
+        layer.bias = torch.nn.Parameter(g(layer.bias))
+        return layer
+        
+    def relprop(self, A, layers, R_1):
+            rho= lambda p: p;
+            #A[layer] = A[layer].data.requires_grad_(True)
+            A = A.data.requires_grad_(True)
+            # Step 1: Transform the weights of the layer and executes a forward pass
+            z = self.newlayer(layers, rho).forward(A) + 1e-9
+            # Step 2: Element-wise division between the relevance of the next layer and the denominator
+            s = (R_1.to(self.device) / z).data
+            # Step 3: Calculate the gradient and multiply it by the activation layer
+            (z * s).sum().backward()
+            c = A.grad  										   
+            out = (A * c).cpu().data  
+            
+            return out
+       
+      
+    def newlayer(layer, g):
+        """Clone a layer and pass its parameters through the function g."""
+        layer = copy.deepcopy(layer)
+        layer.weight = torch.nn.Parameter(g(layer.weight))
+        layer.bias = torch.nn.Parameter(g(layer.bias))
+        return layer
     '''
     def hook( m, i, o):
             print( m._get_name() )
