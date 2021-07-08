@@ -1758,6 +1758,9 @@ class Network_User(object):
         test_l= torch.from_numpy(test_l)
         test_l= test_l.to(self.device, dtype=torch.long) 
         
+        for idx, m in enumerate(network_obj.modules()):
+            print(idx, '->', m)
+        
         
         return
     '''
