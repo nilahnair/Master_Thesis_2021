@@ -1787,6 +1787,7 @@ class Network_User(object):
         
         
         test_v = test_v.unsqueeze(0)
+        print(test_v.shape)
         
         if self.config["dataset"]=='mocap':
                 idx_LA = np.arange(12, 24)
@@ -1875,13 +1876,13 @@ class Network_User(object):
         
         A_fc4=fc[0].forward(grouped)
         A_fc4=[A_fc4]+[F.relu(A_fc4)]
-        print(A_fc4)
+        #print(A_fc4)
         A_fc5=fc[1].forward(A_fc4[1])
-        print(A_fc5)
+        #print(A_fc5)
         sml=fc[3].forward(A_fc5)
         
         
-        print(sml)
+        #print(sml)
         
             
         
