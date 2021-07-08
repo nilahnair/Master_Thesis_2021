@@ -1821,17 +1821,6 @@ class Network_User(object):
         A_RA=[in_RA] + [in_RA]*cl4
         A_RL=[in_RL] + [in_RL]*cl5
         
-        for i in range(cl1*2):
-            print(i)
-            print(convlayers1[i])
-            print(i+1)
-            A_LA[i+1]= convlayers1[i].forward(A_LA[i])
-            print("conv act")
-            print(A_LA[i+1])
-            A_LA[i+2]=F.relu(A_LA[i+1])
-            print(i+2)
-            print("relu act")
-            print(A_LA[i+2])
         A_LA[1]= convlayers1[0].forward(A_LA[0])
         A_LA[2]=F.relu(A_LA[1])
         A_LA[3]= convlayers1[1].forward(A_LA[2])
@@ -1840,6 +1829,10 @@ class Network_User(object):
         A_LA[6]=F.relu(A_LA[5])
         A_LA[7]= convlayers1[3].forward(A_LA[6])
         A_LA[8]=F.relu(A_LA[7])
+        
+        print("separately done")
+        print(A_LA)
+        print(len(A_LA))
         
         j=1
         for i in range(cl1):
