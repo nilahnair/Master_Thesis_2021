@@ -1826,11 +1826,15 @@ class Network_User(object):
             A_N[i+1]= convlayers3[i].forward(A_N[i])
             A_RA[i+1]= convlayers4[i].forward(A_RA[i])
             A_RL[i+1]= convlayers5[i].forward(A_RL[i])
-            
+        print("1")    
         print(A_LA)
+        print("2")
         print(A_LL)
+        print("3")
         print(A_N)
+        print("4")
         print(A_RA)
+        print("5")
         print(A_RL)
         
                 
