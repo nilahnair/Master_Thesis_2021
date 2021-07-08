@@ -1821,7 +1821,7 @@ class Network_User(object):
         A_RL=[in_RL] + [in_RL]*cl5
         
         print(A_LA)
-        print(A_LA.shape)
+        print(len(A_LA))
         print(type(A_LA))
                 
                     
