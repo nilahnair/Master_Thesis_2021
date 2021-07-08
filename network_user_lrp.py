@@ -1886,7 +1886,7 @@ class Network_User(object):
         
         print("Relevance part")
         
-        T = A_fc5[1].cpu().detach().numpy().tolist()[0]
+        T = A_fc5.cpu().detach().numpy().tolist()[0]
         print(T)
         index = T.index(max(T))
         print(index)
