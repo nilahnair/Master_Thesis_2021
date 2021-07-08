@@ -1831,6 +1831,12 @@ class Network_User(object):
         print(A_LA)
         print("2")
         print(A_LL)
+        print("3")
+        print(A_N)
+        print("4")
+        print(A_RA)
+        print("5")
+        print(A_RL)
         
         A_LA[4] = A_LA[4].reshape(-1, A_LA[4].size()[1] * A_LA[4].size()[2] * A_LA[4].size()[3])
         A_LL[4] = A_LL[4].reshape(-1, A_LL[4].size()[1] * A_LL[4].size()[2] * A_LL[4].size()[3])
@@ -1840,10 +1846,19 @@ class Network_User(object):
         
         A_t1=trans[0].forward(A_LA[4])
         A_t2=trans[1].forward(A_LL[4])
-        A_t3=trans[2].forward(A_LL[4])
-        A_t4=trans[3].forward(A_LL[4])
-        A_t5=trans[4].forward(A_LL[4])
+        A_t3=trans[2].forward(A_N[4])
+        A_t4=trans[3].forward(A_RA[4])
+        A_t5=trans[4].forward(A_RL[4])
+        print("1")
         print(A_t1)
+        print("2")
+        print(A_t2)
+        print("3")
+        print(A_t3)
+        print("4")
+        print(A_t4)
+        print("5")
+        print(A_t5)
             
                 
                     
