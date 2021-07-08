@@ -1748,12 +1748,20 @@ class Network_User(object):
         '''
         
         #for i in range(len(lrp_test_indx)):
+        '''
         print(lrp_test_indx[0])
         test_v=d[lrp_test_indx[0]]
         test_l=l[lrp_test_indx[0]]
         print("test subject")
         print(test_l)
         test_act=al[lrp_test_indx[0]]
+        '''
+        print(948)
+        test_v=d[948]
+        test_l=l[948]
+        print("test subject")
+        print(test_l)
+        test_act=al[948]
             
         test_v= torch.from_numpy(test_v)
         test_v= test_v.to(self.device, dtype=torch.float)
@@ -1887,18 +1895,56 @@ class Network_User(object):
         print("Relevance part")
         
         T = A_fc5.cpu().detach().numpy().tolist()[0]
-        print(T)
         index = T.index(max(T))
-        print(index)
         T = np.abs(np.array(T)) * 0
-        print(T)
         T[index] = 1
-        print(T)
         T = torch.FloatTensor(T)
         # Create the list of relevances with (L + 1) elements and assign the value of the last one 
-        R_fc = [None] * (fcl-2) + [(sml.cpu() * T).data + 1e-6]
-        print(R_fc)
+        R_fc = [None] * (fcl-1) + [(sml.cpu() * T).data + 1e-6]
         
+        '''
+        ###########################for conv layers
+         for layer in range(0, L)[::-1]:
+
+        if isinstance(layers[layer], torch.nn.Conv2d) or isinstance(layers[layer], torch.nn.Conv3d) \
+                or isinstance(layers[layer], torch.nn.AvgPool2d) or isinstance(layers[layer], 							torch.nn.Linear):
+			
+            # Specifies the rho function that will be applied to the weights of the layer
+            if 0 < layer <= 13:  # Gamma rule (LRP-gamma)
+                rho = lambda p: p + 0.25 * p.clamp(min=0)
+            else:  # Basic rule (LRP-0)
+                rho = lambda p: p
+
+            A[layer] = A[layer].data.requires_grad_(True)
+            # Step 1: Transform the weights of the layer and executes a forward pass
+            z = newlayer(layers[layer], rho).forward(A[layer]) + 1e-9
+            # Step 2: Element-wise division between the relevance of the next layer and the denominator
+            s = (R[layer + 1].to(device) / z).data
+            # Step 3: Calculate the gradient and multiply it by the activation layer
+            (z * s).sum().backward()
+            c = A[layer].grad  										   
+            R[layer] = (A[layer] * c).cpu().data  
+            
+            # Before going back, reshape the relevances of layers 4 and 17 back to their original form  
+            if layer == 17:
+                R[layer] = reshape(R[layer], (R[layer].shape[0], R[layer].shape[1], 1, 1))
+            elif layer == 4:
+                R[layer] = reshape(R[layer], (R[layer].shape[0], 16, int(R[layer].shape[1] / 16), 								   R[layer].shape[2], R[layer].shape[3]))
+        else:
+            R[layer] = R[layer + 1]
+    
+    # Return the relevance of the input layer
+    return R[0]
+
+
+def newlayer(layer, g):
+    """Clone a layer and pass its parameters through the function g."""
+    layer = copy.deepcopy(layer)
+    layer.weight = torch.nn.Parameter(g(layer.weight))
+    layer.bias = torch.nn.Parameter(g(layer.bias))
+    return layer
+        
+'''        
             
         
         
