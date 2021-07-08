@@ -1821,14 +1821,17 @@ class Network_User(object):
         A_RL=[in_RL] + [in_RL]*cl5
         
         for i in range(cl1):
-            print(convlayers1[i].weights)
             A_LA[i+1]= convlayers1[i].forward(A_LA[i])
             A_LL[i+1]= convlayers2[i].forward(A_LL[i])
             A_N[i+1]= convlayers3[i].forward(A_N[i])
             A_RA[i+1]= convlayers4[i].forward(A_RA[i])
             A_RL[i+1]= convlayers5[i].forward(A_RL[i])
+            
+        print(len(A_LA))
         
-        
+        A_t1=trans[0].forward(A_LA[5])
+        print(A_t1)
+            
                 
                     
         
