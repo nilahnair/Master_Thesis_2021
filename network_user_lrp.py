@@ -1741,10 +1741,10 @@ class Network_User(object):
                 lrp_test_indx.append(indxn1[i])
             elif indxn1[i] == 1081:
                 lrp_test_indx.append(indxn1[i])
-        
+        '''
         print("selected indexes")
         print(lrp_test_indx)
-        
+        '''
         
         #for i in range(len(lrp_test_indx)):
         test_v=d[lrp_test_indx[0]]
@@ -1757,9 +1757,10 @@ class Network_User(object):
         test_l= torch.from_numpy(test_l)
         test_l= test_l.to(self.device, dtype=torch.long) 
         
-        
+        '''
         for idx, m in enumerate(network_obj.modules()):
             print(idx, '->', m)
+        '''
         
         layers= [module for module in network_obj.modules()]
         L=len(layers)
@@ -1826,7 +1827,11 @@ class Network_User(object):
             A_RA[i+1]= convlayers4[i].forward(A_RA[i])
             A_RL[i+1]= convlayers5[i].forward(A_RL[i])
             
-        
+        print(A_LA)
+        print(A_LL)
+        print(A_N)
+        print(A_RA)
+        print(A_RL)
         
                 
                     
