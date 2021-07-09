@@ -1910,7 +1910,7 @@ class Network_User(object):
         R_fc[1]=R_fc[2]
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
         
-        print(R_fc)
+        print(R_fc[0])
         
         
         
