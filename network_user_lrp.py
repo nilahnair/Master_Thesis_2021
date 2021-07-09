@@ -1906,7 +1906,7 @@ class Network_User(object):
         # Create the list of relevances with (L + 1) elements and assign the value of the last one 
         R_fc = [None] * (fcl-1) + [(sml.cpu() * T).data + 1e-6]
         r=(sml.cpu() * T).data + 1e-6
-        
+        print(R_fc)
         temp=self.relprop(A_fc4[1], fc[1], r)
         print(temp)
         
@@ -1935,11 +1935,9 @@ class Network_User(object):
             z = cpy.forward(A) + 1e-9
             # Step 2: Element-wise division between the relevance of the next layer and the denominator
             s = (R_1.to(self.device) / z).data
-            print(s)
             # Step 3: Calculate the gradient and multiply it by the activation layer
             (z * s).sum().backward()
             c = A.grad  	
-            print(c)									   
             out = (A * c).cpu().data  
             
             return out
