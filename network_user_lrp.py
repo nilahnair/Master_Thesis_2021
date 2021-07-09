@@ -1916,7 +1916,7 @@ class Network_User(object):
         r_N=tp[512:768]
         r_RA=tp[768:1024]
         r_RL=tp[1024:1280]
-        
+        print(type(tp))
         print(r_LA.shape)
         print(r_LL.shape)
         print(r_N.shape)
