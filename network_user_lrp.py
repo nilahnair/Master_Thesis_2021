@@ -1905,13 +1905,17 @@ class Network_User(object):
         T = torch.FloatTensor(T)
         # Create the list of relevances with (L + 1) elements and assign the value of the last one 
         R_fc = [None] * (fcl-1) + [(sml.cpu() * T).data + 1e-6]
-        print(R_fc)
+        #print(R_fc)
         R_fc[2]=self.relprop(A_fc4[1], fc[1], R_fc[3])
         R_fc[1]=R_fc[2]
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
+        #print(R_fc[0])
         
-        print(R_fc[0])
-        
+        print(len(A_t1[1]))
+        print(len(A_t2[1]))
+        print(len(A_t3[1]))
+        print(len(A_t4[1]))
+        print(len(A_t5[1]))
         
         
         
@@ -1919,7 +1923,7 @@ class Network_User(object):
         
     def newlayer(self, layer, g):
         """Clone a layer and pass its parameters through the function g."""
-        print("copying layer")
+        #print("copying layer")
         layer = copy.deepcopy(layer)
         '''
         print(layer.weight)
