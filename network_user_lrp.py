@@ -1911,7 +1911,9 @@ class Network_User(object):
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
         #print(R_fc[0])
         tp=R_fc[0]
-        torch.tensor_split(tp,5)
+        tp=tp.numpy()
+        #test_v= torch.from_numpy(test_v)
+        #test_v= test_v.to(self.device, dtype=torch.float)
         print(tp)
         r_LA=tp[0:256]
         r_LL=tp[256:512]
