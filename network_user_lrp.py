@@ -1910,7 +1910,10 @@ class Network_User(object):
         R_fc[1]=R_fc[2]
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
         print(type(R_fc[0]))
-        
+        print(R_fc[0].shape)
+        tp=R_fc[0]
+        b=torch.split(tp,5)
+        print(b)
         
         
         R_LA=[None]*5
