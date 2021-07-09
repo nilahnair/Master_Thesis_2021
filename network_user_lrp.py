@@ -1905,10 +1905,14 @@ class Network_User(object):
         T = torch.FloatTensor(T)
         # Create the list of relevances with (L + 1) elements and assign the value of the last one 
         R_fc = [None] * (fcl-1) + [(sml.cpu() * T).data + 1e-6]
-        r=(sml.cpu() * T).data + 1e-6
         print(R_fc)
-        temp=self.relprop(A_fc4[1], fc[1], r)
-        print(temp)
+        R_fc[2]=self.relprop(A_fc4[1], fc[1], R_fc[3])
+        R_fc[1]=R_fc[2]
+        R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
+        
+        print(R_fc)
+        
+        
         
         
         return
