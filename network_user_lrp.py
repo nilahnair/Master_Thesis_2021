@@ -1918,6 +1918,7 @@ class Network_User(object):
         print("copying layer")
         layer = copy.deepcopy(layer)
         print(layer)
+        print(layer.weight)
         layer.weight = torch.nn.Parameter(g(layer.weight))
         print(layer.weights)
         layer.bias = torch.nn.Parameter(g(layer.bias))
