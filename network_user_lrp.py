@@ -1915,9 +1915,13 @@ class Network_User(object):
         
     def newlayer(self, layer, g):
         """Clone a layer and pass its parameters through the function g."""
+        print("copying layer")
         layer = copy.deepcopy(layer)
+        print(layer)
         layer.weight = torch.nn.Parameter(g(layer.weight))
+        print(layer.weights)
         layer.bias = torch.nn.Parameter(g(layer.bias))
+        print(layer.bias)
         return layer
         
     def relprop(self, A, layers, R_1):
