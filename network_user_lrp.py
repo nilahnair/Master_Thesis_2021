@@ -1909,14 +1909,8 @@ class Network_User(object):
         R_fc[2]=self.relprop(A_fc4[1], fc[1], R_fc[3])
         R_fc[1]=R_fc[2]
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
-        #print(R_fc[0])
-        tp=R_fc[0]
-        tp=tp.numpy()
-        tp=np.array_split(tp,5)
-        #test_v= torch.from_numpy(test_v)
-        #test_v= test_v.to(self.device, dtype=torch.float)
-        print(tp)
-        print(tp.shape)
+        print(type(R_fc[0]))
+        
         
         
         R_LA=[None]*5
@@ -1955,7 +1949,7 @@ class Network_User(object):
             # Step 3: Calculate the gradient and multiply it by the activation layer
             (z * s).sum().backward()
             c = A.grad  	
-            out = (A * c).cpu().data  
+            out = (A * c).cpu().data 
             
             return out
 
