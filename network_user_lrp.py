@@ -1907,7 +1907,7 @@ class Network_User(object):
         R_fc = [None] * (fcl-1) + [(sml.cpu() * T).data + 1e-6]
         r=(sml.cpu() * T).data + 1e-6
         
-        temp=self.relprop(A_fc4, fc[1], r)
+        temp=self.relprop(A_fc4[1], fc[1], r)
         print(temp)
         
         
