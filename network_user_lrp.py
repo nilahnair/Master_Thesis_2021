@@ -1914,7 +1914,7 @@ class Network_User(object):
         tp=R_fc[0]
         b=torch.split(tp,5)
         print(b)
-        print(b.shape)
+        print(len(b))
         
         
         R_LA=[None]*5
