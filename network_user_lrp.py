@@ -1916,17 +1916,23 @@ class Network_User(object):
     def newlayer(self, layer, g):
         """Clone a layer and pass its parameters through the function g."""
         print("copying layer")
+        print(layer.weight)
+        print(layer.bias)
         layer = copy.deepcopy(layer)
         print(layer)
+        print(layer.weight)
+        print(layer.bias)
+        '''
         print(layer.weight)
         layer.weight = torch.nn.Parameter(g(layer.weight))
         print(layer.weights)
         layer.bias = torch.nn.Parameter(g(layer.bias))
         print(layer.bias)
+        '''
         return layer
         
     def relprop(self, A, layers, R_1):
-            rho= lambda p: p;
+            rho= lambda p: p
             #A[layer] = A[layer].data.requires_grad_(True)
             A = A.data.requires_grad_(True)
             print(A)
@@ -1937,6 +1943,7 @@ class Network_User(object):
             print(z)
             # Step 2: Element-wise division between the relevance of the next layer and the denominator
             s = (R_1.to(self.device) / z).data
+            print(s)
             # Step 3: Calculate the gradient and multiply it by the activation layer
             (z * s).sum().backward()
             c = A.grad  										   
