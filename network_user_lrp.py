@@ -1911,13 +1911,11 @@ class Network_User(object):
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
         #print(R_fc[0])
         
-        print(len(A_t1[1]))
-        print(len(A_t2[1]))
-        print(len(A_t3[1]))
-        print(len(A_t4[1]))
-        print(len(A_t5[1]))
-        
-        
+        print(A_t1[1].shape)
+        print(A_t2[1].shape)
+        print(A_t3[1].shape)
+        print(A_t4[1].shape)
+        print(A_t5[1].shape)
         
         return
         
