@@ -1907,7 +1907,7 @@ class Network_User(object):
         R_fc = [None] * (fcl-1) + [(sml.cpu() * T).data + 1e-6]
         r=(sml.cpu() * T).data + 1e-6
         
-        temp=self.relprop(A_fc5, fc[1], r)
+        temp=self.relprop(A_fc4, fc[1], r)
         print(temp)
         
         
@@ -1916,12 +1916,7 @@ class Network_User(object):
     def newlayer(self, layer, g):
         """Clone a layer and pass its parameters through the function g."""
         print("copying layer")
-        print(layer.weight)
-        print(layer.bias)
         layer = copy.deepcopy(layer)
-        print(layer)
-        print(layer.weight)
-        print(layer.bias)
         '''
         print(layer.weight)
         layer.weight = torch.nn.Parameter(g(layer.weight))
