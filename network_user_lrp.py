@@ -1910,20 +1910,18 @@ class Network_User(object):
         R_fc[1]=R_fc[2]
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
         #print(R_fc[0])
-        print("R_fc[0].shape")
-        print(R_fc[0].shape)
-        
-        r_LA=R_fc[0][0:256]
-        r_LL=R_fc[0][256:512]
-        r_N=R_fc[0][512:768]
-        r_RA=R_fc[0][768:1024]
-        r_RL=R_fc[0][1024:1280]
+        tp=R_fc[0]
+        r_LA=tp[0:256]
+        r_LL=tp[256:512]
+        r_N=tp[512:768]
+        r_RA=tp[768:1024]
+        r_RL=tp[1024:1280]
         
         print(r_LA.shape)
-        print(r_LA.shape)
-        print(r_LA.shape)
-        print(r_LA.shape)
-        print(r_LA.shape)
+        print(r_LL.shape)
+        print(r_N.shape)
+        print(r_RA.shape)
+        print(r_RL.shape)
         
         R_LA=[None]*5
         R_LL=[None]*5
