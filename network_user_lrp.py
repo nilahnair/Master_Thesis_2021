@@ -1915,18 +1915,9 @@ class Network_User(object):
         tp=np.array_split(tp,5)
         #test_v= torch.from_numpy(test_v)
         #test_v= test_v.to(self.device, dtype=torch.float)
-        print(tp[0])
-        r_LA=tp[0]
-        r_LL=tp[1]
-        r_N=tp[2]
-        r_RA=tp[3]
-        r_RL=tp[4]
+        print(tp)
+        print(tp.shape)
         
-        print(r_LA.shape)
-        print(r_LL.shape)
-        print(r_N.shape)
-        print(r_RA.shape)
-        print(r_RL.shape)
         
         R_LA=[None]*5
         R_LL=[None]*5
