@@ -1911,12 +1911,14 @@ class Network_User(object):
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
         #print(R_fc[0])
         tp=R_fc[0]
+        tp=torch.tensor_split(tp,5,dim=1)
+        print(tp)
         r_LA=tp[0:256]
         r_LL=tp[256:512]
         r_N=tp[512:768]
         r_RA=tp[768:1024]
         r_RL=tp[1024:1280]
-        print(type(tp))
+        
         print(r_LA.shape)
         print(r_LL.shape)
         print(r_N.shape)
