@@ -1930,18 +1930,16 @@ class Network_User(object):
             rho= lambda p: p
             #A[layer] = A[layer].data.requires_grad_(True)
             A = A.data.requires_grad_(True)
-            print(A)
             cpy=self.newlayer(layer=layers, g=rho)
-            print(cpy)
             # Step 1: Transform the weights of the layer and executes a forward pass
             z = cpy.forward(A) + 1e-9
-            print(z)
             # Step 2: Element-wise division between the relevance of the next layer and the denominator
             s = (R_1.to(self.device) / z).data
             print(s)
             # Step 3: Calculate the gradient and multiply it by the activation layer
             (z * s).sum().backward()
-            c = A.grad  										   
+            c = A.grad  	
+            print(c)									   
             out = (A * c).cpu().data  
             
             return out
