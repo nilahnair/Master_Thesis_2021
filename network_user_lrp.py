@@ -1912,7 +1912,7 @@ class Network_User(object):
         print(type(R_fc[0]))
         print(R_fc[0].shape)
         tp=R_fc[0]
-        b=torch.tensor_split(tp,5)
+        b=torch.tensor_split(tp,5, dim=0)
         print(b)
         print(len(b))
         
