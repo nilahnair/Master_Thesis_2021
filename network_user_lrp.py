@@ -1912,6 +1912,7 @@ class Network_User(object):
         #print(R_fc[0])
         tp=R_fc[0]
         tp=tp.numpy()
+        tp=np.array_split(tp,5)
         #test_v= torch.from_numpy(test_v)
         #test_v= test_v.to(self.device, dtype=torch.float)
         print(tp)
