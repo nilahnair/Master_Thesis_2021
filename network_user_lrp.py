@@ -1872,6 +1872,7 @@ class Network_User(object):
         '''
         
         layers= [module for module in network_obj.modules()]
+        print("extracted layers")
         print(layers)
         L=len(layers)
         
