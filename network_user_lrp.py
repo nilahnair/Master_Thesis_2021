@@ -1879,7 +1879,7 @@ class Network_User(object):
         print(L)
         
         for x in network_obj.named_children():
-            print(x)
+            print(x.parameters())
         
         convlayers1=layers[1:5]
         cl1=len(convlayers1)
