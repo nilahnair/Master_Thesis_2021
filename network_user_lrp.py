@@ -2009,6 +2009,8 @@ class Network_User(object):
         print(type(temp))
         print(temp.shape)
         indx_LA=[np.arange(0, 256)]
+        print(type(indx_LA))
+        
         indx_LL=np.arange(256, 512)
         indx_N=np.arange(512, 768)
         indx_RA=np.arange(768, 1024)
