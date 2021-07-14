@@ -1890,15 +1890,8 @@ class Network_User(object):
         trans=[layers[5], layers[10], layers[15], layers[20], layers[25]]
         tl=len(trans)
         fc=layers[26:30]
-        print("before")
-        print(fc)
-        print(type(fc))
-        print(len(fc))
         fc=[fc[0], fc[1], fc[3]]
-        print("after")
-        print(fc)
-        print(type(fc))
-        print(len(fc))
+        fcl=len(fc)
         
         ##############################################setting input
         
@@ -1951,8 +1944,8 @@ class Network_User(object):
             j+=2
             
         A_LA[8] = A_LA[8].reshape(-1, A_LA[8].size()[1] * A_LA[8].size()[2] * A_LA[8].size()[3])
-        A_t1=trans[0].forward(A_LA[8])
-        A_t1=[A_t1]+[F.relu(A_t1)]
+        t1=trans[0].forward(A_LA[8])
+        A_t1=[t1]+[F.relu(t1)]
        
         j=1
         for i in range(cl2):
@@ -1961,8 +1954,8 @@ class Network_User(object):
             j+=2
         
         A_LL[8] = A_LL[8].reshape(-1, A_LL[8].size()[1] * A_LL[8].size()[2] * A_LL[8].size()[3])
-        A_t2=trans[1].forward(A_LL[8])
-        A_t2=[A_t2]+[F.relu(A_t2)]
+        t2=trans[1].forward(A_LL[8])
+        A_t2=[t2]+[F.relu(t2)]
         
         j=1
         for i in range(cl3):
@@ -1970,8 +1963,8 @@ class Network_User(object):
             A_N[j+1]=F.relu(A_N[j])
             j+=2
         A_N[8] = A_N[8].reshape(-1, A_N[8].size()[1] * A_N[8].size()[2] * A_N[8].size()[3])
-        A_t3=trans[2].forward(A_N[8])
-        A_t3=[A_t3]+[F.relu(A_t3)]
+        t3=trans[2].forward(A_N[8])
+        A_t3=[t3]+[F.relu(t3)]
            
         j=1
         for i in range(cl4):
@@ -1979,8 +1972,8 @@ class Network_User(object):
             A_RA[j+1]=F.relu(A_RA[j])
             j+=2
         A_RA[8] = A_RA[8].reshape(-1, A_RA[8].size()[1] * A_RA[8].size()[2] * A_RA[8].size()[3])
-        A_t4=trans[3].forward(A_RA[8])
-        A_t4=[A_t4]+[F.relu(A_t4)]
+        t4=trans[3].forward(A_RA[8])
+        A_t4=[t4]+[F.relu(t4)]
         
         j=1
         for i in range(cl5):
@@ -1988,17 +1981,17 @@ class Network_User(object):
             A_RL[j+1]=F.relu(A_RL[j])
             j+=2
         A_RL[8] = A_RL[8].reshape(-1, A_RL[8].size()[1] * A_RL[8].size()[2] * A_RL[8].size()[3])  
-        A_t5=trans[4].forward(A_RL[8])
-        A_t5=[A_t5]+[F.relu(A_t5)]
+        t5=trans[4].forward(A_RL[8])
+        A_t5=[t5]+[F.relu(t5)]
         
         grouped= torch.cat((A_t1[1], A_t2[1], A_t3[1], A_t4[1], A_t5[1]), 1)
         
-        A_fc4=fc[0].forward(grouped)
-        A_fc4=[A_fc4]+[F.relu(A_fc4)]
+        fc4=fc[0].forward(grouped)
+        A_fc4=[fc4]+[F.relu(fc4)]
         #print(A_fc4)
         A_fc5=fc[1].forward(A_fc4[1])
         print(A_fc5)
-        sml=fc[3].forward(A_fc5)
+        sml=fc[2].forward(A_fc5)
         print(sml)
         
         print("Relevance part")
@@ -2009,7 +2002,10 @@ class Network_User(object):
         T[index] = 1
         T = torch.FloatTensor(T)
         # Create the list of relevances with (L + 1) elements and assign the value of the last one 
-        R_fc = [None] * (fcl-1) + [(sml.cpu() * T).data + 1e-6]
+        R_fc = [None] * (2) + [(sml.cpu() * T).data + 1e-6]
+        print("R_fc")
+        print(R_fc)
+        print(len(R_fc))
         #print(R_fc)
         R_fc[2]=self.relprop(A_fc4[1], fc[1], R_fc[3])
         R_fc[1]=R_fc[2]
