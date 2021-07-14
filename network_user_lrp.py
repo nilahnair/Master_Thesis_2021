@@ -1942,7 +1942,7 @@ class Network_User(object):
             A_LA[j]= convlayers1[i].forward(A_LA[j-1])
             A_LA[j+1]=F.relu(A_LA[j])
             j+=2
-        print(A_LA[8].shape)    
+        #print(A_LA[8].shape)    
         A_LA[8] = A_LA[8].reshape(-1, A_LA[8].size()[1] * A_LA[8].size()[2] * A_LA[8].size()[3])
         t1=trans[0].forward(A_LA[8])
         A_t1=[t1]+[F.relu(t1)]
@@ -1952,7 +1952,7 @@ class Network_User(object):
             A_LL[j]= convlayers2[i].forward(A_LL[j-1])
             A_LL[j+1]=F.relu(A_LL[j])
             j+=2
-        print(A_LL[8].shape)
+        #print(A_LL[8].shape)
         A_LL[8] = A_LL[8].reshape(-1, A_LL[8].size()[1] * A_LL[8].size()[2] * A_LL[8].size()[3])
         t2=trans[1].forward(A_LL[8])
         A_t2=[t2]+[F.relu(t2)]
@@ -1962,7 +1962,7 @@ class Network_User(object):
             A_N[j]= convlayers3[i].forward(A_N[j-1])
             A_N[j+1]=F.relu(A_N[j])
             j+=2
-        print(A_N[8].shape)
+        #print(A_N[8].shape)
         A_N[8] = A_N[8].reshape(-1, A_N[8].size()[1] * A_N[8].size()[2] * A_N[8].size()[3])
         t3=trans[2].forward(A_N[8])
         A_t3=[t3]+[F.relu(t3)]
@@ -1972,7 +1972,7 @@ class Network_User(object):
             A_RA[j]= convlayers4[i].forward(A_RA[j-1])
             A_RA[j+1]=F.relu(A_RA[j])
             j+=2
-        print(A_RA[8].shape)
+        #print(A_RA[8].shape)
         A_RA[8] = A_RA[8].reshape(-1, A_RA[8].size()[1] * A_RA[8].size()[2] * A_RA[8].size()[3])
         t4=trans[3].forward(A_RA[8])
         A_t4=[t4]+[F.relu(t4)]
@@ -1982,7 +1982,7 @@ class Network_User(object):
             A_RL[j]= convlayers5[i].forward(A_RL[j-1])
             A_RL[j+1]=F.relu(A_RL[j])
             j+=2
-        print(A_RL[8].shape)
+        #print(A_RL[8].shape)
         A_RL[8] = A_RL[8].reshape(-1, A_RL[8].size()[1] * A_RL[8].size()[2] * A_RL[8].size()[3])  
         t5=trans[4].forward(A_RL[8])
         A_t5=[t5]+[F.relu(t5)]
@@ -2034,6 +2034,12 @@ class Network_User(object):
         R_N[4]=self.relprop(A_N[8], trans[2], rfc_N)
         R_RA[4]=self.relprop(A_RA[8], trans[3], rfc_RA)
         R_RL[4]=self.relprop(A_RL[8], trans[4], rfc_RL)
+        
+        R_LA[4] = A_LA[4].reshape(1, 64, 84, -1) 
+        R_LL[4] = A_LL[4].reshape(1, 64, 84, -1) 
+        R_N[4] = A_N[4].reshape(1, 64, 84, -1) 
+        R_RA[4] = A_RA[4].reshape(1, 64, 84, -1) 
+        R_RL[4] = A_RL[4].reshape(1, 64, 84, -1) 
        
         R_LA[3]=self.relprop(A_LA[6], convlayers1[3], R_LA[4])
         R_LL[3]=self.relprop(A_LL[6], convlayers2[3], R_LL[4])
