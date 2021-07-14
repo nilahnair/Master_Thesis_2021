@@ -1636,9 +1636,6 @@ class Network_User(object):
         print(network_obj.conv_LA_1_1.weight)
         model_dict = network_obj.state_dict()
         print("model dict with state dict loaded")
-        print(model_dict)
-        print(model_dict.conv_LA_1_1.weight)
-
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
         if self.config["dataset"]=='mocap':
