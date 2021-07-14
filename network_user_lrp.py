@@ -1982,11 +1982,8 @@ class Network_User(object):
             A_RL[j]= convlayers5[i].forward(A_RL[j-1])
             A_RL[j+1]=F.relu(A_RL[j])
             j+=2
-        print("before reshape")    
-        print(A_RL[8].shape)
+    
         A_RL[8] = A_RL[8].reshape(-1, A_RL[8].size()[1] * A_RL[8].size()[2] * A_RL[8].size()[3])  
-        print("after reshape")
-        print(A_RL[8].shape)
         t5=trans[4].forward(A_RL[8])
         A_t5=[t5]+[F.relu(t5)]
         
@@ -2036,7 +2033,6 @@ class Network_User(object):
         R_RA[4]=self.relprop(A_RA[8], trans[3], rfc_RA)
         R_RL[4]=self.relprop(A_RL[8], trans[4], rfc_RL)
         
-        ####################3why doesnt this work???? it should ideally.
         R_LA[4] = R_LA[4].reshape(1, 64, 84, -1) 
         R_LL[4] = R_LL[4].reshape(1, 64, 84, -1) 
         R_N[4] = R_N[4].reshape(1, 64, 84, -1) 
@@ -2067,8 +2063,6 @@ class Network_User(object):
         R_RA[0]=self.relprop(A_RA[0], convlayers4[0], R_RA[1])
         R_RL[0]=self.relprop(A_RL[0], convlayers5[0], R_RL[1])
         
-        print(R_LA)
-                
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
         A_LL[0] = (A_LL[0].data).requires_grad_(True)
@@ -2110,7 +2104,7 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
         return layer
         
     def relprop(self, A, layers, R_1):
-            print(R_1.shape)
+           
             rho= lambda p: p
             #A[layer] = A[layer].data.requires_grad_(True)
             A = A.data.requires_grad_(True)
