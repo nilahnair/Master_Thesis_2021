@@ -2037,11 +2037,11 @@ class Network_User(object):
         R_RL[4]=self.relprop(A_RL[8], trans[4], rfc_RL)
         
         ####################3why doesnt this work???? it should ideally.
-        R_LA[4] = A_LA[6].reshape(1, 64, 84, -1) 
-        R_LL[4] = A_LL[6].reshape(1, 64, 84, -1) 
-        R_N[4] = A_N[6].reshape(1, 64, 84, -1) 
-        R_RA[4] = A_RA[6].reshape(1, 64, 84, -1) 
-        R_RL[4] = A_RL[6].reshape(1, 64, 84, -1) 
+        R_LA[4] = R_LA[4].reshape(1, 64, 84, -1) 
+        R_LL[4] = R_LL[4].reshape(1, 64, 84, -1) 
+        R_N[4] = R_N[4].reshape(1, 64, 84, -1) 
+        R_RA[4] = R_RA[4].reshape(1, 64, 84, -1) 
+        R_RL[4] = R_RL[4].reshape(1, 64, 84, -1) 
        
         R_LA[3]=self.relprop(A_LA[6], convlayers1[3], R_LA[4])
         R_LL[3]=self.relprop(A_LL[6], convlayers2[3], R_LL[4])
