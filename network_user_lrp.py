@@ -1872,18 +1872,13 @@ class Network_User(object):
         '''
         
         layers= [module for module in network_obj.modules()]
-        print("extracted layers")
-        print(layers)
+        #first layer is just the network layout
         L=len(layers)
-        print("length of layers")
-        print(L)
-        
-        for x in network_obj.named_children():
-            print(x.parameters())
+        #31 including networklayout, avgpool and sigmoid
         
         convlayers1=layers[1:5]
         cl1=len(convlayers1)
-        print(convlayers1)
+        print(convlayers1[0].weights)
         convlayers2=layers[6:10]
         cl2=len(convlayers2)
         convlayers3=layers[11:15]
