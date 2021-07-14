@@ -2003,28 +2003,17 @@ class Network_User(object):
         R_fc[2]=self.relprop(A_fc4[1], fc[1], R_fc[3])
         R_fc[1]=R_fc[2]
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
-        print(type(R_fc[0]))
-        print(R_fc[0].shape)
         temp=R_fc[0]
-        print(type(temp))
-        print(temp.shape)
         indx_LA=[i for i in range(0,256)]
-        print(type(indx_LA))
-        print(len(indx_LA))
-        
-        indx_LL=np.arange(256, 512)
-        indx_N=np.arange(512, 768)
-        indx_RA=np.arange(768, 1024)
-        indx_RL=np.arange(1024, 1280)
+        indx_LL=[i for i in range(256, 512)]
+        indx_N=[i for i in range(512, 768)]
+        indx_RA=[i for i in range(768, 1024)]
+        indx_RL=[i for i in range(1024, 1280)]
         rfc_LA=temp[:, indx_LA]
-        print(rfc_LA.shape)
-        
-        
-        '''
-        idx_LL = np.arange(24, 36)
-                idx_LL = np.concatenate([idx_LL, np.arange(42, 54)])
-                in_LL = test_v[ :, :, :, idx_LL]
-        '''
+        rfc_LL=temp[:, indx_LL]
+        rfc_N=temp[:, indx_N]
+        rfc_RA=temp[:, indx_RA]
+        rfc_RL=temp[:, indx_RL]
         
         R_LA=[None]*5
         R_LL=[None]*5
@@ -2032,6 +2021,11 @@ class Network_User(object):
         R_RA=[None]*5
         R_RL=[None]*5
         
+        R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
+        R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
+        R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
+        R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
+        R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
         
         
         
