@@ -1872,6 +1872,7 @@ class Network_User(object):
         '''
         
         layers= [module for module in network_obj.modules()]
+        print(layers)
         L=len(layers)
         
         convlayers1=layers[1:5]
@@ -2022,10 +2023,14 @@ class Network_User(object):
         R_RL=[None]*5
         
         R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
-        R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
-        R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
-        R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
-        R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
+        R_LL[4]=self.relprop(A_LL[8], trans[1], rfc_LL)
+        R_N[4]=self.relprop(A_N[8], trans[2], rfc_N)
+        R_RA[4]=self.relprop(A_RA[8], trans[3], rfc_RA)
+        R_RL[4]=self.relprop(A_RL[8], trans[4], rfc_RL)
+        
+        R_LA[3]=self.relprop(A_LA[8], trans[0], rfc_LA)
+        
+        
         
         
         
