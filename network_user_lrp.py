@@ -1629,6 +1629,7 @@ class Network_User(object):
         
         network_obj = Network(self.config)
         network_obj.init_weights()
+        print(network_obj.conv_LA_1_1.weight)
         model_dict = network_obj.state_dict()
         print("model dict with state dict loaded")
         #print(network_obj)
@@ -1678,8 +1679,6 @@ class Network_User(object):
         
         logging.info('        Network_User:    Test:    setting device')
         network_obj.to(self.device)
-        
-        print(network_obj.conv_LA_1_1.weight)
         
         # Setting loss, only for being measured. Network wont be trained
         if self.config['output'] == 'softmax':
