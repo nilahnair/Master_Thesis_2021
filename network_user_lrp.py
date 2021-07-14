@@ -1875,6 +1875,8 @@ class Network_User(object):
         print("extracted layers")
         print(layers)
         L=len(layers)
+        print("length of layers")
+        print(L)
         
         convlayers1=layers[1:5]
         cl1=len(convlayers1)
