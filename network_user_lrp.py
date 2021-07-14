@@ -1628,12 +1628,7 @@ class Network_User(object):
         logging.info('        Network_User:    LRP:    creating network')
         
         network_obj = Network(self.config)
-        print("network weights before initialisation")
-        print(network_obj.conv_LA_1_1.weight)
         network_obj.init_weights()
-        print("initalised network with weight")
-        print(network_obj)
-        print(network_obj.conv_LA_1_1.weight)
         model_dict = network_obj.state_dict()
         print("model dict with state dict loaded")
         #print(network_obj)
@@ -1662,8 +1657,7 @@ class Network_User(object):
                            'fc5.weight', 'fc5.bias']
         
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in list_layers}
-        print(pretrained_dict)
-
+        
         logging.info('        Network_User:        Pretrained layers selected')
         # 2. overwrite entries in the existing state dict
         model_dict.update(pretrained_dict)
@@ -1672,16 +1666,15 @@ class Network_User(object):
         network_obj.load_state_dict(model_dict)
         logging.info('        Network_User:        Weights loaded')
         
-        #network_obj.eval()
-        print(network_obj)
+        
         #network_obj= nn.Sequential(*list(network_obj.children())[:-1])
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
         logging.info('        Network_User:    Train:    network layers')
         for l in list(network_obj.named_parameters()):
-            logging.info('        Network_User:    Train:    {} : {}'.format(l[0], l[1].detach().numpy().shape))
+            logging.info('        Network_User:    Trained:    {} : {}'.format(l[0], l[1].detach().numpy().shape))
                 
-        #network_obj.eval()
+        network_obj.eval()
         
         logging.info('        Network_User:    Test:    setting device')
         network_obj.to(self.device)
@@ -2012,12 +2005,15 @@ class Network_User(object):
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
         print(type(R_fc[0]))
         print(R_fc[0].shape)
+        temp=R_fc[0]
+        print(type(temp))
+        print(temp.shape)
         indx_LA=np.arange(0, 256)
         indx_LL=np.arange(256, 512)
         indx_N=np.arange(512, 768)
         indx_RA=np.arange(768, 1024)
         indx_RL=np.arange(1024, 1280)
-        rfc_LA=R_fc[0][indx_LA]
+        rfc_LA=R_fc[:, indx_LA]
         print(rfc_LA.shape)
         
         
