@@ -1878,7 +1878,9 @@ class Network_User(object):
         
         convlayers1=layers[1:5]
         cl1=len(convlayers1)
-        print(convlayers1[0].parameters())
+        for i in convlayers1[0].parameters():
+            print("parameters")
+            print(i)
         convlayers2=layers[6:10]
         cl2=len(convlayers2)
         convlayers3=layers[11:15]
