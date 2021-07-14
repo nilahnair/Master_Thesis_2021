@@ -1878,7 +1878,8 @@ class Network_User(object):
         print("length of layers")
         print(L)
         
-        print(network_obj.named_children())
+        for x in network_obj.named_children():
+            print(x)
         
         convlayers1=layers[1:5]
         cl1=len(convlayers1)
