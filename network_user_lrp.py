@@ -1982,8 +1982,10 @@ class Network_User(object):
             A_RL[j]= convlayers5[i].forward(A_RL[j-1])
             A_RL[j+1]=F.relu(A_RL[j])
             j+=2
+        print("before reshape")    
         print(A_RL[8].shape)
         A_RL[8] = A_RL[8].reshape(-1, A_RL[8].size()[1] * A_RL[8].size()[2] * A_RL[8].size()[3])  
+        print("after reshape")
         print(A_RL[8].shape)
         t5=trans[4].forward(A_RL[8])
         A_t5=[t5]+[F.relu(t5)]
@@ -2030,6 +2032,7 @@ class Network_User(object):
         R_RA=[None]*5
         R_RL=[None]*5
         
+        print("reshape check")
         print(A_RL[8].shape)
         R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
         R_LL[4]=self.relprop(A_LL[8], trans[1], rfc_LL)
