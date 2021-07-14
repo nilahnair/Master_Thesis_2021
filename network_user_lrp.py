@@ -1890,8 +1890,15 @@ class Network_User(object):
         trans=[layers[5], layers[10], layers[15], layers[20], layers[25]]
         tl=len(trans)
         fc=layers[26:30]
-        fcl=len(fc)
+        print("before")
         print(fc)
+        print(type(fc))
+        print(len(fc))
+        fc=[fc[0], fc[1], fc[3]]
+        print("after")
+        print(fc)
+        print(type(fc))
+        print(len(fc))
         
         ##############################################setting input
         
