@@ -2008,8 +2008,9 @@ class Network_User(object):
         temp=R_fc[0]
         print(type(temp))
         print(temp.shape)
-        indx_LA=[np.arange(0, 256)]
+        indx_LA=[i for i in range(0,256)]
         print(type(indx_LA))
+        print(len(indx_LA))
         
         indx_LL=np.arange(256, 512)
         indx_N=np.arange(512, 768)
