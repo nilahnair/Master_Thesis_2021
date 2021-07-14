@@ -2035,7 +2035,7 @@ class Network_User(object):
         print("reshape check")
         print(A_RL[8].shape)
         print("shape rfc_LA")
-        print(rfc_LA)
+        print(rfc_LA.shape)
         R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
         R_LL[4]=self.relprop(A_LL[8], trans[1], rfc_LL)
         R_N[4]=self.relprop(A_N[8], trans[2], rfc_N)
