@@ -1030,7 +1030,7 @@ class Network_User(object):
             logging.info('        Network_User:    Test:    setting device')
             network_obj.to(self.device)
         '''
-        
+        '''
         network_obj = Network(self.config)
         print("network weights before initialisation")
         print(network_obj.conv_LA_1_1.weight)
@@ -1090,7 +1090,17 @@ class Network_User(object):
                 
         network_obj.eval()
         print(network_obj)
+        '''
         
+        # Creating a network and loading the weights for testing
+        # network is loaded from saved file in the folder of experiment
+        logging.info('        Network_User:    Test:    creating network')
+        if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':
+            network_obj = Network(self.config)
+
+            #Loading the model
+            network_obj.load_state_dict(torch.load(self.config['folder_exp'] + 'network.pt')['state_dict'])
+            network_obj.eval()
         logging.info('        Network_User:    Test:    setting device')
         network_obj.to(self.device)
         
@@ -1618,15 +1628,65 @@ class Network_User(object):
         logging.info('        Network_User:    LRP:    creating network')
         
         network_obj = Network(self.config)
+        print("network weights before initialisation")
+        print(network_obj.conv_LA_1_1.weight)
+        network_obj.init_weights()
+        print("initalised network with weight")
+        print(network_obj)
+        print(network_obj.conv_LA_1_1.weight)
+        model_dict = network_obj.state_dict()
+        print("model dict with state dict loaded")
+        print(model_dict)
+        print(model_dict.conv_LA_1_1.weight)
+
+        #print(network_obj)
+        #print(network_obj.conv_LA_1_1.weight)
         if self.config["dataset"]=='mocap':
-            network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_mocap.pt'))
+            #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_mocap.pt'))
+            pretrained_dict= torch.load('/data/nnair/model/model_save_mocap.pt')
             print("network loaded from model_save_mocap.pt")
         elif self.config["dataset"]=='mbientlab':
-            network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
+            #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
+            pretrained_dict= torch.load('/data/nnair/model/model_save_imu.pt')
             print("network loaded from model_save_imu.pt")
+            
+        list_layers = ['conv_LA_1_1.weight', 'conv_LA_1_1.bias', 'conv_LA_1_2.weight', 'conv_LA_1_2.bias',
+                           'conv_LA_2_1.weight', 'conv_LA_2_1.bias', 'conv_LA_2_2.weight', 'conv_LA_2_2.bias',
+                           'conv_LL_1_1.weight', 'conv_LL_1_1.bias', 'conv_LL_1_2.weight', 'conv_LL_1_2.bias',
+                           'conv_LL_2_1.weight', 'conv_LL_2_1.bias', 'conv_LL_2_2.weight', 'conv_LL_2_2.bias',
+                           'conv_N_1_1.weight', 'conv_N_1_1.bias', 'conv_N_1_2.weight', 'conv_N_1_2.bias',
+                           'conv_N_2_1.weight', 'conv_N_2_1.bias', 'conv_N_2_2.weight', 'conv_N_2_2.bias',
+                           'conv_RA_1_1.weight', 'conv_RA_1_1.bias', 'conv_RA_1_2.weight', 'conv_RA_1_2.bias',
+                           'conv_RA_2_1.weight', 'conv_RA_2_1.bias', 'conv_RA_2_2.weight', 'conv_RA_2_2.bias',
+                           'conv_RL_1_1.weight', 'conv_RL_1_1.bias', 'conv_RL_1_2.weight',  'conv_RL_1_2.bias',
+                           'conv_RL_2_1.weight', 'conv_RL_2_1.bias', 'conv_RL_2_2.weight', 'conv_RL_2_2.bias',
+                           'fc3_LA.weight', 'fc3_LA.bias', 'fc3_LL.weight', 'fc3_LL.bias', 'fc3_N.weight', 'fc3_N.bias',
+                           'fc3_RA.weight', 'fc3_RA.bias', 'fc3_RL.weight', 'fc3_RL.bias', 'fc4.weight', 'fc4.bias',
+                           'fc5.weight', 'fc5.bias']
         
+        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in list_layers}
+        print(pretrained_dict)
+
+        logging.info('        Network_User:        Pretrained layers selected')
+        # 2. overwrite entries in the existing state dict
+        model_dict.update(pretrained_dict)
+        logging.info('        Network_User:        Pretrained layers selected')
+        # 3. load the new state dict
+        network_obj.load_state_dict(model_dict)
+        logging.info('        Network_User:        Weights loaded')
+        
+        #network_obj.eval()
+        print(network_obj)
+        #network_obj= nn.Sequential(*list(network_obj.children())[:-1])
+        #print(network_obj)
+        #print(network_obj.conv_LA_1_1.weight)
+        logging.info('        Network_User:    Train:    network layers')
+        for l in list(network_obj.named_parameters()):
+            logging.info('        Network_User:    Train:    {} : {}'.format(l[0], l[1].detach().numpy().shape))
+                
         network_obj.eval()
         print(network_obj)
+        
         logging.info('        Network_User:    Test:    setting device')
         network_obj.to(self.device)
         
@@ -1956,11 +2016,20 @@ class Network_User(object):
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
         print(type(R_fc[0]))
         print(R_fc[0].shape)
-        tp=R_fc[0]
-        b=torch.split(tp,5)
-        print(b)
-        print(len(b))
+        indx_LA=np.arange(0, 256)
+        indx_LL=np.arange(256, 512)
+        indx_N=np.arange(512, 768)
+        indx_RA=np.arange(768, 1024)
+        indx_RL=np.arange(1024, 1280)
+        rfc_LA=R_fc[0][indx_LA]
+        print(rfc_LA.shape)
         
+        
+        '''
+        idx_LL = np.arange(24, 36)
+                idx_LL = np.concatenate([idx_LL, np.arange(42, 54)])
+                in_LL = test_v[ :, :, :, idx_LL]
+        '''
         
         R_LA=[None]*5
         R_LL=[None]*5
