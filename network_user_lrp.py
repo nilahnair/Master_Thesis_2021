@@ -2035,11 +2035,11 @@ class Network_User(object):
         R_RA[4]=self.relprop(A_RA[8], trans[3], rfc_RA)
         R_RL[4]=self.relprop(A_RL[8], trans[4], rfc_RL)
         
-        R_LA[4] = A_LA[4].reshape(1, 64, 84, 30) 
-        R_LL[4] = A_LL[4].reshape(1, 64, 84, 24) 
-        R_N[4] = A_N[4].reshape(1, 64, 84, 18) 
-        R_RA[4] = A_RA[4].reshape(1, 64, 84, 30) 
-        R_RL[4] = A_RL[4].reshape(1, 64, 84, 24) 
+        R_LA[4] = A_LA[4].reshape(1, 64, -1, 30) 
+        R_LL[4] = A_LL[4].reshape(1, 64, -1, 24) 
+        R_N[4] = A_N[4].reshape(1, 64, -1, 18) 
+        R_RA[4] = A_RA[4].reshape(1, 64, -1, 30) 
+        R_RL[4] = A_RL[4].reshape(1, 64, -1, 24) 
        
         R_LA[3]=self.relprop(A_LA[6], convlayers1[3], R_LA[4])
         R_LL[3]=self.relprop(A_LL[6], convlayers2[3], R_LL[4])
