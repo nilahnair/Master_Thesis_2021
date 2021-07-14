@@ -1629,7 +1629,6 @@ class Network_User(object):
         
         network_obj = Network(self.config)
         network_obj.init_weights()
-        print(network_obj.conv_LA_1_1.weight)
         model_dict = network_obj.state_dict()
         print("model dict with state dict loaded")
         #print(network_obj)
@@ -1833,6 +1832,7 @@ class Network_User(object):
             elif indxp1[i] == 1105:
                 lrp_test_indx.append(indxp1[i])
                 
+                
         for i in range (len(indxn1)):
             if indxn1[i] == 1090:
                 lrp_test_indx.append(indxn1[i])
@@ -1879,9 +1879,6 @@ class Network_User(object):
         
         convlayers1=layers[1:5]
         cl1=len(convlayers1)
-        for i in convlayers1[0].parameters():
-            print("parameters")
-            print(i)
         convlayers2=layers[6:10]
         cl2=len(convlayers2)
         convlayers3=layers[11:15]
@@ -1894,6 +1891,7 @@ class Network_User(object):
         tl=len(trans)
         fc=layers[26:30]
         fcl=len(fc)
+        print(fc)
         
         ##############################################setting input
         
