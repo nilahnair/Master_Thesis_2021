@@ -2023,8 +2023,6 @@ class Network_User(object):
         rfc_N=temp[:, indx_N]
         rfc_RA=temp[:, indx_RA]
         rfc_RL=temp[:, indx_RL]
-        print("rfc_LA")
-        print(rfc_LA.shape)
         
         R_LA=[None]*5
         R_LL=[None]*5
@@ -2032,21 +2030,18 @@ class Network_User(object):
         R_RA=[None]*5
         R_RL=[None]*5
         
-        print("reshape check")
-        print(A_RL[8].shape)
-        print("shape rfc_LA")
-        print(rfc_LA.shape)
         R_LA[4]=self.relprop(A_LA[8], trans[0], rfc_LA)
         R_LL[4]=self.relprop(A_LL[8], trans[1], rfc_LL)
         R_N[4]=self.relprop(A_N[8], trans[2], rfc_N)
         R_RA[4]=self.relprop(A_RA[8], trans[3], rfc_RA)
         R_RL[4]=self.relprop(A_RL[8], trans[4], rfc_RL)
         
-        R_LA[4] = A_LA[4].reshape(1, 64, 84, -1) 
-        R_LL[4] = A_LL[4].reshape(1, 64, 84, -1) 
-        R_N[4] = A_N[4].reshape(1, 64, 84, -1) 
-        R_RA[4] = A_RA[4].reshape(1, 64, 84, -1) 
-        R_RL[4] = A_RL[4].reshape(1, 64, 84, -1) 
+        ####################3why doesnt this work???? it should ideally.
+        R_LA[4] = A_LA[6].reshape(1, 64, 84, -1) 
+        R_LL[4] = A_LL[6].reshape(1, 64, 84, -1) 
+        R_N[4] = A_N[6].reshape(1, 64, 84, -1) 
+        R_RA[4] = A_RA[6].reshape(1, 64, 84, -1) 
+        R_RL[4] = A_RL[6].reshape(1, 64, 84, -1) 
        
         R_LA[3]=self.relprop(A_LA[6], convlayers1[3], R_LA[4])
         R_LL[3]=self.relprop(A_LL[6], convlayers2[3], R_LL[4])
