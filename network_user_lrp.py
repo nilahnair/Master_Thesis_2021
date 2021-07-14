@@ -1681,8 +1681,7 @@ class Network_User(object):
         for l in list(network_obj.named_parameters()):
             logging.info('        Network_User:    Train:    {} : {}'.format(l[0], l[1].detach().numpy().shape))
                 
-        network_obj.eval()
-        print(network_obj)
+        #network_obj.eval()
         
         logging.info('        Network_User:    Test:    setting device')
         network_obj.to(self.device)
