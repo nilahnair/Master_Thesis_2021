@@ -2017,6 +2017,8 @@ class Network_User(object):
         rfc_N=temp[:, indx_N]
         rfc_RA=temp[:, indx_RA]
         rfc_RL=temp[:, indx_RL]
+        print("rfc_LA")
+        print(rfc_LA.shape)
         
         R_LA=[None]*5
         R_LL=[None]*5
