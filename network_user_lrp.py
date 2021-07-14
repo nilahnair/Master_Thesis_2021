@@ -2003,12 +2003,8 @@ class Network_User(object):
         T = torch.FloatTensor(T)
         # Create the list of relevances with (L + 1) elements and assign the value of the last one 
         R_fc = [None] * (2) + [(sml.cpu() * T).data + 1e-6]
-        print("R_fc")
-        print(R_fc)
-        print(len(R_fc))
         #print(R_fc)
-        R_fc[2]=self.relprop(A_fc4[1], fc[1], R_fc[3])
-        R_fc[1]=R_fc[2]
+        R_fc[1]=self.relprop(A_fc4[1], fc[1], R_fc[2])
         R_fc[0]=self.relprop(grouped, fc[0], R_fc[1])
         temp=R_fc[0]
         indx_LA=[i for i in range(0,256)]
@@ -2034,7 +2030,52 @@ class Network_User(object):
         R_RA[4]=self.relprop(A_RA[8], trans[3], rfc_RA)
         R_RL[4]=self.relprop(A_RL[8], trans[4], rfc_RL)
         
-        R_LA[3]=self.relprop(A_LA[8], trans[0], rfc_LA)
+        R_LA[3]=self.relprop(A_LA[6], convlayers1[3], R_LA[4])
+        R_LL[3]=self.relprop(A_LL[6], convlayers2[3], R_LL[4])
+        R_N[3]=self.relprop(A_N[6], convlayers3[3], R_N[4])
+        R_RA[3]=self.relprop(A_RA[6], convlayers4[3], R_RA[4])
+        R_RL[3]=self.relprop(A_RL[6], convlayers5[3], R_RL[4])
+        
+        R_LA[2]=self.relprop(A_LA[4], convlayers1[2], R_LA[3])
+        R_LL[2]=self.relprop(A_LL[4], convlayers2[2], R_LL[3])
+        R_N[2]=self.relprop(A_N[4], convlayers3[2], R_N[3])
+        R_RA[2]=self.relprop(A_RA[4], convlayers4[2], R_RA[3])
+        R_RL[2]=self.relprop(A_RL[4], convlayers5[2], R_RL[3])
+        
+        R_LA[1]=self.relprop(A_LA[2], convlayers1[1], R_LA[2])
+        R_LL[1]=self.relprop(A_LL[2], convlayers2[1], R_LL[2])
+        R_N[1]=self.relprop(A_N[2], convlayers3[1], R_N[2])
+        R_RA[1]=self.relprop(A_RA[2], convlayers4[1], R_RA[2])
+        R_RL[1]=self.relprop(A_RL[2], convlayers5[1], R_RL[2])
+        
+        R_LA[0]=self.relprop(A_LA[0], convlayers1[0], R_LA[1])
+        R_LL[0]=self.relprop(A_LL[0], convlayers2[0], R_LL[1])
+        R_N[0]=self.relprop(A_N[0], convlayers3[0], R_N[1])
+        R_RA[0]=self.relprop(A_RA[0], convlayers4[0], R_RA[1])
+        R_RL[0]=self.relprop(A_RL[0], convlayers5[0], R_RL[1])
+        
+        print(R_LA)
+                
+        '''
+        A_LA[0] = (A_LA[0].data).requires_grad_(True)
+        A_LL[0] = (A_LL[0].data).requires_grad_(True)
+        A_N[0] = (A_N[0].data).requires_grad_(True)
+        A_RA[0] = (A_RA[0].data).requires_grad_(True)
+        A_RL[0] = (A_RL[0].data).requires_grad_(True)
+
+        lb = (A[0].data*0+(0-mean)/std).requires_grad_(True)
+        hb = (A[0].data*0+(1-mean)/std).requires_grad_(True)
+
+z = layers[0].forward(A[0]) + 1e-9                                     # step 1 (a)
+z -= utils.newlayer(layers[0],lambda p: p.clamp(min=0)).forward(lb)    # step 1 (b)
+z -= utils.newlayer(layers[0],lambda p: p.clamp(max=0)).forward(hb)    # step 1 (c)
+s = (R[1]/z).data                                                      # step 2
+(z*s).sum().backward(); c,cp,cm = A[0].grad,lb.grad,hb.grad            # step 3
+R[0] = (A[0]*c+lb*cp+hb*cm).data  
+'''
+
+        
+        
         
         
         
