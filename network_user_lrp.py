@@ -2016,7 +2016,7 @@ class Network_User(object):
         indx_N=np.arange(512, 768)
         indx_RA=np.arange(768, 1024)
         indx_RL=np.arange(1024, 1280)
-        rfc_LA=R_fc[:, indx_LA]
+        rfc_LA=temp[:, indx_LA]
         print(rfc_LA.shape)
         
         
