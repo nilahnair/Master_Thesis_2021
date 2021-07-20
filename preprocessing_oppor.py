@@ -162,16 +162,10 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
                 for sw in sliding_window(data_y, ws, ss):
         
                     count_l = np.bincount(sw.astype(int), minlength=NUM_ACT_CLASSES)
-                    print("count_l")
-                    print(count_l)
                     idy = np.argmax(count_l)
-                    print("idy")
-                    print(idy)
                     data_y_labels.append(idy)
                 data_y_labels = np.asarray(data_y_labels)
                 for sz in sliding_window(data_z, ws, ss):
-                    print("print sz")
-                    print(sz)
                     count_l = np.bincount(sz.astype(int), minlength=NUM_CLASSES)
                     idy = np.argmax(count_l)
                     data_z_labels.append(idy)
@@ -194,9 +188,9 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
     print("daya_y_all")
     print(data_y_all.shape)
     print("daya_z_labels")
-    print(data_z_labels.shape)
+    print(data_z_labels)
     print("daya_z_all")
-    print(data_z_all.shape)
+    print(data_z_all)
 
     return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
 
