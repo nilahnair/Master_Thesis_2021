@@ -188,9 +188,9 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
     print("daya_y_all")
     print(data_y_all.shape)
     print("daya_z_labels")
-    print(data_z_labels)
+    print(data_z_labels.shape)
     print("daya_z_all")
-    print(data_z_all)
+    print(data_z_all.shape)
 
     return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
 
@@ -383,6 +383,8 @@ def generate_data(target_filename, label, datatype):
     try:
         counter_seq = 0
         print("window extraction begining")
+        print("target file name")
+        print(target_filename())
         for f in range(X.shape[0]):
             try:
                 sys.stdout.write('\r' + 'Creating sequence file '
@@ -392,10 +394,20 @@ def generate_data(target_filename, label, datatype):
                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                 seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
                 seq = np.require(seq, dtype=np.float)
-                                    
+                print("seq")
+                print(seq.shape)
+                print("act_label")
+                print(act[f].shape)
+                print("act_all")
+                print(act_all[f].shape)
+                print("id")
+                print(labelid[f].shape)
+                print("id_all")
+                print(labelid_all[f].shape)
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
                 obj = {"data": seq, "act_label": act[f], "act_labels_all": act_all[f], "label": labelid[f]}
+                
                 f = open(os.path.join(target_filename, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
                 f.close()
