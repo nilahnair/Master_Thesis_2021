@@ -25,57 +25,23 @@ from sliding_window_dat import sliding_window
 
 
 # Hardcoded number of sensor channels employed in the OPPORTUNITY challenge
-NB_SENSOR_CHANNELS = 113
-NUM_ACT_CLASSES= 5
-NUM_CLASSES =4
+NB_SENSOR_CHANNELS = 40
+NUM_ACT_CLASSES= 12
+NUM_CLASSES =9
 
 ws = 100
 ss = 12
 
-OPPORTUNITY_DATA_FILES = ['OpportunityUCIDataset/dataset/S1-Drill.dat', #0
-                          'OpportunityUCIDataset/dataset/S1-ADL1.dat',  #1
-                          'OpportunityUCIDataset/dataset/S1-ADL2.dat',  #2
-                          'OpportunityUCIDataset/dataset/S1-ADL3.dat',  #3
-                          'OpportunityUCIDataset/dataset/S1-ADL4.dat',  #4
-                          'OpportunityUCIDataset/dataset/S1-ADL5.dat',  #5
-                          'OpportunityUCIDataset/dataset/S2-Drill.dat', #6
-                          'OpportunityUCIDataset/dataset/S2-ADL1.dat',  #7
-                          'OpportunityUCIDataset/dataset/S2-ADL2.dat',  #8
-                          'OpportunityUCIDataset/dataset/S3-Drill.dat', #9
-                          'OpportunityUCIDataset/dataset/S3-ADL1.dat',  #10
-                          'OpportunityUCIDataset/dataset/S3-ADL2.dat',  #11
-                          'OpportunityUCIDataset/dataset/S2-ADL3.dat',  #12
-                          'OpportunityUCIDataset/dataset/S3-ADL3.dat',  #13
-                          'OpportunityUCIDataset/dataset/S2-ADL4.dat',  #14
-                          'OpportunityUCIDataset/dataset/S2-ADL5.dat',  #15
-                          'OpportunityUCIDataset/dataset/S3-ADL4.dat',  #16
-                          'OpportunityUCIDataset/dataset/S3-ADL5.dat'   #17
-                          ]
-persons = ["S1", "S2", "S3", "S4"]
-ID ={"S1": 0, "S2": 1, "S3": 2, "S4": 3,}
-train_data_files = ['/vol/actrec/Opportunity/dataset/S1-ADL1.dat', #0
-                    '/vol/actrec/Opportunity/dataset/S1-ADL2.dat', #1
-                    '/vol/actrec/Opportunity/dataset/S1-ADL3.dat', #2
-                    '/vol/actrec/Opportunity/dataset/S2-ADL1.dat', #3
-                    '/vol/actrec/Opportunity/dataset/S2-ADL2.dat', #4
-                    '/vol/actrec/Opportunity/dataset/S2-ADL3.dat', #5
-                    '/vol/actrec/Opportunity/dataset/S3-ADL1.dat', #6
-                    '/vol/actrec/Opportunity/dataset/S3-ADL2.dat', #7
-                    '/vol/actrec/Opportunity/dataset/S3-ADL3.dat', #8
-                    '/vol/actrec/Opportunity/dataset/S4-ADL1.dat', #9
-                    '/vol/actrec/Opportunity/dataset/S4-ADL2.dat', #10
-                    '/vol/actrec/Opportunity/dataset/S4-ADL3.dat'  #11
-                    ]
-val_data_files = ['/vol/actrec/Opportunity/dataset/S1-ADL4.dat', #0
-                  '/vol/actrec/Opportunity/dataset/S2-ADL4.dat', #1
-                  '/vol/actrec/Opportunity/dataset/S3-ADL4.dat', #2
-                  '/vol/actrec/Opportunity/dataset/S4-ADL4.dat'  #3
-                 ]
-test_data_files = ['/vol/actrec/Opportunity/dataset/S1-ADL5.dat', #0
-                  '/vol/actrec/Opportunity/dataset/S2-ADL5.dat',  #1
-                  '/vol/actrec/Opportunity/dataset/S3-ADL5.dat',  #2
-                  '/vol/actrec/Opportunity/dataset/S4-ADL5.dat'   #3
-                 ]
+PAMAP2_DATA_FILES = ['/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject101.dat', #0
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject102.dat', #1
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject103.dat', #2
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject104.dat', #3
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject105.dat', #4
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject106.dat', #5
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject107.dat', #6
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject108.dat', #7
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject109.dat', #8
+                      ]
 
 # Hardcoded thresholds to define global maximums and minimums for every one of the 113 sensor channels employed in the
 # OPPORTUNITY challenge
@@ -107,24 +73,33 @@ NORM_MIN_THRESHOLDS = [-3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -
                        -200,   -5000,  -5000,  -5000,  -5000,  -5000,  -5000,  -10000, -10000,
                        -10000, -10000, -10000, -10000, -250, ]
 
-def select_columns_opp(data):
-    """Selection of the 113 columns employed in the OPPORTUNITY challenge
+def select_columns_opp(self, raw_data):
+        """Selection of the columns employed in the Pamap2 dataset
 
-    :param data: numpy integer matrix
-        Sensor data (all features)
-    :return: numpy integer matrix
-        Selection of features
-    """
+        :param data: numpy integer matrix
+            Sensor data (all features)
+        :return: numpy integer matrix
+            Selection of features
+        """
 
-    #                     included-excluded
-    features_delete = np.arange(46, 50)
-    features_delete = np.concatenate([features_delete, np.arange(59, 63)])
-    features_delete = np.concatenate([features_delete, np.arange(72, 76)])
-    features_delete = np.concatenate([features_delete, np.arange(85, 89)])
-    features_delete = np.concatenate([features_delete, np.arange(98, 102)])
-    features_delete = np.concatenate([features_delete, np.arange(134, 243)])
-    features_delete = np.concatenate([features_delete, np.arange(244, 249)])
-    return np.delete(data, features_delete, 1)
+        #                     included-excluded
+        features_delete = np.arange(14, 18)
+        features_delete = np.concatenate([features_delete, np.arange(31, 35)])
+        features_delete = np.concatenate([features_delete, np.arange(48, 52)])
+
+        return np.delete(raw_data, features_delete, 1)
+    
+def complete_HR(self, raw_data):
+
+        pos_NaN = np.isnan(raw_data)
+        idx_NaN = np.where(pos_NaN == False)[0]
+        data_no_NaN = raw_data * 0
+        for idx in range(idx_NaN.shape[0] - 1):
+            data_no_NaN[idx_NaN[idx]: idx_NaN[idx + 1]] = raw_data[idx_NaN[idx]]
+
+        data_no_NaN[idx_NaN[-1]:] = raw_data[idx_NaN[-1]]
+
+        return data_no_NaN
 
 def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
     '''
@@ -194,116 +169,129 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
 
     return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
 
-def normalize(data, max_list, min_list):
-    """Normalizes all sensor channels
+def normalize(self, raw_data, max_list, min_list):
+        """Normalizes all sensor channels
 
-    :param data: numpy integer matrix
-        Sensor data
-    :param max_list: numpy integer array
-        Array containing maximums values for every one of the 113 sensor channels
-    :param min_list: numpy integer array
-        Array containing minimum values for every one of the 113 sensor channels
-    :return:
-        Normalized sensor data
-    """
-    max_list, min_list = np.array(max_list), np.array(min_list)
-    diffs = max_list - min_list
-    for i in np.arange(data.shape[1]):
-        data[:, i] = (data[:, i]-min_list[i])/diffs[i]
-    #     Checking the boundaries
-    data[data > 1] = 0.99
-    data[data < 0] = 0.00
-    return data
+        :param data: numpy integer matrix
+            Sensor data
+        :param max_list: numpy integer array
+            Array containing maximums values for every one of the 113 sensor channels
+        :param min_list: numpy integer array
+            Array containing minimum values for every one of the 113 sensor channels
+        :return:
+            Normalized sensor data
+        """
+        max_list, min_list = np.array(max_list), np.array(min_list)
+        diffs = max_list - min_list
+        for i in np.arange(raw_data.shape[1]):
+            raw_data[:, i] = (raw_data[:, i] - min_list[i]) / diffs[i]
+        #     Checking the boundaries
+        raw_data[raw_data > 1] = 0.99
+        raw_data[raw_data < 0] = 0.00
+        return raw_data
 
-def divide_x_y(data, label):
-    """Segments each sample into features and label
+def divide_x_y(self, raw_data):
+        """Segments each sample into features and label
 
-    :param data: numpy integer matrix
-        Sensor data
-    :param label: string, ['gestures' (default), 'locomotion']
-        Type of activities to be recognized
-    :return: numpy integer matrix, numpy integer array
-        Features encapsulated into a matrix and labels as an array
-    """
+        :param data: numpy integer matrix
+            Sensor data
+        :param label: string, ['gestures' (default), 'locomotion']
+            Type of activities to be recognized
+        :return: numpy integer matrix, numpy integer array
+            Features encapsulated into a matrix and labels as an array
+        """
+        data_t = raw_data[:, 0]
+        data_y = raw_data[:, 1]
+        data_x = raw_data[:, 2:]
 
-    data_x = data[:, 1:114]
-    if label not in ['locomotion', 'gestures']:
-            raise RuntimeError("Invalid label: '%s'" % label)
-    if label == 'locomotion':
-        print("Locomotion")
-        data_y = data[:, 114]  # Locomotion label
-    elif label == 'gestures':
-        print("Gestures")
-        data_y = data[:, 115]  # Gestures label
+        return data_t, data_x, data_y
 
-    return data_x, data_y
+def del_labels(self, data_t, data_x, data_y):
 
-def adjust_idx_labels(data_y, label):
-    """Transforms original labels into the range [0, nb_labels-1]
+        idy = np.where(data_y == 0)[0]
+        labels_delete = idy
 
-    :param data_y: numpy integer array
-        Sensor labels
-    :param label: string, ['gestures' (default), 'locomotion']
-        Type of activities to be recognized
-    :return: numpy integer array
-        Modified sensor labels
-    """
+        idy = np.where(data_y == 8)[0]
+        labels_delete = np.concatenate([labels_delete, idy])
 
-    if label == 'locomotion':  # Labels for locomotion are adjusted
-        data_y[data_y == 4] = 3
-        data_y[data_y == 5] = 4
-    elif label == 'gestures':  # Labels for gestures are adjusted
-        data_y[data_y == 406516] = 1
-        data_y[data_y == 406517] = 2
-        data_y[data_y == 404516] = 3
-        data_y[data_y == 404517] = 4
-        data_y[data_y == 406520] = 5
-        data_y[data_y == 404520] = 6
-        data_y[data_y == 406505] = 7
-        data_y[data_y == 404505] = 8
-        data_y[data_y == 406519] = 9
-        data_y[data_y == 404519] = 10
-        data_y[data_y == 406511] = 11
-        data_y[data_y == 404511] = 12
-        data_y[data_y == 406508] = 13
-        data_y[data_y == 404508] = 14
-        data_y[data_y == 408512] = 15
-        data_y[data_y == 407521] = 16
-        data_y[data_y == 405506] = 17
-    return data_y
+        idy = np.where(data_y == 9)[0]
+        labels_delete = np.concatenate([labels_delete, idy])
 
-def process_dataset_file(data, label):
-    """Function defined as a pipeline to process individual OPPORTUNITY files
+        idy = np.where(data_y == 10)[0]
+        labels_delete = np.concatenate([labels_delete, idy])
 
-    :param data: numpy integer matrix
-        Matrix containing data samples (rows) for every sensor channel (column)
-    :param label: string, ['gestures' (default), 'locomotion']
-        Type of activities to be recognized
-    :return: numpy integer matrix, numy integer array
-        Processed sensor data, segmented into features (x) and labels (y)
-    """
+        idy = np.where(data_y == 11)[0]
+        labels_delete = np.concatenate([labels_delete, idy])
 
-    # Select correct columns
-    data = select_columns_opp(data)
+        idy = np.where(data_y == 18)[0]
+        labels_delete = np.concatenate([labels_delete, idy])
 
-    # Colums are segmentd into features and labels
-    data_x, data_y =  divide_x_y(data, label)
-    data_y = adjust_idx_labels(data_y, label)
-    data_y = data_y.astype(int)
+        idy = np.where(data_y == 19)[0]
+        labels_delete = np.concatenate([labels_delete, idy])
 
-    # Perform linear interpolation
-    data_x = np.array([Series(i).interpolate() for i in data_x.T]).T
+        idy = np.where(data_y == 20)[0]
+        labels_delete = np.concatenate([labels_delete, idy])
 
-    # Remaining missing data are converted to zero
-    data_x[np.isnan(data_x)] = 0
+        return np.delete(data_t, labels_delete, 0), np.delete(data_x, labels_delete, 0), np.delete(data_y,
+                                                                                                   labels_delete, 0)
+    
+def adjust_idx_labels(self, data_y):
+        """Transforms original labels into the range [0, nb_labels-1]
 
-    # All sensor channels are normalized
-    data_x = normalize(data_x, NORM_MAX_THRESHOLDS, NORM_MIN_THRESHOLDS)
+        :param data_y: numpy integer array
+            Sensor labels
+        :param label: string, ['gestures' (default), 'locomotion']
+            Type of activities to be recognized
+        :return: numpy integer array
+            Modified sensor labels
+        """
 
-    return data_x, data_y
+        data_y[data_y == 24] = 0
+        data_y[data_y == 12] = 8
+        data_y[data_y == 13] = 9
+        data_y[data_y == 16] = 10
+        data_y[data_y == 17] = 11
+
+        return data_y
+
+def process_dataset_file(self, raw_data):
+        """Function defined as a pipeline to process individual OPPORTUNITY files
+
+        :param data: numpy integer matrix
+            Matrix containing data samples (rows) for every sensor channel (column)
+        :param label: string, ['gestures' (default), 'locomotion']
+            Type of activities to be recognized
+        :return: numpy integer matrix, numy integer array
+            Processed sensor data, segmented into features (x) and labels (y)
+        """
+
+        # Colums are segmentd into features and labels
+        data_t, data_x, data_y = self.divide_x_y(raw_data)
+        data_t, data_x, data_y = self.del_labels(data_t, data_x, data_y)
+
+        data_y = self.adjust_idx_labels(data_y)
+        data_y = data_y.astype(int)
+
+        # Select correct columns
+        data_x = self.select_columns_opp(data_x)
+
+        if data_x.shape[0] != 0:
+            HR_no_NaN = self.complete_HR(data_x[:, 0])
+            data_x[:, 0] = HR_no_NaN
+
+            data_x[np.isnan(data_x)] = 0
+            # All sensor channels are normalized
+            data_x = self.normalize(data_x, NORM_MAX_THRESHOLDS, NORM_MIN_THRESHOLDS)
+
+        #data_t, data_x, data_y = self.downsampling(data_t, data_x, data_y)
+
+        return data_x, data_y
 
 
-def generate_data(target_filename, label, datatype):
+def generate_data(target_filename):
+    data_dir_train = base_directory + 'sequences_train/'
+    data_dir_val = base_directory + 'sequences_val/'
+    data_dir_test = base_directory + 'sequences_test/'
     """
     :param target_filename: string
         Processed file
@@ -313,62 +301,61 @@ def generate_data(target_filename, label, datatype):
     :param datatype: string ['train', 'val', 'test']
         for choosing the sub categories for saving files
     """
-    if datatype == 'train':
-        print("initialising train variables")
-        X_train = np.empty((0, NB_SENSOR_CHANNELS))
-        act_train = np.empty((0))
-        id_train = np.empty((0))
-        data_files = train_data_files
-    elif datatype == 'val':
-        print("initialising val variables")
-        X_val = np.empty((0, NB_SENSOR_CHANNELS))
-        act_val = np.empty((0))
-        id_val = np.empty((0))
-        data_files = val_data_files
-    elif datatype == 'test':
-        print("initialising test variables")
-        X_test = np.empty((0, NB_SENSOR_CHANNELS))
-        act_test = np.empty((0))
-        id_test = np.empty((0))
-        data_files = test_data_files
-    counter_files = 0
+    X = np.empty((0, NB_SENSOR_CHANNELS))
+    Y = np.empty((0))
+    lid= np.empty((0))
     
-    print('Processing dataset files ...')
-    for d in data_files:
-        try:
-            data = np.loadtxt(d)
-            print('file {0}'.format(d))
-            x, y = process_dataset_file(data, label)
-            print(x.shape)
-            print(y.shape)
-            if datatype == 'train':
-                print("concatenating train values")
-                X_train = np.vstack((X_train, x))
-                act_train = np.concatenate([act_train, y])
-                if counter_files >=0 and counter_files<3:
-                    iden= np.full(y.shape, 0)
-                elif counter_files>=3 and counter_files <6:
-                    iden= np.full(y.shape, 1)
-                elif counter_files>=6 and counter_files <9:
-                    iden = np.full(y.shape, 2)
-                elif counter_files >=9:
-                    iden = np.full(y.shape,3)
-                id_train = np.concatenate([id_train, iden])
-            elif datatype == 'val':
-                print("concatenating val values")
-                X_val = np.vstack((X_val, x))
-                act_val = np.concatenate([act_val, y])
-                id_val = np.concatenate([id_val, np.full(y.shape,counter_files)])
-            elif datatype == 'test':
-                print("concatenating test values")
-                X_test = np.vstack((X_test, x))
-                act_test = np.concatenate([act_test, y])
-                id_test = np.concatenate([id_test, np.full(y.shape,counter_files)])
-            
-        except KeyError:
-            print('ERROR: Did not find {0} in zip file'.format(d))
-            
-        counter_files += 1 
+    X_train = np.empty((0, NB_SENSOR_CHANNELS))
+    act_train = np.empty((0))
+    id_train = np.empty((0))
+    
+    X_val = np.empty((0, NB_SENSOR_CHANNELS))
+    act_val = np.empty((0))
+    id_val = np.empty((0))
+    
+    X_test = np.empty((0, NB_SENSOR_CHANNELS))
+    act_test = np.empty((0))
+    id_test = np.empty((0))
+    
+    logging.info('Processing dataset files ...')
+    counter=0
+    for idx_f in PAMAP2_DATA_FILES:
+            try:
+                logging.info('Loading file...{0}'.format(idx_f))
+                raw_data = np.loadtxt(idx_f)
+                print(idx_f)
+                x, y = process_dataset_file(raw_data)
+                logging.info(x.shape)
+                logging.info(y.shape)
+                
+                X = np.vstack((X, x))
+                Y = np.concatenate([Y, y])
+                lid = np.concatenate([lid, np.full(y.shape,counter)])
+                
+                shape=y.shape
+                print("total")
+                print(shape)
+                print("64%")
+                train_no=round(0.64*shape)
+                print(train_no)
+                val_no=round(0.18*shape)
+                print(val_no)
+                act_train=y[0:train_no]
+                print("act_train")
+                print(act_train.shape)
+                tv= train_no+val_no
+                act_val=y[train_no:tv]
+                print("act_val")
+                print(act_val.shape)
+                act_test=y[tv:shape]
+                print("act_test")
+                print(act_test.shape)
+                
+                
+                counter+=1
+            except KeyError:
+                logging.error('ERROR: Did not find {0} in zip file'.format(PAMAP2_DATA_FILES[idx_f]))
+     
     try:    
         print("performing sliding window")
         if datatype == 'train':
@@ -467,19 +454,14 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/oppor/locomotions/inputs/'
-        
-    data_dir_train = base_directory + 'sequences_train/'
-    data_dir_val = base_directory + 'sequences_val/'
-    data_dir_test = base_directory + 'sequences_test/'
-    l= 'locomotion'
-    generate_data(target_filename=data_dir_train, label=l, datatype='train')
-    generate_data(target_filename=data_dir_val, label=l, datatype='val')
-    generate_data(target_filename=data_dir_test, label=l, datatype='test')
+    base_directory = '/data/nnair/pamap/input/'
     
+    generate_data(base_directory)
+    
+    '''
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
     generate_CSV(base_directory + "test.csv", data_dir_test)
     generate_CSV_final(base_directory + "train_final.csv", data_dir_train, data_dir_val)
-    
+    '''
     print("Done")
