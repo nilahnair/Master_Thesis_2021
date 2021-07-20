@@ -29,12 +29,10 @@ from matplotlib.ticker import LinearLocator, FormatStrFormatter
 from matplotlib.collections import PolyCollection
 
 from network_op import Network
-#from network_lstm import Network
 
 from HARWindows_act import HARWindows
 
 from metrics import Metrics
-#from metrics_act import Metrics
 
 
 

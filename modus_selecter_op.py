@@ -414,7 +414,7 @@ class Modus_Selecter(object):
 
         # Testing the network in folder (according to the conf)
         #results_test, confusion_matrix_test, _ , c_pos_test, c_neg_test = self.network.evolution_evaluation(ea_iter=0, testing=testing)
-        results_test, confusion_matrix_test = self.network.evolution_evaluation(ea_iter=0, testing=testing)
+        results_test, confusion_matrix_test, _ = self.network.evolution_evaluation(ea_iter=0, testing=testing)
 
         elapsed_time_test = time.time() - start_time_test
 
