@@ -19,7 +19,7 @@ import numpy as np
 import sys
 #import torch.utils.data as data
 import logging
-from sliding_window import sliding_window
+from sliding_window_dat import sliding_window
 #from resampling import Resampling
 
 
@@ -141,25 +141,25 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
     print(data_x.shape)
     # Label from the end
     if label_pos_end:
-        
-        data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
-        data_z = np.asarray([[i[-1]] for i in sliding_window(data_z, (ws, data_z.shape[1]), (ss, 1))])
+        print("check 1")
+        data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, ws, ss)])
+        data_z = np.asarray([[i[-1]] for i in sliding_window(data_z, ws, ss)])
     else:
         if False:
             # Label from the middle
             # not used in experiments
-           
+            print("check 2")
             data_y_labels = np.asarray(
-                [[i[i.shape[0] // 2]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+                [[i[i.shape[0] // 2]] for i in sliding_window(data_y, ws, ss)])
             data_z_labels = np.asarray(
-                [[i[i.shape[0] // 2]] for i in sliding_window(data_z, (ws, data_z.shape[1]), (ss, 1))])
+                [[i[i.shape[0] // 2]] for i in sliding_window(data_z, ws, ss)])
         else:
             # Label according to mode
             try:
-                
+                print("check 3")
                 data_y_labels = []
                 data_z_labels = []
-                for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
+                for sw in sliding_window(data_y, ws, ss):
                    
                     labels = np.zeros((1)).astype(int)
                     count_l = np.bincount(sw[:, 0], minlength=NUM_ACT_CLASSES)
@@ -168,10 +168,10 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
                    
                     data_y_labels.append(labels)
                 data_y_labels = np.asarray(data_y_labels)
-                for sz in sliding_window(data_z, (ws, data_z.shape[1]), (ss, 1)):
+                for sz in sliding_window(data_z, ws, ss):
                    
                     labels = np.zeros((1)).astype(int)
-                    count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
+                    count_l = np.bincount(sz[:, 0], minlength=NUM_CLASSES)
                     idy = np.argmax(count_l)
                     labels[0] = idy
                    
