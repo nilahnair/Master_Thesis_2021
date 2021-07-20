@@ -394,15 +394,6 @@ def generate_data(target_filename, label, datatype):
                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                 seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
                 seq = np.require(seq, dtype=np.float)
-                
-                print("act_label")
-                print(act[f])
-                print("act_all")
-                print(act_all[f])
-                print("id")
-                print(labelid[f])
-                print("id_all")
-                print(labelid_all[f])
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
                 obj = {"data": seq, "act_label": act[f], "act_labels_all": act_all[f], "label": labelid[f]}
@@ -430,7 +421,49 @@ def generate_data(target_filename, label, datatype):
     pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
     f.close()
     '''
+    return
+
+def generate_CSV(csv_dir, data_dir):
+    '''
+    Generate CSV file with path to all (Training) of the segmented sequences
+    This is done for the DATALoader for Torch, using a CSV file with all the paths from the extracted
+    sequences.
+
+    @param csv_dir: Path to the dataset
+    @param data_dir: Path of the training data
+    '''
+    f = []
+    for dirpath, dirnames, filenames in os.walk(data_dir):
+        for n in range(len(filenames)):
+            f.append(data_dir + 'seq_{0:06}.pkl'.format(n))
+
+    #np.savetxt(csv_dir + type_file, f, delimiter="\n", fmt='%s')
+    np.savetxt(csv_dir, f, delimiter="\n", fmt='%s')
     
+    return
+
+def generate_CSV_final(csv_dir, data_dir1, data_dir2):
+    '''
+    Generate CSV file with path to all (Training and Validation) of the segmented sequences
+    This is done for the DATALoader for Torch, using a CSV file with all the paths from the extracted
+    sequences.
+
+    @param csv_dir: Path to the dataset
+    @param data_dir1: Path of the training data
+    @param data_dir2: Path of the validation data
+    '''
+    f = []
+    for dirpath, dirnames, filenames in os.walk(data_dir1):
+        for n in range(len(filenames)):
+            f.append(data_dir1 + 'seq_{0:06}.pkl'.format(n))
+
+    for dirpath, dirnames, filenames in os.walk(data_dir2):
+        for n in range(len(filenames)):
+            f.append(data_dir1 + 'seq_{0:06}.pkl'.format(n))
+
+    np.savetxt(csv_dir, f, delimiter="\n", fmt='%s')
+
+    return
     
 if __name__ == '__main__':
     
@@ -444,11 +477,9 @@ if __name__ == '__main__':
     generate_data(target_filename=data_dir_val, label=l, datatype='val')
     generate_data(target_filename=data_dir_test, label=l, datatype='test')
     
-    ##############check this parts neccesity
-    '''
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
     generate_CSV(base_directory + "test.csv", data_dir_test)
     generate_CSV_final(base_directory + "train_final.csv", data_dir_train, data_dir_val)
-    '''
+    
     print("Done")
