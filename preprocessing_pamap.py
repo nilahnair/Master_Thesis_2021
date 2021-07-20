@@ -317,75 +317,136 @@ def generate_data(target_filename):
     act_test = np.empty((0))
     id_test = np.empty((0))
     
-    logging.info('Processing dataset files ...')
+    print('Processing dataset files ...')
     counter=0
     for idx_f in PAMAP2_DATA_FILES:
             try:
-                logging.info('Loading file...{0}'.format(idx_f))
+                print('Loading file...{0}'.format(idx_f))
                 raw_data = np.loadtxt(idx_f)
                 print(idx_f)
                 x, y = process_dataset_file(raw_data)
-                logging.info(x.shape)
-                logging.info(y.shape)
+                print("print datashape")
+                print(x.shape)
+                print(y.shape)
+                
+                shape=y.shape[0]
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                x_train=x[0:train_no,:]
+                x_val= x[train_no:tv,:]
+                x_test= x[tv:shape,:]
+                
+                print(x_train.shape)
+                
+                a_train=y[0:train_no]
+                a_val=y[train_no:tv]
+                a_test=y[tv:shape]
+                
+                i_train=np.full(a_train.shape,counter)
+                i_val=np.full(a_val.shape,counter)
+                i_test=np.full(a_test.shape,counter)
                 
                 X = np.vstack((X, x))
                 Y = np.concatenate([Y, y])
                 lid = np.concatenate([lid, np.full(y.shape,counter)])
                 
-                shape=y.shape[0]
-                print("total")
-                print(shape)
-                print("64%")
-                train_no=round(0.64*shape)
-                print(train_no)
-                val_no=round(0.18*shape)
-                print(val_no)
-                act_train=y[0:train_no]
-                print("act_train")
-                print(act_train.shape)
-                tv= train_no+val_no
-                act_val=y[train_no:tv]
-                print("act_val")
-                print(act_val.shape)
-                act_test=y[tv:shape]
-                print("act_test")
-                print(act_test.shape)
+                X_train= np.vstack((X_train, x_train))
+                act_train= np.concatenate([act_train, a_train])
+                id_train= np.concatenate([id_train, i_train])
                 
+                X_val= np.vstack((X_val, x_val))
+                act_val= np.concatenate([act_val, a_val])
+                id_val= np.concatenate([id_val, i_val])
+                
+                X_test= np.vstack((X_test, x_test))
+                act_test= np.concatenate([act_test, a_test])
+                id_test= np.concatenate([id_test, i_test])
                 
                 counter+=1
             except KeyError:
                 logging.error('ERROR: Did not find {0} in zip file'.format(PAMAP2_DATA_FILES[idx_f]))
      
     try:    
-        print("performing sliding window")
-        if datatype == 'train':
-            X, act, act_all, labelid, labelid_all = opp_sliding_window(X_train, act_train, id_train, label_pos_end = False)
-        elif datatype == 'val':
-            X, act, act_all, labelid, labelid_all = opp_sliding_window(X_val, act_val, id_val, label_pos_end = False)
-        elif datatype == 'test':
-            X, act, act_all, labelid, labelid_all = opp_sliding_window(X_test, act_test, id_test, label_pos_end = False)
+        data_train, act_train, act_all_train, labelid_train, labelid_all_train = opp_sliding_window(X_train, act_train, id_train, label_pos_end = False)
+        data_val, act_val, act_all_val, labelid_val, labelid_all_val = opp_sliding_window(X_val, act_val, id_val, label_pos_end = False)
+        data_test, act_test, act_all_test, labelid_test, labelid_all_test = opp_sliding_window(X_test, act_test, id_test, label_pos_end = False)
     except:
         print("error in sliding window")
         
     try:
-        counter_seq = 0
+        
         print("window extraction begining")
+        
+        print("training data save")
         print("target file name")
-        print(target_filename)
-        for f in range(X.shape[0]):
+        print(data_dir_train)
+        counter_seq = 0
+        for f in range(data_train.shape[0]):
             try:
                 sys.stdout.write('\r' + 'Creating sequence file '
                                  'number {} with id {}'.format(f, counter_seq))
                 sys.stdout.flush()
 
                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
-                seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
+                seq = np.reshape(data_train[f], newshape = (1, data_train.shape[1], data_train.shape[2]))
                 seq = np.require(seq, dtype=np.float)
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
-                obj = {"data": seq, "act_label": act[f], "act_labels_all": act_all[f], "label": labelid[f]}
+                obj = {"data": seq, "act_label": act_train[f], "act_labels_all": act_all_train[f], "label": labelid_train[f]}
                 
-                f = open(os.path.join(target_filename, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
+                f = open(os.path.join(data_dir_train, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
+                pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
+                f.close()
+
+                counter_seq += 1
+            except:
+                raise('\nError adding the seq')
+                
+        print("val data save")
+        print("target file name")
+        print(data_dir_val)
+        counter_seq = 0
+        for f in range(data_val.shape[0]):
+            try:
+                sys.stdout.write('\r' + 'Creating sequence file '
+                                 'number {} with id {}'.format(f, counter_seq))
+                sys.stdout.flush()
+
+                # print "Creating sequence file number {} with id {}".format(f, counter_seq)
+                seq = np.reshape(data_val[f], newshape = (1, data_val.shape[1], data_val.shape[2]))
+                seq = np.require(seq, dtype=np.float)
+                # Storing the sequences
+                #obj = {"data": seq, "label": labelid}
+                obj = {"data": seq, "act_label": act_val[f], "act_labels_all": act_all_val[f], "label": labelid_val[f]}
+                
+                f = open(os.path.join(data_dir_val, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
+                pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
+                f.close()
+
+                counter_seq += 1
+            except:
+                raise('\nError adding the seq')
+                
+        print("test data save")
+        print("target file name")
+        print(data_dir_test)
+        counter_seq = 0
+        for f in range(data_test.shape[0]):
+            try:
+                sys.stdout.write('\r' + 'Creating sequence file '
+                                 'number {} with id {}'.format(f, counter_seq))
+                sys.stdout.flush()
+
+                # print "Creating sequence file number {} with id {}".format(f, counter_seq)
+                seq = np.reshape(data_test[f], newshape = (1, data_test.shape[1], data_test.shape[2]))
+                seq = np.require(seq, dtype=np.float)
+                # Storing the sequences
+                #obj = {"data": seq, "label": labelid}
+                obj = {"data": seq, "act_label": act_test[f], "act_labels_all": act_all_test[f], "label": labelid_test[f]}
+                
+                f = open(os.path.join(data_dir_test, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
                 f.close()
 
@@ -457,6 +518,10 @@ if __name__ == '__main__':
     base_directory = '/data/nnair/pamap/input/'
     
     generate_data(base_directory)
+    
+    data_dir_train = base_directory + 'sequences_train/'
+    data_dir_val = base_directory + 'sequences_val/'
+    data_dir_test = base_directory + 'sequences_test/'
     
     '''
     generate_CSV(base_directory + "train.csv", data_dir_train)
