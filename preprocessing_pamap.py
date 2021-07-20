@@ -73,7 +73,7 @@ NORM_MIN_THRESHOLDS = [-3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -
                        -200,   -5000,  -5000,  -5000,  -5000,  -5000,  -5000,  -10000, -10000,
                        -10000, -10000, -10000, -10000, -250, ]
 
-def select_columns_opp(self, raw_data):
+def select_columns_opp(raw_data):
         """Selection of the columns employed in the Pamap2 dataset
 
         :param data: numpy integer matrix
@@ -89,7 +89,7 @@ def select_columns_opp(self, raw_data):
 
         return np.delete(raw_data, features_delete, 1)
     
-def complete_HR(self, raw_data):
+def complete_HR(raw_data):
 
         pos_NaN = np.isnan(raw_data)
         idx_NaN = np.where(pos_NaN == False)[0]
@@ -169,7 +169,7 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
 
     return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
 
-def normalize(self, raw_data, max_list, min_list):
+def normalize(raw_data, max_list, min_list):
         """Normalizes all sensor channels
 
         :param data: numpy integer matrix
@@ -190,7 +190,7 @@ def normalize(self, raw_data, max_list, min_list):
         raw_data[raw_data < 0] = 0.00
         return raw_data
 
-def divide_x_y(self, raw_data):
+def divide_x_y(raw_data):
         """Segments each sample into features and label
 
         :param data: numpy integer matrix
@@ -206,7 +206,7 @@ def divide_x_y(self, raw_data):
 
         return data_t, data_x, data_y
 
-def del_labels(self, data_t, data_x, data_y):
+def del_labels(data_t, data_x, data_y):
 
         idy = np.where(data_y == 0)[0]
         labels_delete = idy
@@ -235,7 +235,7 @@ def del_labels(self, data_t, data_x, data_y):
         return np.delete(data_t, labels_delete, 0), np.delete(data_x, labels_delete, 0), np.delete(data_y,
                                                                                                    labels_delete, 0)
     
-def adjust_idx_labels(self, data_y):
+def adjust_idx_labels(data_y):
         """Transforms original labels into the range [0, nb_labels-1]
 
         :param data_y: numpy integer array
@@ -254,7 +254,7 @@ def adjust_idx_labels(self, data_y):
 
         return data_y
 
-def process_dataset_file(self, raw_data):
+def process_dataset_file(raw_data):
         """Function defined as a pipeline to process individual OPPORTUNITY files
 
         :param data: numpy integer matrix
@@ -266,22 +266,22 @@ def process_dataset_file(self, raw_data):
         """
 
         # Colums are segmentd into features and labels
-        data_t, data_x, data_y = self.divide_x_y(raw_data)
-        data_t, data_x, data_y = self.del_labels(data_t, data_x, data_y)
+        data_t, data_x, data_y = divide_x_y(raw_data)
+        data_t, data_x, data_y = del_labels(data_t, data_x, data_y)
 
-        data_y = self.adjust_idx_labels(data_y)
+        data_y = adjust_idx_labels(data_y)
         data_y = data_y.astype(int)
 
         # Select correct columns
-        data_x = self.select_columns_opp(data_x)
+        data_x = select_columns_opp(data_x)
 
         if data_x.shape[0] != 0:
-            HR_no_NaN = self.complete_HR(data_x[:, 0])
+            HR_no_NaN = complete_HR(data_x[:, 0])
             data_x[:, 0] = HR_no_NaN
 
             data_x[np.isnan(data_x)] = 0
             # All sensor channels are normalized
-            data_x = self.normalize(data_x, NORM_MAX_THRESHOLDS, NORM_MIN_THRESHOLDS)
+            data_x = normalize(data_x, NORM_MAX_THRESHOLDS, NORM_MIN_THRESHOLDS)
 
         #data_t, data_x, data_y = self.downsampling(data_t, data_x, data_y)
 
