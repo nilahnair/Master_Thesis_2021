@@ -160,22 +160,18 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
                 data_y_labels = []
                 data_z_labels = []
                 for sw in sliding_window(data_y, ws, ss):
-                   
-                    labels = np.zeros((1)).astype(int)
-                    count_l = np.bincount(sw[:, 0], minlength=NUM_ACT_CLASSES)
+                    print("print sw")
+                    print(sw)
+                    count_l = np.bincount(sw, minlength=NUM_ACT_CLASSES)
                     idy = np.argmax(count_l)
-                    labels[0] = idy
-                   
-                    data_y_labels.append(labels)
+                    data_y_labels.append(idy)
                 data_y_labels = np.asarray(data_y_labels)
                 for sz in sliding_window(data_z, ws, ss):
-                   
-                    labels = np.zeros((1)).astype(int)
-                    count_l = np.bincount(sz[:, 0], minlength=NUM_CLASSES)
+                    print("print sz")
+                    print(sz)
+                    count_l = np.bincount(sz, minlength=NUM_CLASSES)
                     idy = np.argmax(count_l)
-                    labels[0] = idy
-                   
-                    data_z_labels.append(labels)
+                    data_z_labels.append(idy)
                 data_z_labels = np.asarray(data_z_labels)
 
 
