@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('opportunity')
+ex= Experiment('pamap')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -151,8 +151,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/oppor/locomotions/output/"
-        #folder_base = "/data/nnair/pamap/output/"
+        #folder_base = "/data/nnair/oppor/locomotions/output/"
+        folder_base = "/data/nnair/pamap/output/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
@@ -319,7 +319,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=0,
+    config = configuration(dataset_idx=2,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
