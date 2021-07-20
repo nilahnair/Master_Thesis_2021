@@ -409,8 +409,8 @@ class Network_User(object):
         f1w_train_val = []
         f1m_train_val = []
         
-        count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0]
-        count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0]
+        #count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0]
+        #count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0]
 
         best_acc_val = 0
         
@@ -420,8 +420,7 @@ class Network_User(object):
             metrics_obj = Metrics(self.config, self.device)
         elif self.config['output'] == 'attribute': 
             metrics_obj = Metrics(self.config, self.device, self.attrs)
-           
-
+       
         itera = 0
         start_time_train = time.time()
 
@@ -794,8 +793,8 @@ class Network_User(object):
             plt.savefig(self.config['folder_exp'] + 'training_final.png')
             plt.close()
 
-        return results_val, best_itera, count_pos_val, count_neg_val
-
+        #return results_val, best_itera, count_pos_val, count_neg_val
+        return results_val, best_itera
 
     ##################################################
     ################  Validate  ######################
@@ -1290,12 +1289,14 @@ class Network_User(object):
        best_itera = 0
        if testing:
             logging.info('        Network_User: Testing')
-            results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+            #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+            results, confusion_matrix= self.test(ea_iter)
        else:
             if self.config['usage_modus'] == 'train':
                 logging.info('        Network_User: Training')
 
-                results, best_itera, c_pos, c_neg = self.train(ea_iter)
+                #results, best_itera, c_pos, c_neg = self.train(ea_iter)
+                results, best_itera= self.train(ea_iter)
 
             elif self.config['usage_modus'] == 'fine_tuning':
                 logging.info('        Network_User: Fine Tuning')
@@ -1310,5 +1311,6 @@ class Network_User(object):
                 logging.info('        Network_User: Not selected modus')
             
 
-       return results, confusion_matrix, best_itera, c_pos, c_neg
+       #return results, confusion_matrix, best_itera, c_pos, c_neg
+       return results, confusion_matrix, best_itera
   
