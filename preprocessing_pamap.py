@@ -523,10 +523,9 @@ if __name__ == '__main__':
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
     
-    '''
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
     generate_CSV(base_directory + "test.csv", data_dir_test)
     generate_CSV_final(base_directory + "train_final.csv", data_dir_train, data_dir_val)
-    '''
+    
     print("Done")
