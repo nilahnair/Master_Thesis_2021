@@ -394,16 +394,15 @@ def generate_data(target_filename, label, datatype):
                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                 seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
                 seq = np.require(seq, dtype=np.float)
-                print("seq")
-                print(seq.shape)
+                
                 print("act_label")
-                print(act[f].shape)
+                print(act[f])
                 print("act_all")
-                print(act_all[f].shape)
+                print(act_all[f])
                 print("id")
-                print(labelid[f].shape)
+                print(labelid[f])
                 print("id_all")
-                print(labelid_all[f].shape)
+                print(labelid_all[f])
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
                 obj = {"data": seq, "act_label": act[f], "act_labels_all": act_all[f], "label": labelid[f]}
