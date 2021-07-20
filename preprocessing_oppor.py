@@ -384,7 +384,7 @@ def generate_data(target_filename, label, datatype):
         counter_seq = 0
         print("window extraction begining")
         print("target file name")
-        print(target_filename())
+        print(target_filename)
         for f in range(X.shape[0]):
             try:
                 sys.stdout.write('\r' + 'Creating sequence file '
