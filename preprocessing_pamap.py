@@ -332,7 +332,7 @@ def generate_data(target_filename):
                 Y = np.concatenate([Y, y])
                 lid = np.concatenate([lid, np.full(y.shape,counter)])
                 
-                shape=y.shape
+                shape=y.shape[0]
                 print("total")
                 print(shape)
                 print("64%")
