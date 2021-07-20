@@ -162,14 +162,18 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
                 for sw in sliding_window(data_y, ws, ss):
                     print("print sw")
                     print(sw)
-                    count_l = np.bincount(sw, minlength=NUM_ACT_CLASSES)
+                    count_l = np.bincount(sw.astype(int), minlength=NUM_ACT_CLASSES)
+                    print("count_l")
+                    print(count_l)
                     idy = np.argmax(count_l)
+                    print("idy")
+                    print(idy)
                     data_y_labels.append(idy)
                 data_y_labels = np.asarray(data_y_labels)
                 for sz in sliding_window(data_z, ws, ss):
                     print("print sz")
                     print(sz)
-                    count_l = np.bincount(sz, minlength=NUM_CLASSES)
+                    count_l = np.bincount(sz.astype(int), minlength=NUM_CLASSES)
                     idy = np.argmax(count_l)
                     data_z_labels.append(idy)
                 data_z_labels = np.asarray(data_z_labels)
@@ -181,9 +185,9 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
                 return np.Inf
 
             # All labels per window
-            data_y_all = np.asarray([i[:,0] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+            data_y_all = np.asarray([i[:,0] for i in sliding_window(data_y, ws, ss)])
             print(data_y_all.shape)
-            data_z_all = np.asarray([i[:,0] for i in sliding_window(data_z, (ws, data_z.shape[1]), (ss, 1))])
+            data_z_all = np.asarray([i[:,0] for i in sliding_window(data_z, ws, ss)])
             print(data_z_all.shape)
             
     print("daya_y_labels")
