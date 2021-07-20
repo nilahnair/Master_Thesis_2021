@@ -436,9 +436,9 @@ if __name__ == '__main__':
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
     l= 'locomotion'
-    generate_data(output=data_dir_train, label=l, datatype='train')
-    generate_data(output=data_dir_val, label=l, datatype='val')
-    generate_data(output=data_dir_test, label=l, datatype='test')
+    generate_data(target_filename=data_dir_train, label=l, datatype='train')
+    generate_data(target_filename=data_dir_val, label=l, datatype='val')
+    generate_data(target_filename=data_dir_test, label=l, datatype='test')
     
     ##############check this parts neccesity
     '''
