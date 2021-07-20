@@ -220,7 +220,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'pamap2': '/data/nnair/pamap/input/'}
     
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     GPU = 0
    
     # Labels position on the segmented window
