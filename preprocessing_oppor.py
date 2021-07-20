@@ -355,11 +355,11 @@ def generate_data(target_filename, label, datatype):
                 if counter_files >=0 and counter_files<3:
                     id= np.full(y.shape, 0)
                 elif counter_files>=3 and counter_files <6:
-                    id= np.fully(y.shape, 1)
+                    id= np.full(y.shape, 1)
                 elif counter_files>=6 and counter_files <9:
-                    id = np.fully(y.shape, 2)
+                    id = np.full(y.shape, 2)
                 elif counter_files >=9:
-                    id = np.fully(y.shape,3)
+                    id = np.full(y.shape,3)
                 id_train = np.concatenate([id_train, id])
             elif datatype == 'val':
                 print("concatenating val values")
