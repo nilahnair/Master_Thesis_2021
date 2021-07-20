@@ -20,7 +20,7 @@ import sys
 #import torch.utils.data as data
 import logging
 from sliding_window import sliding_window
-from resampling import Resampling
+#from resampling import Resampling
 
 
 
@@ -29,7 +29,7 @@ NB_SENSOR_CHANNELS = 113
 NUM_ACT_CLASSES= 5
 NUM_CLASSES =4
 
-sw = 100
+ws = 100
 ss = 12
 
 OPPORTUNITY_DATA_FILES = ['OpportunityUCIDataset/dataset/S1-Drill.dat', #0
@@ -403,7 +403,7 @@ def generate_data(target_filename, label, datatype):
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
                 obj = {"data": seq, "act_label": act[f], "act_labels_all": act_all[f], "label": labelid[f]}
-                f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
+                f = open(os.path.join(target_filename, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
                 f.close()
 
@@ -430,7 +430,7 @@ def generate_data(target_filename, label, datatype):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/oppor/locomotions/'
+    base_directory = '/data/nnair/oppor/locomotions/inputs/'
         
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
