@@ -215,7 +215,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     
-    dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputs/',
+    dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputw30/',
                     'gesture': '/data/nnair/oppor/locomotions/inputs/',
                     'pamap2': '/data/nnair/pamap/input/'}
     
@@ -333,7 +333,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=1,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
