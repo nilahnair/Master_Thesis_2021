@@ -153,8 +153,8 @@ class Modus_Selecter(object):
             
             # Training the network and obtaining the validation results
             logging.info('    Network_selecter:    Train iter {}'.format(iter_evl))
-            #results_train, confusion_matrix_train, best_itera, c_pos_val, c_neg_val= self.network.evolution_evaluation(ea_iter=iter_evl)
-            results_train, confusion_matrix_train, best_itera = self.network.evolution_evaluation(ea_iter=iter_evl)
+            results_train, confusion_matrix_train, best_itera, c_pos_val, c_neg_val= self.network.evolution_evaluation(ea_iter=iter_evl)
+            #results_train, confusion_matrix_train, best_itera = self.network.evolution_evaluation(ea_iter=iter_evl)
             
             # Appending results for later saving in results file
             acc_train_ac.append(results_train['acc'])
@@ -182,74 +182,197 @@ class Modus_Selecter(object):
                 p=results_train['acc_attrs']
                 for i in range(0,p.shape[0]):
                     self.exp.log_scalar("acc_attr_{}_train_mo_{}".format(i, iter_evl),p[i])
-            '''
-            if c_pos_val[0] == 0:
-                self.exp.log_scalar("standing_pos_val_final{}".format(iter_evl), c_pos_val[0])
-            else:
-                self.exp.log_scalar("standing_pos_val_final{}".format(iter_evl), c_pos_val[0]/(c_pos_val[0]+c_neg_val[0]))
-            if c_pos_val[1] == 0:
-                self.exp.log_scalar("walking_pos_val_final{}".format(iter_evl), c_pos_val[1])
-            else:
-                self.exp.log_scalar("walking_pos_val_final{}".format(iter_evl), c_pos_val[1]/(c_pos_val[1]+c_neg_val[1]))
-            if c_pos_val[2] == 0:
-                self.exp.log_scalar("cart_pos_val_final{}".format(iter_evl), c_pos_val[2])
-            else:
-                self.exp.log_scalar("cart_pos_val_final{}".format(iter_evl), c_pos_val[2]/(c_pos_val[2]+c_neg_val[2]))
-            if c_pos_val[3] == 0:
-                self.exp.log_scalar("handling_up_pos_val_final{}".format(iter_evl), c_pos_val[3])
-            else:
-                self.exp.log_scalar("handling_up_pos_val_final{}".format(iter_evl), c_pos_val[3]/(c_pos_val[3]+c_neg_val[3]))
-            if c_pos_val[4] == 0:
-                self.exp.log_scalar("handling_cen_pos_val_final{}".format(iter_evl), c_pos_val[4])
-            else:
-                self.exp.log_scalar("handling_cen_pos_val_final{}".format(iter_evl), c_pos_val[4]/(c_pos_val[4]+c_neg_val[4]))
-            if c_pos_val[5] == 0:
-                self.exp.log_scalar("handling_down_pos_val_final{}".format(iter_evl), c_pos_val[5])
-            else:
-                self.exp.log_scalar("handling_down_pos_val_final{}".format(iter_evl), c_pos_val[5]/(c_pos_val[5]+c_neg_val[5]))
-            if c_pos_val[6] == 0:
-                self.exp.log_scalar("synch_pos_val_final{}".format(iter_evl), c_pos_val[6])
-            else:
-                self.exp.log_scalar("synch_pos_val_final{}".format(iter_evl), c_pos_val[6]/(c_pos_val[6]+c_neg_val[6]))
-            if c_pos_val[7] == 0:
-                self.exp.log_scalar("none_pos_val_final{}".format(iter_evl), c_pos_val[7])
-            else:
-                self.exp.log_scalar("none_pos_val_final{}".format(iter_evl), c_pos_val[7]/(c_pos_val[7]+c_neg_val[7]))
             
-            if c_neg_val[0] == 0:
-                self.exp.log_scalar("standing_neg_val_final{}".format(iter_evl), c_neg_val[0])
-            else:
-                self.exp.log_scalar("standing_neg_val_final{}".format(iter_evl), c_neg_val[0]/(c_pos_val[0]+c_neg_val[0]))
-            if c_neg_val[1] == 0:
-                self.exp.log_scalar("walking_neg_val_final{}".format(iter_evl), c_neg_val[1])
-            else:
-                self.exp.log_scalar("walking_neg_val_final{}".format(iter_evl), c_neg_val[1]/(c_pos_val[1]+c_neg_val[1]))
-            if c_neg_val[2] == 0:
-                self.exp.log_scalar("cart_neg_val_final{}".format(iter_evl), c_neg_val[2])
-            else:
-                self.exp.log_scalar("cart_neg_val_final{}".format(iter_evl), c_neg_val[2]/(c_pos_val[2]+c_neg_val[2]))
-            if c_neg_val[3] == 0:
-                self.exp.log_scalar("handling_up_neg_val_final{}".format(iter_evl), c_neg_val[3])
-            else:
-                self.exp.log_scalar("handling_up_neg_val_final{}".format(iter_evl), c_neg_val[3]/(c_pos_val[3]+c_neg_val[3]))
-            if c_neg_val[4] == 0:
-                self.exp.log_scalar("handling_cen_neg_val_final{}".format(iter_evl), c_neg_val[4])
-            else:
-                self.exp.log_scalar("handling_cen_neg_val_final{}".format(iter_evl), c_neg_val[4]/(c_pos_val[4]+c_neg_val[4]))
-            if c_neg_val[5] == 0:
-                self.exp.log_scalar("handling_down_neg_val_final{}".format(iter_evl), c_neg_val[5])
-            else:
-                self.exp.log_scalar("handling_down_neg_val_final{}".format(iter_evl), c_neg_val[5]/(c_pos_val[5]+c_neg_val[5]))
-            if c_neg_val[6] == 0:
-                self.exp.log_scalar("synch_neg_val_final{}".format(iter_evl), c_neg_val[6])
-            else:
-                self.exp.log_scalar("synch_neg_val_final{}".format(iter_evl), c_neg_val[6]/(c_pos_val[6]+c_neg_val[6]))
-            if c_neg_val[7] == 0:
-                self.exp.log_scalar("none_neg_val_final{}".format(iter_evl), c_neg_val[7])
-            else:
-                self.exp.log_scalar("none_neg_val_final{}".format(iter_evl), c_neg_val[7]/(c_pos_val[7]+c_neg_val[7]))
-           
-            '''
+            if self.config['dataset']=='locomotion':
+                if c_pos_val[0] == 0:
+                    self.exp.log_scalar("stand_p_v_f{}".format(iter_evl), c_pos_val[0])
+                else:
+                    self.exp.log_scalar("stand_p_v_f{}".format(iter_evl), c_pos_val[0]/(c_pos_val[0]+c_neg_val[0]))
+                if c_pos_val[1] == 0:
+                       self.exp.log_scalar("walk_p_v_f{}".format(iter_evl), c_pos_val[1])
+                else:
+                    self.exp.log_scalar("walk_p_v_f{}".format(iter_evl), c_pos_val[1]/(c_pos_val[1]+c_neg_val[1]))
+                if c_pos_val[2] == 0:
+                    self.exp.log_scalar("sit_p_v_f{}".format(iter_evl), c_pos_val[2])
+                else:
+                    self.exp.log_scalar("sit_p_v_f{}".format(iter_evl), c_pos_val[2]/(c_pos_val[2]+c_neg_val[2]))
+                if c_pos_val[3] == 0:
+                    self.exp.log_scalar("lie_p_v_f{}".format(iter_evl), c_pos_val[3])
+                else:
+                    self.exp.log_scalar("lie_p_v_f{}".format(iter_evl), c_pos_val[3]/(c_pos_val[3]+c_neg_val[3]))
+                if c_pos_val[4] == 0:
+                    self.exp.log_scalar("none_p_v_f{}".format(iter_evl), c_pos_val[4])
+                else:
+                    self.exp.log_scalar("none_p_v_f{}".format(iter_evl), c_pos_val[4]/(c_pos_val[4]+c_neg_val[4]))
+            
+                if c_neg_val[0] == 0:
+                    self.exp.log_scalar("stand_n_v_f{}".format(iter_evl), c_neg_val[0])
+                else:
+                    self.exp.log_scalar("stand_n_v_f{}".format(iter_evl), c_neg_val[0]/(c_pos_val[0]+c_neg_val[0]))
+                if c_neg_val[1] == 0:
+                    self.exp.log_scalar("walk_n_v_f{}".format(iter_evl), c_neg_val[1])
+                else:
+                    self.exp.log_scalar("walk_n_v_f{}".format(iter_evl), c_neg_val[1]/(c_pos_val[1]+c_neg_val[1]))
+                if c_neg_val[2] == 0:
+                    self.exp.log_scalar("sit_n_v_f{}".format(iter_evl), c_neg_val[2])
+                else:
+                    self.exp.log_scalar("sit_n_v_f{}".format(iter_evl), c_neg_val[2]/(c_pos_val[2]+c_neg_val[2]))
+                if c_neg_val[3] == 0:
+                    self.exp.log_scalar("lie_n_v_f{}".format(iter_evl), c_neg_val[3])
+                else:
+                    self.exp.log_scalar("lie_n_v_f{}".format(iter_evl), c_neg_val[3]/(c_pos_val[3]+c_neg_val[3]))
+                if c_neg_val[4] == 0:
+                    self.exp.log_scalar("none_n_v_f{}".format(iter_evl), c_neg_val[4])
+                else:
+                    self.exp.log_scalar("none_n_v_f{}".format(iter_evl), c_neg_val[4]/(c_pos_val[4]+c_neg_val[4]))
+              
+            elif self.config['dataset']=='gesture':
+                if c_pos_val[0] == 0:
+                    self.exp.log_scalar("opendoor1_p_v_f{}".format(iter_evl), c_pos_val[0])
+                else:
+                    self.exp.log_scalar("opendoor1_p_v_f{}".format(iter_evl), c_pos_val[0]/(c_pos_val[0]+c_neg_val[0]))
+                if c_pos_val[1] == 0:
+                    self.exp.log_scalar("opendoor2_p_v_f{}".format(iter_evl), c_pos_val[1])
+                else:
+                    self.exp.log_scalar("opendoor2_p_v_f{}".format(iter_evl), c_pos_val[1]/(c_pos_val[1]+c_neg_val[1]))
+                if c_pos_val[2] == 0:
+                    self.exp.log_scalar("closedoor1_p_v_f{}".format(iter_evl), c_pos_val[2])
+                else:
+                    self.exp.log_scalar("closedoor1_p_v_f{}".format(iter_evl), c_pos_val[2]/(c_pos_val[2]+c_neg_val[2]))
+                if c_pos_val[3] == 0:
+                    self.exp.log_scalar("closedoor2_p_v_f{}".format(iter_evl), c_pos_val[3])
+                else:
+                    self.exp.log_scalar("closedoor2_p_v_f{}".format(iter_evl), c_pos_val[3]/(c_pos_val[3]+c_neg_val[3]))
+                if c_pos_val[4] == 0:
+                    self.exp.log_scalar("openfridge_p_v_f{}".format(iter_evl), c_pos_val[4])
+                else:
+                    self.exp.log_scalar("openfridge_p_v_f{}".format(iter_evl), c_pos_val[4]/(c_pos_val[4]+c_neg_val[4]))
+                if c_pos_val[5] == 0:
+                    self.exp.log_scalar("closefridge_p_v_f{}".format(iter_evl), c_pos_val[5])
+                else:
+                    self.exp.log_scalar("closefridge_p_v_f{}".format(iter_evl), c_pos_val[5]/(c_pos_val[5]+c_neg_val[5]))
+                if c_pos_val[6] == 0:
+                    self.exp.log_scalar("openDW_p_v_f{}".format(iter_evl), c_pos_val[6])
+                else:
+                    self.exp.log_scalar("openDW_p_v_f{}".format(iter_evl), c_pos_val[6]/(c_pos_val[6]+c_neg_val[6]))
+                if c_pos_val[7] == 0:
+                    self.exp.log_scalar("closeDW_p_v_f{}".format(iter_evl), c_pos_val[7])
+                else:
+                    self.exp.log_scalar("closeDW_p_v_f{}".format(iter_evl), c_pos_val[7]/(c_pos_val[7]+c_neg_val[7]))
+                if c_pos_val[8] == 0:
+                    self.exp.log_scalar("opendrawer1_p_v_f{}".format(iter_evl), c_pos_val[8])
+                else:
+                    self.exp.log_scalar("opendrawer1_p_v_f{}".format(iter_evl), c_pos_val[8]/(c_pos_val[8]+c_neg_val[8]))
+                if c_pos_val[9] == 0:
+                    self.exp.log_scalar("closedrawer1_p_v_f{}".format(iter_evl), c_pos_val[9])
+                else:
+                    self.exp.log_scalar("closedrawer1_p_v_f{}".format(iter_evl), c_pos_val[9]/(c_pos_val[9]+c_neg_val[9]))
+                if c_pos_val[10] == 0:
+                    self.exp.log_scalar("opendrawer2_p_v_f{}".format(iter_evl), c_pos_val[10])
+                else:
+                    self.exp.log_scalar("opendrawer2_p_v_f{}".format(iter_evl), c_pos_val[10]/(c_pos_val[10]+c_neg_val[10]))
+                if c_pos_val[11] == 0:
+                    self.exp.log_scalar("closedrawer2_p_v_f{}".format(iter_evl), c_pos_val[11])
+                else:
+                    self.exp.log_scalar("closedrawer2_p_v_f{}".format(iter_evl), c_pos_val[11]/(c_pos_val[11]+c_neg_val[11]))
+                if c_pos_val[12] == 0:
+                    self.exp.log_scalar("opendrawer3_p_v_f{}".format(iter_evl), c_pos_val[12])
+                else:
+                    self.exp.log_scalar("opendrawer3_p_v_f{}".format(iter_evl), c_pos_val[12]/(c_pos_val[12]+c_neg_val[12]))
+                if c_pos_val[13] == 0:
+                    self.exp.log_scalar("closedrawer3_p_v_f{}".format(iter_evl), c_pos_val[13])
+                else:
+                    self.exp.log_scalar("closedrawer3_p_v_f{}".format(iter_evl), c_pos_val[13]/(c_pos_val[13]+c_neg_val[13]))
+                if c_pos_val[14] == 0:
+                    self.exp.log_scalar("cleantable_p_v_f{}".format(iter_evl), c_pos_val[14])
+                else:
+                    self.exp.log_scalar("cleantable_p_v_f{}".format(iter_evl), c_pos_val[14]/(c_pos_val[14]+c_neg_val[14]))
+                if c_pos_val[15] == 0:
+                    self.exp.log_scalar("drinkcup_p_v_f{}".format(iter_evl), c_pos_val[15])
+                else:
+                    self.exp.log_scalar("drinkcup_p_v_f{}".format(iter_evl), c_pos_val[15]/(c_pos_val[15]+c_neg_val[15]))
+                if c_pos_val[16] == 0:
+                    self.exp.log_scalar("toggle_p_v_f{}".format(iter_evl), c_pos_val[16])
+                else:
+                    self.exp.log_scalar("toggle_p_v_f{}".format(iter_evl), c_pos_val[16]/(c_pos_val[16]+c_neg_val[16]))
+                if c_pos_val[17] == 0:
+                    self.exp.log_scalar("none_p_v_f{}".format(iter_evl), c_pos_val[17])
+                else:
+                    self.exp.log_scalar("none_p_v_f{}".format(iter_evl), c_pos_val[17]/(c_pos_val[17]+c_neg_val[17]))
+                    
+                if c_neg_val[0] == 0:
+                    self.exp.log_scalar("opendoor1_n_v_f{}".format(iter_evl), c_neg_val[0])
+                else:
+                    self.exp.log_scalar("opendoor1_n_v_f{}".format(iter_evl), c_neg_val[0]/(c_pos_val[0]+c_neg_val[0]))
+                if c_neg_val[1] == 0:
+                    self.exp.log_scalar("opendoor2_n_v_f{}".format(iter_evl), c_neg_val[1])
+                else:
+                    self.exp.log_scalar("opendoor2_n_v_f{}".format(iter_evl), c_neg_val[1]/(c_pos_val[1]+c_neg_val[1]))
+                if c_neg_val[2] == 0:
+                    self.exp.log_scalar("closedoor1_n_v_f{}".format(iter_evl), c_neg_val[2])
+                else:
+                    self.exp.log_scalar("closedoor1_n_v_f{}".format(iter_evl), c_neg_val[2]/(c_pos_val[2]+c_neg_val[2]))
+                if c_neg_val[3] == 0:
+                    self.exp.log_scalar("closedoor2_n_v_f{}".format(iter_evl), c_neg_val[3])
+                else:
+                    self.exp.log_scalar("closedoor2_n_v_f{}".format(iter_evl), c_neg_val[3]/(c_pos_val[3]+c_neg_val[3]))
+                if c_neg_val[4] == 0:
+                    self.exp.log_scalar("openfridge_n_v_f{}".format(iter_evl), c_neg_val[4])
+                else:
+                    self.exp.log_scalar("openfridge_n_v_f{}".format(iter_evl), c_neg_val[4]/(c_pos_val[4]+c_neg_val[4]))
+                if c_neg_val[5] == 0:
+                    self.exp.log_scalar("closefridge_n_v_f{}".format(iter_evl), c_neg_val[5])
+                else:
+                    self.exp.log_scalar("closefridge_n_v_f{}".format(iter_evl), c_neg_val[5]/(c_pos_val[5]+c_neg_val[5]))
+                if c_neg_val[6] == 0:
+                    self.exp.log_scalar("openDW_n_v_f{}".format(iter_evl), c_neg_val[6])
+                else:
+                    self.exp.log_scalar("openDW_n_v_f{}".format(iter_evl), c_neg_val[6]/(c_pos_val[6]+c_neg_val[6]))
+                if c_neg_val[7] == 0:
+                    self.exp.log_scalar("closeDW_n_v_f{}".format(iter_evl), c_neg_val[7])
+                else:
+                    self.exp.log_scalar("closeDW_n_v_f{}".format(iter_evl), c_neg_val[7]/(c_pos_val[7]+c_neg_val[7]))
+                if c_neg_val[8] == 0:
+                    self.exp.log_scalar("opendrawer1_n_v_f{}".format(iter_evl), c_neg_val[8])
+                else:
+                    self.exp.log_scalar("opendrawer1_n_v_f{}".format(iter_evl), c_neg_val[8]/(c_pos_val[8]+c_neg_val[8]))
+                if c_neg_val[9] == 0:
+                    self.exp.log_scalar("closedrawer1_n_v_f{}".format(iter_evl), c_neg_val[9])
+                else:
+                    self.exp.log_scalar("closedrawer1_n_v_f{}".format(iter_evl), c_neg_val[9]/(c_pos_val[9]+c_neg_val[9]))
+                if c_neg_val[10] == 0:
+                    self.exp.log_scalar("opendrawer2_n_v_f{}".format(iter_evl), c_neg_val[10])
+                else:
+                    self.exp.log_scalar("opendrawer2_n_v_f{}".format(iter_evl), c_neg_val[10]/(c_pos_val[10]+c_neg_val[10]))
+                if c_neg_val[11] == 0:
+                    self.exp.log_scalar("closedrawer2_n_v_f{}".format(iter_evl), c_neg_val[11])
+                else:
+                    self.exp.log_scalar("closedrawer2_n_v_f{}".format(iter_evl), c_neg_val[11]/(c_pos_val[11]+c_neg_val[11]))
+                if c_neg_val[12] == 0:
+                    self.exp.log_scalar("opendrawer3_n_v_f{}".format(iter_evl), c_neg_val[12])
+                else:
+                    self.exp.log_scalar("opendrawer3_n_v_f{}".format(iter_evl), c_neg_val[12]/(c_pos_val[12]+c_neg_val[12]))
+                if c_neg_val[13] == 0:
+                    self.exp.log_scalar("closedrawer3_n_v_f{}".format(iter_evl), c_neg_val[13])
+                else:
+                    self.exp.log_scalar("closedrawer3_n_v_f{}".format(iter_evl), c_neg_val[13]/(c_pos_val[13]+c_neg_val[13]))
+                if c_neg_val[14] == 0:
+                    self.exp.log_scalar("cleantable_n_v_f{}".format(iter_evl), c_neg_val[14])
+                else:
+                    self.exp.log_scalar("cleantable_n_v_f{}".format(iter_evl), c_neg_val[14]/(c_pos_val[14]+c_neg_val[14]))
+                if c_neg_val[15] == 0:
+                    self.exp.log_scalar("drinkcup_n_v_f{}".format(iter_evl), c_neg_val[15])
+                else:
+                    self.exp.log_scalar("drinkcup_n_v_f{}".format(iter_evl), c_neg_val[15]/(c_pos_val[15]+c_neg_val[15]))
+                if c_neg_val[16] == 0:
+                    self.exp.log_scalar("toggle_n_v_f{}".format(iter_evl), c_neg_val[16])
+                else:
+                    self.exp.log_scalar("toggle_n_v_f{}".format(iter_evl), c_neg_val[16]/(c_pos_val[16]+c_neg_val[16]))
+                if c_neg_val[17] == 0:
+                    self.exp.log_scalar("none_n_v_f{}".format(iter_evl), c_neg_val[17])
+                else:
+                    self.exp.log_scalar("none_n_v_f{}".format(iter_evl), c_neg_val[17]/(c_pos_val[17]+c_neg_val[17]))
+                
 
                            
             # Saving the results
@@ -259,8 +382,8 @@ class Modus_Selecter(object):
             # Testing the network
             if testing:
                 start_time_test = time.time()
-                #results_test, confusion_matrix_test, count_pos_test, count_neg_test = self.test(testing=True)
-                results_test, confusion_matrix_test= self.test(testing=True)
+                results_test, confusion_matrix_test, count_pos_test, count_neg_test = self.test(testing=True)
+                #results_test, confusion_matrix_test= self.test(testing=True)
                 acc_test_ac.append(results_test['acc'])
                 f1_weighted_test_ac.append(results_test['f1_weighted'])
                 f1_mean_test_ac.append(results_test['f1_mean'])
@@ -292,81 +415,197 @@ class Modus_Selecter(object):
                 p=results_test['acc_attrs']
                 for i in range(0,p.shape[0]):
                     self.exp.log_scalar("acc_attr_{}_test_mo_{}".format(i, iter_evl),p[i])
-            '''
-            if count_pos_test[0] == 0:
-                self.exp.log_scalar("standing_pos_test{}".format(iter_evl), count_pos_test[0])
-            else:
-                self.exp.log_scalar("standing_pos_test{}".format(iter_evl), count_pos_test[0]/(count_pos_test[0]+count_neg_test[0]))
-            if count_pos_test[1] == 0:
-                self.exp.log_scalar("walking_pos_test{}".format(iter_evl), count_pos_test[1])
-            else:
-                self.exp.log_scalar("walking_pos_test{}".format(iter_evl), count_pos_test[1]/(count_pos_test[1]+count_neg_test[1]))
-            if count_pos_test[2] == 0:
-                self.exp.log_scalar("cart_pos_test{}".format(iter_evl), count_pos_test[2])
-            else:
-                self.exp.log_scalar("cart_pos_test{}".format(iter_evl), count_pos_test[2]/(count_pos_test[2]+count_neg_test[2]))
-            if count_pos_test[3] == 0:
-                self.exp.log_scalar("handling_up_pos_test{}".format(iter_evl), count_pos_test[3])
-            else:
-                self.exp.log_scalar("handling_up_pos_test{}".format(iter_evl), count_pos_test[3]/(count_pos_test[3]+count_neg_test[3]))
-            if count_pos_test[4] == 0:
-                self.exp.log_scalar("handling_cen_pos_test{}".format(iter_evl), count_pos_test[4])
-            else:
-                self.exp.log_scalar("handling_cen_pos_test{}".format(iter_evl), count_pos_test[4]/(count_pos_test[4]+count_neg_test[4]))
-            if count_pos_test[5] == 0:
-                self.exp.log_scalar("handling_down_pos_test{}".format(iter_evl), count_pos_test[5])
-            else:
-                self.exp.log_scalar("handling_down_pos_test{}".format(iter_evl), count_pos_test[5]/(count_pos_test[5]+count_neg_test[5]))
-            if count_pos_test[6] == 0:
-                self.exp.log_scalar("synch_pos_test{}".format(iter_evl), count_pos_test[6])
-            else:
-                self.exp.log_scalar("synch_pos_test{}".format(iter_evl), count_pos_test[6]/(count_pos_test[6]+count_neg_test[6]))
-            if count_pos_test[7] == 0:
-                self.exp.log_scalar("none_pos_test{}".format(iter_evl), count_pos_test[7])
-            else:
-                self.exp.log_scalar("none_pos_test{}".format(iter_evl), count_pos_test[7]/(count_pos_test[7]+count_neg_test[7]))
-                
-            self.exp.log_scalar("total_standing_pos_test{}".format(iter_evl), count_pos_test[0])
-            self.exp.log_scalar("total_walking_pos_test{}".format(iter_evl), count_pos_test[1])
-            self.exp.log_scalar("total_cart_pos_test{}".format(iter_evl), count_pos_test[2])
-            self.exp.log_scalar("total_handling_up_pos_test{}".format(iter_evl), count_pos_test[3])
-            self.exp.log_scalar("total_handling_cen_pos_test{}".format(iter_evl), count_pos_test[4])
-            self.exp.log_scalar("total_handling_down_pos_test{}".format(iter_evl), count_pos_test[5])
-            self.exp.log_scalar("total_synch_pos_test{}".format(iter_evl), count_pos_test[6])
             
-            if count_neg_test[0] == 0:
-                self.exp.log_scalar("standing_neg_test{}".format(iter_evl), count_neg_test[0])
-            else:
-                self.exp.log_scalar("standing_neg_test{}".format(iter_evl), count_neg_test[0]/(count_pos_test[0]+count_neg_test[0]))
-            if count_neg_test[1] == 0:
-                self.exp.log_scalar("walking_neg_test{}".format(iter_evl), count_neg_test[1])
-            else:
-                self.exp.log_scalar("walking_neg_test{}".format(iter_evl), count_neg_test[1]/(count_pos_test[1]+count_neg_test[1]))
-            if count_neg_test[2] == 0:
-                self.exp.log_scalar("cart_neg_test{}".format(iter_evl), count_neg_test[2])
-            else:
-                self.exp.log_scalar("cart_neg_test{}".format(iter_evl), count_neg_test[2]/(count_pos_test[2]+count_neg_test[2]))
-            if count_neg_test[3] == 0:
-                self.exp.log_scalar("handling_up_neg_test{}".format(iter_evl), count_neg_test[3])
-            else:
-                self.exp.log_scalar("handling_up_neg_test{}".format(iter_evl), count_neg_test[3]/(count_pos_test[3]+count_neg_test[3]))
-            if count_neg_test[4] == 0:
-                self.exp.log_scalar("shandling_cen_neg_test{}".format(iter_evl), count_neg_test[4])
-            else:
-                self.exp.log_scalar("handling_cen_neg_test{}".format(iter_evl), count_neg_test[4]/(count_pos_test[4]+count_neg_test[4]))
-            if count_neg_test[5] == 0:
-                self.exp.log_scalar("handling_down_neg_test{}".format(iter_evl), count_neg_test[5])
-            else:
-                self.exp.log_scalar("handling_down_neg_test{}".format(iter_evl), count_neg_test[5]/(count_pos_test[5]+count_neg_test[5]))
-            if count_neg_test[6] == 0:
-                self.exp.log_scalar("synch_neg_test{}".format(iter_evl), count_neg_test[6])
-            else:
-                self.exp.log_scalar("synch_neg_test{}".format(iter_evl), count_neg_test[6]/(count_pos_test[6]+count_neg_test[6]))
-            if count_neg_test[7] == 0:
-                self.exp.log_scalar("none_neg_test{}".format(iter_evl), count_neg_test[7])
-            else:
-                self.exp.log_scalar("none_neg_test{}".format(iter_evl), count_neg_test[7]/(count_pos_test[7]+count_neg_test[7]))
-            '''
+            if self.config['dataset']=='locomotion':
+                if count_pos_test[0] == 0:
+                    self.exp.log_scalar("stand_p_test{}".format(iter_evl), count_pos_test[0])
+                else:
+                    self.exp.log_scalar("stand_p_test{}".format(iter_evl), count_pos_test[0]/(count_pos_test[0]+count_neg_test[0]))
+                if count_pos_test[1] == 0:
+                       self.exp.log_scalar("walk_p_test{}".format(iter_evl), count_pos_test[1])
+                else:
+                    self.exp.log_scalar("walk_p_test{}".format(iter_evl), count_pos_test[1]/(count_pos_test[1]+count_neg_test[1]))
+                if count_pos_test[2] == 0:
+                    self.exp.log_scalar("sit_p_test{}".format(iter_evl), count_pos_test[2])
+                else:
+                    self.exp.log_scalar("sit_p_test{}".format(iter_evl), count_pos_test[2]/(count_pos_test[2]+count_neg_test[2]))
+                if count_pos_test[3] == 0:
+                    self.exp.log_scalar("lie_p_test{}".format(iter_evl), count_pos_test[3])
+                else:
+                    self.exp.log_scalar("lie_p_test{}".format(iter_evl), count_pos_test[3]/(count_pos_test[3]+count_neg_test[3]))
+                if count_pos_test[4] == 0:
+                    self.exp.log_scalar("none_p_test{}".format(iter_evl), count_pos_test[4])
+                else:
+                    self.exp.log_scalar("none_p_test{}".format(iter_evl), count_pos_test[4]/(count_pos_test[4]+count_neg_test[4]))
+            
+                if count_neg_test[0] == 0:
+                    self.exp.log_scalar("stand_n_test{}".format(iter_evl), count_neg_test[0])
+                else:
+                    self.exp.log_scalar("stand_n_test{}".format(iter_evl), count_neg_test[0]/(count_pos_test[0]+count_neg_test[0]))
+                if count_neg_test[1] == 0:
+                    self.exp.log_scalar("walk_n_test{}".format(iter_evl), count_neg_test[1])
+                else:
+                    self.exp.log_scalar("walk_n_test{}".format(iter_evl), count_neg_test[1]/(count_pos_test[1]+count_neg_test[1]))
+                if count_neg_test[2] == 0:
+                    self.exp.log_scalar("sit_n_test{}".format(iter_evl), count_neg_test[2])
+                else:
+                    self.exp.log_scalar("sit_n_test{}".format(iter_evl), count_neg_test[2]/(count_pos_test[2]+count_neg_test[2]))
+                if count_neg_test[3] == 0:
+                    self.exp.log_scalar("lie_n_test{}".format(iter_evl), count_neg_test[3])
+                else:
+                    self.exp.log_scalar("lie_n_test{}".format(iter_evl), count_neg_test[3]/(count_pos_test[3]+count_neg_test[3]))
+                if count_neg_test[4] == 0:
+                    self.exp.log_scalar("none_n_test{}".format(iter_evl), count_neg_test[4])
+                else:
+                    self.exp.log_scalar("none_n_test{}".format(iter_evl), count_neg_test[4]/(count_pos_test[4]+count_neg_test[4]))
+              
+            elif self.config['dataset']=='gesture':
+                if count_pos_test[0] == 0:
+                    self.exp.log_scalar("opendoor1_p_test{}".format(iter_evl), count_pos_test[0])
+                else:
+                    self.exp.log_scalar("opendoor1_p_test{}".format(iter_evl), count_pos_test[0]/(count_pos_test[0]+count_neg_test[0]))
+                if count_pos_test[1] == 0:
+                    self.exp.log_scalar("opendoor2_p_test{}".format(iter_evl), count_pos_test[1])
+                else:
+                    self.exp.log_scalar("opendoor2_p_test{}".format(iter_evl), count_pos_test[1]/(count_pos_test[1]+count_neg_test[1]))
+                if count_pos_test[2] == 0:
+                    self.exp.log_scalar("closedoor1_p_test{}".format(iter_evl), count_pos_test[2])
+                else:
+                    self.exp.log_scalar("closedoor1_p_test{}".format(iter_evl), count_pos_test[2]/(count_pos_test[2]+count_neg_test[2]))
+                if count_pos_test[3] == 0:
+                    self.exp.log_scalar("closedoor2_p_test{}".format(iter_evl), count_pos_test[3])
+                else:
+                    self.exp.log_scalar("closedoor2_p_test{}".format(iter_evl), count_pos_test[3]/(count_pos_test[3]+count_neg_test[3]))
+                if count_pos_test[4] == 0:
+                    self.exp.log_scalar("openfridge_p_test{}".format(iter_evl), count_pos_test[4])
+                else:
+                    self.exp.log_scalar("openfridge_p_test{}".format(iter_evl), count_pos_test[4]/(count_pos_test[4]+count_neg_test[4]))
+                if count_pos_test[5] == 0:
+                    self.exp.log_scalar("closefridge_p_test{}".format(iter_evl), count_pos_test[5])
+                else:
+                    self.exp.log_scalar("closefridge_p_test{}".format(iter_evl), count_pos_test[5]/(count_pos_test[5]+count_neg_test[5]))
+                if count_pos_test[6] == 0:
+                    self.exp.log_scalar("openDW_p_test{}".format(iter_evl), count_pos_test[6])
+                else:
+                    self.exp.log_scalar("openDW_p_test{}".format(iter_evl), count_pos_test[6]/(count_pos_test[6]+count_neg_test[6]))
+                if count_pos_test[7] == 0:
+                    self.exp.log_scalar("closeDW_p_test{}".format(iter_evl), count_pos_test[7])
+                else:
+                    self.exp.log_scalar("closeDW_p_test{}".format(iter_evl), count_pos_test[7]/(count_pos_test[7]+count_neg_test[7]))
+                if count_pos_test[8] == 0:
+                    self.exp.log_scalar("opendrawer1_p_test{}".format(iter_evl), count_pos_test[8])
+                else:
+                    self.exp.log_scalar("opendrawer1_p_test{}".format(iter_evl), count_pos_test[8]/(count_pos_test[8]+count_neg_test[8]))
+                if count_pos_test[9] == 0:
+                    self.exp.log_scalar("closedrawer1_p_test{}".format(iter_evl), count_pos_test[9])
+                else:
+                    self.exp.log_scalar("closedrawer1_p_test{}".format(iter_evl), count_pos_test[9]/(count_pos_test[9]+count_neg_test[9]))
+                if count_pos_test[10] == 0:
+                    self.exp.log_scalar("opendrawer2_p_test{}".format(iter_evl), count_pos_test[10])
+                else:
+                    self.exp.log_scalar("opendrawer2_p_test{}".format(iter_evl), count_pos_test[10]/(count_pos_test[10]+count_neg_test[10]))
+                if count_pos_test[11] == 0:
+                    self.exp.log_scalar("closedrawer2_p_test{}".format(iter_evl), count_pos_test[11])
+                else:
+                    self.exp.log_scalar("closedrawer2_p_test{}".format(iter_evl), count_pos_test[11]/(count_pos_test[11]+count_neg_test[11]))
+                if count_pos_test[12] == 0:
+                    self.exp.log_scalar("opendrawer3_p_test{}".format(iter_evl), count_pos_test[12])
+                else:
+                    self.exp.log_scalar("opendrawer3_p_test{}".format(iter_evl), count_pos_test[12]/(count_pos_test[12]+count_neg_test[12]))
+                if count_pos_test[13] == 0:
+                    self.exp.log_scalar("closedrawer3_p_test{}".format(iter_evl), count_pos_test[13])
+                else:
+                    self.exp.log_scalar("closedrawer3_p_test{}".format(iter_evl), count_pos_test[13]/(count_pos_test[13]+count_neg_test[13]))
+                if count_pos_test[14] == 0:
+                    self.exp.log_scalar("cleantable_p_test{}".format(iter_evl), count_pos_test[14])
+                else:
+                    self.exp.log_scalar("cleantable_p_test{}".format(iter_evl), count_pos_test[14]/(count_pos_test[14]+count_neg_test[14]))
+                if count_pos_test[15] == 0:
+                    self.exp.log_scalar("drinkcup_p_test{}".format(iter_evl), count_pos_test[15])
+                else:
+                    self.exp.log_scalar("drinkcup_p_test{}".format(iter_evl), count_pos_test[15]/(count_pos_test[15]+count_neg_test[15]))
+                if count_pos_test[16] == 0:
+                    self.exp.log_scalar("toggle_p_test{}".format(iter_evl), count_pos_test[16])
+                else:
+                    self.exp.log_scalar("toggle_p_test{}".format(iter_evl), count_pos_test[16]/(count_pos_test[16]+count_neg_test[16]))
+                if count_pos_test[17] == 0:
+                    self.exp.log_scalar("none_p_test{}".format(iter_evl), count_pos_test[17])
+                else:
+                    self.exp.log_scalar("none_p_test{}".format(iter_evl), count_pos_test[17]/(count_pos_test[17]+count_neg_test[17]))
+                    
+                if count_neg_test[0] == 0:
+                    self.exp.log_scalar("opendoor1_n_test{}".format(iter_evl), count_neg_test[0])
+                else:
+                    self.exp.log_scalar("opendoor1_n_test{}".format(iter_evl), count_neg_test[0]/(count_pos_test[0]+count_neg_test[0]))
+                if count_neg_test[1] == 0:
+                    self.exp.log_scalar("opendoor2_n_test{}".format(iter_evl), count_neg_test[1])
+                else:
+                    self.exp.log_scalar("opendoor2_n_test{}".format(iter_evl), count_neg_test[1]/(count_pos_test[1]+count_neg_test[1]))
+                if count_neg_test[2] == 0:
+                    self.exp.log_scalar("closedoor1_n_test{}".format(iter_evl), count_neg_test[2])
+                else:
+                    self.exp.log_scalar("closedoor1_n_test{}".format(iter_evl), count_neg_test[2]/(count_pos_test[2]+count_neg_test[2]))
+                if count_neg_test[3] == 0:
+                    self.exp.log_scalar("closedoor2_n_test{}".format(iter_evl), count_neg_test[3])
+                else:
+                    self.exp.log_scalar("closedoor2_n_test{}".format(iter_evl), count_neg_test[3]/(count_pos_test[3]+count_neg_test[3]))
+                if count_neg_test[4] == 0:
+                    self.exp.log_scalar("openfridge_n_test{}".format(iter_evl), count_neg_test[4])
+                else:
+                    self.exp.log_scalar("openfridge_n_test{}".format(iter_evl), count_neg_test[4]/(count_pos_test[4]+count_neg_test[4]))
+                if count_neg_test[5] == 0:
+                    self.exp.log_scalar("closefridge_n_test{}".format(iter_evl), count_neg_test[5])
+                else:
+                    self.exp.log_scalar("closefridge_n_test{}".format(iter_evl), count_neg_test[5]/(count_pos_test[5]+count_neg_test[5]))
+                if count_neg_test[6] == 0:
+                    self.exp.log_scalar("openDW_n_test{}".format(iter_evl), count_neg_test[6])
+                else:
+                    self.exp.log_scalar("openDW_n_test{}".format(iter_evl), count_neg_test[6]/(count_pos_test[6]+count_neg_test[6]))
+                if count_neg_test[7] == 0:
+                    self.exp.log_scalar("closeDW_n_test{}".format(iter_evl), count_neg_test[7])
+                else:
+                    self.exp.log_scalar("closeDW_n_test{}".format(iter_evl), count_neg_test[7]/(count_pos_test[7]+count_neg_test[7]))
+                if count_neg_test[8] == 0:
+                    self.exp.log_scalar("opendrawer1_n_test{}".format(iter_evl), count_neg_test[8])
+                else:
+                    self.exp.log_scalar("opendrawer1_n_test{}".format(iter_evl), count_neg_test[8]/(count_pos_test[8]+count_neg_test[8]))
+                if count_neg_test[9] == 0:
+                    self.exp.log_scalar("closedrawer1_n_test{}".format(iter_evl), count_neg_test[9])
+                else:
+                    self.exp.log_scalar("closedrawer1_n_test{}".format(iter_evl), count_neg_test[9]/(count_pos_test[9]+count_neg_test[9]))
+                if count_neg_test[10] == 0:
+                    self.exp.log_scalar("opendrawer2_n_test{}".format(iter_evl), count_neg_test[10])
+                else:
+                    self.exp.log_scalar("opendrawer2_n_test{}".format(iter_evl), count_neg_test[10]/(count_pos_test[10]+count_neg_test[10]))
+                if count_neg_test[11] == 0:
+                    self.exp.log_scalar("closedrawer2_n_test{}".format(iter_evl), count_neg_test[11])
+                else:
+                    self.exp.log_scalar("closedrawer2_n_test{}".format(iter_evl), count_neg_test[11]/(count_pos_test[11]+count_neg_test[11]))
+                if count_neg_test[12] == 0:
+                    self.exp.log_scalar("opendrawer3_n_test{}".format(iter_evl), count_neg_test[12])
+                else:
+                    self.exp.log_scalar("opendrawer3_n_test{}".format(iter_evl), count_neg_test[12]/(count_pos_test[12]+count_neg_test[12]))
+                if count_neg_test[13] == 0:
+                    self.exp.log_scalar("closedrawer3_n_test{}".format(iter_evl), count_neg_test[13])
+                else:
+                    self.exp.log_scalar("closedrawer3_n_test{}".format(iter_evl), count_neg_test[13]/(count_pos_test[13]+count_neg_test[13]))
+                if count_neg_test[14] == 0:
+                    self.exp.log_scalar("cleantable_n_test{}".format(iter_evl), count_neg_test[14])
+                else:
+                    self.exp.log_scalar("cleantable_n_test{}".format(iter_evl), count_neg_test[14]/(count_pos_test[14]+count_neg_test[14]))
+                if count_neg_test[15] == 0:
+                    self.exp.log_scalar("drinkcup_n_test{}".format(iter_evl), count_neg_test[15])
+                else:
+                    self.exp.log_scalar("drinkcup_n_test{}".format(iter_evl), count_neg_test[15]/(count_pos_test[15]+count_neg_test[15]))
+                if count_neg_test[16] == 0:
+                    self.exp.log_scalar("toggle_n_test{}".format(iter_evl), count_neg_test[16])
+                else:
+                    self.exp.log_scalar("toggle_n_test{}".format(iter_evl), count_neg_test[16]/(count_pos_test[16]+count_neg_test[16]))
+                if count_neg_test[17] == 0:
+                    self.exp.log_scalar("none_n_test{}".format(iter_evl), count_neg_test[17])
+                else:
+                    self.exp.log_scalar("none_n_test{}".format(iter_evl), c_neg_val[17]/(count_pos_test[17]+count_neg_test[17]))
+      
 
         if self.config["usage_modus"] == "train":
             logging.info('    Network_selecter:    Train:    eliminating network file')
@@ -374,9 +613,9 @@ class Modus_Selecter(object):
         
             
         torch.cuda.empty_cache()
-       # del count_neg_test,count_pos_test
+        del count_neg_test,count_pos_test
         del results_test
-        #del c_neg_val, c_pos_val
+        del c_neg_val, c_pos_val
         del results_train
         del acc_train_ac
         del f1_weighted_train_ac 
@@ -413,8 +652,8 @@ class Modus_Selecter(object):
             recalls_attr_test = []
 
         # Testing the network in folder (according to the conf)
-        #results_test, confusion_matrix_test, _ , c_pos_test, c_neg_test = self.network.evolution_evaluation(ea_iter=0, testing=testing)
-        results_test, confusion_matrix_test, _ = self.network.evolution_evaluation(ea_iter=0, testing=testing)
+        results_test, confusion_matrix_test, _ , c_pos_test, c_neg_test = self.network.evolution_evaluation(ea_iter=0, testing=testing)
+        #results_test, confusion_matrix_test, _ = self.network.evolution_evaluation(ea_iter=0, testing=testing)
 
         elapsed_time_test = time.time() - start_time_test
 
@@ -456,8 +695,8 @@ class Modus_Selecter(object):
             del precisions_attr_test 
             del recalls_attr_test 
         
-        #return results_test, confusion_matrix_test, c_pos_test, c_neg_test
-        return results_test, confusion_matrix_test
+        return results_test, confusion_matrix_test, c_pos_test, c_neg_test
+        #return results_test, confusion_matrix_test
 
     def net_modus(self):
         """
