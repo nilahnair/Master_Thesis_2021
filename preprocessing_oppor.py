@@ -26,10 +26,10 @@ from sliding_window_dat import sliding_window
 
 # Hardcoded number of sensor channels employed in the OPPORTUNITY challenge
 NB_SENSOR_CHANNELS = 113
-NUM_ACT_CLASSES= 5
+NUM_ACT_CLASSES= 18
 NUM_CLASSES =4
 
-ws = 24
+ws = 100
 ss = 12
 
 OPPORTUNITY_DATA_FILES = ['OpportunityUCIDataset/dataset/S1-Drill.dat', #0
@@ -467,12 +467,12 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/oppor/locomotions/inputw30/'
+    base_directory = '/data/nnair/oppor/gesture/input/'
         
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
-    l= 'locomotion'
+    l= 'gestures'
     generate_data(target_filename=data_dir_train, label=l, datatype='train')
     generate_data(target_filename=data_dir_val, label=l, datatype='val')
     generate_data(target_filename=data_dir_test, label=l, datatype='test')
