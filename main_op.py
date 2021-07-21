@@ -64,7 +64,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'locomotion' : 113, 'gesture' : 113,'pamap2' : 40}
-    sliding_window_length = {'locomotion': 100, 'gesture': 100, 'pamap2': 100}
+    sliding_window_length = {'locomotion': 24, 'gesture': 100, 'pamap2': 100}
     sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 12}
     #num_attributes = {'locomotion' : 10, 'gesture' : 32, 'carrots' : 32, 'pamap2' : 24, 'orderpicking' : 16}
     #num_classes = {'locomotion' : 5, 'gesture' : 18, 'carrots' : 16, 'pamap2' : 12, 'orderpicking' : 8}
