@@ -29,8 +29,8 @@ NB_SENSOR_CHANNELS = 113
 NUM_ACT_CLASSES= 5
 NUM_CLASSES =4
 
-ws = 30
-ss = 5
+ws = 24
+ss = 12
 
 OPPORTUNITY_DATA_FILES = ['OpportunityUCIDataset/dataset/S1-Drill.dat', #0
                           'OpportunityUCIDataset/dataset/S1-ADL1.dat',  #1
