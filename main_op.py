@@ -116,12 +116,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Batch size
     batch_size_train = {
-        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
+        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
         'cnn_imu': {'locomotion': 25, 'gesture':100, 'pamap2': 200}}
 
     batch_size_val = {
-        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
+        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
         'cnn_imu': {'locomotion': 25, 'gesture':100, 'pamap2': 200}}
     
@@ -152,6 +152,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/oppor/locomotions/output/"
+        #folder_base ="/data/nnair/oppor/gesture/output/"
         folder_base = "/data/nnair/pamap/output/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
@@ -216,7 +217,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputw30/',
-                    'gesture': '/data/nnair/oppor/locomotions/inputs/',
+                    'gesture': '/data/nnair/oppor/gesture/input/',
                     'pamap2': '/data/nnair/pamap/input/'}
     
     # GPU
