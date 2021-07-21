@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('opportunity gesture')
+ex= Experiment('opportunity locomotion')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -64,7 +64,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'locomotion' : 113, 'gesture' : 113,'pamap2' : 40}
-    sliding_window_length = {'locomotion': 24, 'gesture': 100, 'pamap2': 100}
+    sliding_window_length = {'locomotion': 100, 'gesture': 100, 'pamap2': 100}
     sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 12}
     #num_attributes = {'locomotion' : 10, 'gesture' : 32, 'carrots' : 32, 'pamap2' : 24, 'orderpicking' : 16}
     #num_classes = {'locomotion' : 5, 'gesture' : 18, 'carrots' : 16, 'pamap2' : 12, 'orderpicking' : 8}
@@ -151,8 +151,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        #folder_base = "/data/nnair/oppor/locomotions/output/"
-        folder_base ="/data/nnair/oppor/gesture/output/"
+        folder_base = "/data/nnair/oppor/locomotions/output/"
+        #folder_base ="/data/nnair/oppor/gesture/output/"
         #folder_base = "/data/nnair/pamap/output/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
@@ -216,7 +216,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     
-    dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputw30/',
+    dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputs/',
                     'gesture': '/data/nnair/oppor/gesture/input/',
                     'pamap2': '/data/nnair/pamap/input/'}
     
@@ -328,7 +328,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
