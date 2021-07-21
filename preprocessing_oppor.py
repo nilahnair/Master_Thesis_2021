@@ -29,8 +29,8 @@ NB_SENSOR_CHANNELS = 113
 NUM_ACT_CLASSES= 5
 NUM_CLASSES =4
 
-ws = 100
-ss = 12
+ws = 30
+ss = 5
 
 OPPORTUNITY_DATA_FILES = ['OpportunityUCIDataset/dataset/S1-Drill.dat', #0
                           'OpportunityUCIDataset/dataset/S1-ADL1.dat',  #1
@@ -467,7 +467,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/oppor/locomotions/inputs/'
+    base_directory = '/data/nnair/oppor/locomotions/inputsw30/'
         
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
