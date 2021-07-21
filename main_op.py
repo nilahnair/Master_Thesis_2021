@@ -151,12 +151,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        #folder_base = "/data/nnair/oppor/locomotions/output/"
-        folder_base = "/data/nnair/pamap/output/"
+        folder_base = "/data/nnair/oppor/locomotions/output/"
+        #folder_base = "/data/nnair/pamap/output/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
-        folder_base = "/data/nnair/output/attributes/no7/imu/output/"
+        #folder_base = "/data/nnair/output/attributes/no7/imu/output/"
         
     print("folderbase selected")
     print(folder_base)
@@ -327,13 +327,13 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=2,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=1,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
