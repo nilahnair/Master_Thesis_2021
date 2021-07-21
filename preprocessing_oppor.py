@@ -467,7 +467,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/oppor/locomotions/inputsw30/'
+    base_directory = '/data/nnair/oppor/locomotions/inputw30/'
         
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
