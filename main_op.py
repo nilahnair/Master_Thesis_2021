@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('pamap')
+ex= Experiment('opportunity gesture')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -69,7 +69,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_attributes = {'locomotion' : 10, 'gesture' : 32, 'carrots' : 32, 'pamap2' : 24, 'orderpicking' : 16}
     #num_classes = {'locomotion' : 5, 'gesture' : 18, 'carrots' : 16, 'pamap2' : 12, 'orderpicking' : 8}
     num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 9}
-    num_tr_inputs = {'locomotion': 34162, 'gesture': 128263, 'pamap2': 103611}
+    num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103611}
     
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
@@ -152,8 +152,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/oppor/locomotions/output/"
-        #folder_base ="/data/nnair/oppor/gesture/output/"
-        folder_base = "/data/nnair/pamap/output/"
+        folder_base ="/data/nnair/oppor/gesture/output/"
+        #folder_base = "/data/nnair/pamap/output/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
@@ -328,8 +328,8 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=2,
-                           network_idx=0,
+    config = configuration(dataset_idx=1,
+                           network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
