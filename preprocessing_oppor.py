@@ -26,7 +26,7 @@ from sliding_window_dat import sliding_window
 
 # Hardcoded number of sensor channels employed in the OPPORTUNITY challenge
 NB_SENSOR_CHANNELS = 113
-NUM_ACT_CLASSES= 18
+NUM_ACT_CLASSES= 5
 NUM_CLASSES =4
 
 ws = 100
@@ -51,8 +51,10 @@ OPPORTUNITY_DATA_FILES = ['OpportunityUCIDataset/dataset/S1-Drill.dat', #0
                           'OpportunityUCIDataset/dataset/S3-ADL4.dat',  #16
                           'OpportunityUCIDataset/dataset/S3-ADL5.dat'   #17
                           ]
+
 persons = ["S1", "S2", "S3", "S4"]
 ID ={"S1": 0, "S2": 1, "S3": 2, "S4": 3,}
+
 train_data_files = ['/vol/actrec/Opportunity/dataset/S1-ADL1.dat', #0
                     '/vol/actrec/Opportunity/dataset/S1-ADL2.dat', #1
                     '/vol/actrec/Opportunity/dataset/S1-ADL3.dat', #2
@@ -473,13 +475,15 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
 if __name__ == '__main__':
     
     #base_directory = '/data/nnair/oppor/gesture/input/'
-    base_directory = '/data/nnair/oppor/gesture/inputdrill/'
-    #base_directory = '/data/nnair/oppor/locomotions/inputdrill/'
+    #base_directory = '/data/nnair/oppor/gesture/inputdrill/'
+    base_directory = '/data/nnair/oppor/locomotions/inputdrill/'
         
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
-    l= 'gestures'
+    
+    #param label: string, ['gestures' (default), 'locomotion']
+    l= 'locomotion'
     generate_data(target_filename=data_dir_train, label=l, datatype='train')
     generate_data(target_filename=data_dir_val, label=l, datatype='val')
     generate_data(target_filename=data_dir_test, label=l, datatype='test')
