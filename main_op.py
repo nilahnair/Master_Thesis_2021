@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('opportunity locomotion drill')
+ex= Experiment('opportunity gesture drill')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -154,8 +154,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         #folder_base = "/data/nnair/oppor/locomotions/output/"
         #folder_base ="/data/nnair/oppor/gesture/output/"
         #folder_base = "/data/nnair/pamap/output/"
-        folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
-        #folder_base = "/data/nnair/oppor/gesture/outputdrill/"        
+        #folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
+        folder_base = "/data/nnair/oppor/gesture/outputdrill/"        
         
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
@@ -335,13 +335,13 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=0,
+    config = configuration(dataset_idx=1,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=1,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
