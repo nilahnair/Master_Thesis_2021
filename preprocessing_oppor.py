@@ -76,6 +76,11 @@ test_data_files = ['/vol/actrec/Opportunity/dataset/S1-ADL5.dat', #0
                   '/vol/actrec/Opportunity/dataset/S3-ADL5.dat',  #2
                   '/vol/actrec/Opportunity/dataset/S4-ADL5.dat'   #3
                  ]
+drill_data_files = ['/vol/actrec/Opportunity/dataset/S1-Drill.dat', #0
+                  '/vol/actrec/Opportunity/dataset/S2-Drill.dat',  #1
+                  '/vol/actrec/Opportunity/dataset/S3-Drill.dat',  #2
+                  '/vol/actrec/Opportunity/dataset/S4-Drill.dat'   #3
+                 ]
 
 # Hardcoded thresholds to define global maximums and minimums for every one of the 113 sensor channels employed in the
 # OPPORTUNITY challenge
@@ -330,7 +335,7 @@ def generate_data(target_filename, label, datatype):
         X_test = np.empty((0, NB_SENSOR_CHANNELS))
         act_test = np.empty((0))
         id_test = np.empty((0))
-        data_files = test_data_files
+        data_files = drill_data_files
     counter_files = 0
     
     print('Processing dataset files ...')
@@ -467,7 +472,9 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/oppor/gesture/input/'
+    #base_directory = '/data/nnair/oppor/gesture/input/'
+    base_directory = '/data/nnair/oppor/gesture/inputdrill/'
+    #base_directory = '/data/nnair/oppor/locomotions/inputdrill/'
         
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
