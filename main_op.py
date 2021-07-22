@@ -154,6 +154,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_base = "/data/nnair/oppor/locomotions/output/"
         #folder_base ="/data/nnair/oppor/gesture/output/"
         #folder_base = "/data/nnair/pamap/output/"
+        #folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
+        #folder_base = "/data/nnair/oppor/gesture/outputdrill/"        
+        
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
@@ -219,7 +222,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputs/',
                     'gesture': '/data/nnair/oppor/gesture/input/',
                     'pamap2': '/data/nnair/pamap/input/'}
-    
+    '''
+    dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
+                    'gesture': '/data/nnair/oppor/gesture/inputdrill/',
+                    'pamap2': '/data/nnair/pamap/input/'}
+    '''
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     GPU = 0
@@ -334,7 +341,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=1,
+                           learning_rates_idx=3,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
