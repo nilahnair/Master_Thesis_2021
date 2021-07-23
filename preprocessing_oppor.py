@@ -485,7 +485,7 @@ if __name__ == '__main__':
     data_dir_test = base_directory + 'sequences_test/'
     
     #param label: string, ['gestures' (default), 'locomotion']
-    l= 'locomotion'
+    l= 'gestures'
     generate_data(target_filename=data_dir_train, label=l, datatype='train')
     generate_data(target_filename=data_dir_val, label=l, datatype='val')
     generate_data(target_filename=data_dir_test, label=l, datatype='test')
