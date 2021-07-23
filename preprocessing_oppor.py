@@ -26,7 +26,8 @@ from sliding_window_dat import sliding_window
 
 # Hardcoded number of sensor channels employed in the OPPORTUNITY challenge
 NB_SENSOR_CHANNELS = 113
-NUM_ACT_CLASSES= 5
+#if locomotion 5 gesture 18
+NUM_ACT_CLASSES= 18
 NUM_CLASSES =4
 
 ws = 100
@@ -476,8 +477,8 @@ if __name__ == '__main__':
     
     #base_directory = '/data/nnair/oppor/locomotions/input/'
     #base_directory = '/data/nnair/oppor/gesture/input/'
-    #base_directory = '/data/nnair/oppor/gesture/inputdrill/'
-    base_directory = '/data/nnair/oppor/locomotions/inputdrill/'
+    base_directory = '/data/nnair/oppor/gesture/inputdrill/'
+    #base_directory = '/data/nnair/oppor/locomotions/inputdrill/'
         
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
