@@ -338,7 +338,7 @@ def generate_data(target_filename, label, datatype):
         X_test = np.empty((0, NB_SENSOR_CHANNELS))
         act_test = np.empty((0))
         id_test = np.empty((0))
-        data_files = drill_data_files
+        data_files = test_data_files
     counter_files = 0
     
     print('Processing dataset files ...')
@@ -476,8 +476,8 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
 if __name__ == '__main__':
     
     #base_directory = '/data/nnair/oppor/locomotions/input/'
-    #base_directory = '/data/nnair/oppor/gesture/input/'
-    base_directory = '/data/nnair/oppor/gesture/inputdrill/'
+    base_directory = '/data/nnair/oppor/gesture/input/'
+    #base_directory = '/data/nnair/oppor/gesture/inputdrill/'
     #base_directory = '/data/nnair/oppor/locomotions/inputdrill/'
         
     data_dir_train = base_directory + 'sequences_train/'
