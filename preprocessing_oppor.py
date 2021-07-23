@@ -474,8 +474,8 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    #base_directory = '/data/nnair/oppor/locomotions/input/'
-    base_directory = '/data/nnair/oppor/gesture/input/'
+    base_directory = '/data/nnair/oppor/locomotions/input/'
+    #base_directory = '/data/nnair/oppor/gesture/input/'
     #base_directory = '/data/nnair/oppor/gesture/inputdrill/'
     #base_directory = '/data/nnair/oppor/locomotions/inputdrill/'
         
@@ -484,7 +484,7 @@ if __name__ == '__main__':
     data_dir_test = base_directory + 'sequences_test/'
     
     #param label: string, ['gestures' (default), 'locomotion']
-    l= 'gestures'
+    l= 'locomotion'
     generate_data(target_filename=data_dir_train, label=l, datatype='train')
     generate_data(target_filename=data_dir_val, label=l, datatype='val')
     generate_data(target_filename=data_dir_test, label=l, datatype='test')
