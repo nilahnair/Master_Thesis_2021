@@ -153,8 +153,8 @@ class Modus_Selecter(object):
             
             # Training the network and obtaining the validation results
             logging.info('    Network_selecter:    Train iter {}'.format(iter_evl))
-            results_train, confusion_matrix_train, best_itera, c_pos_val, c_neg_val= self.network.evolution_evaluation(ea_iter=iter_evl)
-            #results_train, confusion_matrix_train, best_itera = self.network.evolution_evaluation(ea_iter=iter_evl)
+            #results_train, confusion_matrix_train, best_itera, c_pos_val, c_neg_val= self.network.evolution_evaluation(ea_iter=iter_evl)
+            results_train, confusion_matrix_train, best_itera = self.network.evolution_evaluation(ea_iter=iter_evl)
             
             # Appending results for later saving in results file
             acc_train_ac.append(results_train['acc'])
@@ -182,7 +182,7 @@ class Modus_Selecter(object):
                 p=results_train['acc_attrs']
                 for i in range(0,p.shape[0]):
                     self.exp.log_scalar("acc_attr_{}_train_mo_{}".format(i, iter_evl),p[i])
-            
+            '''
             if self.config['dataset']=='locomotion':
                 if c_pos_val[0] == 0:
                     self.exp.log_scalar("stand_p_v_f{}".format(iter_evl), c_pos_val[0])
@@ -373,7 +373,7 @@ class Modus_Selecter(object):
                 else:
                     self.exp.log_scalar("none_n_v_f{}".format(iter_evl), c_neg_val[17]/(c_pos_val[17]+c_neg_val[17]))
                 
-
+                '''
                            
             # Saving the results
             self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, time_iter=time_train, precisions=results_train['precision'], 
@@ -382,8 +382,8 @@ class Modus_Selecter(object):
             # Testing the network
             if testing:
                 start_time_test = time.time()
-                results_test, confusion_matrix_test, count_pos_test, count_neg_test = self.test(testing=True)
-                #results_test, confusion_matrix_test= self.test(testing=True)
+                #results_test, confusion_matrix_test, count_pos_test, count_neg_test = self.test(testing=True)
+                results_test, confusion_matrix_test= self.test(testing=True)
                 acc_test_ac.append(results_test['acc'])
                 f1_weighted_test_ac.append(results_test['f1_weighted'])
                 f1_mean_test_ac.append(results_test['f1_mean'])
@@ -415,7 +415,7 @@ class Modus_Selecter(object):
                 p=results_test['acc_attrs']
                 for i in range(0,p.shape[0]):
                     self.exp.log_scalar("acc_attr_{}_test_mo_{}".format(i, iter_evl),p[i])
-            
+            '''
             if self.config['dataset']=='locomotion':
                 if count_pos_test[0] == 0:
                     self.exp.log_scalar("stand_p_test{}".format(iter_evl), count_pos_test[0])
@@ -605,7 +605,7 @@ class Modus_Selecter(object):
                     self.exp.log_scalar("none_n_test{}".format(iter_evl), count_neg_test[17])
                 else:
                     self.exp.log_scalar("none_n_test{}".format(iter_evl), c_neg_val[17]/(count_pos_test[17]+count_neg_test[17]))
-      
+                '''
 
         if self.config["usage_modus"] == "train":
             logging.info('    Network_selecter:    Train:    eliminating network file')
@@ -613,9 +613,9 @@ class Modus_Selecter(object):
         
             
         torch.cuda.empty_cache()
-        del count_neg_test,count_pos_test
+        #del count_neg_test,count_pos_test
         del results_test
-        del c_neg_val, c_pos_val
+        #del c_neg_val, c_pos_val
         del results_train
         del acc_train_ac
         del f1_weighted_train_ac 
@@ -652,8 +652,8 @@ class Modus_Selecter(object):
             recalls_attr_test = []
 
         # Testing the network in folder (according to the conf)
-        results_test, confusion_matrix_test, _ , c_pos_test, c_neg_test = self.network.evolution_evaluation(ea_iter=0, testing=testing)
-        #results_test, confusion_matrix_test, _ = self.network.evolution_evaluation(ea_iter=0, testing=testing)
+        #results_test, confusion_matrix_test, _ , c_pos_test, c_neg_test = self.network.evolution_evaluation(ea_iter=0, testing=testing)
+        results_test, confusion_matrix_test, _ = self.network.evolution_evaluation(ea_iter=0, testing=testing)
 
         elapsed_time_test = time.time() - start_time_test
 
@@ -695,8 +695,8 @@ class Modus_Selecter(object):
             del precisions_attr_test 
             del recalls_attr_test 
         
-        return results_test, confusion_matrix_test, c_pos_test, c_neg_test
-        #return results_test, confusion_matrix_test
+        #return results_test, confusion_matrix_test, c_pos_test, c_neg_test
+        return results_test, confusion_matrix_test
 
     def net_modus(self):
         """
