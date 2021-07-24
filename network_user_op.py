@@ -555,8 +555,8 @@ class Network_User(object):
                     # Validation
                     # Calling the val() function with the current network and criterion
                     del train_batch_v, noise
-                    results_val, loss_val, c_pos_val, c_neg_val = self.validate(network_obj, criterion)
-                    #results_val, loss_val= self.validate(network_obj, criterion)
+                    #results_val, loss_val, c_pos_val, c_neg_val = self.validate(network_obj, criterion)
+                    results_val, loss_val= self.validate(network_obj, criterion)
                  
                     self.exp.log_scalar("loss_val_int_{}".format(ea_itera), loss_val, itera)
 
