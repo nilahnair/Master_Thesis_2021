@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('pamap 3 sensor')
+ex= Experiment('pamap sw=100 ss= 22')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -341,7 +341,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=2,
+                           learning_rates_idx=1,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
