@@ -118,12 +118,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 100}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25}}
 
     batch_size_val = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 100}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'locomotion': 4, 'gesture': 4, 'pamap2': 4}
@@ -250,7 +250,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     if dataset[dataset_idx] == 'pamap2':
         train_show = {'cnn' : 50, 'lstm' : 100, 'cnn_imu' :50}
-        valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :400}
+        valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :100}
     else:
         train_show = {'cnn' : 50, 'lstm' : 100, 'cnn_imu' :50}
         valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :400}
@@ -341,7 +341,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=0,
+                           learning_rates_idx=2,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
