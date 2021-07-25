@@ -28,8 +28,8 @@ from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 from matplotlib.collections import PolyCollection
 
-from network_op import Network
-
+#from network_op import Network
+from network_pamap import Network
 from HARWindows_act import HARWindows
 
 from metrics import Metrics
