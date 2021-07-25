@@ -69,7 +69,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_attributes = {'locomotion' : 10, 'gesture' : 32, 'carrots' : 32, 'pamap2' : 24, 'orderpicking' : 16}
     #num_classes = {'locomotion' : 5, 'gesture' : 18, 'carrots' : 16, 'pamap2' : 12, 'orderpicking' : 8}
     num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 9}
-    num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103611}
+    num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 56515}
     
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
@@ -236,7 +236,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     train_show_value = num_tr_inputs[dataset[dataset_idx]] / \
                        batch_size_train[network[network_idx]][dataset[dataset_idx]]
-    '''
+   
     if dataset[dataset_idx] == "pamap2":
         train_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
         valid_show = {'cnn': int(train_show_value / 10), 'lstm': 10, 'cnn_imu': int(train_show_value / 10)}
@@ -246,15 +246,15 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     else:
         train_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
         valid_show = {'cnn': int(train_show_value / 10), 'lstm': 10, 'cnn_imu': int(train_show_value / 10)}
-    '''
     
+    '''
     if dataset[dataset_idx] == 'pamap2':
         train_show = {'cnn' : 50, 'lstm' : 100, 'cnn_imu' :50}
         valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :100}
     else:
         train_show = {'cnn' : 50, 'lstm' : 100, 'cnn_imu' :50}
         valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :400}
-   
+    '''
     dist = {0: 'euclidean', 1: 'BCELoss'}
     
     now = datetime.datetime.now()
