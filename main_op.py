@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('pamap sw=100 ss= 22')
+ex= Experiment('pamap sw=200 ss=12')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -64,8 +64,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'locomotion' : 113, 'gesture' : 113,'pamap2' : 40}
-    sliding_window_length = {'locomotion': 100, 'gesture': 100, 'pamap2': 100}
-    sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 22}
+    sliding_window_length = {'locomotion': 100, 'gesture': 100, 'pamap2': 200}
+    sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 12}
     #num_attributes = {'locomotion' : 10, 'gesture' : 32, 'carrots' : 32, 'pamap2' : 24, 'orderpicking' : 16}
     #num_classes = {'locomotion' : 5, 'gesture' : 18, 'carrots' : 16, 'pamap2' : 12, 'orderpicking' : 8}
     num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 9}
@@ -110,7 +110,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                             'cnn_imu': {'softmax':5, 'attribute': 10}},
               'pamap2': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
-                                   'cnn_imu': {'softmax': 50, 'attribute': 10}}
+                                   'cnn_imu': {'softmax': 10, 'attribute': 10}}
               } 
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
 
@@ -118,7 +118,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 20}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 100}}
 
     batch_size_val = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
@@ -225,7 +225,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
                     'gesture': '/data/nnair/oppor/gesture/inputdrill/',
-                    'pamap2': '/data/nnair/pamap/input2/'}
+                    'pamap2': '/data/nnair/pamap/input200/'}
     
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "1"
@@ -341,7 +341,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=2,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
