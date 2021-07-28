@@ -121,7 +121,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 100}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 50}}
 
     batch_size_val = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
