@@ -29,7 +29,7 @@ NB_SENSOR_CHANNELS = 40
 NUM_ACT_CLASSES= 12
 NUM_CLASSES =9
 
-ws = 200
+ws = 400
 ss = 12
 
 PAMAP2_DATA_FILES = ['/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject101.dat', #0
@@ -527,7 +527,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/pamap/input200/'
+    base_directory = '/data/nnair/pamap/input400/'
     
     generate_data(base_directory)
     
