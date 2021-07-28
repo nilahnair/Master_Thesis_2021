@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('pamap sw=200 ss=12')
+ex= Experiment('pamap sw=400 ss=12')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -64,14 +64,16 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'locomotion' : 113, 'gesture' : 113,'pamap2' : 40}
-    sliding_window_length = {'locomotion': 100, 'gesture': 100, 'pamap2': 200}
+    sliding_window_length = {'locomotion': 100, 'gesture': 100, 'pamap2': 400}
     sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 12}
     #num_attributes = {'locomotion' : 10, 'gesture' : 32, 'carrots' : 32, 'pamap2' : 24, 'orderpicking' : 16}
     #num_classes = {'locomotion' : 5, 'gesture' : 18, 'carrots' : 16, 'pamap2' : 12, 'orderpicking' : 8}
     num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 9}
     #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 56515}
     #input200
-    num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103603}
+    #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103603}
+    #input400
+    num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103586}
     
     
     # It was thought to have different LR per dataset, but experimentally have worked the next three
@@ -228,7 +230,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
                     'gesture': '/data/nnair/oppor/gesture/inputdrill/',
-                    'pamap2': '/data/nnair/pamap/input200/'}
+                    'pamap2': '/data/nnair/pamap/input400/'}
     
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "1"
@@ -344,7 +346,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=1,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
