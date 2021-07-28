@@ -29,8 +29,8 @@ NB_SENSOR_CHANNELS = 40
 NUM_ACT_CLASSES= 12
 NUM_CLASSES =9
 
-ws = 100
-ss = 22
+ws = 200
+ss = 12
 
 PAMAP2_DATA_FILES = ['/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject101.dat', #0
                      '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject102.dat', #1
@@ -396,7 +396,6 @@ def generate_data(target_filename):
                 #obj = {"data": seq, "label": labelid}
                 print("input values are")
                 print(seq.shape)
-                print(act_train[f].shape)
                 print(act_train[f])
                 print(labelid_train[f])
                 obj = {"data": seq, "act_label": act_train[f], "act_labels_all": act_all_train[f], "label": labelid_train[f]}
@@ -426,7 +425,6 @@ def generate_data(target_filename):
                 #obj = {"data": seq, "label": labelid}
                 print("input values are")
                 print(seq.shape)
-                print(act_val[f].shape)
                 print(act_val[f])
                 print(labelid_val[f])
                 obj = {"data": seq, "act_label": act_val[f], "act_labels_all": act_all_val[f], "label": labelid_val[f]}
@@ -456,7 +454,6 @@ def generate_data(target_filename):
                 #obj = {"data": seq, "label": labelid}
                 print("input values are")
                 print(seq.shape)
-                print(act_test[f].shape)
                 print(act_test[f])
                 print(labelid_test[f])
                 obj = {"data": seq, "act_label": act_test[f], "act_labels_all": act_all_test[f], "label": labelid_test[f]}
@@ -530,7 +527,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/pamap/input2/'
+    base_directory = '/data/nnair/pamap/input200/'
     
     generate_data(base_directory)
     
