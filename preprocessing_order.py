@@ -32,46 +32,8 @@ NUM_CLASSES =9
 ws = 400
 ss = 12
 
-PAMAP2_DATA_FILES = ['/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject101.dat', #0
-                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject102.dat', #1
-                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject103.dat', #2
-                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject104.dat', #3
-                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject105.dat', #4
-                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject106.dat', #5
-                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject107.dat', #6
-                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject108.dat', #7
-                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject109.dat', #8
-                      ]
-
-# Hardcoded thresholds to define global maximums and minimums for every one of the 113 sensor channels employed in the
-# OPPORTUNITY challenge
-NORM_MAX_THRESHOLDS = [3000,   3000,   3000,   3000,   3000,   3000,   3000,   3000,   3000,
-                       3000,   3000,   3000,   3000,   3000,   3000,   3000,   3000,   3000,
-                       3000,   3000,   3000,   3000,   3000,   3000,   3000,   3000,   3000,
-                       3000,   3000,   3000,   3000,   3000,   3000,   3000,   3000,   3000,
-                       3000,   3000,   3000,   10000,  10000,  10000,  1500,   1500,   1500,
-                       3000,   3000,   3000,   10000,  10000,  10000,  1500,   1500,   1500,
-                       3000,   3000,   3000,   10000,  10000,  10000,  1500,   1500,   1500,
-                       3000,   3000,   3000,   10000,  10000,  10000,  1500,   1500,   1500,
-                       3000,   3000,   3000,   10000,  10000,  10000,  1500,   1500,   1500,
-                       250,    25,     200,    5000,   5000,   5000,   5000,   5000,   5000,
-                       10000,  10000,  10000,  10000,  10000,  10000,  250,    250,    25,
-                       200,    5000,   5000,   5000,   5000,   5000,   5000,   10000,  10000,
-                       10000,  10000,  10000,  10000,  250, ]
-
-NORM_MIN_THRESHOLDS = [-3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,
-                       -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,
-                       -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,
-                       -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,  -3000,
-                       -3000,  -3000,  -3000,  -10000, -10000, -10000, -1000,  -1000,  -1000,
-                       -3000,  -3000,  -3000,  -10000, -10000, -10000, -1000,  -1000,  -1000,
-                       -3000,  -3000,  -3000,  -10000, -10000, -10000, -1000,  -1000,  -1000,
-                       -3000,  -3000,  -3000,  -10000, -10000, -10000, -1000,  -1000,  -1000,
-                       -3000,  -3000,  -3000,  -10000, -10000, -10000, -1000,  -1000,  -1000,
-                       -250,   -100,   -200,   -5000,  -5000,  -5000,  -5000,  -5000,  -5000,
-                       -10000, -10000, -10000, -10000, -10000, -10000, -250,   -250,   -100,
-                       -200,   -5000,  -5000,  -5000,  -5000,  -5000,  -5000,  -10000, -10000,
-                       -10000, -10000, -10000, -10000, -250, ]
+location= '/vol/actrec/icpram-data/numpy_arrays/'
+dictz = {"_DO": {1: "004", 2: "011", 3: "017"}, "_NP": {1: "004", 2: "014", 3: "015"}}
 
 def select_columns_opp(raw_data):
         """Selection of the columns employed in the Pamap2 dataset
@@ -317,6 +279,93 @@ def generate_data(target_filename):
     act_test = np.empty((0))
     id_test = np.empty((0))
     
+    wr='_DO'
+    totaldata = list((dictz[wr]).keys())
+    print(totaldata)
+    totaldata_list = location + "%s__%s_data_labels_every-frame_100.npz" % (wr, dictz[wr][train_ids[i]]) for i in [0, 1]]
+    print("totaldatalist")
+    print(totaldata_list)
+    wr='_NP'
+    add
+    
+
+        if self.partition_modus == 'train':
+            set_list = train_list
+        elif self.partition_modus == 'val' or self.partition_modus == 'test':
+            set_list = test_list
+        else:
+            raise("        Dataloader: Error list set")
+
+        train_vals = []
+        train_labels = []
+        logging.info("Data: Load train data...")
+
+        for path in set_list:
+            tmp = np.load(path)
+            vals = tmp["arr_0"].copy()
+            labels = tmp["arr_1"].copy()
+            tmp.close()
+
+            for i in range(len(labels)):
+                train_vals.append(vals[i])
+
+                if all_labels:
+                    train_labels.append(labels[i])
+                else:
+                    if self.config['label_pos'] == "end":
+                        # It takes the end value as label
+                        label_arg = labels[i].flatten()
+                        label_arg = label_arg.astype(int)
+                        label_arg = label_arg[-1]
+                    elif self.config['label_pos'] == "middle":
+                        # It takes the center value as label
+                        label_arg = labels[i].flatten()
+                        label_arg = label_arg.astype(int)
+                        label_arg = label_arg[int(label_arg.shape[0] / 2)]
+                    elif self.config['label_pos'] == "mode":
+                        # It takes the mode value as label
+                        label_arg = labels[i].flatten()
+                        label_arg = label_arg.astype(int)
+                        label_arg = np.bincount(label_arg, minlength=self.config['num_classes'])
+                        label_arg = np.argmax(label_arg)
+                    else:
+                        raise RuntimeError("unkown annotype")
+                    train_labels.append(label_arg)
+
+        # Make train arrays a numpy matrix
+        train_vals = np.array(train_vals)
+        train_labels = np.array(train_labels)
+
+
+        ##############################
+        # Normalizing the data to be in range [0,1] following the paper
+        for ch in range(train_vals.shape[2]):
+            max_ch = np.max(train_vals[:, :, ch])
+            min_ch = np.min(train_vals[:, :, ch])
+            median_old_range = (max_ch + min_ch) / 2
+            train_vals[:, :, ch] = (train_vals[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
+
+        # calculate number of labels
+        labels = set([])
+        labels = labels.union(set(train_labels.flatten()))
+
+        # Remove NULL class label -> should be ignored
+        labels = sorted(labels)
+        if labels[0] == 0:
+            labels = labels[1:]
+
+        #
+        # Create a class dictionary and save it
+        # It is a mapping from the original labels
+        # to the new labels, due that the all the
+        # labels dont exist in the warehouses
+        #
+        #
+        class_dict = {}
+        for i, label in enumerate(labels):
+            class_dict[label] = i
+
+    
     print('Processing dataset files ...')
     counter=0
     for idx_f in PAMAP2_DATA_FILES:
@@ -527,7 +576,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/pamap/input400/'
+    base_directory = '/data/nnair/order/input/'
     
     generate_data(base_directory)
     
