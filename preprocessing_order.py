@@ -135,124 +135,6 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
 
     return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
 
-def normalize(raw_data, max_list, min_list):
-        """Normalizes all sensor channels
-
-        :param data: numpy integer matrix
-            Sensor data
-        :param max_list: numpy integer array
-            Array containing maximums values for every one of the 113 sensor channels
-        :param min_list: numpy integer array
-            Array containing minimum values for every one of the 113 sensor channels
-        :return:
-            Normalized sensor data
-        """
-        max_list, min_list = np.array(max_list), np.array(min_list)
-        diffs = max_list - min_list
-        for i in np.arange(raw_data.shape[1]):
-            raw_data[:, i] = (raw_data[:, i] - min_list[i]) / diffs[i]
-        #     Checking the boundaries
-        raw_data[raw_data > 1] = 0.99
-        raw_data[raw_data < 0] = 0.00
-        return raw_data
-
-def divide_x_y(raw_data):
-        """Segments each sample into features and label
-
-        :param data: numpy integer matrix
-            Sensor data
-        :param label: string, ['gestures' (default), 'locomotion']
-            Type of activities to be recognized
-        :return: numpy integer matrix, numpy integer array
-            Features encapsulated into a matrix and labels as an array
-        """
-        data_t = raw_data[:, 0]
-        data_y = raw_data[:, 1]
-        data_x = raw_data[:, 2:]
-
-        return data_t, data_x, data_y
-
-def del_labels(data_t, data_x, data_y):
-
-        idy = np.where(data_y == 0)[0]
-        labels_delete = idy
-
-        idy = np.where(data_y == 8)[0]
-        labels_delete = np.concatenate([labels_delete, idy])
-
-        idy = np.where(data_y == 9)[0]
-        labels_delete = np.concatenate([labels_delete, idy])
-
-        idy = np.where(data_y == 10)[0]
-        labels_delete = np.concatenate([labels_delete, idy])
-
-        idy = np.where(data_y == 11)[0]
-        labels_delete = np.concatenate([labels_delete, idy])
-
-        idy = np.where(data_y == 18)[0]
-        labels_delete = np.concatenate([labels_delete, idy])
-
-        idy = np.where(data_y == 19)[0]
-        labels_delete = np.concatenate([labels_delete, idy])
-
-        idy = np.where(data_y == 20)[0]
-        labels_delete = np.concatenate([labels_delete, idy])
-
-        return np.delete(data_t, labels_delete, 0), np.delete(data_x, labels_delete, 0), np.delete(data_y,
-                                                                                                   labels_delete, 0)
-    
-def adjust_idx_labels(data_y):
-        """Transforms original labels into the range [0, nb_labels-1]
-
-        :param data_y: numpy integer array
-            Sensor labels
-        :param label: string, ['gestures' (default), 'locomotion']
-            Type of activities to be recognized
-        :return: numpy integer array
-            Modified sensor labels
-        """
-
-        data_y[data_y == 24] = 0
-        data_y[data_y == 12] = 8
-        data_y[data_y == 13] = 9
-        data_y[data_y == 16] = 10
-        data_y[data_y == 17] = 11
-
-        return data_y
-
-def process_dataset_file(raw_data):
-        """Function defined as a pipeline to process individual OPPORTUNITY files
-
-        :param data: numpy integer matrix
-            Matrix containing data samples (rows) for every sensor channel (column)
-        :param label: string, ['gestures' (default), 'locomotion']
-            Type of activities to be recognized
-        :return: numpy integer matrix, numy integer array
-            Processed sensor data, segmented into features (x) and labels (y)
-        """
-
-        # Colums are segmentd into features and labels
-        data_t, data_x, data_y = divide_x_y(raw_data)
-        data_t, data_x, data_y = del_labels(data_t, data_x, data_y)
-
-        data_y = adjust_idx_labels(data_y)
-        data_y = data_y.astype(int)
-
-        # Select correct columns
-        data_x = select_columns_opp(data_x)
-
-        if data_x.shape[0] != 0:
-            HR_no_NaN = complete_HR(data_x[:, 0])
-            data_x[:, 0] = HR_no_NaN
-
-            data_x[np.isnan(data_x)] = 0
-            # All sensor channels are normalized
-            data_x = normalize(data_x, NORM_MAX_THRESHOLDS, NORM_MIN_THRESHOLDS)
-
-        #data_t, data_x, data_y = self.downsampling(data_t, data_x, data_y)
-
-        return data_x, data_y
-
 
 def generate_data(target_filename):
     data_dir_train = base_directory + 'sequences_train/'
@@ -347,59 +229,47 @@ def generate_data(target_filename):
         class_dict = {}
         for i, label in enumerate(act_labels):
             class_dict[label] = i
+            
+        print(act_labels.shape)
+        print(y.shape)
+                
+        shape=y.shape[0]
+        train_no=round(0.64*shape)
+        val_no=round(0.18*shape)
+        tv= train_no+val_no
+                
+        x_train=x[0:train_no,:]
+        x_val= x[train_no:tv,:]
+        x_test= x[tv:shape,:]
+                
+        print(x_train.shape)
+                
+        a_train=y[0:train_no]
+        a_val=y[train_no:tv]
+        a_test=y[tv:shape]
+                
+        i_train=np.full(a_train.shape,counter)
+        i_val=np.full(a_val.shape,counter)
+        i_test=np.full(a_test.shape,counter)
+                
+        X = np.vstack((X, x))
+        Y = np.concatenate([Y, y])
+        lid = np.concatenate([lid, np.full(y.shape,counter)])
+                
+        X_train= np.vstack((X_train, x_train))
+        act_train= np.concatenate([act_train, a_train])
+        id_train= np.concatenate([id_train, i_train])
+                
+        X_val= np.vstack((X_val, x_val))
+        act_val= np.concatenate([act_val, a_val])
+        id_val= np.concatenate([id_val, i_val])
+                
+        X_test= np.vstack((X_test, x_test))
+        act_test= np.concatenate([act_test, a_test])
+        id_test= np.concatenate([id_test, i_test])
+                
+        counter+=1
 
-    
-    print('Processing dataset files ...')
-    counter=0
-    for idx_f in PAMAP2_DATA_FILES:
-            try:
-                print('Loading file...{0}'.format(idx_f))
-                raw_data = np.loadtxt(idx_f)
-                print(idx_f)
-                x, y = process_dataset_file(raw_data)
-                print("print datashape")
-                print(x.shape)
-                print(y.shape)
-                
-                shape=y.shape[0]
-                train_no=round(0.64*shape)
-                val_no=round(0.18*shape)
-                tv= train_no+val_no
-                
-                x_train=x[0:train_no,:]
-                x_val= x[train_no:tv,:]
-                x_test= x[tv:shape,:]
-                
-                print(x_train.shape)
-                
-                a_train=y[0:train_no]
-                a_val=y[train_no:tv]
-                a_test=y[tv:shape]
-                
-                i_train=np.full(a_train.shape,counter)
-                i_val=np.full(a_val.shape,counter)
-                i_test=np.full(a_test.shape,counter)
-                
-                X = np.vstack((X, x))
-                Y = np.concatenate([Y, y])
-                lid = np.concatenate([lid, np.full(y.shape,counter)])
-                
-                X_train= np.vstack((X_train, x_train))
-                act_train= np.concatenate([act_train, a_train])
-                id_train= np.concatenate([id_train, i_train])
-                
-                X_val= np.vstack((X_val, x_val))
-                act_val= np.concatenate([act_val, a_val])
-                id_val= np.concatenate([id_val, i_val])
-                
-                X_test= np.vstack((X_test, x_test))
-                act_test= np.concatenate([act_test, a_test])
-                id_test= np.concatenate([id_test, i_test])
-                
-                counter+=1
-            except KeyError:
-                logging.error('ERROR: Did not find {0} in zip file'.format(PAMAP2_DATA_FILES[idx_f]))
-     
     try:    
         data_train, act_train, act_all_train, labelid_train, labelid_all_train = opp_sliding_window(X_train, act_train, id_train, label_pos_end = False)
         data_val, act_val, act_all_val, labelid_val, labelid_all_val = opp_sliding_window(X_val, act_val, id_val, label_pos_end = False)
