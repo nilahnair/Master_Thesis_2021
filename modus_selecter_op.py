@@ -560,7 +560,7 @@ class Modus_Selecter(object):
             else:
                 self.exp.log_scalar("vaccum_p_test{}".format(iter_evl), count_pos_test[10]/(count_pos_test[10]+count_neg_test[10]))
             if count_pos_test[11] == 0:
-                self.exp.log_scalar("cropejumping_p_test{}".format(iter_evl), count_pos_test[11])
+                self.exp.log_scalar("ropejumping_p_test{}".format(iter_evl), count_pos_test[11])
             else:
                 self.exp.log_scalar("ropejumping_p_test{}".format(iter_evl), count_pos_test[11]/(count_pos_test[11]+count_neg_test[11]))
             
