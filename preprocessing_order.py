@@ -282,13 +282,13 @@ def generate_data(target_filename):
     wr='_DO'
     totaldata = list((dictz[wr]).keys())
     print(totaldata)
-    totaldata_list = location + "%s__%s_data_labels_every-frame_100.npz" % (wr, dictz[wr][train_ids[i]]) for i in [0, 1]]
+    totaldata_list = location + "%s__%s_data_labels_every-frame_100.npz" % (wr, dictz[wr][totaldata[i]]) for i in len(totaldata)]
     print("totaldatalist")
     print(totaldata_list)
     wr='_NP'
-    add
-    
-
+    adddata=list((dictz[wr]).keys())
+    adddata_list= location + "%s__%s_data_labels_every-frame_100.npz" % (wr, dictz[wr][adddata[i]]) for i in len(adddata)]
+    totaldata_list=[]
         if self.partition_modus == 'train':
             set_list = train_list
         elif self.partition_modus == 'val' or self.partition_modus == 'test':
