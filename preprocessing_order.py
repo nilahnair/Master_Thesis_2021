@@ -32,6 +32,10 @@ NUM_CLASSES =9
 ws = 400
 ss = 12
 
+labels_dict = {0: "NULL", 1: "UNKNOWN", 2: "FLIP", 3: "WALK",
+                       4: "SEARCH", 5: "PICK", 6: "SCAN", 7: "INFO",
+                       8: "COUNT", 9: "CARRY", 10: "ACK"}
+
 location= '/vol/actrec/icpram-data/numpy_arrays/'
 dictz = {"_DO": {1: "004", 2: "011", 3: "017"}, "_NP": {1: "004", 2: "014", 3: "015"}}
 
@@ -282,77 +286,56 @@ def generate_data(target_filename):
     wr='_DO'
     totaldata = list((dictz[wr]).keys())
     print(totaldata)
-    totaldata_list = location + "%s__%s_data_labels_every-frame_100.npz" % (wr, dictz[wr][totaldata[i]]) for i in len(totaldata)]
+    totaldata_list = ["/vol/actrec/icpram-data/numpy_arrays/" + "%s__%s_data_labels_every-frame_100.npz" %(
+        wr, dictz[wr][train_ids[i]]) for i in [0, 1, 2]]
     print("totaldatalist")
     print(totaldata_list)
     wr='_NP'
     adddata=list((dictz[wr]).keys())
-    adddata_list= location + "%s__%s_data_labels_every-frame_100.npz" % (wr, dictz[wr][adddata[i]]) for i in len(adddata)]
-    totaldata_list=[]
-        if self.partition_modus == 'train':
-            set_list = train_list
-        elif self.partition_modus == 'val' or self.partition_modus == 'test':
-            set_list = test_list
-        else:
-            raise("        Dataloader: Error list set")
-
-        train_vals = []
-        train_labels = []
-        logging.info("Data: Load train data...")
-
-        for path in set_list:
-            tmp = np.load(path)
-            vals = tmp["arr_0"].copy()
-            labels = tmp["arr_1"].copy()
-            tmp.close()
-
-            for i in range(len(labels)):
-                train_vals.append(vals[i])
-
-                if all_labels:
-                    train_labels.append(labels[i])
-                else:
-                    if self.config['label_pos'] == "end":
-                        # It takes the end value as label
-                        label_arg = labels[i].flatten()
-                        label_arg = label_arg.astype(int)
-                        label_arg = label_arg[-1]
-                    elif self.config['label_pos'] == "middle":
-                        # It takes the center value as label
-                        label_arg = labels[i].flatten()
-                        label_arg = label_arg.astype(int)
-                        label_arg = label_arg[int(label_arg.shape[0] / 2)]
-                    elif self.config['label_pos'] == "mode":
-                        # It takes the mode value as label
-                        label_arg = labels[i].flatten()
-                        label_arg = label_arg.astype(int)
-                        label_arg = np.bincount(label_arg, minlength=self.config['num_classes'])
-                        label_arg = np.argmax(label_arg)
-                    else:
-                        raise RuntimeError("unkown annotype")
-                    train_labels.append(label_arg)
-
+    adddata_list= ["/vol/actrec/icpram-data/numpy_arrays/"  + "%s__%s_data_labels_every-frame_100.npz" % (wr, dictz[wr][adddata[i]]) for i in len(adddata)]
+    totaldata_list=[totaldata_list]+[adddata_list]
+    print(totaldata_list)
+    
+    total_data = []
+    total_labels = []
+    total_id=[]
+     
+    print('Processing dataset files ...')
+    counter=0
+    for path in totaldata_list:
+        tmp = np.load(path)
+        data= tmp["arr_0"].copy()
+        act_labels= tmp["arr_1"].copy()
+        person_id = np.full(act_labels.shape,counter)
+        tmp.close()
+        
+        for i in range(len(act_labels)):
+            total_data.append(data[i])
+            total_labels.append(act_labels[i])
+            total_id.append(person_id[i])
+            
+                
         # Make train arrays a numpy matrix
-        train_vals = np.array(train_vals)
-        train_labels = np.array(train_labels)
-
+        total_data = np.array(total_data)
+        total_labels = np.array(total_labels)
+        total_id = np.array(total_id)
 
         ##############################
         # Normalizing the data to be in range [0,1] following the paper
-        for ch in range(train_vals.shape[2]):
-            max_ch = np.max(train_vals[:, :, ch])
-            min_ch = np.min(train_vals[:, :, ch])
+        for ch in range(total_data.shape[2]):
+            max_ch = np.max(total_data[:, :, ch])
+            min_ch = np.min(total_data[:, :, ch])
             median_old_range = (max_ch + min_ch) / 2
-            train_vals[:, :, ch] = (train_vals[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
+            total_data[:, :, ch] = (total_data[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
 
         # calculate number of labels
-        labels = set([])
-        labels = labels.union(set(train_labels.flatten()))
+        act_labels = set([])
+        act_labels = act_labels.union(set(total_labels.flatten()))
 
         # Remove NULL class label -> should be ignored
-        labels = sorted(labels)
-        if labels[0] == 0:
-            labels = labels[1:]
+        act_labels = sorted(act_labels)
+        if act_labels[0] == 0:
+            act_labels = act_labels[1:]
 
         #
         # Create a class dictionary and save it
@@ -362,7 +345,7 @@ def generate_data(target_filename):
         #
         #
         class_dict = {}
-        for i, label in enumerate(labels):
+        for i, label in enumerate(act_labels):
             class_dict[label] = i
 
     
