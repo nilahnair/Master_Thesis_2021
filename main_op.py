@@ -78,7 +78,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.001, 0.00001, 0.000001, 0.01]
+    learning_rates = [0.0001, 0.00001, 0.000001, 0.01]
     lr = {'locomotion': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
@@ -123,7 +123,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 50}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25}}
 
     batch_size_val = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
@@ -255,7 +255,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     if dataset[dataset_idx] == 'pamap2':
         train_show = {'cnn' : 50, 'lstm' : 100, 'cnn_imu' :50}
-        valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :100}
+        valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :50}
     else:
         train_show = {'cnn' : 50, 'lstm' : 100, 'cnn_imu' :50}
         valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :400}
