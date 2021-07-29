@@ -241,7 +241,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     train_show_value = num_tr_inputs[dataset[dataset_idx]] / \
                        batch_size_train[network[network_idx]][dataset[dataset_idx]]
-    '''
+   
     if dataset[dataset_idx] == "pamap2":
         train_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
         valid_show = {'cnn': int(train_show_value / 10), 'lstm': 10, 'cnn_imu': int(train_show_value / 10)}
@@ -259,7 +259,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     else:
         train_show = {'cnn' : 50, 'lstm' : 100, 'cnn_imu' :50}
         valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :400}
-    
+    '''
     dist = {0: 'euclidean', 1: 'BCELoss'}
     
     now = datetime.datetime.now()
