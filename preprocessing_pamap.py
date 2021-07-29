@@ -30,7 +30,7 @@ NUM_ACT_CLASSES= 12
 NUM_CLASSES =9
 
 ws = 100
-ss = 12
+ss = 22
 
 PAMAP2_DATA_FILES = ['/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject101.dat', #0
                      '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject102.dat', #1
@@ -511,7 +511,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/pamap/input/'
+    base_directory = '/data/nnair/pamap/input2/'
     
     generate_data(base_directory)
     
