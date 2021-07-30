@@ -229,11 +229,11 @@ def generate_data(target_filename):
         i_test= person_id[tv:shape]
         
         print(len(i_train))
-                
+        '''        
         X = np.vstack((X, data))
         Y = np.concatenate([Y, labels])
         lid = np.concatenate([lid, person_id])
-                
+        '''       
         X_train= np.vstack((X_train, x_train))
         act_train= np.concatenate([act_train, a_train])
         id_train= np.concatenate([id_train, i_train])
