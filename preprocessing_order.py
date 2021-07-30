@@ -174,7 +174,7 @@ def generate_data(target_filename):
     print(totaldata_list)
     wr='_NP'
     adddata=list((dictz[wr]).keys())
-    adddata_list= ["/vol/actrec/icpram-data/numpy_arrays/"  + "%s__%s_data_labels_every-frame_100.npz" % (wr, dictz[wr][adddata[i]]) for i in adddata]
+    adddata_list= ["/vol/actrec/icpram-data/numpy_arrays/"  + "%s__%s_data_labels_every-frame_100.npz" % (wr, dictz[wr][adddata[i]]) for i in [0, 1, 2]]
     totaldata_list=[totaldata_list]+[adddata_list]
     print(totaldata_list)
     
