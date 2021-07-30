@@ -189,29 +189,31 @@ def generate_data(target_filename):
         print(path)
         tmp = np.load(path)
         data= tmp["arr_0"].copy()
-        print(data)
         act_labels= tmp["arr_1"].copy()
-        person_id = np.full(act_labels.shape,counter)
+        
         tmp.close()
         
         rm_indices = []
+        labels=[]
+        person_id=[]
         for i in range(len(act_labels)):
-            total_data.append(data[i])
-            
             
             label_arg = act_labels[i].flatten()
             label_arg = label_arg.astype(int)
             label_arg = label_arg[int(label_arg.shape[0]/2)]
-            print("label arg")
-            print(label_arg)
-            print(label_arg.shape)
             # Removing windows with label zero (NULL)
             if label_arg == 0:
                 rm_indices.append(i)
             else:
-                total_labels.append(label_arg)
-                total_id.append(np.full(label_arg.shape,counter))
-        print()
+                labels.append(label_arg)
+                person_id.append(np.full(label_arg.shape,counter))
+        
+        print(data.shape)
+        print(labels.shape)
+        print(person_id.shape)
+        
+        
+        
         counter+=1
         
     # Make train arrays a numpy matrix
