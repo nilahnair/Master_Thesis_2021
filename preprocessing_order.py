@@ -206,7 +206,12 @@ def generate_data(target_filename):
         total_data = np.array(total_data)
         total_labels = np.array(total_labels)
         total_id = np.array(total_id)
-
+        print("data")
+        print(total_data)
+        print("act_labels")
+        print(total_labels)
+        print("ids")
+        print(total_id)
         ##############################
         # Normalizing the data to be in range [0,1] following the paper
         for ch in range(total_data.shape[2]):
