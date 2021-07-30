@@ -207,8 +207,6 @@ def generate_data(target_filename):
         print(data.shape)
         print(len(labels))
         print(len(person_id))
-        print(person_id)
-        
         
         counter+=1
         
