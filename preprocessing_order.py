@@ -209,8 +209,8 @@ def generate_data(target_filename):
                 person_id.append(np.full(label_arg.shape,counter))
         
         print(data.shape)
-        print(labels.shape)
-        print(person_id.shape)
+        print(len(labels))
+        print(len(person_id))
         
         
         
