@@ -26,11 +26,11 @@ from sliding_window_dat import sliding_window
 
 
 # Hardcoded number of sensor channels employed in the OPPORTUNITY challenge
-NB_SENSOR_CHANNELS = 40
-NUM_ACT_CLASSES= 12
+NB_SENSOR_CHANNELS = 27
+NUM_ACT_CLASSES= 17
 NUM_CLASSES =9
 
-ws = 400
+ws = 100
 ss = 12
 
 labels_dict = {0: "NULL", 1: "UNKNOWN", 2: "FLIP", 3: "WALK",
@@ -154,15 +154,15 @@ def generate_data(target_filename):
     Y = np.empty((0))
     lid= np.empty((0))
     
-    X_train = np.empty((0, NB_SENSOR_CHANNELS))
+    X_train = np.empty((0, 100, NB_SENSOR_CHANNELS))
     act_train = np.empty((0))
     id_train = np.empty((0))
     
-    X_val = np.empty((0, NB_SENSOR_CHANNELS))
+    X_val = np.empty((0, 100, NB_SENSOR_CHANNELS))
     act_val = np.empty((0))
     id_val = np.empty((0))
     
-    X_test = np.empty((0, NB_SENSOR_CHANNELS))
+    X_test = np.empty((0,, 100, NB_SENSOR_CHANNELS))
     act_test = np.empty((0))
     id_test = np.empty((0))
     
