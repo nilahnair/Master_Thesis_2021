@@ -238,9 +238,11 @@ def generate_data(target_filename):
         Y = np.concatenate([Y, labels])
         lid = np.concatenate([lid, person_id])
         '''       
-        X_train= np.vstack((X_train, x_train))
+        X_train= np.concatenate((X_train, x_train))
         act_train= np.concatenate([act_train, a_train])
         id_train= np.concatenate([id_train, i_train])
+        print("X_train.shape")
+        print(X_train.shape)
                 
         X_val= np.vstack((X_val, x_val))
         act_val= np.concatenate([act_val, a_val])
