@@ -87,7 +87,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                         'cnn_imu': learning_rates[learning_rates_idx]},
           'pamap2': {'cnn': learning_rates[learning_rates_idx],
                                 'lstm': learning_rates[learning_rates_idx],
-                                'cnn_imu': learning_rates[learning_rates_idx]}
+                                'cnn_imu': learning_rates[learning_rates_idx]},
+          'orderpicking': {'cnn' : learning_rates[learning_rates_idx], 
+                           'lstm' : learning_rates[learning_rates_idx], 
+                           'cnn_imu': learning_rates[learning_rates_idx]}
           }
     lr_mult = 1.0
 
