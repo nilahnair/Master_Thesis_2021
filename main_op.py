@@ -121,17 +121,17 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'orderpicking' : {'cnn' : {'softmax' : 10, 'attribute': 10},
                                 'lstm' : {'softmax' : 25, 'attribute': 1},
-                                'cnn_imu' : {'softmax' : 24, 'attribute': 32}}} 
+                                'cnn_imu' : {'softmax' : 10, 'attribute': 32}}} 
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
 
     # Batch size
     batch_size_train = {
-        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
+        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 50},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25, 'orderpicking' : 100}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25, 'orderpicking' : 50}}
 
     batch_size_val = {
-        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
+        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 50},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
         'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25, 'orderpicking' : 100}}
     
@@ -143,7 +143,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     num_filters = {'locomotion': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'gesture': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'pamap2': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
-                   'orderpicking' : {'cnn' : 32, 'lstm' : 32, 'cnn_imu': 32}}
+                   'orderpicking' : {'cnn' :64, 'lstm' : 32, 'cnn_imu': 64}}
 
     freeze_options = [False, True]
     #evolution_iter = 10000
@@ -249,7 +249,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     train_show_value = num_tr_inputs[dataset[dataset_idx]] / \
                        batch_size_train[network[network_idx]][dataset[dataset_idx]]
-    '''
+   
     if dataset[dataset_idx] == "pamap2":
         train_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
         valid_show = {'cnn': int(train_show_value / 10), 'lstm': 10, 'cnn_imu': int(train_show_value / 10)}
@@ -259,15 +259,15 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     else:
         train_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
         valid_show = {'cnn': int(train_show_value / 10), 'lstm': 10, 'cnn_imu': int(train_show_value / 10)}
-    '''
     
+    '''
     if dataset[dataset_idx] == 'pamap2':
         train_show = {'cnn' : 50, 'lstm' : 100, 'cnn_imu' :50}
         valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :50}
     else:
         train_show = {'cnn' : 50, 'lstm' : 100, 'cnn_imu' :50}
         valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :400}
-    
+    '''
     dist = {0: 'euclidean', 1: 'BCELoss'}
     
     now = datetime.datetime.now()
