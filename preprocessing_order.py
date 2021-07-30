@@ -206,6 +206,13 @@ def generate_data(target_filename):
             
         labels = np.array(labels)
         person_id = np.array(person_id)
+        print(data.shape)
+        print(type(data))
+        print(labels.shape)
+        print(type(labels))
+        print(person_id.shape)
+        print(type(person_id))
+        
         
         shape=len(labels)
         train_no=round(0.64*shape)
