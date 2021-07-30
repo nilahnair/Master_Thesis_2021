@@ -206,7 +206,7 @@ def generate_data(target_filename):
             
         labels = np.array(labels)
         person_id = np.array(person_id)
-        
+        print("shape of data, act_labels and id")
         print(data.shape)
         print(labels.shape)
         print(person_id.shape)
@@ -219,7 +219,7 @@ def generate_data(target_filename):
         x_train=data[0:train_no,:]
         x_val= data[train_no:tv,:]
         x_test= data[tv:shape,:]
-                
+        print("division into train val test")        
         print(x_train.shape)
         
         a_train=labels[0:train_no]
@@ -233,11 +233,7 @@ def generate_data(target_filename):
         i_test= person_id[tv:shape]
         
         print(i_train)
-        '''        
-        X = np.vstack((X, data))
-        Y = np.concatenate([Y, labels])
-        lid = np.concatenate([lid, person_id])
-        '''       
+        
         X_train= np.concatenate((X_train, x_train), axis=0)
         act_train= np.concatenate([act_train, a_train])
         id_train= np.concatenate([id_train, i_train])
@@ -247,10 +243,16 @@ def generate_data(target_filename):
         X_val= np.vstack((X_val, x_val))
         act_val= np.concatenate([act_val, a_val])
         id_val= np.concatenate([id_val, i_val])
+        
+        print("X_val.shape")
+        print(X_val.shape)
                 
         X_test= np.vstack((X_test, x_test))
         act_test= np.concatenate([act_test, a_test])
         id_test= np.concatenate([id_test, i_test])
+        
+        print("X_test.shape")
+        print(X_test.shape)
         
         counter+=1
         
