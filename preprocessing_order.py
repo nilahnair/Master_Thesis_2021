@@ -257,85 +257,27 @@ def generate_data(target_filename):
         counter+=1
         
     # Make train arrays a numpy matrix
-    total_data = np.array(total_data)
-    total_labels = np.array(total_labels)
-    total_id = np.array(total_id)
-    #print("data")
-    #print(total_data)
-    print("act_labels")
-    print(total_labels)
-    print("ids")
-    print(total_id)
+
         ##############################
     # Normalizing the data to be in range [0,1] following the paper
-    for ch in range(total_data.shape[2]):
-        max_ch = np.max(total_data[:, :, ch])
-        min_ch = np.min(total_data[:, :, ch])
+    for ch in range(X_train.shape[2]):
+        max_ch = np.max(X_train[:, :, ch])
+        min_ch = np.min(X_train[:, :, ch])
         median_old_range = (max_ch + min_ch) / 2
-        total_data[:, :, ch] = (total_data[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
+        X_train[:, :, ch] = (X_train[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
+    
+    for ch in range(X_val.shape[2]):
+        max_ch = np.max(X_val[:, :, ch])
+        min_ch = np.min(X_val[:, :, ch])
+        median_old_range = (max_ch + min_ch) / 2
+        X_val[:, :, ch] = (X_val[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
         
-        '''
-        # calculate number of labels
-        act_labels = set([])
-        act_labels = act_labels.union(set(total_labels.flatten()))
-
-        # Remove NULL class label -> should be ignored
-        act_labels = sorted(act_labels)
-        if act_labels[0] == 0:
-            act_labels = act_labels[1:]
-        '''
-        
-        
-        #
-        # Create a class dictionary and save it
-        # It is a mapping from the original labels
-        # to the new labels, due that the all the
-        # labels dont exist in the warehouses
-        #
-        #
-    class_dict = {}
-    for i, label in enumerate(act_labels):
-        class_dict[label] = i
-    '''          
-    print(act_labels.shape)
-    print(y.shape)
-                
-    shape=y.shape[0]
-    train_no=round(0.64*shape)
-    val_no=round(0.18*shape)
-    tv= train_no+val_no
-             
-        x_train=x[0:train_no,:]
-        x_val= x[train_no:tv,:]
-        x_test= x[tv:shape,:]
-                
-        print(x_train.shape)
-                
-        a_train=y[0:train_no]
-        a_val=y[train_no:tv]
-        a_test=y[tv:shape]
-                
-        i_train=np.full(a_train.shape,counter)
-        i_val=np.full(a_val.shape,counter)
-        i_test=np.full(a_test.shape,counter)
-                
-        X = np.vstack((X, x))
-        Y = np.concatenate([Y, y])
-        lid = np.concatenate([lid, np.full(y.shape,counter)])
-                
-        X_train= np.vstack((X_train, x_train))
-        act_train= np.concatenate([act_train, a_train])
-        id_train= np.concatenate([id_train, i_train])
-                
-        X_val= np.vstack((X_val, x_val))
-        act_val= np.concatenate([act_val, a_val])
-        id_val= np.concatenate([id_val, i_val])
-                
-        X_test= np.vstack((X_test, x_test))
-        act_test= np.concatenate([act_test, a_test])
-        id_test= np.concatenate([id_test, i_test])
-                
-        counter+=1
+    for ch in range(X_test.shape[2]):
+        max_ch = np.max(X_test[:, :, ch])
+        min_ch = np.min(X_test[:, :, ch])
+        median_old_range = (max_ch + min_ch) / 2
+        X_test[:, :, ch] = (X_test[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
+    
     '''
     try:    
         data_train, act_train, act_all_train, labelid_train, labelid_all_train = opp_sliding_window(X_train, act_train, id_train, label_pos_end = False)
@@ -343,7 +285,7 @@ def generate_data(target_filename):
         data_test, act_test, act_all_test, labelid_test, labelid_all_test = opp_sliding_window(X_test, act_test, id_test, label_pos_end = False)
     except:
         print("error in sliding window")
-        
+    '''    
     try:
         
         print("window extraction begining")
@@ -352,22 +294,22 @@ def generate_data(target_filename):
         print("target file name")
         print(data_dir_train)
         counter_seq = 0
-        for f in range(data_train.shape[0]):
+        for f in range(X_train.shape[0]):
             try:
                 sys.stdout.write('\r' + 'Creating sequence file '
                                  'number {} with id {}'.format(f, counter_seq))
                 sys.stdout.flush()
 
                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
-                seq = np.reshape(data_train[f], newshape = (1, data_train.shape[1], data_train.shape[2]))
+                seq = np.reshape(X_train[f], newshape = (1, X_train.shape[1], X_train.shape[2]))
                 seq = np.require(seq, dtype=np.float)
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
                 print("input values are")
                 print(seq.shape)
                 print(act_train[f])
-                print(labelid_train[f])
-                obj = {"data": seq, "act_label": act_train[f], "act_labels_all": act_all_train[f], "label": labelid_train[f]}
+                print(id_train[f])
+                obj = {"data": seq, "act_label": act_train[f], "label": id_train[f]}
                 
                 f = open(os.path.join(data_dir_train, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
@@ -381,22 +323,22 @@ def generate_data(target_filename):
         print("target file name")
         print(data_dir_val)
         counter_seq = 0
-        for f in range(data_val.shape[0]):
+        for f in range(X_val.shape[0]):
             try:
                 sys.stdout.write('\r' + 'Creating sequence file '
                                  'number {} with id {}'.format(f, counter_seq))
                 sys.stdout.flush()
 
                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
-                seq = np.reshape(data_val[f], newshape = (1, data_val.shape[1], data_val.shape[2]))
+                seq = np.reshape(X_val[f], newshape = (1, X_val.shape[1], X_val.shape[2]))
                 seq = np.require(seq, dtype=np.float)
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
                 print("input values are")
                 print(seq.shape)
                 print(act_val[f])
-                print(labelid_val[f])
-                obj = {"data": seq, "act_label": act_val[f], "act_labels_all": act_all_val[f], "label": labelid_val[f]}
+                print(id_val[f])
+                obj = {"data": seq, "act_label": act_val[f], "label": id_val[f]}
                 
                 f = open(os.path.join(data_dir_val, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
@@ -410,22 +352,22 @@ def generate_data(target_filename):
         print("target file name")
         print(data_dir_test)
         counter_seq = 0
-        for f in range(data_test.shape[0]):
+        for f in range(X_test.shape[0]):
             try:
                 sys.stdout.write('\r' + 'Creating sequence file '
                                  'number {} with id {}'.format(f, counter_seq))
                 sys.stdout.flush()
 
                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
-                seq = np.reshape(data_test[f], newshape = (1, data_test.shape[1], data_test.shape[2]))
+                seq = np.reshape(X_test[f], newshape = (1, X_test.shape[1], X_test.shape[2]))
                 seq = np.require(seq, dtype=np.float)
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
                 print("input values are")
                 print(seq.shape)
                 print(act_test[f])
-                print(labelid_test[f])
-                obj = {"data": seq, "act_label": act_test[f], "act_labels_all": act_all_test[f], "label": labelid_test[f]}
+                print(id_test[f])
+                obj = {"data": seq, "act_label": act_test[f], "label": id_test[f]}
                 
                 f = open(os.path.join(data_dir_test, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
