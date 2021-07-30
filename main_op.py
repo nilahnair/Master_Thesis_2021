@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('pamap sw=100 ss=22')
+ex= Experiment('orderpicking')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -57,21 +57,21 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     plotting = False
 
     # Options
-    dataset = {0: 'locomotion', 1: 'gesture', 2: 'pamap2'}
+    dataset = {0: 'locomotion', 1: 'gesture', 2: 'pamap2', 3: 'orderpicking'}
     network = {0: 'cnn', 1: 'lstm', 2: 'cnn_imu'}
     output = {0: 'softmax', 1: 'attribute'}
     usage_modus = {0: 'train', 1: 'test', 2: 'fine_tuning', 3: 'train_final'}
 
     # Dataset Hyperparameters
-    NB_sensor_channels = {'locomotion' : 113, 'gesture' : 113,'pamap2' : 40}
-    sliding_window_length = {'locomotion': 100, 'gesture': 100, 'pamap2': 100}
-    sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 22}
+    NB_sensor_channels = {'locomotion' : 113, 'gesture' : 113,'pamap2' : 40, 'orderpicking' : 27 }
+    sliding_window_length = {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking': 100}
+    sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 22, 'orderpicking': 1}
     #num_attributes = {'locomotion' : 10, 'gesture' : 32, 'carrots' : 32, 'pamap2' : 24, 'orderpicking' : 16}
     #num_classes = {'locomotion' : 5, 'gesture' : 18, 'carrots' : 16, 'pamap2' : 12, 'orderpicking' : 8}
-    num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 9}
+    num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 9, 'orderpicking': 6}
     #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103611}
     #input2
-    num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 56515}
+    num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 56515, 'orderpicking': 125914}
     #input400
     #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103586}
     
@@ -115,29 +115,32 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                             'cnn_imu': {'softmax':5, 'attribute': 10}},
               'pamap2': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
-                                   'cnn_imu': {'softmax': 10, 'attribute': 10}}
-              } 
+                                   'cnn_imu': {'softmax': 10, 'attribute': 10}},
+              'orderpicking' : {'cnn' : {'softmax' : 10, 'attribute': 10},
+                                'lstm' : {'softmax' : 25, 'attribute': 1},
+                                'cnn_imu' : {'softmax' : 24, 'attribute': 32}}} 
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
 
     # Batch size
     batch_size_train = {
-        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
-        'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25}}
+        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
+        'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300, 'orderpicking' : 100},
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25, 'orderpicking' : 100}}
 
     batch_size_val = {
-        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
-        'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25}}
+        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
+        'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25, 'orderpicking' : 100}}
     
      # Number of iterations for accumulating the gradients
-    accumulation_steps = {'locomotion': 4, 'gesture': 4, 'pamap2': 4}
+    accumulation_steps = {'locomotion': 4, 'gesture': 4, 'pamap2': 4, 'orderpicking': 4}
 
     # Filters
-    filter_size = {'locomotion': 5, 'gesture': 5, 'pamap2': 5}
+    filter_size = {'locomotion': 5, 'gesture': 5, 'pamap2': 5, 'orderpicking' : 5}
     num_filters = {'locomotion': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'gesture': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
-                   'pamap2': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64}}
+                   'pamap2': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
+                   'orderpicking' : {'cnn' : 32, 'lstm' : 32, 'cnn_imu': 32}}
 
     freeze_options = [False, True]
     #evolution_iter = 10000
@@ -158,9 +161,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/oppor/locomotions/output/"
         #folder_base ="/data/nnair/oppor/gesture/output/"
-        folder_base = "/data/nnair/pamap/output/"
+        #folder_base = "/data/nnair/pamap/output/"
         #folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
-        #folder_base = "/data/nnair/oppor/gesture/outputdrill/"        
+        #folder_base = "/data/nnair/oppor/gesture/outputdrill/"   
+        folder_base = "/data/nnair/order/output/"
         
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
@@ -226,7 +230,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputs/',
                     'gesture': '/data/nnair/oppor/gesture/input/',
-                    'pamap2': '/data/nnair/pamap/input2/'}
+                    'pamap2': '/data/nnair/pamap/input2/',
+                    'orderpicking': '/data/nnair/order/input/}
     '''
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
                     'gesture': '/data/nnair/oppor/gesture/inputdrill/',
@@ -340,8 +345,8 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=2,
-                           network_idx=2,
+    config = configuration(dataset_idx=3,
+                           network_idx=0,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
