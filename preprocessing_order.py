@@ -186,6 +186,7 @@ def generate_data(target_filename):
     print('Processing dataset files ...')
     counter=0
     for path in totaldata_list:
+        print(path)
         tmp = np.load(path)
         data= tmp["arr_0"].copy()
         print(data.shape)
