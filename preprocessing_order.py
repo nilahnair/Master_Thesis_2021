@@ -206,13 +206,10 @@ def generate_data(target_filename):
             
         labels = np.array(labels)
         person_id = np.array(person_id)
-        print(data.shape)
-        print(type(data))
-        print(labels.shape)
-        print(type(labels))
-        print(person_id.shape)
-        print(type(person_id))
         
+        print(data.shape)
+        print(labels.shape)
+        print(person_id.shape)
         
         shape=len(labels)
         train_no=round(0.64*shape)
@@ -224,12 +221,14 @@ def generate_data(target_filename):
         x_test= data[tv:shape,:]
                 
         print(x_train.shape)
+        print(x_val.shape)
+        print(x_test.shape)
                 
         a_train=labels[0:train_no]
         a_val=labels[train_no:tv]
         a_test=labels[tv:shape]
                 
-        print(len(a_train))
+        print(a_train.shape)
         
         i_train= person_id[0:train_no]
         i_val= person_id[train_no:tv]
