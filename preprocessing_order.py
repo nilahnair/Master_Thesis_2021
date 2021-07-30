@@ -162,7 +162,7 @@ def generate_data(target_filename):
     act_val = np.empty((0))
     id_val = np.empty((0))
     
-    X_test = np.empty((0,, 100, NB_SENSOR_CHANNELS))
+    X_test = np.empty((0, 100, NB_SENSOR_CHANNELS))
     act_test = np.empty((0))
     id_test = np.empty((0))
     
