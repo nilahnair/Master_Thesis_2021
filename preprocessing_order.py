@@ -221,9 +221,7 @@ def generate_data(target_filename):
         x_test= data[tv:shape,:]
                 
         print(x_train.shape)
-        print(x_val.shape)
-        print(x_test.shape)
-                
+        
         a_train=labels[0:train_no]
         a_val=labels[train_no:tv]
         a_test=labels[tv:shape]
@@ -234,15 +232,15 @@ def generate_data(target_filename):
         i_val= person_id[train_no:tv]
         i_test= person_id[tv:shape]
         
-        print(len(i_train))
+        print(i_train.shape)
         '''        
         X = np.vstack((X, data))
         Y = np.concatenate([Y, labels])
         lid = np.concatenate([lid, person_id])
         '''       
-        X_train= np.vstack((X_train, x_train))
-        act_train= np.concatenate([act_train, a_train])
-        id_train= np.concatenate([id_train, i_train])
+        X_train.append(x_train)
+        act_train.append(a_train)
+        id_train.append(i_train)
                 
         X_val= np.vstack((X_val, x_val))
         act_val= np.concatenate([act_val, a_val])
