@@ -202,7 +202,7 @@ def generate_data(target_filename):
             label_arg = label_arg.astype(int)
             label_arg = label_arg[int(label_arg.shape[0]/2)]
             labels.append(label_arg)
-            person_id.append(np.full(label_arg.shape,counter))
+            person_id.append(counter)
         
         print(data.shape)
         print(len(labels))
