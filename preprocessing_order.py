@@ -193,7 +193,7 @@ def generate_data(target_filename):
         
         tmp.close()
         
-        rm_indices = []
+       
         labels=[]
         person_id=[]
         for i in range(len(act_labels)):
@@ -201,12 +201,8 @@ def generate_data(target_filename):
             label_arg = act_labels[i].flatten()
             label_arg = label_arg.astype(int)
             label_arg = label_arg[int(label_arg.shape[0]/2)]
-            # Removing windows with label zero (NULL)
-            if label_arg == 0:
-                rm_indices.append(i)
-            else:
-                labels.append(label_arg)
-                person_id.append(np.full(label_arg.shape,counter))
+            labels.append(label_arg)
+            person_id.append(np.full(label_arg.shape,counter))
         
         print(data.shape)
         print(len(labels))
