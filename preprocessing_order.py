@@ -218,19 +218,19 @@ def generate_data(target_filename):
     total_data = np.array(total_data)
     total_labels = np.array(total_labels)
     total_id = np.array(total_id)
-        #print("data")
-        #print(total_data)
-        print("act_labels")
-        print(total_labels)
-        print("ids")
-        print(total_id)
+    #print("data")
+    #print(total_data)
+    print("act_labels")
+    print(total_labels)
+    print("ids")
+    print(total_id)
         ##############################
-        # Normalizing the data to be in range [0,1] following the paper
-        for ch in range(total_data.shape[2]):
-            max_ch = np.max(total_data[:, :, ch])
-            min_ch = np.min(total_data[:, :, ch])
-            median_old_range = (max_ch + min_ch) / 2
-            total_data[:, :, ch] = (total_data[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
+    # Normalizing the data to be in range [0,1] following the paper
+    for ch in range(total_data.shape[2]):
+        max_ch = np.max(total_data[:, :, ch])
+        min_ch = np.min(total_data[:, :, ch])
+        median_old_range = (max_ch + min_ch) / 2
+        total_data[:, :, ch] = (total_data[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
         
         '''
         # calculate number of labels
@@ -251,17 +251,17 @@ def generate_data(target_filename):
         # labels dont exist in the warehouses
         #
         #
-        class_dict = {}
-        for i, label in enumerate(act_labels):
-            class_dict[label] = i
+    class_dict = {}
+    for i, label in enumerate(act_labels):
+        class_dict[label] = i
             
-        print(act_labels.shape)
-        print(y.shape)
+    print(act_labels.shape)
+    print(y.shape)
                 
-        shape=y.shape[0]
-        train_no=round(0.64*shape)
-        val_no=round(0.18*shape)
-        tv= train_no+val_no
+    shape=y.shape[0]
+    train_no=round(0.64*shape)
+    val_no=round(0.18*shape)
+    tv= train_no+val_no
                 
         x_train=x[0:train_no,:]
         x_val= x[train_no:tv,:]
