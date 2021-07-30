@@ -260,12 +260,15 @@ def generate_data(target_filename):
 
         ##############################
     # Normalizing the data to be in range [0,1] following the paper
-    for ch in range(X_train.shape[2]):
-        max_ch = np.max(X_train[:, :, ch])
-        min_ch = np.min(X_train[:, :, ch])
+    total = np.vstack((X_train, X_val, X_test))
+    for ch in range(total.shape[2]):
+        max_ch = np.max(total[:, :, ch])
+        min_ch = np.min(total[:, :, ch])
         median_old_range = (max_ch + min_ch) / 2
         X_train[:, :, ch] = (X_train[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
-    
+        X_val[:, :, ch] = (X_val[:, :, ch] - median_old_range) / (max_ch - min_ch)
+        X_test[:, :, ch] = (X_test[:, :, ch] - median_old_range) / (max_ch - min_ch)
+    '''   
     for ch in range(X_val.shape[2]):
         max_ch = np.max(X_val[:, :, ch])
         min_ch = np.min(X_val[:, :, ch])
@@ -277,7 +280,7 @@ def generate_data(target_filename):
         min_ch = np.min(X_test[:, :, ch])
         median_old_range = (max_ch + min_ch) / 2
         X_test[:, :, ch] = (X_test[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
-    
+    '''
     '''
     try:    
         data_train, act_train, act_all_train, labelid_train, labelid_all_train = opp_sliding_window(X_train, act_train, id_train, label_pos_end = False)
@@ -438,7 +441,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/order/input/'
+    base_directory = '/data/nnair/order/input2/'
     
     generate_data(base_directory)
     
