@@ -11,6 +11,7 @@ import zipfile
 import argparse
 import numpy as np
 import pickle
+import theano
 
 from io import BytesIO
 from pandas import Series
