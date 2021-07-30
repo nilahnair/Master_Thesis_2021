@@ -254,7 +254,7 @@ def generate_data(target_filename):
     class_dict = {}
     for i, label in enumerate(act_labels):
         class_dict[label] = i
-            
+    '''          
     print(act_labels.shape)
     print(y.shape)
                 
@@ -262,7 +262,7 @@ def generate_data(target_filename):
     train_no=round(0.64*shape)
     val_no=round(0.18*shape)
     tv= train_no+val_no
-                
+             
         x_train=x[0:train_no,:]
         x_val= x[train_no:tv,:]
         x_test= x[tv:shape,:]
@@ -294,7 +294,7 @@ def generate_data(target_filename):
         id_test= np.concatenate([id_test, i_test])
                 
         counter+=1
-
+    '''
     try:    
         data_train, act_train, act_all_train, labelid_train, labelid_all_train = opp_sliding_window(X_train, act_train, id_train, label_pos_end = False)
         data_val, act_val, act_all_val, labelid_val, labelid_all_val = opp_sliding_window(X_val, act_val, id_val, label_pos_end = False)
