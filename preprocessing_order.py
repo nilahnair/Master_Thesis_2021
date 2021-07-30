@@ -188,8 +188,11 @@ def generate_data(target_filename):
     for path in totaldata_list:
         tmp = np.load(path)
         data= tmp["arr_0"].copy()
+        print(data.shape)
         act_labels= tmp["arr_1"].copy()
+        print(act_labels.shape)
         person_id = np.full(act_labels.shape,counter)
+        print(person_id.shape)
         tmp.close()
         
         for i in range(len(act_labels)):
