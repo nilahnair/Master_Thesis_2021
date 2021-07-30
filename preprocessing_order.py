@@ -189,25 +189,37 @@ def generate_data(target_filename):
         print(path)
         tmp = np.load(path)
         data= tmp["arr_0"].copy()
-        print(data.shape)
+        print(data)
         act_labels= tmp["arr_1"].copy()
-        print(act_labels.shape)
         person_id = np.full(act_labels.shape,counter)
-        print(person_id.shape)
         tmp.close()
         
+        rm_indices = []
         for i in range(len(act_labels)):
             total_data.append(data[i])
-            total_labels.append(act_labels[i])
-            total_id.append(person_id[i])
             
-                
-        # Make train arrays a numpy matrix
-        total_data = np.array(total_data)
-        total_labels = np.array(total_labels)
-        total_id = np.array(total_id)
-        print("data")
-        print(total_data)
+            
+            label_arg = act_labels[i].flatten()
+            label_arg = label_arg.astype(int)
+            label_arg = label_arg[int(label_arg.shape[0]/2)]
+            print("label arg")
+            print(label_arg)
+            print(label_arg.shape)
+            # Removing windows with label zero (NULL)
+            if label_arg == 0:
+                rm_indices.append(i)
+            else:
+                total_labels.append(label_arg)
+                total_id.append(np.full(label_arg.shape,counter))
+        print()
+        counter+=1
+        
+    # Make train arrays a numpy matrix
+    total_data = np.array(total_data)
+    total_labels = np.array(total_labels)
+    total_id = np.array(total_id)
+        #print("data")
+        #print(total_data)
         print("act_labels")
         print(total_labels)
         print("ids")
@@ -219,7 +231,8 @@ def generate_data(target_filename):
             min_ch = np.min(total_data[:, :, ch])
             median_old_range = (max_ch + min_ch) / 2
             total_data[:, :, ch] = (total_data[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
-
+        
+        '''
         # calculate number of labels
         act_labels = set([])
         act_labels = act_labels.union(set(total_labels.flatten()))
@@ -228,7 +241,9 @@ def generate_data(target_filename):
         act_labels = sorted(act_labels)
         if act_labels[0] == 0:
             act_labels = act_labels[1:]
-
+        '''
+        
+        
         #
         # Create a class dictionary and save it
         # It is a mapping from the original labels
