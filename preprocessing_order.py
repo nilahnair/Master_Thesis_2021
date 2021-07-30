@@ -203,10 +203,48 @@ def generate_data(target_filename):
             label_arg = label_arg[int(label_arg.shape[0]/2)]
             labels.append(label_arg)
             person_id.append(counter)
+            
+        labels = np.array(labels)
+        person_id = np.array(person_id)
         
-        print(data.shape)
-        print(len(labels))
-        print(len(person_id))
+        shape=len(labels)
+        train_no=round(0.64*shape)
+        val_no=round(0.18*shape)
+        tv= train_no+val_no
+             
+        x_train=data[0:train_no,:]
+        x_val= data[train_no:tv,:]
+        x_test= data[tv:shape,:]
+                
+        print(x_train.shape)
+                
+        a_train=labels[0:train_no]
+        a_val=labels[train_no:tv]
+        a_test=labels[tv:shape]
+                
+        print(len(a_train))
+        
+        i_train= person_id[0:train_no]
+        i_val= person_id[train_no:tv]
+        i_test= person_id[tv:shape]
+        
+        print(len(i_train))
+                
+        X = np.vstack((X, data))
+        Y = np.concatenate([Y, labels])
+        lid = np.concatenate([lid, person_id])
+                
+        X_train= np.vstack((X_train, x_train))
+        act_train= np.concatenate([act_train, a_train])
+        id_train= np.concatenate([id_train, i_train])
+                
+        X_val= np.vstack((X_val, x_val))
+        act_val= np.concatenate([act_val, a_val])
+        id_val= np.concatenate([id_val, i_val])
+                
+        X_test= np.vstack((X_test, x_test))
+        act_test= np.concatenate([act_test, a_test])
+        id_test= np.concatenate([id_test, i_test])
         
         counter+=1
         
