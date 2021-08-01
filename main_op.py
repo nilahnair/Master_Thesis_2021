@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('order picking')
+ex= Experiment('pamap no 9')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -65,10 +65,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Dataset Hyperparameters
     NB_sensor_channels = {'locomotion' : 113, 'gesture' : 113,'pamap2' : 40, 'orderpicking' : 27 }
     sliding_window_length = {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking': 100}
-    sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 22, 'orderpicking': 1}
+    sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 12, 'orderpicking': 1}
     #num_attributes = {'locomotion' : 10, 'gesture' : 32, 'carrots' : 32, 'pamap2' : 24, 'orderpicking' : 16}
     #num_classes = {'locomotion' : 5, 'gesture' : 18, 'carrots' : 16, 'pamap2' : 12, 'orderpicking' : 8}
-    num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 9, 'orderpicking': 6}
+    num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 8, 'orderpicking': 6}
     #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103611}
     #input2
     num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 56515, 'orderpicking': 125914}
@@ -128,12 +128,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25, 'orderpicking' : 50}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 100, 'orderpicking' : 50}}
 
     batch_size_val = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 50},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 25, 'orderpicking' : 100}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 100, 'orderpicking' : 100}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'locomotion': 4, 'gesture': 4, 'pamap2': 4, 'orderpicking': 4}
@@ -164,10 +164,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/oppor/locomotions/output/"
         #folder_base ="/data/nnair/oppor/gesture/output/"
-        #folder_base = "/data/nnair/pamap/output/"
+        folder_base = "/data/nnair/pamap/output/"
         #folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
         #folder_base = "/data/nnair/oppor/gesture/outputdrill/"   
-        folder_base = "/data/nnair/order/output/"
+        #folder_base = "/data/nnair/order/output/"
         
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
@@ -233,7 +233,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputs/',
                     'gesture': '/data/nnair/oppor/gesture/input/',
-                    'pamap2': '/data/nnair/pamap/input/',
+                    'pamap2': '/data/nnair/pamap/inputno9/',
                     'orderpicking': '/data/nnair/order/input2/'}
     '''
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
@@ -348,8 +348,8 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=3,
-                           network_idx=0,
+    config = configuration(dataset_idx=2,
+                           network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
