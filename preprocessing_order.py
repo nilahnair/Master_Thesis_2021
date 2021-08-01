@@ -244,8 +244,8 @@ def generate_data(target_filename):
             c += 1
 
         #test_vals_fl = np.array(test_vals_fl)
-        data = nonulldata
-        labels = nonulllabel
+        data = np.array(nonulldata)
+        labels = np.array(nonulllabel)
         person_id = np.full(nonulllabel.shape, counter)
         
         print("shape of data, act_labels and id")
