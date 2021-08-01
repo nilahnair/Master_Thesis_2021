@@ -202,10 +202,48 @@ def generate_data(target_filename):
             label_arg = label_arg.astype(int)
             label_arg = label_arg[int(label_arg.shape[0]/2)]
             labels.append(label_arg)
-            person_id.append(counter)
+            #person_id.append(counter)
+        
+        
+        
+        #calculate number of labels
+        l=set([])
+        l=l.union(set(labels.flatten()))
+        
+        # Remove NULL class label -> should be ignored
+        l = sorted(l)
+        if l[0] == 0:
+            l = l[1:]
             
-        labels = np.array(labels)
-        person_id = np.array(person_id)
+
+        #
+        # Create a class dictionary and save it
+        # It is a mapping from the original labels
+        # to the new labels, due that the all the
+        # labels dont exist in the warehouses
+        #
+        #
+        class_dict = {}
+        for i,lab in enumerate(l):
+            class_dict[lab]=i
+        c = 0
+        nonulldata = []
+        nonulllabel = []
+        for idx in range(labels.shape[0]):
+            item = np.copy(data[idx])
+            label = labels[idx]
+            
+            if label == 0:
+                continue
+            nonulldata.append(item)
+            nonulllabel.append(int(class_dict[label]))
+            
+            c += 1
+
+        #test_vals_fl = np.array(test_vals_fl)
+        labels = np.array(nonulllabel)
+        person_id = np.full(labels.shape, counter)
+        
         print("shape of data, act_labels and id")
         print(data.shape)
         print(labels.shape)
@@ -268,6 +306,8 @@ def generate_data(target_filename):
         X_train[:, :, ch] = (X_train[:, :, ch] - median_old_range) / (max_ch - min_ch)  # + 0.5
         X_val[:, :, ch] = (X_val[:, :, ch] - median_old_range) / (max_ch - min_ch)
         X_test[:, :, ch] = (X_test[:, :, ch] - median_old_range) / (max_ch - min_ch)
+        
+        
     '''   
     for ch in range(X_val.shape[2]):
         max_ch = np.max(X_val[:, :, ch])
@@ -441,7 +481,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/order/input2/'
+    base_directory = '/data/nnair/order/inputnull/'
     
     generate_data(base_directory)
     
