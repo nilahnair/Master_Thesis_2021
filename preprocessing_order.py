@@ -208,7 +208,7 @@ def generate_data(target_filename):
         
         #calculate number of labels
         l=set([])
-        l=l.union(set(labels.flatten()))
+        l=l.union(set(labels))
         
         # Remove NULL class label -> should be ignored
         l = sorted(l)
