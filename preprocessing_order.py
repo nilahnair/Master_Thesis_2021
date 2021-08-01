@@ -226,6 +226,9 @@ def generate_data(target_filename):
         class_dict = {}
         for i,lab in enumerate(l):
             class_dict[lab]=i
+        
+        labels = np.array(labels)
+        
         c = 0
         nonulldata = []
         nonulllabel = []
@@ -241,8 +244,9 @@ def generate_data(target_filename):
             c += 1
 
         #test_vals_fl = np.array(test_vals_fl)
-        labels = np.array(nonulllabel)
-        person_id = np.full(labels.shape, counter)
+        data = nonulldata
+        labels = nonulllabel
+        person_id = np.full(nonulllabel.shape, counter)
         
         print("shape of data, act_labels and id")
         print(data.shape)
