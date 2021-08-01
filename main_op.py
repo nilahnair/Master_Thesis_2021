@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('pamap no 9')
+ex= Experiment('order picking no null')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -133,7 +133,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_val = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 50},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 50, 'orderpicking' : 100}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 50, 'orderpicking' : 50}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'locomotion': 4, 'gesture': 4, 'pamap2': 4, 'orderpicking': 4}
@@ -164,10 +164,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/oppor/locomotions/output/"
         #folder_base ="/data/nnair/oppor/gesture/output/"
-        folder_base = "/data/nnair/pamap/output/"
+        #folder_base = "/data/nnair/pamap/output/"
         #folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
         #folder_base = "/data/nnair/oppor/gesture/outputdrill/"   
-        #folder_base = "/data/nnair/order/output/"
+        folder_base = "/data/nnair/order/output/"
         
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
@@ -234,7 +234,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputs/',
                     'gesture': '/data/nnair/oppor/gesture/input/',
                     'pamap2': '/data/nnair/pamap/inputno9/',
-                    'orderpicking': '/data/nnair/order/input2/'}
+                    'orderpicking': '/data/nnair/order/inputnull/'}
     '''
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
                     'gesture': '/data/nnair/oppor/gesture/inputdrill/',
@@ -348,7 +348,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=2,
+    config = configuration(dataset_idx=3,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
