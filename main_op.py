@@ -126,7 +126,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Batch size
     batch_size_train = {
-        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 200},
+        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 50},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300, 'orderpicking' : 100},
         'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 50, 'orderpicking' : 50}}
 
@@ -349,7 +349,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 def my_config():
     print("configuration function began")
     config = configuration(dataset_idx=3,
-                           network_idx=2,
+                           network_idx=0,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
