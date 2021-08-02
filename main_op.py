@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('order picking no null')
+ex= Experiment('order picking')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -119,7 +119,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
               'pamap2': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 50, 'attribute': 10}},
-              'orderpicking' : {'cnn' : {'softmax' : 50, 'attribute': 10},
+              'orderpicking' : {'cnn' : {'softmax' : 10, 'attribute': 10},
                                 'lstm' : {'softmax' : 25, 'attribute': 1},
                                 'cnn_imu' : {'softmax' : 10, 'attribute': 32}}} 
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
@@ -234,7 +234,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputs/',
                     'gesture': '/data/nnair/oppor/gesture/input/',
                     'pamap2': '/data/nnair/pamap/inputno9/',
-                    'orderpicking': '/data/nnair/order/inputnull/'}
+                    'orderpicking': '/data/nnair/order/input/'}
     '''
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
                     'gesture': '/data/nnair/oppor/gesture/inputdrill/',
