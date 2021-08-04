@@ -499,6 +499,9 @@ def generate_data(target_filename):
                 
                 for i in range(len(yl_train)):
                     X_train = np.vstack((X_train, x[yl_train[i],:,:]))
+                    print("debug")
+                    print(y[yl_train[i]])
+                    print(y[yl_train[i]].shape)
                     act_train = np.concatenate([act_train, y[yl_train[i]]])
                     id_train = np.concatenate(id_train, counter)
                 
