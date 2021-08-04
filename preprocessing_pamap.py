@@ -496,7 +496,10 @@ def generate_data(target_filename):
                 print("yl_test.shape")
                 print(yl_test.shape)
         
-                
+                print(yl_train[1])
+                print(x[yl_train[1]])
+                print(x[yl_train[1],:])
+        
                 for i in range(len(yl_train)):
                     X_train = np.vstack(X_train, [x[yl_train[i],:]])
                     act_train = np.append(act_train, [y[yl_train[i]]])
@@ -505,7 +508,9 @@ def generate_data(target_filename):
                 print("debug")
                 print(act_train.shape)
                 print(id_train.shape)
-
+                
+                
+                
                 
                 for i in range(len(yl_val)):
                     X_val = np.append(X_val, [x[yl_val[i],:]])
