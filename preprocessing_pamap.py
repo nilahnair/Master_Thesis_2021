@@ -338,10 +338,11 @@ def generate_data(target_filename):
                 
                 ##########put index of relating to each activity into respective group
                 for i in range(len(y)):
+                    print(i)
                     if y[i] == 0:
-                        i_0 = np.concatenate([i_0, i])
+                        i_0 = i_0 + [i]
                     elif y[i] == 1:
-                        i_1 = np.concatenate([i_1, i])
+                        i_1 = i_1 + [i]
                     elif y[i] == 2:
                         i_2 = np.concatenate([i_2, i])
                     elif y[i] == 3:
@@ -487,17 +488,17 @@ def generate_data(target_filename):
         
                 
                 for i in range(yl_train.shape):
-                    X_train = np.vstack([X_train, x[yl_train[i],:]])
+                    X_train = np.vstack(X_train, x[yl_train[i],:])
                     act_train = np.concatenate([act_train, y[yl_train[i],:]])
                     id_train = np.concatenate(id_train, counter)
                 
                 for i in range(yl_val.shape):
-                    X_val = np.vstack([X_val, x[yl_val[i],:]])
+                    X_val = np.vstack(X_val, x[yl_val[i],:])
                     act_val = np.concatenate([act_val, y[yl_val[i],:]])
                     id_val = np.concatenate(id_val, counter)
                     
                 for i in range(yl_test.shape):
-                    X_test = np.vstack([X_test, x[yl_test[i],:]])
+                    X_test = np.vstack(X_test, x[yl_test[i],:])
                     act_test = np.concatenate([act_test, y[yl_test[i],:]])
                     id_test = np.concatenate(id_test, counter)
                 
