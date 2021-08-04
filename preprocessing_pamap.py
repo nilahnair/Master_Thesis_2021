@@ -306,23 +306,6 @@ def generate_data(target_filename):
     act_test = np.empty((0))
     id_test = np.empty((0))
     
-    i_0=[]
-    i_1=[]
-    i_2=[]
-    i_3=[]
-    i_4=[]
-    i_5=[]
-    i_6=[]
-    i_7=[]
-    i_8=[]
-    i_9=[]
-    i_10=[]
-    i_11=[]
-    
-    yl_train=[]
-    yl_val=[]
-    yl_test=[]
-    
     
     print('Processing dataset files ...')
     counter=0
@@ -335,6 +318,23 @@ def generate_data(target_filename):
                 print("print datashape")
                 print(x.shape)
                 print(y.shape)
+                
+                i_0=[]
+                i_1=[]
+                i_2=[]
+                i_3=[]
+                i_4=[]
+                i_5=[]
+                i_6=[]
+                i_7=[]
+                i_8=[]
+                i_9=[]
+                i_10=[]
+                i_11=[]
+    
+                yl_train=[]
+                yl_val=[]
+                yl_test=[]
                 
                 ##########put index of relating to each activity into respective group
                 for i in range(len(y)):
