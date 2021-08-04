@@ -86,8 +86,8 @@ def complete_HR(raw_data):
 
         return data_no_NaN
 
-#def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
-def opp_sliding_window(data_x, data_y, label_pos_end=True):
+def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
+#def opp_sliding_window(data_x, data_y, label_pos_end=True):
     '''
     print("check1")
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
@@ -104,7 +104,7 @@ def opp_sliding_window(data_x, data_y, label_pos_end=True):
     if label_pos_end:
         print("check 1")
         data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, ws, ss)])
-        #data_z = np.asarray([[i[-1]] for i in sliding_window(data_z, ws, ss)])
+        data_z = np.asarray([[i[-1]] for i in sliding_window(data_z, ws, ss)])
     else:
         if False:
             # Label from the middle
@@ -112,25 +112,25 @@ def opp_sliding_window(data_x, data_y, label_pos_end=True):
             print("check 2")
             data_y_labels = np.asarray(
                 [[i[i.shape[0] // 2]] for i in sliding_window(data_y, ws, ss)])
-            #data_z_labels = np.asarray(
-             #   [[i[i.shape[0] // 2]] for i in sliding_window(data_z, ws, ss)])
+            data_z_labels = np.asarray(
+                [[i[i.shape[0] // 2]] for i in sliding_window(data_z, ws, ss)])
         else:
             # Label according to mode
             try:
                 print("check 3")
                 data_y_labels = []
-              #  data_z_labels = []
+                data_z_labels = []
                 for sw in sliding_window(data_y, ws, ss):
         
                     count_l = np.bincount(sw.astype(int), minlength=NUM_ACT_CLASSES)
                     idy = np.argmax(count_l)
                     data_y_labels.append(idy)
                 data_y_labels = np.asarray(data_y_labels)
-               # for sz in sliding_window(data_z, ws, ss):
-                #    count_l = np.bincount(sz.astype(int), minlength=NUM_CLASSES)
-                 #   idy = np.argmax(count_l)
-                  #  data_z_labels.append(idy)
-                #data_z_labels = np.asarray(data_z_labels)
+                for sz in sliding_window(data_z, ws, ss):
+                    count_l = np.bincount(sz.astype(int), minlength=NUM_CLASSES)
+                    idy = np.argmax(count_l)
+                    data_z_labels.append(idy)
+                data_z_labels = np.asarray(data_z_labels)
 
 
             except:
@@ -141,20 +141,20 @@ def opp_sliding_window(data_x, data_y, label_pos_end=True):
             # All labels per window
             data_y_all = np.asarray([i[:] for i in sliding_window(data_y, ws, ss)])
             print(data_y_all.shape)
-            #data_z_all = np.asarray([i[:] for i in sliding_window(data_z, ws, ss)])
-            #print(data_z_all.shape)
+            data_z_all = np.asarray([i[:] for i in sliding_window(data_z, ws, ss)])
+            print(data_z_all.shape)
             
     print("daya_y_labels")
     print(data_y_labels.shape)
     print("daya_y_all")
     print(data_y_all.shape)
-    #print("daya_z_labels")
-    #print(data_z_labels.shape)
-    #print("daya_z_all")
-    #print(data_z_all.shape)
+    print("daya_z_labels")
+    print(data_z_labels.shape)
+    print("daya_z_all")
+    print(data_z_all.shape)
 
-    #return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
-    return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
+    return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
+    #return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
 
     
 def normalize(raw_data, max_list, min_list):
@@ -270,11 +270,11 @@ def process_dataset_file(raw_data):
             data_x[np.isnan(data_x)] = 0
             # All sensor channels are normalized
             data_x = normalize(data_x, NORM_MAX_THRESHOLDS, NORM_MIN_THRESHOLDS)
-            data_new, act_new, _ = opp_sliding_window(data_x, data_y, label_pos_end = False)
+            #data_new, act_new, _ = opp_sliding_window(data_x, data_y, label_pos_end = False)
 
         #data_t, data_x, data_y = self.downsampling(data_t, data_x, data_y)
 
-        return data_new, act_new
+        return data_x,data_y
 
 
 def generate_data(target_filename):
@@ -337,7 +337,7 @@ def generate_data(target_filename):
                 print(y.shape)
                 
                 ##########put index of relating to each activity into respective group
-                for i in range(len(y)):
+                for i in range(y.shape):
                     
                     if y[i] == 0:
                         i_0 = i_0 + [i]
@@ -498,7 +498,7 @@ def generate_data(target_filename):
         
                 
                 for i in range(len(yl_train)):
-                    X_train = np.vstack((X_train, x[yl_train[i],:,:]))
+                    X_train = np.vstack((X_train, x[yl_train[i],:]))
                     print("debug")
                     print(y[yl_train[i]])
                     print(y[yl_train[i]].shape)
@@ -506,12 +506,12 @@ def generate_data(target_filename):
                     id_train = np.concatenate(id_train, counter)
                 
                 for i in range(len(yl_val)):
-                    X_val = np.vstack((X_val, x[yl_val[i],:,:]))
+                    X_val = np.vstack((X_val, x[yl_val[i],:]))
                     act_val = np.concatenate([act_val, y[yl_val[i]]])
                     id_val = np.concatenate(id_val, counter)
                     
                 for i in range(len(yl_test)):
-                    X_test = np.vstack((X_test, x[yl_test[i],:,:]))
+                    X_test = np.vstack((X_test, x[yl_test[i],:]))
                     act_test = np.concatenate([act_test, y[yl_test[i]]])
                     id_test = np.concatenate(id_test, counter)
                 
