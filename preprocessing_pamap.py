@@ -344,33 +344,43 @@ def generate_data(target_filename):
                     elif y[i] == 1:
                         i_1 = i_1 + [i]
                     elif y[i] == 2:
-                        i_2 = np.concatenate([i_2, i])
+                        i_2 = i_2 + [i]
                     elif y[i] == 3:
-                        i_3 = np.concatenate([i_3, i])
+                        i_3 = i_3 + [i]
                     elif y[i] == 4:
-                        i_4 = np.concatenate([i_4, i])
+                        i_4 = i_4 + [i]
                     elif y[i] == 5:
-                        i_5 = np.concatenate([i_5, i])
+                        i_5 = i_5 + [i]
                     elif y[i] == 6:
-                        i_6 = np.concatenate([i_6, i])
+                        i_6 = i_6 + [i]
                     elif y[i] == 7:
-                        i_7 = np.concatenate([i_7, i])
+                        i_7 = i_7 + [i]
                     elif y[i] == 8:
-                        i_8 = np.concatenate([i_8, i])
+                        i_8 = i_8 + [i]
                     elif y[i] == 9:
-                        i_9 = np.concatenate([i_9, i])
+                        i_9 = i_9 + [i]
                     elif y[i] == 10:
-                        i_10 = np.concatenate([i_10, i])
+                        i_10 = i_10 + [i]
                     elif y[i] == 11:
-                        i_11 = np.concatenate([i_11, i])
+                        i_11 = i_11 + [i]
                         
                 ################split the index list and concatenate
                 
                 print("shape of the label index")
                 
                 print(i_0.shape)
+                print(i_1.shape)
+                print(i_2.shape)
+                print(i_3.shape)
+                print(i_4.shape)
+                print(i_5.shape)
+                print(i_6.shape)
+                print(i_7.shape)
+                print(i_8.shape)
+                print(i_9.shape)
                 print(i_10.shape)
-                
+                print(i_11.shape)
+                 
                 shape = i_0.shape
                 train_no=round(0.64*shape)
                 val_no=round(0.18*shape)
