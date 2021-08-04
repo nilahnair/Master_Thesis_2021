@@ -498,7 +498,7 @@ def generate_data(target_filename):
         
                 print(yl_train[1])
                 print(x[int(yl_train[1])])
-                print(x[yl_train[1],:])
+                print(x[int(yl_train[1]),:])
         
                 for i in range(len(yl_train)):
                     X_train = np.vstack(X_train, [x[yl_train[i],:]])
