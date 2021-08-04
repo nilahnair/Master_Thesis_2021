@@ -503,12 +503,12 @@ def generate_data(target_filename):
                     id_train = np.concatenate(id_train, counter)
                 
                 for i in range(len(yl_val)):
-                    X_val = np.vstack((X_val, x[yl_val[i]],:,:))
+                    X_val = np.vstack((X_val, x[yl_val[i],:,:]))
                     act_val = np.concatenate([act_val, y[yl_val[i]]])
                     id_val = np.concatenate(id_val, counter)
                     
                 for i in range(len(yl_test)):
-                    X_test = np.vstack((X_test, x[yl_test[i]],:,:))
+                    X_test = np.vstack((X_test, x[yl_test[i],:,:]))
                     act_test = np.concatenate([act_test, y[yl_test[i]]])
                     id_test = np.concatenate(id_test, counter)
                 
