@@ -274,7 +274,7 @@ def process_dataset_file(raw_data):
 
         #data_t, data_x, data_y = self.downsampling(data_t, data_x, data_y)
 
-        return data_new, data_new
+        return data_new, act_new
 
 
 def generate_data(target_filename):
