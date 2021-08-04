@@ -501,8 +501,8 @@ def generate_data(target_filename):
                 print(x[int(yl_train[1]),:])
         
                 for i in range(len(yl_train)):
-                    X_train = np.vstack(X_train, [x[yl_train[i],:]])
-                    act_train = np.append(act_train, [y[yl_train[i]]])
+                    X_train = np.vstack(X_train, [x[int(yl_train[i]),:]])
+                    act_train = np.append(act_train, [y[int(yl_train[i])]])
                     id_train = np.append(id_train, counter)
                 print(X_train.shape)
                 print("debug")
@@ -513,13 +513,13 @@ def generate_data(target_filename):
                 
                 
                 for i in range(len(yl_val)):
-                    X_val = np.append(X_val, [x[yl_val[i],:]])
-                    act_val = np.append(act_val, [y[yl_val[i]]])
+                    X_val = np.append(X_val, [x[int(yl_val[i]),:]])
+                    act_val = np.append(act_val, [y[int(yl_val[i])]])
                     id_val = np.append(id_val, counter)
                     
                 for i in range(len(yl_test)):
-                    X_test = np.append(X_test, [x[yl_test[i],:]])
-                    act_test = np.append(act_test, [y[yl_test[i]]])
+                    X_test = np.append(X_test, [x[int(yl_test[i]),:]])
+                    act_test = np.append(act_test, [y[int(yl_test[i])]])
                     id_test = np.append(id_test, counter)
                 
                 print("shape of final products train")    
