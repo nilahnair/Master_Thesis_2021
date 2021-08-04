@@ -498,20 +498,34 @@ def generate_data(target_filename):
         
                 
                 for i in range(len(yl_train)):
-                    X_train = np.vstack(X_train, x[yl_train[i],:])
-                    act_train = np.concatenate([act_train, y[yl_train[i],:]])
+                    X_train = np.vstack(X_train, x[yl_train[i]])
+                    act_train = np.concatenate([act_train, y[yl_train[i]]])
                     id_train = np.concatenate(id_train, counter)
                 
                 for i in range(len(yl_val)):
-                    X_val = np.vstack(X_val, x[yl_val[i],:])
-                    act_val = np.concatenate([act_val, y[yl_val[i],:]])
+                    X_val = np.vstack(X_val, x[yl_val[i]])
+                    act_val = np.concatenate([act_val, y[yl_val[i]]])
                     id_val = np.concatenate(id_val, counter)
                     
                 for i in range(len(yl_test)):
-                    X_test = np.vstack(X_test, x[yl_test[i],:])
-                    act_test = np.concatenate([act_test, y[yl_test[i],:]])
+                    X_test = np.vstack(X_test, x[yl_test[i]])
+                    act_test = np.concatenate([act_test, y[yl_test[i]]])
                     id_test = np.concatenate(id_test, counter)
                 
+                print("shape of final products train")    
+                print(X_train.shape)
+                print(act_train.shape)
+                print(id_train.shape) 
+                
+                print("shape of final products val")    
+                print(X_val.shape)
+                print(act_val.shape)
+                print(id_val.shape)
+                
+                print("shape of final products test")    
+                print(X_test.shape)
+                print(act_test.shape)
+                print(id_test.shape)
                 '''
                 shape=y.shape[0]
                 train_no=round(0.64*shape)
