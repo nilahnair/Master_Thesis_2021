@@ -386,9 +386,9 @@ def generate_data(target_filename):
                     train_no=round(0.64*shape)
                     val_no=round(0.18*shape)
                     tv= train_no+val_no
-                    yl_train= i_0[0:train_no]
-                    yl_val= i_0[train_no:tv]
-                    yl_test= i_0[tv:shape]
+                    yl_train= np.concatenate([yl_train, i_0[0:train_no]])
+                    yl_val=  np.concatenate([yl_val, i_0[train_no:tv]])
+                    yl_test= np.concatenate([yl_test, i_0[tv:shape]])
                 
                 shape = len(i_1)
                 if shape != 0:
@@ -405,7 +405,7 @@ def generate_data(target_filename):
                     val_no=round(0.18*shape)
                     tv= train_no+val_no
                     yl_train= np.concatenate([yl_train, i_2[0:train_no]])
-                    yl_val= np.concatenate ([yl_val, i_2[train_no:tv]])
+                    yl_val= np.concatenate([yl_val, i_2[train_no:tv]])
                     yl_test= np.concatenate([yl_test, i_2[tv:shape]])
                 
                 shape = len(i_3)
@@ -414,7 +414,7 @@ def generate_data(target_filename):
                     val_no=round(0.18*shape)
                     tv= train_no+val_no
                     yl_train= np.concatenate([yl_train, i_3[0:train_no]])
-                    yl_val= np.concatenate ([yl_val, i_3[train_no:tv]])
+                    yl_val= np.concatenate([yl_val, i_3[train_no:tv]])
                     yl_test= np.concatenate([yl_test, i_3[tv:shape]])
                 
                 shape =len(i_4)
@@ -432,7 +432,7 @@ def generate_data(target_filename):
                     val_no=round(0.18*shape)
                     tv= train_no+val_no
                     yl_train= np.concatenate([yl_train, i_5[0:train_no]])
-                    yl_val= np.concatenate ([yl_val, i_5[train_no:tv]])
+                    yl_val= np.concatenate([yl_val, i_5[train_no:tv]])
                     yl_test= np.concatenate([yl_test, i_5[tv:shape]])
                 
                 shape = len(i_6)
@@ -450,7 +450,7 @@ def generate_data(target_filename):
                     val_no=round(0.18*shape)
                     tv= train_no+val_no
                     yl_train= np.concatenate([yl_train, i_7[0:train_no]])
-                    yl_val= np.concatenate ([yl_val, i_7[train_no:tv]])
+                    yl_val= np.concatenate([yl_val, i_7[train_no:tv]])
                     yl_test= np.concatenate([yl_test, i_7[tv:shape]])
                 
                 shape = len(i_8)
@@ -459,7 +459,7 @@ def generate_data(target_filename):
                     val_no=round(0.18*shape)
                     tv= train_no+val_no
                     yl_train= np.concatenate([yl_train, i_8[0:train_no]])
-                    yl_val= np.concatenate ([yl_val, i_8[train_no:tv]])
+                    yl_val= np.concatenate([yl_val, i_8[train_no:tv]])
                     yl_test= np.concatenate([yl_test, i_8[tv:shape]])
                 
                 shape = len(i_9)
@@ -468,7 +468,7 @@ def generate_data(target_filename):
                     val_no=round(0.18*shape)
                     tv= train_no+val_no
                     yl_train= np.concatenate([yl_train, i_9[0:train_no]])
-                    yl_val= np.concatenate ([yl_val, i_9[train_no:tv]])
+                    yl_val= np.concatenate([yl_val, i_9[train_no:tv]])
                     yl_test= np.concatenate([yl_test, i_9[tv:shape]])
                 
                 shape = len(i_10)
@@ -477,7 +477,7 @@ def generate_data(target_filename):
                     val_no=round(0.18*shape)
                     tv= train_no+val_no
                     yl_train= np.concatenate([yl_train, i_10[0:train_no]])
-                    yl_val= np.concatenate ([yl_val, i_10[train_no:tv]])
+                    yl_val= np.concatenate([yl_val, i_10[train_no:tv]])
                     yl_test= np.concatenate([yl_test, i_10[tv:shape]])
                 
                 shape = len(i_11)
@@ -486,7 +486,7 @@ def generate_data(target_filename):
                     val_no=round(0.18*shape)
                     tv= train_no+val_no
                     yl_train= np.concatenate([yl_train, i_11[0:train_no]])
-                    yl_val= np.concatenate ([yl_val, i_11[train_no:tv]])
+                    yl_val= np.concatenate([yl_val, i_11[train_no:tv]])
                     yl_test= np.concatenate([yl_test, i_11[tv:shape]])
                 
                 print("yl_train.shape")
