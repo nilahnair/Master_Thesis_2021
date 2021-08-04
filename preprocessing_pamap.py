@@ -40,6 +40,7 @@ PAMAP2_DATA_FILES = ['/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject101.dat',
                      '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject106.dat', #5
                      '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject107.dat', #6
                      '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject108.dat', #7
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject109.dat'
                      ]
 #'/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject109.dat', #8
 
@@ -85,7 +86,8 @@ def complete_HR(raw_data):
 
         return data_no_NaN
 
-def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
+#def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
+def opp_sliding_window(data_x, data_y, label_pos_end=True):
     '''
     print("check1")
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
@@ -102,7 +104,7 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
     if label_pos_end:
         print("check 1")
         data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, ws, ss)])
-        data_z = np.asarray([[i[-1]] for i in sliding_window(data_z, ws, ss)])
+        #data_z = np.asarray([[i[-1]] for i in sliding_window(data_z, ws, ss)])
     else:
         if False:
             # Label from the middle
@@ -110,25 +112,25 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
             print("check 2")
             data_y_labels = np.asarray(
                 [[i[i.shape[0] // 2]] for i in sliding_window(data_y, ws, ss)])
-            data_z_labels = np.asarray(
-                [[i[i.shape[0] // 2]] for i in sliding_window(data_z, ws, ss)])
+            #data_z_labels = np.asarray(
+             #   [[i[i.shape[0] // 2]] for i in sliding_window(data_z, ws, ss)])
         else:
             # Label according to mode
             try:
                 print("check 3")
                 data_y_labels = []
-                data_z_labels = []
+              #  data_z_labels = []
                 for sw in sliding_window(data_y, ws, ss):
         
                     count_l = np.bincount(sw.astype(int), minlength=NUM_ACT_CLASSES)
                     idy = np.argmax(count_l)
                     data_y_labels.append(idy)
                 data_y_labels = np.asarray(data_y_labels)
-                for sz in sliding_window(data_z, ws, ss):
-                    count_l = np.bincount(sz.astype(int), minlength=NUM_CLASSES)
-                    idy = np.argmax(count_l)
-                    data_z_labels.append(idy)
-                data_z_labels = np.asarray(data_z_labels)
+               # for sz in sliding_window(data_z, ws, ss):
+                #    count_l = np.bincount(sz.astype(int), minlength=NUM_CLASSES)
+                 #   idy = np.argmax(count_l)
+                  #  data_z_labels.append(idy)
+                #data_z_labels = np.asarray(data_z_labels)
 
 
             except:
@@ -139,20 +141,22 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
             # All labels per window
             data_y_all = np.asarray([i[:] for i in sliding_window(data_y, ws, ss)])
             print(data_y_all.shape)
-            data_z_all = np.asarray([i[:] for i in sliding_window(data_z, ws, ss)])
-            print(data_z_all.shape)
+            #data_z_all = np.asarray([i[:] for i in sliding_window(data_z, ws, ss)])
+            #print(data_z_all.shape)
             
     print("daya_y_labels")
     print(data_y_labels.shape)
     print("daya_y_all")
     print(data_y_all.shape)
-    print("daya_z_labels")
-    print(data_z_labels.shape)
-    print("daya_z_all")
-    print(data_z_all.shape)
+    #print("daya_z_labels")
+    #print(data_z_labels.shape)
+    #print("daya_z_all")
+    #print(data_z_all.shape)
 
-    return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
+    #return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
+    return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
 
+    
 def normalize(raw_data, max_list, min_list):
         """Normalizes all sensor channels
 
@@ -266,10 +270,11 @@ def process_dataset_file(raw_data):
             data_x[np.isnan(data_x)] = 0
             # All sensor channels are normalized
             data_x = normalize(data_x, NORM_MAX_THRESHOLDS, NORM_MIN_THRESHOLDS)
+            data_new, act_new, _ = opp_sliding_window(data_x, data_y, label_pos_end = False)
 
         #data_t, data_x, data_y = self.downsampling(data_t, data_x, data_y)
 
-        return data_x, data_y
+        return data_new, data_new
 
 
 def generate_data(target_filename):
@@ -301,6 +306,24 @@ def generate_data(target_filename):
     act_test = np.empty((0))
     id_test = np.empty((0))
     
+    i_0=[]
+    i_1=[]
+    i_2=[]
+    i_3=[]
+    i_4=[]
+    i_5=[]
+    i_6=[]
+    i_7=[]
+    i_8=[]
+    i_9=[]
+    i_10=[]
+    i_11=[]
+    
+    yl_train=[]
+    yl_val=[]
+    yl_test=[]
+    
+    
     print('Processing dataset files ...')
     counter=0
     for idx_f in PAMAP2_DATA_FILES:
@@ -313,6 +336,172 @@ def generate_data(target_filename):
                 print(x.shape)
                 print(y.shape)
                 
+                ##########put index of relating to each activity into respective group
+                for i in range(y.shape):
+                    if y[i] == 0:
+                        i_0 = np.concatenate([i_0, i])
+                    elif y[i] == 1:
+                        i_1 = np.concatenate([i_1, i])
+                    elif y[i] == 2:
+                        i_2 = np.concatenate([i_2, i])
+                    elif y[i] == 3:
+                        i_3 = np.concatenate([i_3, i])
+                    elif y[i] == 4:
+                        i_4 = np.concatenate([i_4, i])
+                    elif y[i] == 5:
+                        i_5 = np.concatenate([i_5, i])
+                    elif y[i] == 6:
+                        i_6 = np.concatenate([i_6, i])
+                    elif y[i] == 7:
+                        i_7 = np.concatenate([i_7, i])
+                    elif y[i] == 8:
+                        i_8 = np.concatenate([i_8, i])
+                    elif y[i] == 9:
+                        i_9 = np.concatenate([i_9, i])
+                    elif y[i] == 10:
+                        i_10 = np.concatenate([i_10, i])
+                    elif y[i] == 11:
+                        i_11 = np.concatenate([i_11, i])
+                        
+                ################split the index list and concatenate
+                
+                print("shape of the label index")
+                
+                print(i_0.shape)
+                print(i_10.shape)
+                
+                shape = i_0.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= i_0[0:train_no]
+                yl_val= i_0[train_no:tv]
+                yl_test= i_0[tv:shape]
+                
+                shape = i_1.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_1[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_1[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_1[tv:shape]])
+                
+                shape = i_2.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_2[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_2[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_2[tv:shape]])
+                
+                shape = i_3.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_3[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_3[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_3[tv:shape]])
+                
+                shape = i_4.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_4[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_4[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_4[tv:shape]])
+                
+                shape = i_5.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_5[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_5[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_5[tv:shape]])
+                
+                shape = i_6.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_6[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_6[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_6[tv:shape]])
+                
+                shape = i_7.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_7[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_7[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_7[tv:shape]])
+                
+                shape = i_8.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_8[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_8[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_8[tv:shape]])
+                
+                shape = i_9.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_9[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_9[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_9[tv:shape]])
+                
+                shape = i_10.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_10[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_10[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_10[tv:shape]])
+                
+                shape = i_11.shape
+                train_no=round(0.64*shape)
+                val_no=round(0.18*shape)
+                tv= train_no+val_no
+                
+                yl_train= np.concatenate([yl_train, i_11[0:train_no]])
+                yl_val= np.concatenate ([yl_val, i_11[train_no:tv]])
+                yl_test= np.concatenate([yl_test, i_11[tv:shape]])
+                
+                print("yl_train.shape")
+                print(yl_train.shape)
+                print("yl_.shape")
+                print(yl_train.shape)
+                print("yl_train.shape")
+                print(yl_train.shape)
+        
+                
+                for i in range(yl_train.shape):
+                    X_train = np.vstack([X_train, x[yl_train[i],:]])
+                    act_train = np.concatenate([act_train, y[yl_train[i],:]])
+                    id_train = np.concatenate(id_train, counter)
+                
+                for i in range(yl_val.shape):
+                    X_val = np.vstack([X_val, x[yl_val[i],:]])
+                    act_val = np.concatenate([act_val, y[yl_val[i],:]])
+                    id_val = np.concatenate(id_val, counter)
+                    
+                for i in range(yl_test.shape):
+                    X_test = np.vstack([X_test, x[yl_test[i],:]])
+                    act_test = np.concatenate([act_test, y[yl_test[i],:]])
+                    id_test = np.concatenate(id_test, counter)
+                
+                '''
                 shape=y.shape[0]
                 train_no=round(0.64*shape)
                 val_no=round(0.18*shape)
@@ -347,7 +536,7 @@ def generate_data(target_filename):
                 X_test= np.vstack((X_test, x_test))
                 act_test= np.concatenate([act_test, a_test])
                 id_test= np.concatenate([id_test, i_test])
-                
+                '''
                 counter+=1
             except KeyError:
                 logging.error('ERROR: Did not find {0} in zip file'.format(PAMAP2_DATA_FILES[idx_f]))
