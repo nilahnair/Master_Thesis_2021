@@ -503,7 +503,7 @@ def generate_data(target_filename):
                     print("debug")
                     print(y[yl_train[i]])
                     print(y[yl_train[i]].shape)
-                    act_train = np.append([act_train, y[yl_train[i]]])
+                    act_train = np.append(act_train, [y[yl_train[i]]])
                     id_train = np.append(id_train, counter)
                 
                 for i in range(len(yl_val)):
