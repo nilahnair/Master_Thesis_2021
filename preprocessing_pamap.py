@@ -337,7 +337,7 @@ def generate_data(target_filename):
                 print(y.shape)
                 
                 ##########put index of relating to each activity into respective group
-                for i in range(y.shape):
+                for i in range(len(y)):
                     
                     if y[i] == 0:
                         i_0 = i_0 + [i]
