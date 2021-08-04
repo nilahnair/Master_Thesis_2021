@@ -700,7 +700,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/pamap/inputno9/'
+    base_directory = '/data/nnair/pamap/inputnew/'
     
     generate_data(base_directory)
     
