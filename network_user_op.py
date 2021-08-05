@@ -407,8 +407,8 @@ class Network_User(object):
         f1w_train_val = []
         f1m_train_val = []
         
-        #count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        #count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         
         '''
         if self.config['dataset']=='locomotion':
@@ -580,7 +580,7 @@ class Network_User(object):
                         for i in range(0,p.shape[0]):
                             self.exp.log_scalar("acc_attr_{}_val_int_{}".format(i, ea_itera),p[i], itera)
                     
-                    '''
+                    
                     if c_pos_val[0] == 0:
                         self.exp.log_scalar("standing_pos_val_{}".format(ea_itera), c_pos_val[0], itera)
                     else:
@@ -646,7 +646,7 @@ class Network_User(object):
                         self.exp.log_scalar("none_neg_val_{}".format(ea_itera), c_neg_val[7], itera)
                     else:
                         self.exp.log_scalar("none_neg_val_{}".format(ea_itera), c_neg_val[7]/(c_pos_val[7]+c_neg_val[7]), itera)
-                    '''
+                    
                     '''
                     count_pos_val=np.array(count_pos_val)
                     count_neg_val=np.array(count_neg_val)
@@ -801,8 +801,8 @@ class Network_User(object):
             plt.savefig(self.config['folder_exp'] + 'training_final.png')
             plt.close()
 
-        #return results_val, best_itera, count_pos_val, count_neg_val
-        return results_val, best_itera
+        return results_val, best_itera, count_pos_val, count_neg_val
+        #return results_val, best_itera
 
     ##################################################
     ################  Validate  ######################
@@ -835,8 +835,8 @@ class Network_User(object):
        
         loss_val = 0
         
-        #count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        #count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             
         '''
         if self.config['dataset']=='locomotion':
@@ -902,7 +902,7 @@ class Network_User(object):
                     pred_index= predictions.argmax(1)
                     
                     label=test_batch_l
-                    '''
+                    
                     for i,x in enumerate(pred_index):
                         if pred_index[i]==label[i]:
                            for c,z in enumerate(count_pos_val):
@@ -912,7 +912,7 @@ class Network_User(object):
                             for c,z in enumerate(count_neg_val):
                                 if c==act_class[i]:
                                     count_neg_val[c]+=1
-                    '''
+                    
                 elif self.config['output'] == 'attribute': 
                     pred=np.zeros([predictions.shape[0],predictions.shape[1]])
                     pred=torch.from_numpy(pred)
@@ -1003,8 +1003,8 @@ class Network_User(object):
 
         torch.cuda.empty_cache()
 
-        #return results_val, loss_val / v, count_pos_val, count_neg_val
-        return results_val, loss_val / v
+        return results_val, loss_val / v, count_pos_val, count_neg_val
+        #return results_val, loss_val / v
 
 
 
@@ -1053,8 +1053,8 @@ class Network_User(object):
 
         loss_test = 0
         
-        #count_pos_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        #count_neg_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        count_pos_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        count_neg_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         
         '''
         if self.config['dataset']=='locomotion':
@@ -1129,7 +1129,7 @@ class Network_User(object):
                     pred_index= predictions.argmax(1)
                     
                     label=test_batch_l
-                    '''
+                    
                     for i,x in enumerate(pred_index):
                         if pred_index[i]==label[i]:
                            for c,z in enumerate(count_pos_test):
@@ -1139,7 +1139,7 @@ class Network_User(object):
                             for c,z in enumerate(count_neg_test):
                                 if c==act_class[i]:
                                     count_neg_test[c]+=1
-                    '''
+                    
                 elif self.config['output'] == 'attribute':
                     pred=np.zeros([predictions.shape[0],predictions.shape[1]])
                     pred=torch.from_numpy(pred)
@@ -1290,8 +1290,8 @@ class Network_User(object):
 
         torch.cuda.empty_cache()
 
-        #return results_test, confusion_matrix.astype(int), count_pos_test, count_neg_test
-        return results_test, confusion_matrix.astype(int)
+        return results_test, confusion_matrix.astype(int), count_pos_test, count_neg_test
+        #return results_test, confusion_matrix.astype(int)
 
 
     ##################################################
@@ -1315,14 +1315,14 @@ class Network_User(object):
        best_itera = 0
        if testing:
             logging.info('        Network_User: Testing')
-            #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
-            results, confusion_matrix= self.test(ea_iter)
+            results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+            #results, confusion_matrix= self.test(ea_iter)
        else:
             if self.config['usage_modus'] == 'train':
                 logging.info('        Network_User: Training')
 
-                #results, best_itera, c_pos, c_neg = self.train(ea_iter)
-                results, best_itera= self.train(ea_iter)
+                results, best_itera, c_pos, c_neg = self.train(ea_iter)
+                #results, best_itera= self.train(ea_iter)
 
             elif self.config['usage_modus'] == 'fine_tuning':
                 logging.info('        Network_User: Fine Tuning')
@@ -1337,6 +1337,6 @@ class Network_User(object):
                 logging.info('        Network_User: Not selected modus')
             
 
-       #return results, confusion_matrix, best_itera, c_pos, c_neg
-       return results, confusion_matrix, best_itera
+       return results, confusion_matrix, best_itera, c_pos, c_neg
+       #return results, confusion_matrix, best_itera
   
