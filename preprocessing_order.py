@@ -440,10 +440,10 @@ def generate_data(target_filename):
             act_train = np.append(act_train, [labels[int(yl_train[i])]])
             id_train = np.append(id_train, counter)
         
-                print(X_train.shape)
-                print("debug")
-                print(act_train.shape)
-                print(id_train.shape)
+        print(X_train.shape)
+        print("debug")
+        print(act_train.shape)
+        print(id_train.shape)
     
         for i in range(len(yl_val)):
             X_val = np.vstack((X_val, data[int(yl_val[i]),:,:]))
