@@ -27,8 +27,8 @@ from sliding_window_dat import sliding_window
 
 # Hardcoded number of sensor channels employed in the OPPORTUNITY challenge
 NB_SENSOR_CHANNELS = 27
-NUM_ACT_CLASSES= 17
-NUM_CLASSES =9
+NUM_ACT_CLASSES= 8
+NUM_CLASSES =6
 
 ws = 100
 ss = 12
@@ -209,13 +209,15 @@ def generate_data(target_filename):
         #calculate number of labels
         l=set([])
         l=l.union(set(labels))
-        
+        print("union l")
+        print(l)
         # Remove NULL class label -> should be ignored
         l = sorted(l)
         if l[0] == 0:
             l = l[1:]
-            
-
+           
+        print("sorted l")
+        print(l)
         #
         # Create a class dictionary and save it
         # It is a mapping from the original labels
@@ -226,6 +228,9 @@ def generate_data(target_filename):
         class_dict = {}
         for i,lab in enumerate(l):
             class_dict[lab]=i
+        
+        print("class_dict")
+        print(class_dict)
         
         labels = np.array(labels)
         
@@ -246,7 +251,9 @@ def generate_data(target_filename):
         #test_vals_fl = np.array(test_vals_fl)
         data = np.array(nonulldata)
         labels = np.array(nonulllabel)
-        person_id = np.full(labels.shape, counter)
+        #person_id = np.full(labels.shape, counter)
+        
+        
         
         print("shape of data, act_labels and id")
         print(data.shape)
