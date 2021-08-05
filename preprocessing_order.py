@@ -419,7 +419,7 @@ def generate_data(target_filename):
         print(yl_test.shape)
     
         print(yl_train[1])
-        print(data[int(yl_train[1])])
+        print(data[int(yl_train[1])].shape)
         print(data[int(yl_train[1]),:,:])
     
         for i in range(len(yl_train)):
