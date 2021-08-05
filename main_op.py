@@ -68,7 +68,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 12, 'orderpicking': 1}
     #num_attributes = {'locomotion' : 10, 'gesture' : 32, 'carrots' : 32, 'pamap2' : 24, 'orderpicking' : 16}
     #num_classes = {'locomotion' : 5, 'gesture' : 18, 'carrots' : 16, 'pamap2' : 12, 'orderpicking' : 8}
-    num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 8, 'orderpicking': 6}
+    num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 9, 'orderpicking': 6}
     #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103611}
     #input2
     #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 56515, 'orderpicking': 125914}
