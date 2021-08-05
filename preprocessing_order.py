@@ -288,11 +288,11 @@ def generate_data(target_filename):
                 i_6 = i_6 + [i]
             elif labels[i] == 7:
                 i_7 = i_7 + [i]
-            elif y[i] == 8:
+            elif labels[i] == 8:
                 i_8 = i_8 + [i]
-            elif y[i] == 9:
+            elif labels[i] == 9:
                 i_9 = i_9 + [i]
-            elif y[i] == 10:
+            elif labels[i] == 10:
                 i_10 = i_10 + [i]
             
             ################split the index list and concatenate
