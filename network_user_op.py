@@ -559,8 +559,8 @@ class Network_User(object):
                     # Validation
                     # Calling the val() function with the current network and criterion
                     del train_batch_v, noise
-                    #results_val, loss_val, c_pos_val, c_neg_val = self.validate(network_obj, criterion)
-                    results_val, loss_val= self.validate(network_obj, criterion)
+                    results_val, loss_val, c_pos_val, c_neg_val = self.validate(network_obj, criterion)
+                    #results_val, loss_val= self.validate(network_obj, criterion)
                  
                     self.exp.log_scalar("loss_val_int_{}".format(ea_itera), loss_val, itera)
 
@@ -580,7 +580,7 @@ class Network_User(object):
                         for i in range(0,p.shape[0]):
                             self.exp.log_scalar("acc_attr_{}_val_int_{}".format(i, ea_itera),p[i], itera)
                     
-                    
+                    ''' 
                     if c_pos_val[0] == 0:
                         self.exp.log_scalar("standing_pos_val_{}".format(ea_itera), c_pos_val[0], itera)
                     else:
@@ -646,8 +646,8 @@ class Network_User(object):
                         self.exp.log_scalar("none_neg_val_{}".format(ea_itera), c_neg_val[7], itera)
                     else:
                         self.exp.log_scalar("none_neg_val_{}".format(ea_itera), c_neg_val[7]/(c_pos_val[7]+c_neg_val[7]), itera)
-                    
                     '''
+                    
                     count_pos_val=np.array(count_pos_val)
                     count_neg_val=np.array(count_neg_val)
                     c_pos_val= np.array(c_pos_val)
@@ -656,7 +656,7 @@ class Network_User(object):
                     count_neg_val= count_neg_val+ c_neg_val
                     count_pos_val=count_pos_val.tolist()
                     count_neg_val=count_neg_val.tolist()
-                    '''
+                    
                     
                     # print statistics
                     logging.info('\n')
