@@ -492,7 +492,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/order/inputnull/'
+    base_directory = '/data/nnair/order/input3/'
     
     generate_data(base_directory)
     
