@@ -204,8 +204,8 @@ def generate_data(target_filename):
             labels.append(label_arg)
             #person_id.append(counter)
         
-        
-        
+        print(labels)
+        '''
         #calculate number of labels
         l=set([])
         l=l.union(set(labels))
@@ -231,6 +231,7 @@ def generate_data(target_filename):
         
         print("class_dict")
         print(class_dict)
+        '''
         
         labels = np.array(labels)
         
