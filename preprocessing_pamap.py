@@ -27,7 +27,7 @@ from sliding_window_dat import sliding_window
 # Hardcoded number of sensor channels employed in the OPPORTUNITY challenge
 NB_SENSOR_CHANNELS = 40
 NUM_ACT_CLASSES= 12
-NUM_CLASSES =8
+NUM_CLASSES =9
 
 ws = 100
 ss = 12
@@ -143,7 +143,7 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
             print(data_y_all.shape)
             data_z_all = np.asarray([i[:] for i in sliding_window(data_z, ws, ss)])
             print(data_z_all.shape)
-            
+    '''        
     print("daya_y_labels")
     print(data_y_labels.shape)
     print("daya_y_all")
@@ -152,7 +152,7 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
     print(data_z_labels.shape)
     print("daya_z_all")
     print(data_z_all.shape)
-
+    '''
     return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
     #return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
 
@@ -488,7 +488,7 @@ def generate_data(target_filename):
                     yl_train= np.concatenate([yl_train, i_11[0:train_no]])
                     yl_val= np.concatenate([yl_val, i_11[train_no:tv]])
                     yl_test= np.concatenate([yl_test, i_11[tv:shape]])
-                
+                '''
                 print("yl_train.shape")
                 print(yl_train.shape)
                 print("yl_val.shape")
@@ -499,16 +499,17 @@ def generate_data(target_filename):
                 print(yl_train[1])
                 print(x[int(yl_train[1])])
                 print(x[int(yl_train[1]),:])
-        
+                '''
                 for i in range(len(yl_train)):
                     X_train = np.vstack((X_train, x[int(yl_train[i]),:]))
                     act_train = np.append(act_train, [y[int(yl_train[i])]])
                     id_train = np.append(id_train, counter)
+                '''
                 print(X_train.shape)
                 print("debug")
                 print(act_train.shape)
                 print(id_train.shape)
-                
+                '''
                 
                 
                 
@@ -735,7 +736,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/pamap/inputnew/'
+    base_directory = '/data/nnair/pamap/inputnew9/'
     
     generate_data(base_directory)
     
