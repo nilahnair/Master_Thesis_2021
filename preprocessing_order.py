@@ -195,7 +195,7 @@ def generate_data(target_filename):
         
        
         labels=[]
-        person_id=[]
+        #person_id=[]
         for i in range(len(act_labels)):
             
             label_arg = act_labels[i].flatten()
@@ -204,7 +204,6 @@ def generate_data(target_filename):
             labels.append(label_arg)
             #person_id.append(counter)
         
-        print(labels)
         '''
         #calculate number of labels
         l=set([])
@@ -234,13 +233,18 @@ def generate_data(target_filename):
         '''
         
         labels = np.array(labels)
-        
+        print("data shape")
+        print(data.shape)
+        print("labels shape")
+        print(labels.shape)
+        '''
         c = 0
         nonulldata = []
         nonulllabel = []
         for idx in range(labels.shape[0]):
             item = np.copy(data[idx])
             label = labels[idx]
+            print(label)
             
             if label == 0:
                 continue
@@ -248,7 +252,172 @@ def generate_data(target_filename):
             nonulllabel.append(int(class_dict[label]))
             
             c += 1
-
+        '''
+        i_0=[]
+        i_1=[]
+        i_2=[]
+        i_3=[]
+        i_4=[]
+        i_5=[]
+        i_6=[]
+        i_7=[]
+                
+        yl_train=[]
+        yl_val=[]
+        yl_test=[]
+                
+        ##########put index of relating to each activity into respective group
+        for i in range(labels.shape):
+                    
+            if labels[i] == 0:
+                i_0 = i_0 + [i]
+            elif labels[i] == 1:
+                i_1 = i_1 + [i]
+            elif labels[i] == 2:
+                i_2 = i_2 + [i]
+            elif labels[i] == 3:
+                i_3 = i_3 + [i]
+            elif labels[i] == 4:
+                i_4 = i_4 + [i]
+            elif labels[i] == 5:
+                i_5 = i_5 + [i]
+            elif labels[i] == 6:
+                i_6 = i_6 + [i]
+            elif labels[i] == 7:
+                i_7 = i_7 + [i]
+            
+            ################split the index list and concatenate
+                
+        print("shape of the label index")
+                
+        print(len(i_0))
+        print(len(i_1))
+        print(len(i_2))
+        print(len(i_3))
+        print(len(i_4))
+        print(len(i_5))
+        print(len(i_6))
+        print(len(i_7))
+               
+        shape = len(i_0)
+        if shape != 0:
+            train_no=round(0.64*shape)
+            val_no=round(0.18*shape)
+            tv= train_no+val_no
+            yl_train= np.concatenate([yl_train, i_0[0:train_no]])
+            yl_val=  np.concatenate([yl_val, i_0[train_no:tv]])
+            yl_test= np.concatenate([yl_test, i_0[tv:shape]])
+                
+        shape = len(i_1)
+        if shape != 0:
+            train_no=round(0.64*shape)
+            val_no=round(0.18*shape)
+            tv= train_no+val_no
+            yl_train= np.concatenate([yl_train, i_1[0:train_no]])
+            yl_val= np.concatenate ([yl_val, i_1[train_no:tv]])
+            yl_test= np.concatenate([yl_test, i_1[tv:shape]])
+                
+        shape = len(i_2)
+        if shape !=0:
+            train_no=round(0.64*shape)
+            val_no=round(0.18*shape)
+            tv= train_no+val_no
+            yl_train= np.concatenate([yl_train, i_2[0:train_no]])
+            yl_val= np.concatenate([yl_val, i_2[train_no:tv]])
+            yl_test= np.concatenate([yl_test, i_2[tv:shape]])
+                
+        shape = len(i_3)
+        if shape !=0:
+            train_no=round(0.64*shape)
+            val_no=round(0.18*shape)
+            tv= train_no+val_no
+            yl_train= np.concatenate([yl_train, i_3[0:train_no]])
+            yl_val= np.concatenate([yl_val, i_3[train_no:tv]])
+            yl_test= np.concatenate([yl_test, i_3[tv:shape]])
+                
+        shape =len(i_4)
+        if shape !=0:
+            train_no=round(0.64*shape)
+            val_no=round(0.18*shape)
+            tv= train_no+val_no
+            yl_train= np.concatenate([yl_train, i_4[0:train_no]])
+            yl_val= np.concatenate ([yl_val, i_4[train_no:tv]])
+            yl_test= np.concatenate([yl_test, i_4[tv:shape]])
+                
+        shape = len(i_5)
+        if shape !=0:
+            train_no=round(0.64*shape)
+            val_no=round(0.18*shape)
+            tv= train_no+val_no
+            yl_train= np.concatenate([yl_train, i_5[0:train_no]])
+            yl_val= np.concatenate([yl_val, i_5[train_no:tv]])
+            yl_test= np.concatenate([yl_test, i_5[tv:shape]])
+                
+        shape = len(i_6)
+        if shape != 0:
+            train_no=round(0.64*shape)
+            val_no=round(0.18*shape)
+            tv= train_no+val_no
+            yl_train= np.concatenate([yl_train, i_6[0:train_no]])
+            yl_val= np.concatenate ([yl_val, i_6[train_no:tv]])
+            yl_test= np.concatenate([yl_test, i_6[tv:shape]])
+                
+        shape = len(i_7)
+        if shape != 0:
+            train_no=round(0.64*shape)
+            val_no=round(0.18*shape)
+            tv= train_no+val_no
+            yl_train= np.concatenate([yl_train, i_7[0:train_no]])
+            yl_val= np.concatenate([yl_val, i_7[train_no:tv]])
+            yl_test= np.concatenate([yl_test, i_7[tv:shape]])
+                
+        print("yl_train.shape")
+        print(yl_train.shape)
+        print("yl_val.shape")
+        print(yl_val.shape)
+        print("yl_test.shape")
+        print(yl_test.shape)
+    
+        print(yl_train[1])
+        print(data[int(yl_train[1])])
+        print(data[int(yl_train[1]),:])
+    
+        for i in range(len(yl_train)):
+            X_train = np.vstack((X_train, data[int(yl_train[i]),:]))
+            act_train = np.append(act_train, [labels[int(yl_train[i])]])
+            id_train = np.append(id_train, counter)
+        '''
+                print(X_train.shape)
+                print("debug")
+                print(act_train.shape)
+                print(id_train.shape)
+        '''
+        for i in range(len(yl_val)):
+            X_val = np.vstack((X_val, data[int(yl_val[i]),:]))
+            act_val = np.append(act_val, [labels[int(yl_val[i])]])
+            id_val = np.append(id_val, counter)
+                    
+        for i in range(len(yl_test)):
+            X_test = np.vstack((X_test, data[int(yl_test[i]),:]))
+            act_test = np.append(act_test, [labels[int(yl_test[i])]])
+            id_test = np.append(id_test, counter)
+                
+        print("shape of final products train")    
+        print(X_train.shape)
+        print(act_train.shape)
+        print(id_train.shape) 
+                
+        print("shape of final products val")    
+        print(X_val.shape)
+        print(act_val.shape)
+        print(id_val.shape)
+                
+        print("shape of final products test")    
+        print(X_test.shape)
+        print(act_test.shape)
+        print(id_test.shape)
+        
+        '''
         #test_vals_fl = np.array(test_vals_fl)
         data = np.array(nonulldata)
         labels = np.array(nonulllabel)
@@ -303,7 +472,7 @@ def generate_data(target_filename):
         
         print("X_test.shape")
         print(X_test.shape)
-        
+        '''
         counter+=1
         
     # Make train arrays a numpy matrix
