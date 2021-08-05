@@ -27,7 +27,7 @@ from sliding_window_dat import sliding_window
 
 # Hardcoded number of sensor channels employed in the OPPORTUNITY challenge
 NB_SENSOR_CHANNELS = 27
-NUM_ACT_CLASSES= 8
+NUM_ACT_CLASSES= 12
 NUM_CLASSES =6
 
 ws = 100
@@ -264,6 +264,7 @@ def generate_data(target_filename):
         i_8=[]
         i_9=[]
         i_10=[]
+        i_11=[]
                 
         yl_train=[]
         yl_val=[]
@@ -294,6 +295,8 @@ def generate_data(target_filename):
                 i_9 = i_9 + [i]
             elif labels[i] == 10:
                 i_10 = i_10 + [i]
+            elif labels[i] == 11:
+                i_11 = i_11 + [i]
             
             ################split the index list and concatenate
                 
@@ -310,6 +313,7 @@ def generate_data(target_filename):
         print(len(i_8))
         print(len(i_9))
         print(len(i_10))
+        print(len(i_11))
         
                
         shape = len(i_0)
@@ -410,6 +414,15 @@ def generate_data(target_filename):
             yl_train= np.concatenate([yl_train, i_10[0:train_no]])
             yl_val= np.concatenate([yl_val, i_10[train_no:tv]])
             yl_test= np.concatenate([yl_test, i_10[tv:shape]])
+            
+        shape = len(i_11)
+        if shape !=0:
+            train_no=round(0.64*shape)
+            val_no=round(0.18*shape)
+            tv= train_no+val_no
+            yl_train= np.concatenate([yl_train, i_11[0:train_no]])
+            yl_val= np.concatenate([yl_val, i_11[train_no:tv]])
+            yl_test= np.concatenate([yl_test, i_11[tv:shape]])
                 
         print("yl_train.shape")
         print(yl_train.shape)
@@ -419,11 +432,11 @@ def generate_data(target_filename):
         print(yl_test.shape)
     
         print(yl_train[1])
-        print(data[int(yl_train[1])].shape)
+        print([data[int(yl_train[1])]].shape)
         print(data[int(yl_train[1]),:,:])
     
         for i in range(len(yl_train)):
-            X_train = np.vstack((X_train, data[int(yl_train[i]),:,:]))
+            X_train = np.vstack((X_train, [data[int(yl_train[i]),:,:]]))
             act_train = np.append(act_train, [labels[int(yl_train[i])]])
             id_train = np.append(id_train, counter)
         '''
