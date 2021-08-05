@@ -446,12 +446,12 @@ def generate_data(target_filename):
         print(id_train.shape)
     
         for i in range(len(yl_val)):
-            X_val = np.vstack((X_val, data[int(yl_val[i]),:,:]))
+            X_val = np.append(X_val, [data[int(yl_val[i]),:,:]], axis=0)
             act_val = np.append(act_val, [labels[int(yl_val[i])]])
             id_val = np.append(id_val, counter)
                     
         for i in range(len(yl_test)):
-            X_test = np.vstack((X_test, data[int(yl_test[i]),:,:]))
+            X_test = np.append(X_test, [data[int(yl_test[i]),:,:]], axis=0)
             act_test = np.append(act_test, [labels[int(yl_test[i])]])
             id_test = np.append(id_test, counter)
                 
