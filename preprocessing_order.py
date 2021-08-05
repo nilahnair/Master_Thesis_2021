@@ -251,7 +251,7 @@ def generate_data(target_filename):
         #test_vals_fl = np.array(test_vals_fl)
         data = np.array(nonulldata)
         labels = np.array(nonulllabel)
-        #person_id = np.full(labels.shape, counter)
+        person_id = np.full(labels.shape, counter)
         
         
         
