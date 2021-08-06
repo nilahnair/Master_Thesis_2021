@@ -79,7 +79,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.001, 0.00001, 0.000001, 0.01]
+    learning_rates = [0.01, 0.00001, 0.000001, 0.01]
     lr = {'locomotion': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
