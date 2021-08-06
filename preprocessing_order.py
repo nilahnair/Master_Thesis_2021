@@ -27,7 +27,7 @@ from sliding_window_dat import sliding_window
 
 # Hardcoded number of sensor channels employed in the OPPORTUNITY challenge
 NB_SENSOR_CHANNELS = 27
-NUM_ACT_CLASSES= 12
+NUM_ACT_CLASSES= 11
 NUM_CLASSES =6
 
 ws = 100
@@ -253,7 +253,7 @@ def generate_data(target_filename):
             
             c += 1
         '''
-        i_0=[]
+        #i_0=[]
         i_1=[]
         i_2=[]
         i_3=[]
@@ -264,7 +264,7 @@ def generate_data(target_filename):
         i_8=[]
         i_9=[]
         i_10=[]
-        i_11=[]
+        #i_11=[]
                 
         yl_train=[]
         yl_val=[]
@@ -272,10 +272,11 @@ def generate_data(target_filename):
                 
         ##########put index of relating to each activity into respective group
         for i in range(labels.shape[0]):
-                    
+            '''        
             if labels[i] == 0:
                 i_0 = i_0 + [i]
-            elif labels[i] == 1:
+            '''
+            if labels[i] == 1:
                 i_1 = i_1 + [i]
             elif labels[i] == 2:
                 i_2 = i_2 + [i]
@@ -295,14 +296,15 @@ def generate_data(target_filename):
                 i_9 = i_9 + [i]
             elif labels[i] == 10:
                 i_10 = i_10 + [i]
+            '''
             elif labels[i] == 11:
                 i_11 = i_11 + [i]
-            
+            '''
             ################split the index list and concatenate
                 
         print("shape of the label index")
                 
-        print(len(i_0))
+        #print(len(i_0))
         print(len(i_1))
         print(len(i_2))
         print(len(i_3))
@@ -313,9 +315,9 @@ def generate_data(target_filename):
         print(len(i_8))
         print(len(i_9))
         print(len(i_10))
-        print(len(i_11))
+        #print(len(i_11))
         
-               
+        '''       
         shape = len(i_0)
         if shape != 0:
             train_no=round(0.64*shape)
@@ -324,7 +326,7 @@ def generate_data(target_filename):
             yl_train= np.concatenate([yl_train, i_0[0:train_no]])
             yl_val=  np.concatenate([yl_val, i_0[train_no:tv]])
             yl_test= np.concatenate([yl_test, i_0[tv:shape]])
-                
+        '''        
         shape = len(i_1)
         if shape != 0:
             train_no=round(0.64*shape)
@@ -414,7 +416,7 @@ def generate_data(target_filename):
             yl_train= np.concatenate([yl_train, i_10[0:train_no]])
             yl_val= np.concatenate([yl_val, i_10[train_no:tv]])
             yl_test= np.concatenate([yl_test, i_10[tv:shape]])
-            
+        '''    
         shape = len(i_11)
         if shape !=0:
             train_no=round(0.64*shape)
@@ -423,7 +425,7 @@ def generate_data(target_filename):
             yl_train= np.concatenate([yl_train, i_11[0:train_no]])
             yl_val= np.concatenate([yl_val, i_11[train_no:tv]])
             yl_test= np.concatenate([yl_test, i_11[tv:shape]])
-                
+        '''        
         print("yl_train.shape")
         print(yl_train.shape)
         print("yl_val.shape")
@@ -715,7 +717,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/order/input3/'
+    base_directory = '/data/nnair/order/input4/'
     
     generate_data(base_directory)
     
