@@ -127,12 +127,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Batch size
     batch_size_train = {
-        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
+        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 50},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300, 'orderpicking' : 100},
         'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 200, 'orderpicking' : 50}}
 
     batch_size_val = {
-        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
+        'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 50},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
         'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 200, 'orderpicking' : 50}}
     
