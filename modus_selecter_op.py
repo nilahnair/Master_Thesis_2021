@@ -188,6 +188,106 @@ class Modus_Selecter(object):
             else:
                 self.exp.log_scalar("none_p_v_f{}".format(iter_evl), c_pos_val[0]/(c_pos_val[0]+c_neg_val[0]))
             if c_pos_val[1] == 0:
+                self.exp.log_scalar("unkown_p_v_f{}".format(iter_evl), c_pos_val[1])
+            else:
+                self.exp.log_scalar("unknown_p_v_f{}".format(iter_evl), c_pos_val[1]/(c_pos_val[1]+c_neg_val[1]))
+            if c_pos_val[2] == 0:
+                self.exp.log_scalar("flip_p_v_f{}".format(iter_evl), c_pos_val[2])
+            else:
+                self.exp.log_scalar("flip_p_v_f{}".format(iter_evl), c_pos_val[2]/(c_pos_val[2]+c_neg_val[2]))
+            if c_pos_val[3] == 0:
+                self.exp.log_scalar("walk_p_v_f{}".format(iter_evl), c_pos_val[3])
+            else:
+                self.exp.log_scalar("walk_p_v_f{}".format(iter_evl), c_pos_val[3]/(c_pos_val[3]+c_neg_val[3]))
+            if c_pos_val[4] == 0:
+                self.exp.log_scalar("search_p_v_f{}".format(iter_evl), c_pos_val[4])
+            else:
+                self.exp.log_scalar("search_p_v_f{}".format(iter_evl), c_pos_val[4]/(c_pos_val[4]+c_neg_val[4]))
+            if c_pos_val[5] == 0:
+                self.exp.log_scalar("pick_p_v_f{}".format(iter_evl), c_pos_val[5])
+            else:
+                self.exp.log_scalar("pick_p_v_f{}".format(iter_evl), c_pos_val[5]/(c_pos_val[5]+c_neg_val[5]))
+            if c_pos_val[6] == 0:
+                self.exp.log_scalar("scan_p_v_f{}".format(iter_evl), c_pos_val[6])
+            else:
+                self.exp.log_scalar("scan_p_v_f{}".format(iter_evl), c_pos_val[6]/(c_pos_val[6]+c_neg_val[6]))
+            if c_pos_val[7] == 0:
+                self.exp.log_scalar("info_p_v_f{}".format(iter_evl), c_pos_val[7])
+            else:
+                self.exp.log_scalar("info_p_v_f{}".format(iter_evl), c_pos_val[7]/(c_pos_val[7]+c_neg_val[7]))
+            if c_pos_val[8] == 0:
+                self.exp.log_scalar("count_p_v_f{}".format(iter_evl), c_pos_val[8])
+            else:
+                self.exp.log_scalar("count_p_v_f{}".format(iter_evl), c_pos_val[8]/(c_pos_val[8]+c_neg_val[8]))
+            if c_pos_val[9] == 0:
+                self.exp.log_scalar("carry_p_v_f{}".format(iter_evl), c_pos_val[9])
+            else:
+                self.exp.log_scalar("carry_p_v_f{}".format(iter_evl), c_pos_val[9]/(c_pos_val[9]+c_neg_val[9]))
+            if c_pos_val[10] == 0:
+                self.exp.log_scalar("ack_p_v_f{}".format(iter_evl), c_pos_val[10])
+            else:
+                self.exp.log_scalar("ack_p_v_f{}".format(iter_evl), c_pos_val[10]/(c_pos_val[10]+c_neg_val[10]))
+            if c_pos_val[11] == 0:
+                self.exp.log_scalar("if_any_p_v_f{}".format(iter_evl), c_pos_val[11])
+            else:
+                self.exp.log_scalar("if_any_p_v_f{}".format(iter_evl), c_pos_val[11]/(c_pos_val[11]+c_neg_val[11]))
+                    
+            if c_neg_val[0] == 0:
+                self.exp.log_scalar("none_n_v_f{}".format(iter_evl), c_neg_val[0])
+            else:
+                self.exp.log_scalar("none_n_v_f{}".format(iter_evl), c_neg_val[0]/(c_pos_val[0]+c_neg_val[0]))
+            if c_neg_val[1] == 0:
+                self.exp.log_scalar("unkown_n_v_f{}".format(iter_evl), c_neg_val[1])
+            else:
+                self.exp.log_scalar("unkown_n_v_f{}".format(iter_evl), c_neg_val[1]/(c_pos_val[1]+c_neg_val[1]))
+            if c_neg_val[2] == 0:
+                self.exp.log_scalar("flip_n_v_f{}".format(iter_evl), c_neg_val[2])
+            else:
+                self.exp.log_scalar("flip_n_v_f{}".format(iter_evl), c_neg_val[2]/(c_pos_val[2]+c_neg_val[2]))
+            if c_neg_val[3] == 0:
+                self.exp.log_scalar("walk_n_v_f{}".format(iter_evl), c_neg_val[3])
+            else:
+                self.exp.log_scalar("walk_n_v_f{}".format(iter_evl), c_neg_val[3]/(c_pos_val[3]+c_neg_val[3]))
+            if c_neg_val[4] == 0:
+                self.exp.log_scalar("search_n_v_f{}".format(iter_evl), c_neg_val[4])
+            else:
+                self.exp.log_scalar("search_n_v_f{}".format(iter_evl), c_neg_val[4]/(c_pos_val[4]+c_neg_val[4]))
+            if c_neg_val[5] == 0:
+                self.exp.log_scalar("pick_n_v_f{}".format(iter_evl), c_neg_val[5])
+            else:
+                self.exp.log_scalar("pick_n_v_f{}".format(iter_evl), c_neg_val[5]/(c_pos_val[5]+c_neg_val[5]))
+            if c_neg_val[6] == 0:
+                self.exp.log_scalar("scan_n_v_f{}".format(iter_evl), c_neg_val[6])
+            else:
+                self.exp.log_scalar("scan_n_v_f{}".format(iter_evl), c_neg_val[6]/(c_pos_val[6]+c_neg_val[6]))
+            if c_neg_val[7] == 0:
+                self.exp.log_scalar("info_n_v_f{}".format(iter_evl), c_neg_val[7])
+            else:
+                self.exp.log_scalar("info_n_v_f{}".format(iter_evl), c_neg_val[7]/(c_pos_val[7]+c_neg_val[7]))
+            if c_neg_val[8] == 0:
+                self.exp.log_scalar("count_n_v_f{}".format(iter_evl), c_neg_val[8])
+            else:
+                self.exp.log_scalar("count_n_v_f{}".format(iter_evl), c_neg_val[8]/(c_pos_val[8]+c_neg_val[8]))
+            if c_neg_val[9] == 0:
+                self.exp.log_scalar("carry_n_v_f{}".format(iter_evl), c_neg_val[9])
+            else:
+                self.exp.log_scalar("carry_n_v_f{}".format(iter_evl), c_neg_val[9]/(c_pos_val[9]+c_neg_val[9]))
+            if c_neg_val[10] == 0:
+                self.exp.log_scalar("ack_n_v_f{}".format(iter_evl), c_neg_val[10])
+            else:
+                self.exp.log_scalar("ack_n_v_f{}".format(iter_evl), c_neg_val[10]/(c_pos_val[10]+c_neg_val[10]))
+            if c_neg_val[11] == 0:
+                self.exp.log_scalar("if _any_n_v_f{}".format(iter_evl), c_neg_val[11])
+            else:
+                self.exp.log_scalar("if_any_n_v_f{}".format(iter_evl), c_neg_val[11]/(c_pos_val[11]+c_neg_val[11]))
+            
+            
+            '''
+            if c_pos_val[0] == 0:
+                self.exp.log_scalar("none_p_v_f{}".format(iter_evl), c_pos_val[0])
+            else:
+                self.exp.log_scalar("none_p_v_f{}".format(iter_evl), c_pos_val[0]/(c_pos_val[0]+c_neg_val[0]))
+            if c_pos_val[1] == 0:
                 self.exp.log_scalar("lying_p_v_f{}".format(iter_evl), c_pos_val[1])
             else:
                 self.exp.log_scalar("lying_p_v_f{}".format(iter_evl), c_pos_val[1]/(c_pos_val[1]+c_neg_val[1]))
@@ -280,7 +380,7 @@ class Modus_Selecter(object):
                 self.exp.log_scalar("ropejumping_n_v_f{}".format(iter_evl), c_neg_val[11])
             else:
                 self.exp.log_scalar("ropejumping_n_v_f{}".format(iter_evl), c_neg_val[11]/(c_pos_val[11]+c_neg_val[11]))
-            
+            '''
             '''
             if self.config['dataset']=='locomotion':
                 if c_pos_val[0] == 0:
@@ -514,7 +614,107 @@ class Modus_Selecter(object):
                 p=results_test['acc_attrs']
                 for i in range(0,p.shape[0]):
                     self.exp.log_scalar("acc_attr_{}_test_mo_{}".format(i, iter_evl),p[i])
-                  
+            
+            if count_pos_test[0] == 0:
+                self.exp.log_scalar("none_p_test{}".format(iter_evl), count_pos_test[0])
+            else:
+                self.exp.log_scalar("none_p_test{}".format(iter_evl), count_pos_test[0]/(count_pos_test[0]+count_neg_test[0]))
+            if count_pos_test[1] == 0:
+                self.exp.log_scalar("unknown_p_test{}".format(iter_evl), count_pos_test[1])
+            else:
+                self.exp.log_scalar("unknown_p_test{}".format(iter_evl), count_pos_test[1]/(count_pos_test[1]+count_neg_test[1]))
+            if count_pos_test[2] == 0:
+                self.exp.log_scalar("flip_p_test{}".format(iter_evl), count_pos_test[2])
+            else:
+                self.exp.log_scalar("flip_p_test{}".format(iter_evl), count_pos_test[2]/(count_pos_test[2]+count_neg_test[2]))
+            if count_pos_test[3] == 0:
+                self.exp.log_scalar("walk_p_test{}".format(iter_evl), count_pos_test[3])
+            else:
+                self.exp.log_scalar("walk_p_test{}".format(iter_evl), count_pos_test[3]/(count_pos_test[3]+count_neg_test[3]))
+            if count_pos_test[4] == 0:
+                self.exp.log_scalar("search_p_test{}".format(iter_evl), count_pos_test[4])
+            else:
+                self.exp.log_scalar("search_p_test{}".format(iter_evl), count_pos_test[4]/(count_pos_test[4]+count_neg_test[4]))
+            if count_pos_test[5] == 0:
+                self.exp.log_scalar("pick_p_test{}".format(iter_evl), count_pos_test[5])
+            else:
+                self.exp.log_scalar("pick_p_test{}".format(iter_evl), count_pos_test[5]/(count_pos_test[5]+count_neg_test[5]))
+            if count_pos_test[6] == 0:
+                self.exp.log_scalar("scan_p_test{}".format(iter_evl), count_pos_test[6])
+            else:
+                self.exp.log_scalar("scan_p_test{}".format(iter_evl), count_pos_test[6]/(count_pos_test[6]+count_neg_test[6]))
+            if count_pos_test[7] == 0:
+                self.exp.log_scalar("info_p_test{}".format(iter_evl), count_pos_test[7])
+            else:
+                self.exp.log_scalar("info_p_test{}".format(iter_evl), count_pos_test[7]/(count_pos_test[7]+count_neg_test[7]))
+            if count_pos_test[8] == 0:
+                self.exp.log_scalar("count_p_test{}".format(iter_evl), count_pos_test[8])
+            else:
+                self.exp.log_scalar("count_p_test{}".format(iter_evl), count_pos_test[8]/(count_pos_test[8]+count_neg_test[8]))
+            if count_pos_test[9] == 0:
+                self.exp.log_scalar("carry_p_test{}".format(iter_evl), count_pos_test[9])
+            else:
+                self.exp.log_scalar("carry_p_test{}".format(iter_evl), count_pos_test[9]/(count_pos_test[9]+count_neg_test[9]))
+            if count_pos_test[10] == 0:
+                self.exp.log_scalar("ack_p_test{}".format(iter_evl), count_pos_test[10])
+            else:
+                self.exp.log_scalar("ack_p_test{}".format(iter_evl), count_pos_test[10]/(count_pos_test[10]+count_neg_test[10]))
+            if count_pos_test[11] == 0:
+                self.exp.log_scalar("if_any_p_test{}".format(iter_evl), count_pos_test[11])
+            else:
+                self.exp.log_scalar("if_any_p_test{}".format(iter_evl), count_pos_test[11]/(count_pos_test[11]+count_neg_test[11]))
+            
+            if count_neg_test[0] == 0:
+                self.exp.log_scalar("none_n_test{}".format(iter_evl), count_neg_test[0])
+            else:
+                self.exp.log_scalar("none_n_test{}".format(iter_evl), count_neg_test[0]/(count_pos_test[0]+count_neg_test[0]))
+            if count_neg_test[1] == 0:
+                self.exp.log_scalar("unkown_n_test{}".format(iter_evl), count_neg_test[1])
+            else:
+                self.exp.log_scalar("unkown_n_test{}".format(iter_evl), count_neg_test[1]/(count_pos_test[1]+count_neg_test[1]))
+            if count_neg_test[2] == 0:
+                self.exp.log_scalar("flip_n_test{}".format(iter_evl), count_neg_test[2])
+            else:
+                self.exp.log_scalar("flip_n_test{}".format(iter_evl), count_neg_test[2]/(count_pos_test[2]+count_neg_test[2]))
+            if count_neg_test[3] == 0:
+                self.exp.log_scalar("walk_n_test{}".format(iter_evl), count_neg_test[3])
+            else:
+                self.exp.log_scalar("walk_n_test{}".format(iter_evl), count_neg_test[3]/(count_pos_test[3]+count_neg_test[3]))
+            if count_neg_test[4] == 0:
+                self.exp.log_scalar("search_n_test{}".format(iter_evl), count_neg_test[4])
+            else:
+                self.exp.log_scalar("search_n_test{}".format(iter_evl), count_neg_test[4]/(count_pos_test[4]+count_neg_test[4]))
+            if count_neg_test[5] == 0:
+                self.exp.log_scalar("pick_n_test{}".format(iter_evl), count_neg_test[5])
+            else:
+                self.exp.log_scalar("pick_n_test{}".format(iter_evl), count_neg_test[5]/(count_pos_test[5]+count_neg_test[5]))
+            if count_neg_test[6] == 0:
+                self.exp.log_scalar("scan_n_test{}".format(iter_evl), count_neg_test[6])
+            else:
+                self.exp.log_scalar("scan_n_test{}".format(iter_evl), count_neg_test[6]/(count_pos_test[6]+count_neg_test[6]))
+            if count_neg_test[7] == 0:
+                self.exp.log_scalar("info_n_test{}".format(iter_evl), count_neg_test[7])
+            else:
+                self.exp.log_scalar("info_n_test{}".format(iter_evl), count_neg_test[7]/(count_pos_test[7]+count_neg_test[7]))
+            if count_neg_test[8] == 0:
+                self.exp.log_scalar("count_n_test{}".format(iter_evl), count_neg_test[8])
+            else:
+                self.exp.log_scalar("count_n_test{}".format(iter_evl), count_neg_test[8]/(count_pos_test[8]+count_neg_test[8]))
+            if count_neg_test[9] == 0:
+                self.exp.log_scalar("carry_n_test{}".format(iter_evl), count_neg_test[9])
+            else:
+                self.exp.log_scalar("carry_n_test{}".format(iter_evl), count_neg_test[9]/(count_pos_test[9]+count_neg_test[9]))
+            if count_neg_test[10] == 0:
+                self.exp.log_scalar("ack_n_test{}".format(iter_evl), count_neg_test[10])
+            else:
+                self.exp.log_scalar("ack_n_test{}".format(iter_evl), count_neg_test[10]/(count_pos_test[10]+count_neg_test[10]))
+            if count_neg_test[11] == 0:
+                self.exp.log_scalar("if_any_n_test{}".format(iter_evl), count_neg_test[11])
+            else:
+                self.exp.log_scalar("if_any_n_test{}".format(iter_evl), count_neg_test[11]/(count_pos_test[11]+count_neg_test[11]))
+            
+            
+            '''      
             if count_pos_test[0] == 0:
                 self.exp.log_scalar("none_p_test{}".format(iter_evl), count_pos_test[0])
             else:
@@ -612,7 +812,7 @@ class Modus_Selecter(object):
                 self.exp.log_scalar("ropejumping_n_test{}".format(iter_evl), count_neg_test[11])
             else:
                 self.exp.log_scalar("ropejumping_n_test{}".format(iter_evl), count_neg_test[11]/(count_pos_test[11]+count_neg_test[11]))
-            
+            '''
             '''
             if self.config['dataset']=='locomotion':
                 if count_pos_test[0] == 0:
