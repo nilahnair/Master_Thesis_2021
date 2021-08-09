@@ -234,7 +234,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputs/',
                     'gesture': '/data/nnair/oppor/gesture/input/',
-                    'pamap2': '/data/nnair/pamap/inputnew/',
+                    'pamap2': '/data/nnair/pamap/inputnew9/',
                     'orderpicking': '/data/nnair/order/input4/'}
     '''
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
