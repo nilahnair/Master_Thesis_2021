@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('order picking sorted null removed')
+ex= Experiment('pamap sorted x5')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -79,7 +79,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.01, 0.00001, 0.000001, 0.01]
+    learning_rates = [0.0001, 0.00001, 0.000001, 0.01]
     lr = {'locomotion': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
@@ -129,12 +129,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 200, 'orderpicking' : 50}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 100, 'orderpicking' : 50}}
 
     batch_size_val = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 200, 'orderpicking' : 50}}
+        'cnn_imu': {'locomotion': 100, 'gesture':100, 'pamap2': 100, 'orderpicking' : 50}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'locomotion': 4, 'gesture': 4, 'pamap2': 4, 'orderpicking': 4}
@@ -165,10 +165,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/oppor/locomotions/output/"
         #folder_base ="/data/nnair/oppor/gesture/output/"
-        #folder_base = "/data/nnair/pamap/output/"
+        folder_base = "/data/nnair/pamap/output/"
         #folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
         #folder_base = "/data/nnair/oppor/gesture/outputdrill/"   
-        folder_base = "/data/nnair/order/output/"
+        #folder_base = "/data/nnair/order/output/"
         
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
@@ -349,8 +349,8 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=3,
-                           network_idx=0,
+    config = configuration(dataset_idx=2,
+                           network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
