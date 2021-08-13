@@ -1921,7 +1921,7 @@ class Network_User(object):
             A[j+1]=F.relu(A[j])
             j+=2
         #print(A)
-        print(A.shape)    
+        print(len(A))    
         A[8] = A[8].reshape(-1, A[8].size()[1] * A[8].size()[2] * A[8].size()[3])
         fA[0]=fc[0].forward(A[8])
         fA[1]=F.relu(fA[0])
