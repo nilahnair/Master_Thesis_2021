@@ -1621,8 +1621,8 @@ class Network_User(object):
 
         torch.cuda.empty_cache()
 
-        #return results_test, confusion_matrix.astype(int), count_pos_test, count_neg_test
-        return
+        return results_test, confusion_matrix.astype(int), count_pos_test, count_neg_test
+        #return
     
     def lrp(self):
         logging.info('        Network_User:    LRP ---->')
