@@ -1939,6 +1939,8 @@ class Network_User(object):
         
         T = sml.cpu().detach().numpy().tolist()[0]
         index = T.index(max(T))
+        print("index")
+        print(index)
         T = np.abs(np.array(T)) * 0
         T[index] = 1
         T = torch.FloatTensor(T)
@@ -2177,7 +2179,12 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
         return layer
         
     def relprop(self, A, layers, R_1):
-           
+            print("A")
+            print(len(A))
+            print("layers")
+            print(len(layers))
+            print("R_1")
+            print(len(R_1))
             rho= lambda p: p
             #A[layer] = A[layer].data.requires_grad_(True)
             A = A.data.requires_grad_(True)
