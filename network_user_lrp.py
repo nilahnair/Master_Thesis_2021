@@ -1913,7 +1913,7 @@ class Network_User(object):
         test_v = test_v.unsqueeze(0)
         
         A=[test_v] + [None]*(cl*2)
-        fA=[None]*(fc*2)
+        fA=[None]*(fcl*2)
         j=1
         for i in range(cl):
             A[j]= convlayers[i].forward(A[j-1])
