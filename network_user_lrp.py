@@ -2165,7 +2165,8 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
   
         return
         
-    def newlayer(self, layer, g):
+    #def newlayer(self, layer, g):
+    def newlayer(self, layer):
         """Clone a layer and pass its parameters through the function g."""
         #print("copying layer")
         layer = copy.deepcopy(layer)
@@ -2188,7 +2189,9 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
             rho= lambda p: p
             #A[layer] = A[layer].data.requires_grad_(True)
             A = A.data.requires_grad_(True)
-            cpy=self.newlayer(layer=layers, g=rho)
+            print(A)
+            #cpy=self.newlayer(layer=layers, g=rho)
+            cpy=self.newlayer(layer=layers)
             # Step 1: Transform the weights of the layer and executes a forward pass
             z = cpy.forward(A) + 1e-9
             # Step 2: Element-wise division between the relevance of the next layer and the denominator
