@@ -1819,7 +1819,7 @@ class Network_User(object):
                         countern7.append(k[j])
                         indxn7.append(i)
         
-        
+        '''
         for i in range(len(indxp1)):
             if counterp1[i]>=0.9:
                 print("positive value and index greater than 0.9")
@@ -1839,25 +1839,25 @@ class Network_User(object):
                 print("neg value and index greater than 0.4 and less than 0.5")
                 print(countern1[i])
                 print(indxn1[i])
-        
+        '''
         
         lrp_test_indx=[]
         
-        '''
+        
         
         for i in range(len(indxp1)):
             if indxp1[i] == 947:
                 lrp_test_indx.append(indxp1[i])
-            elif indxp1[i] == 1105:
+            elif indxp1[i] == 1106:
                 lrp_test_indx.append(indxp1[i])
                 
                 
         for i in range (len(indxn1)):
-            if indxn1[i] == 1090:
+            if indxn1[i] == 1108:
                 lrp_test_indx.append(indxn1[i])
-            elif indxn1[i] == 1081:
+            elif indxn1[i] == 1102:
                 lrp_test_indx.append(indxn1[i])
-        '''
+        
         '''
         print("selected indexes")
         print(lrp_test_indx)
@@ -1895,23 +1895,17 @@ class Network_User(object):
         layers= [module for module in network_obj.modules()]
         #first layer is just the network layout
         L=len(layers)
+        for i in L:
+            print(layers[i])
         #31 including networklayout, avgpool and sigmoid
         
-        convlayers1=layers[1:5]
-        cl1=len(convlayers1)
-        convlayers2=layers[6:10]
-        cl2=len(convlayers2)
-        convlayers3=layers[11:15]
-        cl3=len(convlayers3)
-        convlayers4=layers[16:20]
-        cl4=len(convlayers4)
-        convlayers5=layers[21:25]
-        cl5=len(convlayers5)
-        trans=[layers[5], layers[10], layers[15], layers[20], layers[25]]
-        tl=len(trans)
-        fc=layers[26:30]
-        fc=[fc[0], fc[1], fc[3]]
+        convlayers=layers[1:5]
+        cl1=len(convlayers)
+        fc=layers[5:9]
         fcl=len(fc)
+        print(convlayers)
+        print(fc)
+        
         
         ##############################################setting input
         
