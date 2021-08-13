@@ -1952,9 +1952,7 @@ class Network_User(object):
         print(R_fc)
         R=[None]*5
         
-        R[4]=self.relprop(A[8], fA[], R_fc)
-        R[4] = R[4].reshape(1, 64, 84, -1) 
-        R[3]=self.relprop(A[6], convlayers[3], R[4])
+        R[3]=self.relprop(A[6], convlayers[3], R_f)
         R[2]=self.relprop(A[4], convlayers[2], R[3])
         R[1]=self.relprop(A[2], convlayers[1], R[2])
         R[0]=self.relprop(A[0], convlayers[0], R[1])
