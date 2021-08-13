@@ -1902,6 +1902,7 @@ class Network_User(object):
         cl=len(convlayers)
         fc=layers[5:8]
         fcl=len(fc)
+        print("check")
         print(convlayers)
         print(fc)
         sm=layers[9]
