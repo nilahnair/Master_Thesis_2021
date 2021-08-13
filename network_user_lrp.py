@@ -1075,8 +1075,8 @@ class Network_User(object):
                            'fc3.weight', 'fc3.bias', 'fc4.weight', 'fc4.bias',
                            'fc5.weight', 'fc5.bias']
         
-        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in list_layers}
-        print(pretrained_dict)
+        #pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in list_layers}
+        #print(pretrained_dict)
 
         logging.info('        Network_User:        Pretrained layers selected')
         # 2. overwrite entries in the existing state dict
@@ -1087,16 +1087,17 @@ class Network_User(object):
         logging.info('        Network_User:        Weights loaded')
         
         #network_obj.eval()
-        print(network_obj)
+        #print(network_obj)
         #network_obj= nn.Sequential(*list(network_obj.children())[:-1])
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
         logging.info('        Network_User:    Train:    network layers')
+        '''
         for l in list(network_obj.named_parameters()):
             logging.info('        Network_User:    Train:    {} : {}'.format(l[0], l[1].detach().numpy().shape))
-                
+        '''        
         network_obj.eval()
-        print(network_obj)
+        #print(network_obj)
         '''
         
         # Creating a network and loading the weights for testing
