@@ -2144,15 +2144,15 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
         @return confusion_matrix: dict with validating/testing results
         @return best_itera: best iteration for training
        '''
-       '''
+       
        logging.info('        Network_User: Evolution evaluation iter {}'.format(ea_iter))
 
        confusion_matrix = 0
        best_itera = 0
-       '''
+       
        #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
-       self.lrp()
-       '''
+       #self.lrp()
+       
        if testing:
             logging.info('        Network_User: Testing')
             results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
@@ -2173,7 +2173,7 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
 
             else:
                 logging.info('        Network_User: Not selected modus')
-       '''   
+        
 
-       #return results, confusion_matrix, best_itera, c_pos, c_neg
-       return
+       return results, confusion_matrix, best_itera, c_pos, c_neg
+       #return
