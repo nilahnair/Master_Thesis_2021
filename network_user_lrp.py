@@ -1895,15 +1895,17 @@ class Network_User(object):
         layers= [module for module in network_obj.modules()]
         #first layer is just the network layout
         L=len(layers)
-        print(layers)
+        #print(layers)
         #31 including networklayout, avgpool and sigmoid
         
         convlayers=layers[1:5]
         cl1=len(convlayers)
-        fc=layers[5:9]
+        fc=layers[5:8]
         fcl=len(fc)
         print(convlayers)
         print(fc)
+        sm=layers[9]
+        print(sm)
         
         
         ##############################################setting input
