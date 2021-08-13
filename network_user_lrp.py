@@ -1646,13 +1646,13 @@ class Network_User(object):
         #print(network_obj.conv_LA_1_1.weight)
         if self.config["dataset"]=='mocap':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_mocap.pt'))
-            pretrained_dict= torch.load('/data/nnair/model/model_save_mocap.pt')
+            pretrained_dict= torch.load('/data/nnair/model/cnn_mocap.pt')['state_dict']
             print("network loaded from model_save_mocap.pt")
         elif self.config["dataset"]=='mbientlab':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
             pretrained_dict= torch.load('/data/nnair/model/model_save_imu.pt')
             print("network loaded from model_save_imu.pt")
-            
+        '''   
         list_layers = ['conv_LA_1_1.weight', 'conv_LA_1_1.bias', 'conv_LA_1_2.weight', 'conv_LA_1_2.bias',
                            'conv_LA_2_1.weight', 'conv_LA_2_1.bias', 'conv_LA_2_2.weight', 'conv_LA_2_2.bias',
                            'conv_LL_1_1.weight', 'conv_LL_1_1.bias', 'conv_LL_1_2.weight', 'conv_LL_1_2.bias',
@@ -1665,6 +1665,11 @@ class Network_User(object):
                            'conv_RL_2_1.weight', 'conv_RL_2_1.bias', 'conv_RL_2_2.weight', 'conv_RL_2_2.bias',
                            'fc3_LA.weight', 'fc3_LA.bias', 'fc3_LL.weight', 'fc3_LL.bias', 'fc3_N.weight', 'fc3_N.bias',
                            'fc3_RA.weight', 'fc3_RA.bias', 'fc3_RL.weight', 'fc3_RL.bias', 'fc4.weight', 'fc4.bias',
+                           'fc5.weight', 'fc5.bias']
+        '''
+        list_layers = ['conv1_1.weight', 'conv1_1.bias', 'conv1_2.weight', 'conv1_2.bias',
+                           'conv2_1.weight', 'conv2_1.bias', 'conv2_2.weight', 'conv2_2.bias',
+                           'fc3.weight', 'fc3.bias', 'fc4.weight', 'fc4.bias',
                            'fc5.weight', 'fc5.bias']
         
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in list_layers}
@@ -1679,12 +1684,13 @@ class Network_User(object):
         
         
         #network_obj= nn.Sequential(*list(network_obj.children())[:-1])
-        #print(network_obj)
+        print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
         logging.info('        Network_User:    Train:    network layers')
+        '''
         for l in list(network_obj.named_parameters()):
             logging.info('        Network_User:    Trained:    {} : {}'.format(l[0], l[1].detach().numpy().shape))
-                
+        '''        
         network_obj.eval()
         
         logging.info('        Network_User:    Test:    setting device')
@@ -1705,7 +1711,7 @@ class Network_User(object):
             metrics_obj = Metrics(self.config, self.device, self.attrs)
             
         if self.config["dataset"]=='mocap':
-            npz_file = "/data/nnair/lrp/exp1/test_mocap.npz"
+            npz_file = "/data/nnair/lrp/exp1/cnn_mocap.npz"
             print("mocap output loaded")
         elif self.config["dataset"]=='mbientlab':
             npz_file = "/data/nnair/lrp/exp1/test_imu.npz"
@@ -1813,7 +1819,7 @@ class Network_User(object):
                         countern7.append(k[j])
                         indxn7.append(i)
         
-        '''
+        
         for i in range(len(indxp1)):
             if counterp1[i]>=0.9:
                 print("positive value and index greater than 0.9")
@@ -1833,9 +1839,11 @@ class Network_User(object):
                 print("neg value and index greater than 0.4 and less than 0.5")
                 print(countern1[i])
                 print(indxn1[i])
-        '''
+        
         
         lrp_test_indx=[]
+        
+        '''
         
         for i in range(len(indxp1)):
             if indxp1[i] == 947:
@@ -1849,6 +1857,7 @@ class Network_User(object):
                 lrp_test_indx.append(indxn1[i])
             elif indxn1[i] == 1081:
                 lrp_test_indx.append(indxn1[i])
+        '''
         '''
         print("selected indexes")
         print(lrp_test_indx)
@@ -2159,10 +2168,10 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
 
        confusion_matrix = 0
        '''
-       best_itera = 0
+       #best_itera = 0
        
-       results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
-       #self.lrp()
+       #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+       self.lrp()
        '''
        if testing:
             logging.info('        Network_User: Testing')
@@ -2186,5 +2195,5 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
                 logging.info('        Network_User: Not selected modus')
         
        '''
-       return results, confusion_matrix, best_itera, c_pos, c_neg
-       #return
+       #return results, confusion_matrix, best_itera, c_pos, c_neg
+       return
