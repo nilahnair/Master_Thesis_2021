@@ -1931,7 +1931,7 @@ class Network_User(object):
         fA[5]=F.relu(fA[0])
         
         #print(fA)
-        print(fA.shape)
+        print(len(fA))
         sml=sm.forward(fA[5])
         print(sml)
         
