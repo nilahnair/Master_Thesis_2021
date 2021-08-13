@@ -1031,30 +1031,31 @@ class Network_User(object):
             logging.info('        Network_User:    Test:    setting device')
             network_obj.to(self.device)
         '''
-        '''
+        
         network_obj = Network(self.config)
         print("network weights before initialisation")
-        print(network_obj.conv_LA_1_1.weight)
+        print(network_obj.conv1_1.weight)
         network_obj.init_weights()
         print("initalised network with weight")
         print(network_obj)
-        print(network_obj.conv_LA_1_1.weight)
+        print(network_obj.conv1_1.weight)
         model_dict = network_obj.state_dict()
         print("model dict with state dict loaded")
         print(model_dict)
-        print(model_dict.conv_LA_1_1.weight)
+        print(model_dict.conv1_1.weight)
 
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
         if self.config["dataset"]=='mocap':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_mocap.pt'))
-            pretrained_dict= torch.load('/data/nnair/model/model_save_mocap.pt')
-            print("network loaded from model_save_mocap.pt")
+            #network_obj.load_state_dict(torch.load(self.config['folder_exp'] + 'network.pt')['state_dict'])
+            pretrained_dict= torch.load('/data/nnair/model/cnn_mocap.pt')['state_dict']
+            print("network loaded from cnn_mocap.pt")
         elif self.config["dataset"]=='mbientlab':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
             pretrained_dict= torch.load('/data/nnair/model/model_save_imu.pt')
             print("network loaded from model_save_imu.pt")
-            
+        '''    
         list_layers = ['conv_LA_1_1.weight', 'conv_LA_1_1.bias', 'conv_LA_1_2.weight', 'conv_LA_1_2.bias',
                            'conv_LA_2_1.weight', 'conv_LA_2_1.bias', 'conv_LA_2_2.weight', 'conv_LA_2_2.bias',
                            'conv_LL_1_1.weight', 'conv_LL_1_1.bias', 'conv_LL_1_2.weight', 'conv_LL_1_2.bias',
@@ -1065,6 +1066,12 @@ class Network_User(object):
                            'conv_RA_2_1.weight', 'conv_RA_2_1.bias', 'conv_RA_2_2.weight', 'conv_RA_2_2.bias',
                            'conv_RL_1_1.weight', 'conv_RL_1_1.bias', 'conv_RL_1_2.weight',  'conv_RL_1_2.bias',
                            'conv_RL_2_1.weight', 'conv_RL_2_1.bias', 'conv_RL_2_2.weight', 'conv_RL_2_2.bias',
+                           'fc3_LA.weight', 'fc3_LA.bias', 'fc3_LL.weight', 'fc3_LL.bias', 'fc3_N.weight', 'fc3_N.bias',
+                           'fc3_RA.weight', 'fc3_RA.bias', 'fc3_RL.weight', 'fc3_RL.bias', 'fc4.weight', 'fc4.bias',
+                           'fc5.weight', 'fc5.bias']
+        '''
+        list_layers = ['conv1_1.weight', 'conv1_1.bias', 'conv1_2.weight', 'conv1_2.bias',
+                           'conv2_1.weight', 'conv2_1.bias', 'conv2_2.weight', 'conv2_2.bias',
                            'fc3_LA.weight', 'fc3_LA.bias', 'fc3_LL.weight', 'fc3_LL.bias', 'fc3_N.weight', 'fc3_N.bias',
                            'fc3_RA.weight', 'fc3_RA.bias', 'fc3_RL.weight', 'fc3_RL.bias', 'fc4.weight', 'fc4.bias',
                            'fc5.weight', 'fc5.bias']
@@ -1104,7 +1111,7 @@ class Network_User(object):
             network_obj.eval()
         logging.info('        Network_User:    Test:    setting device')
         network_obj.to(self.device)
-        
+        '''
         
         # Setting loss, only for being measured. Network wont be trained
         if self.config['output'] == 'softmax':
@@ -1215,6 +1222,7 @@ class Network_User(object):
                 # Concatenating all of the batches for computing the metrics for the entire testing set
                 # and not only for a batch
                 # As creating an empty tensor and sending to device and then concatenating isnt working
+                #dict_all=[]
                 if v == 0:
                     
                     predictions_test = predictions
@@ -1234,8 +1242,8 @@ class Network_User(object):
                         print(p.shape)
                         '''
                         '''
-                        for i in range(len(b)):
-                            dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
+                        for i in range(len(l)):
+                            dict={"data": d[i], "label": l[i], "act_label": al[i], "pred": p[i]}
                             dict_all.append(dict)
                         '''
         
@@ -1263,7 +1271,6 @@ class Network_User(object):
                             dict={"data": a[i], "label": b[i], "act_label": c[i], "pred": d[i]}
                             dict_all.append(dict)
                         '''
-
                     elif self.config['output'] == 'attribute':
                         sample = harwindow_batched_test["label"]
                         sample = sample.reshape(-1)
@@ -1280,6 +1287,7 @@ class Network_User(object):
                     l=np.concatenate((l,b),)
                     al=np.concatenate((al,c), axis=0)
                     p=np.concatenate((p,pre), axis=0)
+                    
                     '''
                     print("hence forth")
                     print(d.shape)
@@ -1287,9 +1295,10 @@ class Network_User(object):
                     print(al.shape)
                     print(p.shape)
                     '''
-                                
+                              
                 sys.stdout.write("\rTesting: Batch  {}/{}".format(v, len(dataLoader_test)))
                 sys.stdout.flush()
+        
         
         '''
         print("final")
@@ -1329,14 +1338,14 @@ class Network_User(object):
         #print(test_labels.shape)
         
         if self.config["dataset"]=='mocap':
-            npz_file = "/data/nnair/lrp/exp1/test_mocap.npz"
+            npz_file = "/data/nnair/lrp/exp1/cnn_mocap.npz"
         elif self.config["dataset"]=='mbientlab':
             npz_file = "/data/nnair/lrp/exp1/test_imu.npz"
         
-        #np.savez(npz_file, d=d, l=l, al=al, p=p)
+        np.savez(npz_file, d=d, l=l, al=al, p=p)
         
         
-        with np.load("/data/nnair/lrp/exp1/test_mocap.npz") as data:
+        with np.load("/data/nnair/lrp/exp1/cnn_mocap.npz") as data:
             d=data['d']
             l=data['l']
             al=data['al']
@@ -2144,15 +2153,16 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
         @return confusion_matrix: dict with validating/testing results
         @return best_itera: best iteration for training
        '''
-       
+       '''
        logging.info('        Network_User: Evolution evaluation iter {}'.format(ea_iter))
 
        confusion_matrix = 0
+       '''
        best_itera = 0
        
-       #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+       results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
        #self.lrp()
-       
+       '''
        if testing:
             logging.info('        Network_User: Testing')
             results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
@@ -2174,6 +2184,6 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
             else:
                 logging.info('        Network_User: Not selected modus')
         
-
+       '''
        return results, confusion_matrix, best_itera, c_pos, c_neg
        #return
