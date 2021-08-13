@@ -1072,8 +1072,7 @@ class Network_User(object):
         '''
         list_layers = ['conv1_1.weight', 'conv1_1.bias', 'conv1_2.weight', 'conv1_2.bias',
                            'conv2_1.weight', 'conv2_1.bias', 'conv2_2.weight', 'conv2_2.bias',
-                           'fc3_LA.weight', 'fc3_LA.bias', 'fc3_LL.weight', 'fc3_LL.bias', 'fc3_N.weight', 'fc3_N.bias',
-                           'fc3_RA.weight', 'fc3_RA.bias', 'fc3_RL.weight', 'fc3_RL.bias', 'fc4.weight', 'fc4.bias',
+                           'fc3.weight', 'fc3.bias', 'fc4.weight', 'fc4.bias',
                            'fc5.weight', 'fc5.bias']
         
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in list_layers}
