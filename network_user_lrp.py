@@ -1097,6 +1097,7 @@ class Network_User(object):
             logging.info('        Network_User:    Train:    {} : {}'.format(l[0], l[1].detach().numpy().shape))
         '''        
         network_obj.eval()
+        network_obj.to(self.device)
         #print(network_obj)
         '''
         
