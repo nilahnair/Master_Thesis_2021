@@ -1927,8 +1927,8 @@ class Network_User(object):
         fA[1]=F.relu(fA[0])
         fA[2]=fc[1].forward(fA[1])
         fA[3]=F.relu(fA[2])
-        fA[4]=fc[2].forward(fA[8])
-        fA[5]=F.relu(fA[0])
+        fA[4]=fc[2].forward(fA[3])
+        fA[5]=F.relu(fA[4])
         
         #print(fA)
         print(len(fA))
