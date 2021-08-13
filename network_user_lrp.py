@@ -1902,11 +1902,11 @@ class Network_User(object):
         cl=len(convlayers)
         fc=layers[5:8]
         fcl=len(fc)
-        print("check")
-        print(convlayers)
-        print(fc)
+        #print("check")
+        #print(convlayers)
+        #print(fc)
         sm=layers[9]
-        print(sm)
+        #print(sm)
         
         
         ##############################################setting input
@@ -1920,7 +1920,7 @@ class Network_User(object):
             A[j]= convlayers[i].forward(A[j-1])
             A[j+1]=F.relu(A[j])
             j+=2
-        print(A)
+        #print(A)
         print(A.shape)    
         A[8] = A[8].reshape(-1, A[8].size()[1] * A[8].size()[2] * A[8].size()[3])
         fA[0]=fc[0].forward(A[8])
@@ -1930,7 +1930,7 @@ class Network_User(object):
         fA[4]=fc[2].forward(fA[8])
         fA[5]=F.relu(fA[0])
         
-        print(fA)
+        #print(fA)
         print(fA.shape)
         sml=sm.forward(fA[5])
         print(sml)
