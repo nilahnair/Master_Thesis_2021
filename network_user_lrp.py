@@ -784,8 +784,9 @@ class Network_User(object):
         np.savetxt(self.config['folder_exp'] + 'plots/f1m_val.txt', f1m_val, delimiter=",", fmt='%s')
         np.savetxt(self.config['folder_exp'] + 'plots/f1w_val.txt', f1w_val, delimiter=",", fmt='%s')
         np.savetxt(self.config['folder_exp'] + 'plots/loss_val.txt', losses_val, delimiter=",", fmt='%s')
-                
-        torch.save(network_obj.state_dict(), '../Master_Thesis_2021/model/model_save_mocap.pt')
+        
+        
+        torch.save({'state_dict': network_obj.state_dict(),'network_config': network_config}, '/data/nnair/model/cnn_mocap.pt')
         #model_io.write(network_obj, '../Master_Thesis_2021/model/model_save_mocap2.pkl')
         del losses_train, accs_train, f1w_train, f1m_train
         del losses_val, accs_val, f1w_val, f1m_val
@@ -1335,7 +1336,7 @@ class Network_User(object):
         #np.savez(npz_file, d=d, l=l, al=al, p=p)
         
         
-        with np.load("../Master_Thesis_2021/test_imu.npz") as data:
+        with np.load("/data/nnair/lrp/exp1/test_mocap.npz") as data:
             d=data['d']
             l=data['l']
             al=data['al']
@@ -1437,7 +1438,7 @@ class Network_User(object):
                         countern7.append(k[j])
                         indxn7.append(i)
                         
-        '''            
+                  
         b_div=[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
         
         fig1,axs1 = plt.subplots(1,1, figsize=(10,7), tight_layout= True)
@@ -1552,7 +1553,7 @@ class Network_User(object):
         plt.title('Sub 7 - -ve')
         plt.savefig("i_sub7_n.png")
         
-        '''
+    
         
         
                     
