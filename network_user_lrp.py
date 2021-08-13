@@ -1899,7 +1899,7 @@ class Network_User(object):
         #31 including networklayout, avgpool and sigmoid
         
         convlayers=layers[1:5]
-        cl1=len(convlayers)
+        cl=len(convlayers)
         fc=layers[5:8]
         fcl=len(fc)
         print(convlayers)
@@ -1912,6 +1912,71 @@ class Network_User(object):
         
         test_v = test_v.unsqueeze(0)
         
+        A=[test_v] + [None]*(cl*2)
+        fA=[None]*(fc*2)
+        j=1
+        for i in range(cl):
+            A[j]= convlayers[i].forward(A[j-1])
+            A[j+1]=F.relu(A[j])
+            j+=2
+        print(A)
+        print(A.shape)    
+        A[8] = A[8].reshape(-1, A[8].size()[1] * A[8].size()[2] * A[8].size()[3])
+        fA[0]=fc[0].forward(A[8])
+        fA[1]=F.relu(fA[0])
+        fA[2]=fc[1].forward(fA[1])
+        fA[3]=F.relu(fA[2])
+        fA[4]=fc[2].forward(fA[8])
+        fA[5]=F.relu(fA[0])
+        
+        print(fA)
+        print(fA.shape)
+        sml=sm.forward(fA[5])
+        print(sml)
+        
+        print("Relevance part")
+        
+        T = sml.cpu().detach().numpy().tolist()[0]
+        index = T.index(max(T))
+        T = np.abs(np.array(T)) * 0
+        T[index] = 1
+        T = torch.FloatTensor(T)
+        # Create the list of relevances with (L + 1) elements and assign the value of the last one 
+        R_fc = [None] * (3) + [(sml.cpu() * T).data + 1e-6]
+        print(R_fc)
+        R_fc[2]=self.relprop(fA[5], fc[2], R_fc[3])
+        print(R_fc)
+        R_fc[1]=self.relprop(fA[3], fc[1], R_fc[2])
+        R_fc[0]=self.relprop(fA[1], fc[0], R_fc[1])
+        R_f = R_fc[0].reshape(1, 64, 84, -1)       
+        print(R_fc)
+        R=[None]*5
+        
+        R[4]=self.relprop(A[8], fA[], R_fc)
+        R[4] = R[4].reshape(1, 64, 84, -1) 
+        R[3]=self.relprop(A[6], convlayers[3], R[4])
+        R[2]=self.relprop(A[4], convlayers[2], R[3])
+        R[1]=self.relprop(A[2], convlayers[1], R[2])
+        R[0]=self.relprop(A[0], convlayers[0], R[1])
+        
+        
+        '''
+        A_LA[0] = (A_LA[0].data).requires_grad_(True)
+        A_LL[0] = (A_LL[0].data).requires_grad_(True)
+        A_N[0] = (A_N[0].data).requires_grad_(True)
+        A_RA[0] = (A_RA[0].data).requires_grad_(True)
+        A_RL[0] = (A_RL[0].data).requires_grad_(True)
+
+        lb = (A[0].data*0+(0-mean)/std).requires_grad_(True)
+        hb = (A[0].data*0+(1-mean)/std).requires_grad_(True)
+
+z = layers[0].forward(A[0]) + 1e-9                                     # step 1 (a)
+z -= utils.newlayer(layers[0],lambda p: p.clamp(min=0)).forward(lb)    # step 1 (b)
+z -= utils.newlayer(layers[0],lambda p: p.clamp(max=0)).forward(hb)    # step 1 (c)
+s = (R[1]/z).data                                                      # step 2
+(z*s).sum().backward(); c,cp,cm = A[0].grad,lb.grad,hb.grad            # step 3
+R[0] = (A[0]*c+lb*cp+hb*cm).data  
+        '''
         if self.config["dataset"]=='mocap':
                 idx_LA = np.arange(12, 24)
                 idx_LA = np.concatenate([idx_LA, np.arange(36, 42)])
@@ -1941,7 +2006,7 @@ class Network_User(object):
                 in_N = test_v[:, :, :, 12:18]
                 in_RA = test_v[:, :, :, 18:24]
                 in_RL = test_v[:, :, :, 24:30]
-                
+              
         #############################setting activation layers
         
         A_LA=[in_LA] + [None]*(cl1*2)
@@ -2077,7 +2142,7 @@ class Network_User(object):
         R_N[0]=self.relprop(A_N[0], convlayers3[0], R_N[1])
         R_RA[0]=self.relprop(A_RA[0], convlayers4[0], R_RA[1])
         R_RL[0]=self.relprop(A_RL[0], convlayers5[0], R_RL[1])
-        
+        '''
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
         A_LL[0] = (A_LL[0].data).requires_grad_(True)
@@ -2095,14 +2160,8 @@ s = (R[1]/z).data                                                      # step 2
 (z*s).sum().backward(); c,cp,cm = A[0].grad,lb.grad,hb.grad            # step 3
 R[0] = (A[0]*c+lb*cp+hb*cm).data  
 '''
-
         
-        
-        
-        
-        
-        
-        
+  
         return
         
     def newlayer(self, layer, g):
