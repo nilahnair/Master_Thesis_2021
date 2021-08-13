@@ -1957,7 +1957,6 @@ class Network_User(object):
         R[1]=self.relprop(A[2], convlayers[1], R[2])
         R[0]=self.relprop(A[0], convlayers[0], R[1])
         
-        
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
         A_LL[0] = (A_LL[0].data).requires_grad_(True)
@@ -1974,6 +1973,7 @@ z -= utils.newlayer(layers[0],lambda p: p.clamp(max=0)).forward(hb)    # step 1 
 s = (R[1]/z).data                                                      # step 2
 (z*s).sum().backward(); c,cp,cm = A[0].grad,lb.grad,hb.grad            # step 3
 R[0] = (A[0]*c+lb*cp+hb*cm).data  
+        '''
         '''
         if self.config["dataset"]=='mocap':
                 idx_LA = np.arange(12, 24)
