@@ -1960,6 +1960,7 @@ class Network_User(object):
         R[1]=self.relprop(A[2], convlayers[1], R[2])
         R[0]=self.relprop(A[0], convlayers[0], R[1])
         
+        print(R_[0])
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
         A_LL[0] = (A_LL[0].data).requires_grad_(True)
@@ -2180,12 +2181,14 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
         return layer
         
     def relprop(self, A, layers, R_1):
+            '''
             print("A")
             print(A.shape)
             print("layers")
             print(layers)
             print("R_1")
             print(R_1.shape)
+            '''
             rho= lambda p: p
             #A[layer] = A[layer].data.requires_grad_(True)
             A = A.data.requires_grad_(True)
