@@ -1966,13 +1966,14 @@ class Network_User(object):
         p.numpy()
         p = np.reshape(p, newshape=(p.shape[2], p.shape[3]))
         print(p.shape)
-        test_v.cpu()
-        test_v.numpy()
-        test_v = np.reshape(test_v, newshape=(test_v.shape[2], test_v.shape[3]))
-        print(test_v.shape)
+        tv=test_v.cpu()
+        
+        tv.numpy()
+        tv = np.reshape(tv, newshape=(tv.shape[2], tv.shape[3]))
+        print(tv.shape)
         
         savetxt('relevance.csv', p, delimiter=',')
-        savetxt('input.csv', test_v.numpy(), delimiter=',')
+        savetxt('input.csv', tv, delimiter=',')
         
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
