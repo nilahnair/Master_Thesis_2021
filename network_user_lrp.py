@@ -2183,7 +2183,7 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
             print("A")
             print(A.shape)
             print("layers")
-            print(layers.shape)
+            print(layers)
             print("R_1")
             print(R_1.shape)
             rho= lambda p: p
