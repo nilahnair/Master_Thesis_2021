@@ -1848,7 +1848,7 @@ class Network_User(object):
         
         for i in range(len(indxp3)):
             #947
-            if indxp1[i] == 3000:
+            if indxp1[i] == 5000:
                 lrp_test_indx.append(indxp1[i])
             elif indxp1[i] == 1106:
                 lrp_test_indx.append(indxp1[i])
