@@ -2181,11 +2181,11 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
         
     def relprop(self, A, layers, R_1):
             print("A")
-            print(A)
+            print(A.shape)
             print("layers")
-            print(layers)
+            print(layers.shape)
             print("R_1")
-            print(R_1)
+            print(R_1.shape)
             rho= lambda p: p
             #A[layer] = A[layer].data.requires_grad_(True)
             A = A.data.requires_grad_(True)
