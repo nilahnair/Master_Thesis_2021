@@ -1964,6 +1964,10 @@ class Network_User(object):
         print(R[0])
         p=R[0]
         p.numpy()
+        print(p.shape)
+        test_v.numpy()
+        print(test_v.shape)
+        
         savetxt('relevance.csv', p, delimiter=',')
         savetxt('input.csv', test_v.numpy(), delimiter=',')
         
