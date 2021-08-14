@@ -21,6 +21,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 import torch.nn.functional as F 
+from numpy import savetxt
 
 #from hdfs.config import catch
 
@@ -1961,6 +1962,10 @@ class Network_User(object):
         R[0]=self.relprop(A[0], convlayers[0], R[1])
         
         print(R[0])
+        R[0].numpy()
+        savetxt('relevance.csv', R[0], delimiter=',')
+        savetxt('input.csv', test_v, delimiter=',')
+        
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
         A_LL[0] = (A_LL[0].data).requires_grad_(True)
