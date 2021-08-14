@@ -1965,7 +1965,7 @@ class Network_User(object):
         p=R[0]
         p.numpy()
         print(p.shape)
-        test_v.numpy()
+        test_v.cpu().numpy()
         print(test_v.shape)
         
         savetxt('relevance.csv', p, delimiter=',')
