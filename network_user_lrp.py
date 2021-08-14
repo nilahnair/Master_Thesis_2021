@@ -1960,7 +1960,7 @@ class Network_User(object):
         R[1]=self.relprop(A[2], convlayers[1], R[2])
         R[0]=self.relprop(A[0], convlayers[0], R[1])
         
-        print(R_[0])
+        print(R[0])
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
         A_LL[0] = (A_LL[0].data).requires_grad_(True)
