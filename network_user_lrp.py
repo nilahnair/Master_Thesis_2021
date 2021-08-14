@@ -1966,7 +1966,8 @@ class Network_User(object):
         p.numpy()
         p = np.reshape(p, newshape=(p.shape[2], p.shape[3]))
         print(p.shape)
-        test_v.cpu().numpy()
+        test_v.cpu()
+        test_v.numpy()
         test_v = np.reshape(test_v, newshape=(test_v.shape[2], test_v.shape[3]))
         print(test_v.shape)
         
