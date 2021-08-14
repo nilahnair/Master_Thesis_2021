@@ -1947,10 +1947,10 @@ class Network_User(object):
         R_fc = [None] * (3) + [(sml.cpu() * T).data + 1e-6]
         print("R_fc")
         print(R_fc)
-        R_fc[2]=self.relprop(fA[4], fc[2], R_fc[3])
+        R_fc[2]=self.relprop(fA[3], fc[2], R_fc[3])
         print(R_fc)
-        R_fc[1]=self.relprop(fA[3], fc[1], R_fc[2])
-        R_fc[0]=self.relprop(fA[1], fc[0], R_fc[1])
+        R_fc[1]=self.relprop(fA[1], fc[1], R_fc[2])
+        R_fc[0]=self.relprop(A[8], fc[0], R_fc[1])
         R_f = R_fc[0].reshape(1, 64, 84, -1)       
         print(R_fc)
         R=[None]*5
