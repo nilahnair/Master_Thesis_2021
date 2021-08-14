@@ -1962,9 +1962,10 @@ class Network_User(object):
         R[0]=self.relprop(A[0], convlayers[0], R[1])
         
         print(R[0])
-        R[0].numpy()
-        savetxt('relevance.csv', R[0], delimiter=',')
-        savetxt('input.csv', test_v, delimiter=',')
+        p=R[0]
+        p.numpy()
+        savetxt('relevance.csv', p, delimiter=',')
+        savetxt('input.csv', test_v.numpy(), delimiter=',')
         
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
