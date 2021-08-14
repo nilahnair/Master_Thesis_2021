@@ -1964,8 +1964,10 @@ class Network_User(object):
         print(R[0])
         p=R[0]
         p.numpy()
+        p = np.reshape(p, newshape=(p.shape[1], p.shape[2]))
         print(p.shape)
         test_v.cpu().numpy()
+        test_v = np.reshape(test_v, newshape=(test_v.shape[1], test_v.shape[2]))
         print(test_v.shape)
         
         savetxt('relevance.csv', p, delimiter=',')
