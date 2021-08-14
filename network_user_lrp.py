@@ -1938,21 +1938,21 @@ class Network_User(object):
         
         T = sml.cpu().detach().numpy().tolist()[0]
         index = T.index(max(T))
-        print("index")
-        print(index)
+        #print("index")
+        #print(index)
         T = np.abs(np.array(T)) * 0
         T[index] = 1
         T = torch.FloatTensor(T)
         # Create the list of relevances with (L + 1) elements and assign the value of the last one 
         R_fc = [None] * (3) + [(sml.cpu() * T).data + 1e-6]
-        print("R_fc")
-        print(R_fc)
+        #print("R_fc")
+        #print(R_fc)
         R_fc[2]=self.relprop(fA[3], fc[2], R_fc[3])
-        print(R_fc)
+        #print(R_fc)
         R_fc[1]=self.relprop(fA[1], fc[1], R_fc[2])
         R_fc[0]=self.relprop(A[8], fc[0], R_fc[1])
         R_f = R_fc[0].reshape(1, 64, 84, -1)       
-        print(R_fc)
+        #print(R_fc)
         R=[None]*5
         
         R[3]=self.relprop(A[6], convlayers[3], R_f)
@@ -2192,7 +2192,7 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
             rho= lambda p: p
             #A[layer] = A[layer].data.requires_grad_(True)
             A = A.data.requires_grad_(True)
-            print(A)
+            #print(A)
             #cpy=self.newlayer(layer=layers, g=rho)
             cpy=self.newlayer(layer=layers)
             # Step 1: Transform the weights of the layer and executes a forward pass
