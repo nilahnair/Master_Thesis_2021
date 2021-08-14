@@ -19,8 +19,32 @@ from HARWindows import HARWindows
 import torch
 import torch.nn as nn
 from network_act import Network
+# load numpy array from csv file
+from numpy import loadtxt
+# load array
+
+relevance = loadtxt('relevance.csv', delimiter=',')
+print(relevance.shape)
+input_d = loadtxt('input.csv', delimiter=',')
+print(input_d.shape)
+
+output = relevance*input_d
+print(output.shape)
+
+maxElement = np.amax(relevance, axis=0)
+print("max")
+print(maxElement)
+x=range(100)
+plt.plot(x,relevance[:,107])
+plt.xlabel("time series")
+plt.ylabel("multiplied")
+plt.title('relevance*input plot')
+plt.show()
 
 
+
+
+'''
 with np.load("../Master_Thesis_2021/test_imu.npz") as data:
     d2=data['d']
     l2=data['l']
@@ -128,7 +152,7 @@ for i in range(len(l2)):
                 indxn7.append(i)
             
             
-
+'''
             
 '''
 print(len(counter0))
@@ -141,7 +165,7 @@ print(len(counter6))
 print(len(counter7))
 '''
   
-
+'''
 fig, ((ax0, ax1), (ax2, ax3), (ax4, ax5), (ax6, ax7), (ax8, ax9), (ax10, ax11), (ax12, ax13), (ax14, ax15)) = plt.subplots(nrows=8, ncols=2)
 
 ax0.hist(counterp0, bins = 10)
@@ -191,6 +215,7 @@ ax14.set_title('counter7 pos')
 
 ax15.hist(countern7, bins = 10)
 ax15.set_title('counter7 neg')
+'''
 
 '''
 plt.hist(counterp3, bins = 10)
@@ -203,7 +228,7 @@ print(indxp3)
 #fig.tight_layout()
 #plt.show()
 
-plt.savefig("imu.png")
+#plt.savefig("imu.png")
 '''
 network_obj = Network(self.config)
 model.load_state_dict(torch.load(PATH))
