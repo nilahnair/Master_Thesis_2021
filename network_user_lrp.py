@@ -1914,7 +1914,7 @@ class Network_User(object):
         test_v = test_v.unsqueeze(0)
         
         A=[test_v] + [None]*(cl*2)
-        fA=[None]*(fcl*2)
+        fA=[None]*(5)
         j=1
         for i in range(cl):
             A[j]= convlayers[i].forward(A[j-1])
@@ -1928,11 +1928,10 @@ class Network_User(object):
         fA[2]=fc[1].forward(fA[1])
         fA[3]=F.relu(fA[2])
         fA[4]=fc[2].forward(fA[3])
-        fA[5]=F.relu(fA[4])
         
         #print(fA)
         print(len(fA))
-        sml=sm.forward(fA[5])
+        sml=sm.forward(fA[4])
         print(sml)
         
         print("Relevance part")
@@ -1946,8 +1945,9 @@ class Network_User(object):
         T = torch.FloatTensor(T)
         # Create the list of relevances with (L + 1) elements and assign the value of the last one 
         R_fc = [None] * (3) + [(sml.cpu() * T).data + 1e-6]
+        print("R_fc")
         print(R_fc)
-        R_fc[2]=self.relprop(fA[5], fc[2], R_fc[3])
+        R_fc[2]=self.relprop(fA[4], fc[2], R_fc[3])
         print(R_fc)
         R_fc[1]=self.relprop(fA[3], fc[1], R_fc[2])
         R_fc[0]=self.relprop(fA[1], fc[0], R_fc[1])
