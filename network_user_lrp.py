@@ -1848,7 +1848,7 @@ class Network_User(object):
         
         for i in range(len(indxp1)):
             #947
-            if indxp1[i] == 947:
+            if indxp1[i] == 946:
                 lrp_test_indx.append(indxp1[i])
             elif indxp1[i] == 1106:
                 lrp_test_indx.append(indxp1[i])
@@ -1975,8 +1975,8 @@ class Network_User(object):
         tv = np.reshape(tv, newshape=(tv.shape[2], tv.shape[3]))
         print(tv.shape)
         
-        savetxt('relevance.csv', p, delimiter=',')
-        savetxt('input.csv', tv, delimiter=',')
+        savetxt('relevance946.csv', p, delimiter=',')
+        savetxt('input946.csv', tv, delimiter=',')
         
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
