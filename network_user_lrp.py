@@ -1984,8 +1984,8 @@ class Network_User(object):
         tv = np.reshape(tv, newshape=(tv.shape[2], tv.shape[3]))
         print(tv.shape)
         
-        savetxt('relevance951.csv', p, delimiter=',')
-        savetxt('input951.csv', tv, delimiter=',')
+        savetxt('relevance946.csv', p, delimiter=',')
+        savetxt('input946.csv', tv, delimiter=',')
         
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
