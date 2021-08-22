@@ -23,22 +23,22 @@ from network_act import Network
 from numpy import loadtxt
 # load array
 
-relevance = loadtxt('relevance.csv', delimiter=',')
+relevance = loadtxt('relevance951.csv', delimiter=',')
 print(relevance.shape)
-input_d = loadtxt('input.csv', delimiter=',')
+input_d = loadtxt('input951.csv', delimiter=',')
 print(input_d.shape)
 
 output = relevance*input_d
 print(output.shape)
 
 maxElement = np.amax(relevance, axis=0)
-print("max")
-print(maxElement)
+#print("max")
+#print(maxElement)
 x=range(100)
-plt.plot(x,relevance[:,107])
+plt.plot(x,input_d)
 plt.xlabel("time series")
 plt.ylabel("multiplied")
-plt.title('relevance*input plot')
+plt.title('input_d')
 plt.show()
 
 
