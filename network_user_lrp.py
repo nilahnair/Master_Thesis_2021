@@ -1845,7 +1845,7 @@ class Network_User(object):
         lrp_test_indx=[]
         
         
-        
+        '''
         for i in range(len(indxp1)):
             #947
             if indxp1[i] == 951:
@@ -1859,14 +1859,14 @@ class Network_User(object):
                 lrp_test_indx.append(indxn1[i])
             elif indxn1[i] == 1102:
                 lrp_test_indx.append(indxn1[i])
-        
+        '''
         '''
         print("selected indexes")
         print(lrp_test_indx)
         '''
         
         #for i in range(len(lrp_test_indx)):
-        
+        '''
         print(lrp_test_indx[0])
         test_v=d[lrp_test_indx[0]]
         test_l=l[lrp_test_indx[0]]
@@ -1875,7 +1875,16 @@ class Network_User(object):
         print(test_l)
         print(test_act)
         test_act=al[lrp_test_indx[0]]
-        
+        '''
+        v=946
+        print(v)
+        test_v=d[v]
+        test_l=l[v]
+        test_act = al[v]
+        print("test subject")
+        print(test_l)
+        print(test_act)
+        #test_act=al[lrp_test_indx[0]]
         '''
         print(6000)
         test_v=d[6000]
