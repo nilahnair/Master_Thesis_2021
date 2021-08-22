@@ -1848,7 +1848,7 @@ class Network_User(object):
         
         for i in range(len(indxp3)):
             #947
-            if indxp1[i] == 5000:
+            if indxp1[i] == 947:
                 lrp_test_indx.append(indxp1[i])
             elif indxp1[i] == 1106:
                 lrp_test_indx.append(indxp1[i])
@@ -1870,8 +1870,10 @@ class Network_User(object):
         print(lrp_test_indx[0])
         test_v=d[lrp_test_indx[0]]
         test_l=l[lrp_test_indx[0]]
+        test_act = al[lrp_test_indx[0]]
         print("test subject")
         print(test_l)
+        print(test_act)
         test_act=al[lrp_test_indx[0]]
         
         '''
