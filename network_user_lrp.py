@@ -1848,7 +1848,7 @@ class Network_User(object):
         
         for i in range(len(indxp1)):
             #947
-            if indxp1[i] == 946:
+            if indxp1[i] == 948:
                 lrp_test_indx.append(indxp1[i])
             elif indxp1[i] == 1106:
                 lrp_test_indx.append(indxp1[i])
@@ -1925,7 +1925,7 @@ class Network_User(object):
             A[j+1]=F.relu(A[j])
             j+=2
         #print(A)
-        print(len(A))    
+        #print(len(A))    
         A[8] = A[8].reshape(-1, A[8].size()[1] * A[8].size()[2] * A[8].size()[3])
         fA[0]=fc[0].forward(A[8])
         fA[1]=F.relu(fA[0])
@@ -1975,8 +1975,8 @@ class Network_User(object):
         tv = np.reshape(tv, newshape=(tv.shape[2], tv.shape[3]))
         print(tv.shape)
         
-        savetxt('relevance946.csv', p, delimiter=',')
-        savetxt('input946.csv', tv, delimiter=',')
+        savetxt('relevance948.csv', p, delimiter=',')
+        savetxt('input948.csv', tv, delimiter=',')
         
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
