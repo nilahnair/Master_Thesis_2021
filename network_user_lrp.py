@@ -1841,8 +1841,8 @@ class Network_User(object):
                 print(countern1[i])
                 print(indxn1[i])
         '''
-        print("wrongly classified")
-        print(indxn1)
+        #print("wrongly classified")
+        #print(indxn1)
         lrp_test_indx=[]
         
         
@@ -1877,7 +1877,7 @@ class Network_User(object):
         print(test_act)
         test_act=al[lrp_test_indx[0]]
         '''
-        v=957
+        v=1040
         print(v)
         test_v=d[v]
         test_l=l[v]
@@ -1985,8 +1985,8 @@ class Network_User(object):
         tv = np.reshape(tv, newshape=(tv.shape[2], tv.shape[3]))
         print(tv.shape)
         
-        savetxt('relevance957.csv', p, delimiter=',')
-        savetxt('input957.csv', tv, delimiter=',')
+        savetxt('relevance1040.csv', p, delimiter=',')
+        savetxt('input1040.csv', tv, delimiter=',')
         
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
