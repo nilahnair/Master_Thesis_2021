@@ -1841,8 +1841,8 @@ class Network_User(object):
                 print(countern1[i])
                 print(indxn1[i])
         '''
-        #print("wrongly classified")
-        #print(indxn1)
+        print("right classified")
+        print(indxp1)
         lrp_test_indx=[]
         
         
