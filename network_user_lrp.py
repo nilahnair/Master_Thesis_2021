@@ -1877,7 +1877,7 @@ class Network_User(object):
         print(test_act)
         test_act=al[lrp_test_indx[0]]
         '''
-        v=1288
+        v=1307
         print(v)
         test_v=d[v]
         test_l=l[v]
@@ -1985,8 +1985,8 @@ class Network_User(object):
         tv = np.reshape(tv, newshape=(tv.shape[2], tv.shape[3]))
         print(tv.shape)
         
-        savetxt('relevance1288.csv', p, delimiter=',')
-        savetxt('input1288.csv', tv, delimiter=',')
+        savetxt('relevance1307.csv', p, delimiter=',')
+        savetxt('input1307.csv', tv, delimiter=',')
         
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
