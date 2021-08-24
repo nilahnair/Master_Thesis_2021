@@ -1841,10 +1841,12 @@ class Network_User(object):
                 print(countern1[i])
                 print(indxn1[i])
         '''
+        '''
         print("right classified and activity cart")
         for i in range(len(indxp1)):
             if al[indxp1[i]] ==2:
                 print(indxp1[i])
+        '''
         lrp_test_indx=[]
         
         
@@ -1879,7 +1881,7 @@ class Network_User(object):
         print(test_act)
         test_act=al[lrp_test_indx[0]]
         '''
-        v=1323
+        v=1250
         print(v)
         test_v=d[v]
         test_l=l[v]
@@ -1987,8 +1989,8 @@ class Network_User(object):
         tv = np.reshape(tv, newshape=(tv.shape[2], tv.shape[3]))
         print(tv.shape)
         
-        savetxt('relevance1323.csv', p, delimiter=',')
-        savetxt('input1323.csv', tv, delimiter=',')
+        savetxt('relevance1250.csv', p, delimiter=',')
+        savetxt('input1250.csv', tv, delimiter=',')
         
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
