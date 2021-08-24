@@ -1841,8 +1841,10 @@ class Network_User(object):
                 print(countern1[i])
                 print(indxn1[i])
         '''
-        print("right classified")
-        print(indxp1)
+        print("right classified and activity cart")
+        for i in range(len(indxp1)):
+            if al[indxp1[i]] ==2:
+                print(indxp1[i])
         lrp_test_indx=[]
         
         
