@@ -12,7 +12,7 @@ import numpy as np
 import random
 
 import platform
-from modus_selecter import Modus_Selecter
+from cmodus_selecter import Modus_Selecter
 
 import datetime
 
@@ -79,7 +79,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                       'mbientlab_10_r': 19, 'mbientlab_quarter': 19, 'motionminers_real': 19,
                       'motionminers_flw': 19}
     #######change this
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 213472,
+    num_tr_inputs = {'mocap': 75776, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 213472,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
                      'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712}
@@ -277,7 +277,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/path_where_results_will_be_stored_for_softmax/"
+        folder_base = "/data/nnair/chris/hand/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/path_where_results_will_be_stored_for_attributes/"
@@ -325,7 +325,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
-    dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
+    dataset_root = {'mocap': "/data/nnair/chris/hand/result/exp1/",
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
                     'mocap_half': "path_to_datasets_folder/" + 'MoCap_dataset_half_freq/',
@@ -441,7 +441,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
