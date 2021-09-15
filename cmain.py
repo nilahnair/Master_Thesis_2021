@@ -277,7 +277,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/chris/hand/"
+        folder_base = "/data/nnair/chris/hand/result/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/path_where_results_will_be_stored_for_attributes/"
@@ -325,7 +325,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
-    dataset_root = {'mocap': "/data/nnair/chris/hand/result/exp1/",
+    dataset_root = {'mocap': "/data/nnair/chris/hand/exp1/",
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
                     'mocap_half': "path_to_datasets_folder/" + 'MoCap_dataset_half_freq/',
