@@ -23,9 +23,9 @@ from network_act import Network
 from numpy import loadtxt
 # load array
 
-relevance = loadtxt('relevance952.csv', delimiter=',')
+relevance = loadtxt('relevance1250.csv', delimiter=',')
 print(relevance.shape)
-input_d = loadtxt('input952.csv', delimiter=',')
+input_d = loadtxt('input1250.csv', delimiter=',')
 print(input_d.shape)
 
 output = relevance*input_d
@@ -35,21 +35,25 @@ maxElement = np.amax(relevance, axis=0)
 #print("max")
 #print(maxElement)
 x=range(100)
-#plt.plot(x,input_d[:,8], label = "head end Rz")
-#plt.plot(x,input_d[:,14], label = "left color Rz")
-'''
+
+parameters = {'axes.labelsize': 13}
+plt.rcParams.update(parameters)
+
+#plt.plot(x,relevance[:,53], label = "L_toe_TZ")
+#plt.plot(x,relevance[:,107], label = "R_toe_TZ")
+
 plt.plot(x,relevance[:,0], label = "head_RX")
 plt.plot(x,relevance[:,1], label = "head_RY")
 plt.plot(x,relevance[:,2], label = "head_RZ")
 plt.plot(x,relevance[:,3], label = "head_TX")
 plt.plot(x,relevance[:,4], label = "head_TY")
 plt.plot(x,relevance[:,5], label = "head_TZ")
-'''
-plt.plot(x,input_d)
+
+#plt.plot(x,input_d)
 plt.xlabel("time frame")
-plt.ylabel("input")
-plt.title('window 952')
-#leg = plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),ncol=2)
+plt.ylabel("relevance")
+plt.title('window 1250')
+leg = plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),ncol=2)
 plt.show()
 
 
