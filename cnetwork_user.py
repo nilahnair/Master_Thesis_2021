@@ -620,15 +620,14 @@ class Network_User(object):
                                                               round(torch.cuda.memory_cached(0)/1024**3, 1)))
                     logging.info('\n\n--------------------------')
                     
-                    if self.config["sacred"]==True:
-                        self.exp.log_scalar("accuracy_train_int_{}".format(ea_itera),results_train['acc'], itera)
-                        self.exp.log_scalar("f1_w_train_int_{}".format(ea_itera),results_train['f1_weighted'], itera)
-                        self.exp.log_scalar("f1_m_train_int_{}".format(ea_itera), results_train['f1_mean'], itera)
-                        self.exp.log_scalar("loss_train_int_{}".format(ea_itera), loss_train, itera)
-                        if self.config['output']== 'attribute':
-                            p=results_train['acc_attrs']
-                            for i in range(0,p.shape[0]):
-                                self.exp.log_scalar("acc_attr_{}_train_int_{}".format(i, ea_itera),p[i], itera)
+                    self.exp.log_scalar("accuracy_train_int_{}".format(ea_itera),results_train['acc'], itera)
+                    self.exp.log_scalar("f1_w_train_int_{}".format(ea_itera),results_train['f1_weighted'], itera)
+                    self.exp.log_scalar("f1_m_train_int_{}".format(ea_itera), results_train['f1_mean'], itera)
+                    self.exp.log_scalar("loss_train_int_{}".format(ea_itera), loss_train, itera)
+                    if self.config['output']== 'attribute':
+                        p=results_train['acc_attrs']
+                        for i in range(0,p.shape[0]):
+                            self.exp.log_scalar("acc_attr_{}_train_int_{}".format(i, ea_itera),p[i], itera)
                     
                     
             #Step of the scheduler
