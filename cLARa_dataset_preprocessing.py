@@ -848,10 +848,10 @@ def create_dataset(half=False):
     @param half: set for creating dataset with half the frequence.
     '''
 
-    train_ids = ["S01", "S02", "S03", "S04", "S07", "S08", "S09", "S10", "S15", "S16"]
-    train_final_ids = ["S01", "S02", "S03", "S04", "S05", "S07", "S08", "S09", "S10" "S11", "S12", "S15", "S16"]
-    val_ids = ["S05", "S11", "S12"]
-    test_ids = ["S06", "S13", "S14"]
+    train_ids = ["S03", "S05", "S06"]
+    #train_final_ids = ["S01", "S02", "S03", "S04", "S05", "S07", "S08", "S09", "S10" "S11", "S12", "S15", "S16"]
+    val_ids = ["S07"]
+    test_ids = ["S08"]
 
     all_data = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
 
@@ -864,7 +864,7 @@ def create_dataset(half=False):
         sliding_window_step = 12
     else:
         "Path to the segmented sequences"
-        base_directory = '/path_where_sequences_will_ve_stored/MoCap_dataset/'
+        base_directory = '/data/nnair/chris/hand/exp1/'
         sliding_window_length = 200
         sliding_window_step = 25
 
@@ -882,7 +882,7 @@ def create_dataset(half=False):
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
     generate_CSV(base_directory + "test.csv", data_dir_test)
-    generate_CSV_final(base_directory + "train_final.csv", data_dir_train, data_dir_val)
+    #generate_CSV_final(base_directory + "train_final.csv", data_dir_train, data_dir_val)
 
     return
 
