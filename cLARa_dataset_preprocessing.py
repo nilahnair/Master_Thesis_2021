@@ -20,7 +20,7 @@ from scipy.stats import norm, mode
 
 
 #folder path of the dataset
-FOLDER_PATH = "path_to_dataset_LARa_Mocap"
+FOLDER_PATH = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed/"
 
 # Hardcoded number of sensor channels employed in the MoCap dataset
 NB_SENSOR_CHANNELS = 134
@@ -607,16 +607,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     @param usage_modus: selecting Train, Val or testing
     '''
 
-    if identity_bool:
-        if usage_modus == 'train':
-            recordings = ['R{:02d}'.format(r) for r in range(1, 21)]
-        elif usage_modus == 'val':
-            recordings = ['R{:02d}'.format(r) for r in range(21, 26)]
-        elif usage_modus == 'test':
-            recordings = ['R{:02d}'.format(r) for r in range(26, 31)]
-    else:
-        recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
-
+    
     counter_seq = 0
     hist_classes_all = np.zeros(NUM_CLASSES)
 
