@@ -92,7 +92,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.0001, 0.00001, 0.000001]
+    learning_rates = [0.001, 0.00001, 0.000001]
     lr = {'mocap': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
@@ -152,7 +152,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         epoch_mult = 1
 
     # Number of epochs depending of the dataset and network
-    epochs = {'mocap': {'cnn': {'softmax': 6, 'attribute': 6},
+    epochs = {'mocap': {'cnn': {'softmax': 10, 'attribute': 6},
                         'lstm': {'softmax': 6, 'attribute': 6},
                         'cnn_imu': {'softmax': 6, 'attribute': 6}},
               'mbientlab': {'cnn': {'softmax': 10, 'attribute': 10},
@@ -447,7 +447,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=1,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
