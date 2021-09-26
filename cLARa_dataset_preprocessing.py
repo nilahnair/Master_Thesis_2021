@@ -648,6 +648,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         recordings = ['R{:02d}'.format(r) for r in range(26, 31)]
                 else:
                     recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
+            print("Recordigs =")
+            print(recordings)
             for R in recordings:
                 # All of these if-cases are coming due to the naming of the recordings in the data.
                 # Not all the subjects have the same
