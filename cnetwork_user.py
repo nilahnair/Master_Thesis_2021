@@ -436,7 +436,7 @@ class Network_User(object):
                 network_obj.train(mode=True)
 
                 #Counting iterations
-                itera = (e * harwindow_batched["data"].shape[0]) + b
+                #itera = (e * harwindow_batched["data"].shape[0]) + b
 
                 #Selecting batch
                 train_batch_v = harwindow_batched["data"]
@@ -629,7 +629,7 @@ class Network_User(object):
                         for i in range(0,p.shape[0]):
                             self.exp.log_scalar("acc_attr_{}_train_int_{}".format(i, ea_itera),p[i], itera)
                     
-                    
+                itera+=1      
             #Step of the scheduler
             scheduler.step()
 

@@ -287,7 +287,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     if usage_modus[usage_modus_idx] == 'train':
         
-        folder_exp = folder_base + 'exp1/'
+        folder_exp = folder_base + 'exp11/'
         print(folder_exp)
     
     '''
