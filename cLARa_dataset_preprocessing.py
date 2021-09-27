@@ -915,11 +915,11 @@ def create_dataset(half=False):
     data_dir_test = base_directory + 'sequences_test/'
 
     generate_data(train_ids, sliding_window_length=sliding_window_length,
-                  sliding_window_step=sliding_window_step, data_dir=data_dir_train, half=half, usage_modus='train')
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_train, usage_modus='train')
     generate_data(val_ids, sliding_window_length=sliding_window_length,
-                  sliding_window_step=sliding_window_step, data_dir=data_dir_val, half=half)
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_val, usage_modus='val')
     generate_data(test_ids, sliding_window_length=sliding_window_length,
-                  sliding_window_step=sliding_window_step, data_dir=data_dir_test, half=half)
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_test, usage_modus='test')
 
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
