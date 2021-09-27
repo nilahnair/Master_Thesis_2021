@@ -79,7 +79,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                       'mbientlab_10_r': 19, 'mbientlab_quarter': 19, 'motionminers_real': 19,
                       'motionminers_flw': 19}
     #######change this
-    num_tr_inputs = {'mocap': 75776, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 213472,
+    num_tr_inputs = {'mocap':81650, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 213472,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
                      'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712}
