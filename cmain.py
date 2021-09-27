@@ -287,7 +287,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     if usage_modus[usage_modus_idx] == 'train':
         
-        folder_exp = folder_base + 'exp11/'
+        folder_exp = folder_base + 'exp1/'
         print(folder_exp)
     
     '''
@@ -325,7 +325,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
-    dataset_root = {'mocap': "/data/nnair/chris/hand/exp1/",
+    dataset_root = {'mocap': "/data/nnair/chris/hand/exp11/",
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
                     'mocap_half': "path_to_datasets_folder/" + 'MoCap_dataset_half_freq/',
