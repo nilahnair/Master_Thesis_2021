@@ -690,7 +690,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     elif usage_modus == 'test':
                         recordings = ['R{:02d}'.format(r) for r in range(26, 31)]
                 else:
-                    recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
+                    #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
+                    if usage_modus == 'train':
+                        recordings = ['R{:02d}'.format(r) for r in range(1, 25)]
+                    elif usage_modus == 'val':
+                        recordings = ['R{:02d}'.format(r) for r in range(25, 31)]
+                    elif usage_modus == 'test':
+                        recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
             print("Recordigs =")
             print(recordings)
             for R in recordings:
@@ -884,9 +890,9 @@ def create_dataset(half=False):
     @param half: set for creating dataset with half the frequence.
     '''
 
-    train_ids = ["S03", "S05", "S06"]
+    train_ids = ["S03", "S05", "S06", "S07"]
     #train_final_ids = ["S01", "S02", "S03", "S04", "S05", "S07", "S08", "S09", "S10" "S11", "S12", "S15", "S16"]
-    val_ids = ["S07"]
+    val_ids = ["S03", "S05", "S06", "S07"]
     test_ids = ["S08"]
 
     #all_data = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
@@ -900,7 +906,7 @@ def create_dataset(half=False):
         sliding_window_step = 12
     else:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/chris/hand/exp1/'
+        base_directory = '/data/nnair/chris/hand/exp11/'
         sliding_window_length = 200
         sliding_window_step = 25
 
