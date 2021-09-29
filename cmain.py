@@ -201,7 +201,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Batch size
     batch_size_train = {
-        'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
+        'cnn': {'mocap': 25, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                 'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
                 'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
@@ -211,7 +211,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
                     'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100}}
 
-    batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
+    batch_size_val = {'cnn': {'mocap': 25, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                               'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                               'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 25,
                               'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100},
@@ -447,7 +447,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=0,
+                           learning_rates_idx=1,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
