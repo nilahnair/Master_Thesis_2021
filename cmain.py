@@ -194,14 +194,14 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
               }
 
 
-    division_epochs = {'mocap': 2, 'mbientlab': 1, 'virtual': 1, 'mocap_half': 1, 'virtual_quarter': 1,
+    division_epochs = {'mocap': 1, 'mbientlab': 1, 'virtual': 1, 'mocap_half': 1, 'virtual_quarter': 1,
                        'mocap_quarter': 1, 'mbientlab_50_p': 1, 'mbientlab_10_p': 1, 'mbientlab_50_r': 1,
                        'mbientlab_10_r': 1, 'mbientlab_quarter': 1, 'motionminers_real': 1,
                        'motionminers_flw': 1}
 
     # Batch size
     batch_size_train = {
-        'cnn': {'mocap': 50, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
+        'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                 'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
                 'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
@@ -211,7 +211,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
                     'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100}}
 
-    batch_size_val = {'cnn': {'mocap': 50, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
+    batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                               'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                               'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 25,
                               'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100},
