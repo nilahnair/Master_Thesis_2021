@@ -1,0 +1,43 @@
+ % select one of the following letter styles
+\documentclass[tudonewphd]{scrlttr2}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+
+\setkomavar{date}{\today}
+\setkomavar{place}{Dortmund}
+\setkomavar{subject}{Antrag auf Zulassung zum Promotionsverfahren}
+\begin{letter}{
+An\\
+Prof. Dr. Bernhard Steffen\\
+Technische Universität Dortmund \\
+Otto-Hahn-Str. 14\\
+44227 Dortmund
+}
+
+\opening{Sehr geehrter Herr Prof. Dr. Steffen,}
+
+hiermit beantrage ich die Zulassung zum Promotionsverfahren an der Fakultät für Informatik der Technischen Universität Dortmund.
+Das Arbeitsthema meiner Dissertation ist: \\
+\centerline{
+\emph{Hier kommt der Titel deiner Promotion hin}	%TODO
+}
+
+Der von mir im Rahmen der Promotion angestrebte Doktorgrad ist Dr.-Ing.\\
+
+Diesem Antrag sind folgende Dokumente beigefügt:
+\begin{itemize}
+	\item Bestätigung der Bereitschaft zur Betreuung der Dissertation von Prof. Fink
+	\item Abitur-, Bachelor- und Masterzeugnis
+	\item Tabellarischer Lebenslauf
+	\item Erklärung bisher kein Promotionsverfahren beantragt zu haben
+\end{itemize}
+\vspace*{2cm}
+
+\closing{Mit freundlichen Grüßen,}
+
+\end{letter}
+
+\end{document}

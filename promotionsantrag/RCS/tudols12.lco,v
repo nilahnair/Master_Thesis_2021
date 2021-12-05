@@ -1,0 +1,58 @@
+head	1.2;
+access;
+symbols;
+locks
+	gernot:1.2; strict;
+comment	@# @;
+
+
+1.2
+date	2012.02.02.14.25.43;	author gernot;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2012.02.02.14.23.46;	author gernot;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@Departement -> Department :-(
+@
+text
+@\LoadLetterOption{tudobase}
+
+\AtBeginDocument{
+
+\iflanguage{ngerman}{\setkomavar{fromfaculty}{Fakult\"at f\"ur\\Informatik}}{\relax}
+\iflanguage{english}{\setkomavar{fromfaculty}{Department of Computer Science}}{\relax}
+
+\iflanguage{ngerman}{\setkomavar{fromdepartement}{Lehrstuhl XII}}{\relax}
+\iflanguage{english}{\setkomavar{fromdepartement}{Computer Science XII}}{\relax}
+
+
+\setkomavar{fromfax}{(02\,31)\,755-6116}
+\setkomavar{fromsecretaryphone}{(02\,31)\,755-6112}
+
+\setkomavar{fromaddress}{Otto-Hahn-Str.~16\\D-44227 Dortmund}
+
+\setkomavar{fromurl}{ls12-www.cs.tu-dortmund.de}
+}
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d6 1
+a6 1
+\iflanguage{english}{\setkomavar{fromfaculty}{Departement of Computer Science}}{\relax}
+@

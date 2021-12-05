@@ -1,0 +1,36 @@
+\LoadLetterOption{tudobase}
+
+\AtBeginDocument{
+
+\iflanguage{ngerman}{\setkomavar{fromgroup}{Mustererkennung in\\Eingebetteten Systemen}}{\relax}
+\iflanguage{english}{\setkomavar{fromgroup}{Pattern Recognition in\\Embedded Systems}}{\relax}
+
+\iflanguage{ngerman}{\setkomavar{fromfaculty}{Fakult\"at f\"ur\\Informatik}}{\relax}
+\iflanguage{english}{\setkomavar{fromfaculty}{Department of Computer Science}}{\relax}
+
+\iflanguage{ngerman}{\setkomavar{fromdepartement}{Lehrstuhl XII}}{\relax}
+\iflanguage{english}{\setkomavar{fromdepartement}{Computer Science XII}}{\relax}
+
+\setkomavar{fromname}{my name}										%TODO
+\setkomavar{fromaddress}{Otto-Hahn-Str.~16\\D-44227 Dortmund}
+
+\setkomavar{fromfax}{(02\,31)\,755-6116}
+\setkomavar{fromphone}{(02\,31)\,755-my phone number}					%TODO
+\setkomavar{fromsecretaryphone}{(02\,31)\,755-6112}
+
+\setkomavar{fromemail}{my.email(at)udo.edu}								%TODO
+\setkomavar{fromurl}{patrec.cs.tu-dortmund.de}
+
+
+\setkomavar{yourroom}{}
+\setkomavar{yourref}{}
+\setkomavar{yourmail}{}
+
+\setkomavar{backaddressname}{my name}							%%TODO
+\setkomavar{backaddressuniversity}{TU Dortmund}
+\setkomavar{backaddressaddress}{\usekomavar{fromaddress}}
+
+\setkomavar{frombank}{}
+
+
+}
