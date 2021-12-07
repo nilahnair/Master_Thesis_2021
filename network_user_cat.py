@@ -331,6 +331,8 @@ class Network_User(object):
             if self.config["fully_convolutional"] == "FCN":
                 criterion = nn.BCELoss()
             elif self.config["fully_convolutional"] == "FC":
+                '''whats happening here?'''
+                
                 criterion_soft = nn.CrossEntropyLoss()
                 criterion_sig = nn.BCELoss()
                #criterion = nn.BCEWithLogitsLoss()
