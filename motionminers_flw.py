@@ -486,7 +486,7 @@ def statistics_measurements():
 
 
 
-def norm_motion_miners(data):
+def norm_mbientlab(data):
 
     mean_values = np.array([-1983.7241, 1437.0780, 1931.1834, -1.7458, 10.9168,
                             -15.1849, 2804.7062, -2651.8638, -1798.9489, 74.8857,
@@ -548,6 +548,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
 
     counter_seq = 0
     hist_classes_all = np.zeros((NUM_CLASSES))
+    counter_file_label = -1
 
     #g, ax_x = plt.subplots(2, sharex=False)
     #line3, = ax_x[0].plot([], [], '-b', label='blue')
@@ -580,7 +581,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         data_x = data[:, 2:]
                         print("\nFiles loaded")
                     except:
-                        print("\n1 In loading data,  in file {}".format(dataset_path_imu + file_name_data))
+                        print("\n1 Error In loading data,  in file {}".format(dataset_path_imu + file_name_data))
                         continue
 
                     try:
@@ -610,7 +611,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         #plt.draw()
                         #plt.pause(2.0)
 
-                        data_x = norm_motion_miners(data_x)
+                        data_x = norm_mbientlab(data_x)
 
                         #line4.set_ydata(data_x[:, 0].flatten())
                         #line4.set_xdata(range(len(data_x[:, 0].flatten())))
@@ -625,7 +626,6 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     try:
                         # checking if annotations are consistent
                         if data_x.shape[0] == labels.shape[0]:
-
                             # Sliding window approach
                             print("\nStarting sliding window")
                             X, y, y_all = opp_sliding_window(data_x, labels.astype(int), sliding_window_length,
@@ -638,29 +638,32 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             hist_classes_all += hist_classes
                             print("\nNumber of seq per class {}".format(hist_classes_all))
 
+                            counter_file_label += 1
+
                             for f in range(X.shape[0]):
                                 try:
+
+                                    # print "Creating sequence file number {} with id {}".format(f, counter_seq)
+                                    seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
+                                    seq = np.require(seq, dtype=float)
+
+
+                                    obj = {"data": seq, "label": y[f], "labels": y_all[f],
+                                           "identity": labels_persons[P], "label_file": counter_file_label}
+                                    file_name = open(os.path.join(data_dir,
+                                                                  'seq_{0:07}.pkl'.format(counter_seq)), 'wb')
+                                    pickle.dump(obj, file_name, protocol=pickle.HIGHEST_PROTOCOL)
+                                    counter_seq += 1
 
                                     sys.stdout.write(
                                         '\r' +
                                         'Creating sequence file number {} with id {}'.format(f, counter_seq))
                                     sys.stdout.flush()
 
-                                    # print "Creating sequence file number {} with id {}".format(f, counter_seq)
-                                    seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
-                                    seq = np.require(seq, dtype=float)
-
-                                    obj = {"data": seq, "label": y[f], "labels": y_all[f],
-                                           "identity": labels_persons[P]}
-                                    file_name = open(os.path.join(data_dir,
-                                                                  'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
-                                    pickle.dump(obj, file_name, protocol=pickle.HIGHEST_PROTOCOL)
                                     file_name.close()
 
-                                    counter_seq += 1
-
                                 except:
-                                    raise ('\nError adding the seq')
+                                    raise ('\nError adding the seq {} from {} \n'.format(f, X.shape[0]))
 
                             print("\nCorrect data extraction from {}".format(dataset_path_imu + file_name_data))
 
@@ -686,7 +689,7 @@ def generate_CSV(csv_dir, type_file, data_dir):
     f = []
     for dirpath, dirnames, filenames in os.walk(data_dir):
         for n in range(len(filenames)):
-            f.append(data_dir + 'seq_{0:06}.pkl'.format(n))
+            f.append(data_dir + 'seq_{0:07}.pkl'.format(n))
 
     np.savetxt(csv_dir + type_file, f, delimiter="\n", fmt='%s')
 
@@ -697,11 +700,11 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     f = []
     for dirpath, dirnames, filenames in os.walk(data_dir1):
         for n in range(len(filenames)):
-            f.append(data_dir1 + 'seq_{0:06}.pkl'.format(n))
+            f.append(data_dir1 + 'seq_{0:07}.pkl'.format(n))
 
     for dirpath, dirnames, filenames in os.walk(data_dir2):
         for n in range(len(filenames)):
-            f.append(data_dir1 + 'seq_{0:06}.pkl'.format(n))
+            f.append(data_dir1 + 'seq_{0:07}.pkl'.format(n))
 
     np.savetxt(csv_dir, f, delimiter="\n", fmt='%s')
 
@@ -715,7 +718,7 @@ def create_dataset(identity_bool = False):
 
     all_data = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
 
-    base_directory = '/data2/fmoya/HAR/datasets/motionminers_flw/'
+    base_directory = '/data/fmoya/HAR/datasets/motionminers_flw/'
 
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
@@ -729,9 +732,10 @@ def create_dataset(identity_bool = False):
         generate_data(all_data, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test,
                       identity_bool=identity_bool, usage_modus='test')
     else:
-        generate_data(train_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_train)
-        generate_data(val_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_val)
-        generate_data(test_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test)
+        generate_data(train_ids, sliding_window_length=150, sliding_window_step=12, data_dir=data_dir_train)
+        generate_data(val_ids, sliding_window_length=150, sliding_window_step=12, data_dir=data_dir_val)
+        generate_data(test_ids, sliding_window_length=150, sliding_window_step=12, data_dir=data_dir_test)
+        print("done")
 
     generate_CSV(base_directory, "train.csv", data_dir_train)
     generate_CSV(base_directory, "val.csv", data_dir_val)
@@ -749,7 +753,7 @@ if __name__ == '__main__':
     #visualize(data)
 
     # Getting and visualising sequences out of the entire recordings
-    data = read_data_flw()
+    #data = read_data_flw()
 
     # Segmenting the 30 recordings
     #create_sequences_flw()
@@ -765,7 +769,7 @@ if __name__ == '__main__':
     #max_values, min_values, mean_values, std_values = statistics_measurements()
 
     # Generate segmented sequences
-    #create_dataset(identity_bool=False)
+    create_dataset(identity_bool=False)
 
 
 
