@@ -294,7 +294,7 @@ class Network(nn.Module):
                 x = torch.cat((x_LA, x_N, x_RA), 1)
             else:
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
-                x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 1)
+                x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
                 x, _ = self.fc4(x)
                 x = F.dropout(x, training=self.training)
                 x= x[:,-1,:]
@@ -434,7 +434,7 @@ class Network(nn.Module):
         
         # view is reshape
         x_LA = x_LA.reshape(x_LA.size()[0], -1,  x_LA.size()[1]*x_LA.size()[3])
-        x_LA = self.fc3_LA(x_LA)
+        x_LA, _ = self.fc3_LA(x_LA)
         
         # LL
         if self.config["NB_sensor_channels"] in [30, 126]:
@@ -457,7 +457,7 @@ class Network(nn.Module):
             x_LL = F.relu(self.conv_LL_2_1(x_LL))
             x_LL = F.relu(self.conv_LL_2_2(x_LL))
             x_LL = x_LL.reshape(x_LL.size()[0], -1, x_LL.size()[1] * x_LL.size()[3])
-            x_LL = self.fc3_LL(x_LL)
+            x_LL, _ = self.fc3_LL(x_LL)
             
         # N
         if self.config["reshape_input"]:
@@ -482,7 +482,7 @@ class Network(nn.Module):
         x_N = F.relu(self.conv_N_2_1(x_N))
         x_N = F.relu(self.conv_N_2_2(x_N))
         x_N = x_N.reshape(x_N.size()[0], -1, x_N.size()[1] * x_N.size()[3])
-        x_N = self.fc3_N(x_N)
+        x_N,_ = self.fc3_N(x_N)
         
         # RA
         if self.config["reshape_input"]:
@@ -510,7 +510,7 @@ class Network(nn.Module):
         x_RA = F.relu(self.conv_RA_2_1(x_RA))
         x_RA = F.relu(self.conv_RA_2_2(x_RA))
         x_RA = x_RA.reshape(x_RA.size()[0], -1, x_RA.size()[1] * x_RA.size()[3])
-        x_RA = self.fc3_RA(x_RA)
+        x_RA, _ = self.fc3_RA(x_RA)
         
         # RL
         if self.config["NB_sensor_channels"] in [30, 126]:
@@ -533,7 +533,7 @@ class Network(nn.Module):
             x_RL = F.relu(self.conv_RL_2_1(x_RL))
             x_RL = F.relu(self.conv_RL_2_2(x_RL))
             x_RL = x_RL.reshape(x_RL.size()[0], -1, x_RL.size()[1] * x_RL.size()[3])
-            x_RL = self.fc3_RL(x_RL)
+            x_RL, _ = self.fc3_RL(x_RL)
             
         if self.config["NB_sensor_channels"] == 27:
             return x_LA, x_N, x_RA
