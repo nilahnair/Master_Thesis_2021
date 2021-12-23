@@ -97,16 +97,16 @@ class Network(nn.Module):
                                           stride=1, padding=padding)
             
             if self.config["NB_sensor_channels"] == 27:
-                self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters']*int(Wx) *
+                self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters']*
                                             int(self.config['NB_sensor_channels'] / 5)),hidden_size= 256, num_layers=1, batch_first=True)
             
             elif self.config["NB_sensor_channels"] == 30:
-                self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters']*int(Wx) *
+                self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters']*
                                             int(self.config['NB_sensor_channels'] / 5)), hidden_size= 256, dropout=0.5, num_layers=1, batch_first=True)
             
             
             elif self.config["NB_sensor_channels"] == 126:
-                self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters']* int(Wx) * 24),hidden_size= 256, num_layers=1, batch_first=True)
+                self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters'] * 24),hidden_size= 256, num_layers=1, batch_first=True)
            
             # LL
             self.conv_LL_1_1 = nn.Conv2d(in_channels=in_channels,
