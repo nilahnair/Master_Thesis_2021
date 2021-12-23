@@ -243,14 +243,14 @@ class Network(nn.Module):
 
         
         if self.config["NB_sensor_channels"] == 27:
-            self.fc4 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])),hidden_size= 256, num_layers=2, batch_first=True)
+            self.fc4 = nn.LSTM(input_size=(256*5),hidden_size= 256, num_layers=2, batch_first=True)
             
         elif self.config["NB_sensor_channels"] == 30:
-            self.fc4 = nn.LSTM(input_size=(self.config['num_filters']*int(self.config['NB_sensor_channels'])), hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
+            self.fc4 = nn.LSTM(input_size=(256*5), hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
             
             
         elif self.config["NB_sensor_channels"] == 126:
-            self.fc4 = nn.LSTM(input_size=(self.config['num_filters']*126),hidden_size= 256, num_layers=2, batch_first=True)
+            self.fc4 = nn.LSTM(input_size=(256*5),hidden_size= 256, num_layers=2, batch_first=True)
             
         if self.config["fully_convolutional"] == "FCN":
             if self.config['output'] == 'softmax':
