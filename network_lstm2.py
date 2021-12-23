@@ -434,6 +434,8 @@ class Network(nn.Module):
         
         # view is reshape
         x_LA = x_LA.reshape(x_LA.size()[0], -1,  x_LA.size()[1]*x_LA.size()[3])
+        print('x_LA size')
+        print(x_LA.size)
         x_LA = self.fc3_LA(x_LA)
         
         # LL
