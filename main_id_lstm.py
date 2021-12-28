@@ -185,11 +185,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap': 100, 'mbientlab':50, 'motionminers_flw': 100}}
+        'cnn_imu': {'mocap': 100, 'mbientlab':100, 'motionminers_flw': 100}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap':100, 'mbientlab': 50, 'motionminers_flw': 100}}
+                      'cnn_imu': {'mocap':100, 'mbientlab': 100, 'motionminers_flw': 100}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
@@ -282,7 +282,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     
     dataset_root = {'mocap': '/data/nnair/output/activities/type4/mocap/',
-                    'mbientlab': '/data/nnair/output/activities/type4/imu/',
+                    'mbientlab': '/data/nnair/output/activities/type10/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
     
     
