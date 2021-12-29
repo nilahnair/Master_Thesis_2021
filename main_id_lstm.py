@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('lstm imu type 3')
+ex= Experiment('lstm imu type 2')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -112,9 +112,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type1
     #num_tr_inputs = {'mocap': 32834, 'mbientlab': 32428, 'motionminers_flw': 93712}
     #clean type2
-    #num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
     #clean type3
-    num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
     #clean type4
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
@@ -124,11 +124,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Number of classes for either for activity recognition
     #type1&2
     
-    #num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
+    num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}
     
     #type3
     
-    num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
+    #num_classes = {'mocap': 6, 'mbientlab': 6, 'motionminers_flw': 6}
     
     #type4
    
@@ -282,7 +282,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     
     dataset_root = {'mocap': '/data/nnair/output/activities/type4/mocap/',
-                    'mbientlab': '/data/nnair/output/activities/type3/imu/',
+                    'mbientlab': '/data/nnair/output/activities/type2/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
     
     
@@ -405,7 +405,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=1,
+                           learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
