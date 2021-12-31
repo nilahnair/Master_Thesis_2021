@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('lstm imu type 2')
+ex= Experiment('lstm imu type 1')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -110,9 +110,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
     
     #clean type1
-    #num_tr_inputs = {'mocap': 32834, 'mbientlab': 32428, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 32834, 'mbientlab': 32428, 'motionminers_flw': 93712}
     #clean type2
-    num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
+    #num_tr_inputs = {'mocap': 38755, 'mbientlab': 36414, 'motionminers_flw': 93712}
     #clean type3
     #num_tr_inputs = {'mocap': 44382, 'mbientlab': 43749, 'motionminers_flw': 93712}
     #clean type4
