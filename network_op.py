@@ -512,7 +512,7 @@ class Network(nn.Module):
             x_RL = F.relu(self.conv_RL_2_1(x_RL))
             x_RL = F.relu(self.conv_RL_2_2(x_RL))
             # view is reshape
-            x_RL = x_RL.view(-1, x_RL.size()[1] * x_RL.size()[2] * x_RL.size()[3])
+            x_RL = x_RL.view(x_RL.size()[0], -1, x_RL.size()[1] * x_RL.size()[3])
             #x_RL = F.relu(self.fc3_RL(x_RL))
             x_RL, _ = self.fc3_RL(x_RL)
 
