@@ -299,6 +299,7 @@ class Network_User(object):
         # Creating the dataloader
         dataLoader_train = DataLoader(harwindows_train, batch_size=self.config['batch_size_train'], shuffle=True)
         print(dataLoader_train)
+        
         # Setting the network
         logging.info('        Network_User:    Train:    creating network')
         if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':
@@ -407,6 +408,7 @@ class Network_User(object):
         f1w_train_val = []
         f1m_train_val = []
         
+        '''
         count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         
@@ -417,7 +419,7 @@ class Network_User(object):
         elif self.config['dataset']=='gesture':
             count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        '''    
+           
         best_acc_val = 0
         
         
@@ -835,6 +837,7 @@ class Network_User(object):
        
         loss_val = 0
         
+        '''
         count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             
@@ -845,7 +848,7 @@ class Network_User(object):
         elif self.config['dataset']=='gesture':
             count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        '''
+        
         # One doesnt need the gradients
         with torch.no_grad():
             for v, harwindow_batched_val in enumerate(dataLoader_val):
@@ -1053,6 +1056,7 @@ class Network_User(object):
 
         loss_test = 0
         
+        '''
         count_pos_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         count_neg_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         
@@ -1063,7 +1067,6 @@ class Network_User(object):
         elif self.config['dataset']=='gesture':
             count_pos_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             count_neg_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        '''
 
         # Creating metric object
         if self.config['output'] == 'softmax':
