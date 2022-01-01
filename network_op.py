@@ -406,7 +406,7 @@ class Network(nn.Module):
             x_LA = F.relu(self.conv_LA_2_1(x_LA))
             x_LA = F.relu(self.conv_LA_2_2(x_LA))
             # view is reshape
-            x_LA = x_LA.view(-1, x_LA.size()[1] * x_LA.size()[2] * x_LA.size()[3])
+            x_LA = x_LA.view(x_LA.size()[0], -1,  x_LA.size()[1]*x_LA.size()[3])
             #x_LA = F.relu(self.fc3_LA(x_LA))
             x_LA, _ = self.fc3_LA(x_LA)
 
@@ -431,7 +431,7 @@ class Network(nn.Module):
             x_LL = F.relu(self.conv_LL_2_1(x_LL))
             x_LL = F.relu(self.conv_LL_2_2(x_LL))
             # view is reshape
-            x_LL = x_LL.view(-1, x_LL.size()[1] * x_LL.size()[2] * x_LL.size()[3])
+            x_LL = x_LL.view(x_LL.size()[0], -1, x_LL.size()[1] * x_LL.size()[3])
             #x_LL = F.relu(self.fc3_LL(x_LL))
             x_LL, _ = self.fc3_LL(x_LL)
 
@@ -458,7 +458,7 @@ class Network(nn.Module):
             x_N = F.relu(self.conv_N_2_1(x_N))
             x_N = F.relu(self.conv_N_2_2(x_N))
             # view is reshape
-            x_N = x_N.view(-1, x_N.size()[1] * x_N.size()[2] * x_N.size()[3])
+            x_N = x_N.view(x_N.size()[0], -1, x_N.size()[1] * x_N.size()[3])
             #x_N = F.relu(self.fc3_N(x_N))
             x_N,_ = self.fc3_N(x_N)
 
@@ -486,7 +486,7 @@ class Network(nn.Module):
             x_RA = F.relu(self.conv_RA_2_1(x_RA))
             x_RA = F.relu(self.conv_RA_2_2(x_RA))
             # view is reshape
-            x_RA = x_RA.view(-1, x_RA.size()[1] * x_RA.size()[2] * x_RA.size()[3])
+            x_RA = x_RA.view(x_RA.size()[0], -1, x_RA.size()[1] * x_RA.size()[3])
             #x_RA = F.relu(self.fc3_RA(x_RA))
             x_RA, _ = self.fc3_RA(x_RA)
             
