@@ -163,8 +163,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/oppor/locomotions/output/"
-        #folder_base ="/data/nnair/oppor/gesture/output/"
+        #folder_base = "/data/nnair/oppor/locomotions/output/"
+        folder_base ="/data/nnair/oppor/gesture/output/"
         #folder_base = "/data/nnair/pamap/output/"
         #folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
         #folder_base = "/data/nnair/oppor/gesture/outputdrill/"   
@@ -350,7 +350,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=0,
+    config = configuration(dataset_idx=1,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
