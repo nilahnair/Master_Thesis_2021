@@ -436,7 +436,7 @@ class Network(nn.Module):
             '''
             
             if self.config["dataset"]=='pamap2':
-                x = torch.cat((x_LA, x_LL, x_N), 1)
+                x = torch.cat((x_LA, x_LL, x_N), 2)
             '''
             else:
                 x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 1)
