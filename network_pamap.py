@@ -444,6 +444,7 @@ class Network(nn.Module):
         x = F.dropout(x, training=self.training)
         x,_ = self.fc4(x)
         x = F.dropout(x, training=self.training)
+        x= x[:,-1,:]
         x = self.fc5(x)
         
         if self.config['output'] == 'attribute':
