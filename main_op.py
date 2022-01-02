@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('opportunity cnn-imu-lstm')
+ex= Experiment('pamap cnn-imu-lstm')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -164,8 +164,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/oppor/locomotions/output/"
-        folder_base ="/data/nnair/oppor/gesture/output/"
-        #folder_base = "/data/nnair/pamap/output/"
+        #folder_base ="/data/nnair/oppor/gesture/output/"
+        folder_base = "/data/nnair/pamap/output/"
         #folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
         #folder_base = "/data/nnair/oppor/gesture/outputdrill/"   
         #folder_base = "/data/nnair/order/output/"
@@ -250,7 +250,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     train_show_value = num_tr_inputs[dataset[dataset_idx]] / \
                        batch_size_train[network[network_idx]][dataset[dataset_idx]]
-    
+    '''
     if dataset[dataset_idx] == "pamap2":
         train_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
         valid_show = {'cnn': int(train_show_value / 10), 'lstm': 10, 'cnn_imu': int(train_show_value / 10)}
@@ -268,7 +268,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     else:
         train_show = {'cnn' : 50, 'lstm' : 100, 'cnn_imu' :50}
         valid_show = {'cnn' : 400, 'lstm' : 500, 'cnn_imu' :400}
-    '''
+    
     
     dist = {0: 'euclidean', 1: 'BCELoss'}
     
@@ -350,7 +350,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=2,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,

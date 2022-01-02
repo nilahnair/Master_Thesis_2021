@@ -282,7 +282,7 @@ class Modus_Selecter(object):
                 self.exp.log_scalar("if_any_n_v_f{}".format(iter_evl), c_neg_val[11]/(c_pos_val[11]+c_neg_val[11]))
             
             '''
-            '''
+            
         
             if c_pos_val[0] == 0:
                 self.exp.log_scalar("none_p_v_f{}".format(iter_evl), c_pos_val[0])
@@ -573,7 +573,7 @@ class Modus_Selecter(object):
                     self.exp.log_scalar("none_n_v_f{}".format(iter_evl), c_neg_val[17])
                 else:
                     self.exp.log_scalar("none_n_v_f{}".format(iter_evl), c_neg_val[17]/(c_pos_val[17]+c_neg_val[17]))
-                
+                '''
                            
             # Saving the results
             self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, time_iter=time_train, precisions=results_train['precision'], 
@@ -715,7 +715,7 @@ class Modus_Selecter(object):
                 self.exp.log_scalar("if_any_n_test{}".format(iter_evl), count_neg_test[11]/(count_pos_test[11]+count_neg_test[11]))
             '''
             
-            '''     
+                
             if count_pos_test[0] == 0:
                 self.exp.log_scalar("none_p_test{}".format(iter_evl), count_pos_test[0])
             else:
@@ -1005,7 +1005,7 @@ class Modus_Selecter(object):
                     self.exp.log_scalar("none_n_test{}".format(iter_evl), count_neg_test[17])
                 else:
                     self.exp.log_scalar("none_n_test{}".format(iter_evl), c_neg_val[17]/(count_pos_test[17]+count_neg_test[17]))
-                
+                '''
 
         if self.config["usage_modus"] == "train":
             logging.info('    Network_selecter:    Train:    eliminating network file')
@@ -1104,7 +1104,7 @@ class Modus_Selecter(object):
         """
         logging.info('    Network_selecter: Net modus: {}'.format(self.config['usage_modus']))
         if self.config['usage_modus'] == 'train':
-            self.train(itera=5, testing=True)
+            self.train(itera=1, testing=True)
         elif self.config['usage_modus'] == 'test':
             self.test()
         #elif self.config['usage_modus'] == 'evolution':

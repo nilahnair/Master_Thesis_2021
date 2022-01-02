@@ -28,8 +28,8 @@ from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 from matplotlib.collections import PolyCollection
 
-from network_op import Network
-#from network_pamap import Network
+#from network_op import Network
+from network_pamap import Network
 from HARWindows_act import HARWindows
 
 from metrics import Metrics
@@ -408,7 +408,6 @@ class Network_User(object):
         f1w_train_val = []
         f1m_train_val = []
         
-        '''
         count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         
@@ -419,7 +418,8 @@ class Network_User(object):
         elif self.config['dataset']=='gesture':
             count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-           
+        '''
+        
         best_acc_val = 0
         
         
@@ -837,7 +837,6 @@ class Network_User(object):
        
         loss_val = 0
         
-        '''
         count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             
@@ -848,6 +847,7 @@ class Network_User(object):
         elif self.config['dataset']=='gesture':
             count_pos_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             count_neg_val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        '''
         
         # One doesnt need the gradients
         with torch.no_grad():
@@ -1056,7 +1056,7 @@ class Network_User(object):
 
         loss_test = 0
         
-        '''
+        
         count_pos_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         count_neg_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         
@@ -1067,7 +1067,8 @@ class Network_User(object):
         elif self.config['dataset']=='gesture':
             count_pos_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             count_neg_test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
+        '''
+        
         # Creating metric object
         if self.config['output'] == 'softmax':
             metrics_obj = Metrics(self.config, self.device)
