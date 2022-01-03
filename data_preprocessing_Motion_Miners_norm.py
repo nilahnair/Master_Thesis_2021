@@ -251,7 +251,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                     seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
                                     seq = np.require(seq, dtype=np.float)
 
-                                    obj = {"data": seq, "label": y[f]}
+                                    obj = {"data": seq, "act_label": y[f],"label": labels_persons[P]}
                                     file_name = open(os.path.join(data_dir,
                                                                   'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                     pickle.dump(obj, file_name, protocol=pickle.HIGHEST_PROTOCOL)
@@ -339,24 +339,33 @@ def create_dataset():
     val_ids = ["R19", "R21"]
     test_ids = ["R22", "R23"]
     '''
-    
+    '''
     #type4-Avoiding persons 11,12,10
     
     train_ids = ["R03", "R07", "R08", "R10" "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
+    '''
+    train_ids = ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10", 
+                 "R13", "R14", "R16", "R17", "R18", "R19", "R20", "R21", "R22", "R23", 
+                 "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
+    val_ids = ["R11","R12"]
+    test_ids = ["R15"]
     
     
-    base_directory='/data/nnair/type1/momin/'
+    base_directory='/data/nnair/all/momin/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
     
-    generate_data(train_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_train)
-    generate_data(val_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_val)
-    generate_data(test_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test)
+    generate_data(train_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_train, usage_modus='train')
+    generate_data(val_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_val, usage_modus='val')
+    generate_data(test_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test, usage_modus='test')
     
+    generate_CSV(base_directory, "train.csv", data_dir_train)
+    generate_CSV(base_directory, "val.csv", data_dir_val)
+    generate_CSV(base_directory, "test.csv", data_dir_test)
     generate_CSV_final(base_directory + "train_final.csv", data_dir_train, data_dir_val)
 
     return
