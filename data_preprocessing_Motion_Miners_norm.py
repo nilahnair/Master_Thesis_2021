@@ -191,16 +191,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     #hist_classes_all = np.zeros((NUM_CLASSES))
     
     for P in persons:
-        if P not in ids:
-            print("\n6 No Person in expected IDS {}".format(P))
-        else:
-            if usage_modus == 'train':
-                 recordings = train_ids
-            elif usage_modus == 'val':
-                recordings = val_ids
-            elif usage_modus == 'test':
-                recordings = test_ids 
-        
+        if usage_modus == 'train':
+            recordings = train_ids
+        elif usage_modus == 'val':
+            recordings = val_ids
+        elif usage_modus == 'test':
+            recordings = test_ids 
+        print("\nModus {} \n{}".format(usage_modus, recordings))
         for R in recordings:
                try:
                     S = SCENARIO[R]
