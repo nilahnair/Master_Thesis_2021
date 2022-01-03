@@ -38,18 +38,16 @@ def statistics_measurements():
 
     returns a max_values, min_values, mean_values, std_values
     '''
-
-    #dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_12000/"
     dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_annotated/"
 
     #train_final_ids = ["S07", "S08", "S09", "S10", "S11", "S12"]
 
-    persons = ["S07", "S08", "S09", "S10", "S11" "S13", "S14"]
+    persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     
     #recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
     
-    train_ids = ["R03", "R07", "R08", "R10", "R11",]
-    
+    train_ids = ["R01", "R02", "R03", "R04", "R05", "R06","R07", "R08", "R09", "R10", "R13", "R14", "R16", "R17",
+                 "R18", "R19", "R20", "R21", "R22", "R23", "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
     #val_ids = ["R12"]
     #test_ids = ["R15"]
     IMU = []
@@ -60,11 +58,11 @@ def statistics_measurements():
           for R in train_ids:
                 S = SCENARIO[R]
                 file_name_data = "{}/{}_{}_{}.csv".format(P, S, P, R)
-                #file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
+                file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
                 print("------------------------------\n{}".format(file_name_data))
                 # getting data
                 path=dataset_path_imu + file_name_data
-                
+                pathlabels= dataset_path_imu + file_name_label
                 try:
                    print("Loading Data")
                    #data = read_extracted_data(imu_file_path, skiprows=1)
