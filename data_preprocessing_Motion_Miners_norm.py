@@ -201,7 +201,6 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
             elif usage_modus == 'test':
                 recordings = test_ids 
         
-        print("\nModus {} \n{}".format(usage_modus, recordings))
         for R in recordings:
                try:
                     S = SCENARIO[R]
