@@ -198,7 +198,7 @@ def read_extracted_data(path, skiprows = 1):
 
     @param path: path to file
     '''
-
+    print("check2")
     annotation_original = np.loadtxt(path, delimiter=',', skiprows=skiprows)
     return annotation_original
 
@@ -271,6 +271,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
                     print("\n{}\n{}".format(file_name_data, file_name_label))
                     try:
+                        print("check 1")
                         data = read_extracted_data(FOLDER_PATH + file_name_data, skiprow=1)
                         print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_data))
                         #data_x = data["data"]
