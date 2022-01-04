@@ -454,6 +454,8 @@ def generate_data(target_filename):
         print("debug")
         print(act_train.shape)
         print(id_train.shape)
+        print("id ")
+        print(id_train)
     
         for i in range(len(yl_val)):
             X_val = np.append(X_val, [data[int(yl_val[i]),:,:]], axis=0)
