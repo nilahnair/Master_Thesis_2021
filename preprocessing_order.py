@@ -436,11 +436,19 @@ def generate_data(target_filename):
         print(yl_train[1])
         print(len([data[int(yl_train[1])]]))
         print(data[int(yl_train[1]),:,:])
+        
+        if counter >= 3:
+            if counter == 3:
+                cter = 1
+            else:
+                cter = counter -1
+        else:
+            cter = counter
     
         for i in range(len(yl_train)):
             X_train = np.append(X_train, [data[int(yl_train[i]),:,:]], axis=0)
             act_train = np.append(act_train, [labels[int(yl_train[i])]])
-            id_train = np.append(id_train, counter)
+            id_train = np.append(id_train, cter)
         
         print(X_train.shape)
         print("debug")
@@ -450,12 +458,12 @@ def generate_data(target_filename):
         for i in range(len(yl_val)):
             X_val = np.append(X_val, [data[int(yl_val[i]),:,:]], axis=0)
             act_val = np.append(act_val, [labels[int(yl_val[i])]])
-            id_val = np.append(id_val, counter)
+            id_val = np.append(id_val, cter)
                     
         for i in range(len(yl_test)):
             X_test = np.append(X_test, [data[int(yl_test[i]),:,:]], axis=0)
             act_test = np.append(act_test, [labels[int(yl_test[i])]])
-            id_test = np.append(id_test, counter)
+            id_test = np.append(id_test, cter)
                 
         print("shape of final products train")    
         print(X_train.shape)
@@ -717,7 +725,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/order/input4/'
+    base_directory = '/data/nnair/all/order/'
     
     generate_data(base_directory)
     
