@@ -573,7 +573,7 @@ class Network_User(object):
                         p=results_val['acc_attrs']
                         for i in range(0,p.shape[0]):
                             self.exp.log_scalar("acc_attr_{}_val_int_{}".format(i, ea_itera),p[i], itera)
-                    
+                    '''
                     if c_pos_val[0] == 0:
                         self.exp.log_scalar("standing_pos_val_{}".format(ea_itera), c_pos_val[0], itera)
                     else:
@@ -639,6 +639,7 @@ class Network_User(object):
                         self.exp.log_scalar("none_neg_val_{}".format(ea_itera), c_neg_val[7], itera)
                     else:
                         self.exp.log_scalar("none_neg_val_{}".format(ea_itera), c_neg_val[7]/(c_pos_val[7]+c_neg_val[7]), itera)
+                    '''
                     
                     count_pos_val=np.array(count_pos_val)
                     count_neg_val=np.array(count_neg_val)
