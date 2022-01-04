@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('imu class and attributes')
+ex= Experiment('motionminers_flw')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -69,7 +69,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1}
     #all
-    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 161667}
     #attr without 6 and 7
     #num_tr_inputs = {'mocap': 120679, 'mbientlab': 104338, 'motionminers_flw': 93712}
     
@@ -217,7 +217,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/output/softmax/clean/"
+        #folder_base = "/data/nnair/output/softmax/clean/"
+        folder_base = "/data/nnair/all/experiments/momin/"
         #folder_base = "/data/nnair/trial/lstm/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
@@ -237,7 +238,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp3/'
+        folder_exp = folder_base + 'exp1/'
         #folder_exp = folder_base + 'attr_imu/'
         print(folder_exp)
         '''
@@ -289,7 +290,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/trial/imu_all/',
-                    'motionminers_flw': '/data/nnair/output/type1/momin/'}
+                    'motionminers_flw': '/data/nnair/all/momin/'}
    
     '''
     dataset_root = {'mocap': '/data/nnair/output/attributes/no67/mocap/input/',
@@ -400,7 +401,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=2,
                            network_idx=2,
                            output_idx=1,
                            usage_modus_idx=0,

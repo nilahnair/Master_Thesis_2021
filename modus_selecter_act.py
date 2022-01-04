@@ -8,7 +8,7 @@ from __future__ import print_function
 import logging
 import os
 
-from network_user_cat import Network_User
+from network_user_act import Network_User
 import numpy as np
 
 import torch
