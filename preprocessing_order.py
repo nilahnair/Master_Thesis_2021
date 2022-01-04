@@ -439,7 +439,7 @@ def generate_data(target_filename):
         
         if counter >= 3:
             if counter == 3:
-                cter = 1
+                cter = 0
             else:
                 cter = counter -1
         else:
