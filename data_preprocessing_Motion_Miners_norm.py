@@ -25,7 +25,7 @@ SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02'
             'R22': 'L03', 'R23': 'L03', 'R24': 'L03', 'R25': 'L03', 'R26': 'L03', 'R27': 'L03', 'R28': 'L03',
             'R29': 'L03', 'R30': 'L03'}
 labels_persons = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S12": 5, "S13": 6, "S14": 7}
-
+NUM_CLASSES = 8
 
 def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
@@ -91,7 +91,7 @@ def norm_motion_miners(data):
     return data_norm
 
 ############################
-
+'''
 def reader_data(path):
     print('Getting data from {}'.format(path))
     #counter = 0
@@ -135,6 +135,20 @@ def reader_data(path):
     else:
         imu_data = {'time': time, 'data': data}
     return imu_data
+'''
+def read_extracted_data(path, skiprows = 1):
+    '''
+    gets data from csv file
+    data contains 3 columns, start, end and label
+
+    returns a numpy array
+
+    @param path: path to file
+    '''
+
+    annotation_original = np.loadtxt(path, delimiter=',', skiprows=skiprows)
+    return annotation_original
+
 
 #####################
 
@@ -186,6 +200,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     val_ids = ["R11","R12"]
     test_ids = ["R15"]
 
+    start_sequences = [538, 559, 542, 560, 564, 500, 546, 554, 594, 550, 730, 545, 559,
+                       552, 583, 500, 554, 538, 1022, 500, 533, 537, 556, 0, 544, 539,
+                       524, 535, 0, 0]
     
     counter_seq = 0
     #hist_classes_all = np.zeros((NUM_CLASSES))
@@ -202,18 +219,30 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                try:
                     S = SCENARIO[R]
                     file_name_data = "{}/{}_{}_{}.csv".format(P, S, P, R)
-                    print("\n{}\n".format(file_name_data))
                     file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
                     print("\n{}\n{}".format(file_name_data, file_name_label))
                     try:
-                        data = reader_data(FOLDER_PATH + file_name_data)
+                        data = read_extracted_data(FOLDER_PATH + file_name_data, skiprow=1)
                         print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_data))
-                        data_x = data["data"]
+                        #data_x = data["data"]
+                        data_x = data[:, 2:]
                         print("\nFiles loaded")
                     except:
                         print("\n1 In loading data, in file {}".format(FOLDER_PATH + file_name_data))
                         continue
-                    
+                    try:
+                        # Getting labels and attributes
+                        labels = csv_reader.reader_labels(FOLDER_PATH  + file_name_label)
+                        class_labels = np.where(labels[:, 0] == 7)[0]
+
+                        # Deleting rows containing the "none" class
+                        data_x = np.delete(data_x, class_labels, 0)
+                        labels = np.delete(labels, class_labels, 0)
+                    except:
+                        print(
+                            "2 In generating data, Error getting the data {}".format(FOLDER_PATH 
+                                                                                       + file_name_data))
+                        continue
                     try:
                         label=ID[P]
                     except:
@@ -232,7 +261,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         if data_x.shape[0] == data_x.shape[0]:
                             # Sliding window approach
                             print("\nStarting sliding window")
-                            X, y = opp_sliding_window(data_x, label, sliding_window_length,
+                            X, y = opp_sliding_window(data_x, labels.astype(int), sliding_window_length,
                                                              sliding_window_step, label_pos_end=False)
                             print("\nWindows are extracted")
                             
