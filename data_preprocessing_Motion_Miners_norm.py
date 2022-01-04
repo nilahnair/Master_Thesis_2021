@@ -272,7 +272,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     print("\n{}\n{}".format(file_name_data, file_name_label))
                     try:
                         print("check 1")
-                        data = read_extracted_data(FOLDER_PATH + file_name_data, skiprow=1)
+                        data = read_extracted_data(FOLDER_PATH + file_name_data, skiprows=1)
                         print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_data))
                         #data_x = data["data"]
                         data_x = data[:, 2:]
