@@ -28,10 +28,63 @@ labels_persons = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S12": 5, "S
 NUM_CLASSES = 8
 
 def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
+    '''
+    Performs the sliding window approach on the data and the labels
+
+    return three arrays.
+    - data, an array where first dim is the windows
+    - labels per window according to end, middle or mode
+    - all labels per window
+
+    @param data_x: ids for train
+    @param data_y: ids for train
+    @param ws: ids for train
+    @param ss: ids for train
+    @param label_pos_end: ids for train
+    '''
+
+    print("Sliding window: Creating windows {} with step {}".format(ws, ss))
+
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
-    data_y_labels=np.full(data_x.shape[0],data_y)
-    
-    return data_x.astype(np.float32), data_y_labels.astype(np.uint8)
+
+    count_l = 0
+    idy = 0
+    # Label from the end
+    if label_pos_end:
+        data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+    else:
+
+        # Label from the middle
+        if False:
+            data_y_labels = np.asarray(
+                [[i[i.shape[0] // 2]] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+        else:
+
+            # Label according to mode
+            try:
+                data_y_labels = []
+                for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
+                    labels = np.zeros((20)).astype(int)
+                    count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
+                    idy = np.argmax(count_l)
+                    attrs = np.sum(sw[:, 1:], axis=0)
+                    attrs[attrs > 0] = 1
+                    labels[0] = idy
+                    labels[1:] = attrs
+                    data_y_labels.append(labels)
+                data_y_labels = np.asarray(data_y_labels)
+
+
+            except:
+                print("Sliding window: error with the counting {}".format(count_l))
+                print("Sliding window: error with the counting {}".format(idy))
+                return np.Inf
+
+            # All labels per window
+            data_y_all = np.asarray([i[:] for i in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1))])
+
+    return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
+
 
 def norm_motion_miners(data):
     """
@@ -199,10 +252,6 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                  "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
     val_ids = ["R11","R12"]
     test_ids = ["R15"]
-
-    start_sequences = [538, 559, 542, 560, 564, 500, 546, 554, 594, 550, 730, 545, 559,
-                       552, 583, 500, 554, 538, 1022, 500, 533, 537, 556, 0, 544, 539,
-                       524, 535, 0, 0]
     
     counter_seq = 0
     #hist_classes_all = np.zeros((NUM_CLASSES))
@@ -233,6 +282,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     try:
                         # Getting labels and attributes
                         labels = csv_reader.reader_labels(FOLDER_PATH  + file_name_label)
+                        print("\n lables loaded")
                         class_labels = np.where(labels[:, 0] == 7)[0]
 
                         # Deleting rows containing the "none" class
@@ -243,16 +293,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             "2 In generating data, Error getting the data {}".format(FOLDER_PATH 
                                                                                        + file_name_data))
                         continue
-                    try:
-                        label=ID[P]
-                    except:
-                        print(
-                            "2 In generating data, Error getting the data {}".format(FOLDER_PATH
-                                                                                       + file_name_data))
-                        continue
-                    
+                   
                     try:
                         data_x = norm_motion_miners(data_x)
+                        print("\n norm done")
+                        
                     except:
                         print("\n3  In generating data, Plotting {}".format(FOLDER_PATH + file_name_data))
                         continue
@@ -261,7 +306,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         if data_x.shape[0] == data_x.shape[0]:
                             # Sliding window approach
                             print("\nStarting sliding window")
-                            X, y = opp_sliding_window(data_x, labels.astype(int), sliding_window_length,
+                            X, y, y_all = opp_sliding_window(data_x, labels.astype(int), sliding_window_length,
                                                              sliding_window_step, label_pos_end=False)
                             print("\nWindows are extracted")
                             
@@ -276,13 +321,18 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                     seq = np.reshape(X[f], newshape=(1, X.shape[1], X.shape[2]))
                                     seq = np.require(seq, dtype=np.float)
 
-                                    obj = {"data": seq, "act_label": y[f],"label": labels_persons[P]}
+                                    obj = {"data": seq, "act_label": y[f],"label": ID[P]}
                                     file_name = open(os.path.join(data_dir,
                                                                   'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                     pickle.dump(obj, file_name, protocol=pickle.HIGHEST_PROTOCOL)
                                     file_name.close()
 
                                     counter_seq += 1
+                                    
+                                    sys.stdout.write(
+                                        '\r' +
+                                        'Creating sequence file number {} with id {}'.format(f, counter_seq))
+                                    sys.stdout.flush()
 
                                 except:
                                     raise ('\nError adding the seq')
