@@ -181,7 +181,7 @@ class Modus_Selecter(object):
                 p=results_train['acc_attrs']
                 for i in range(0,p.shape[0]):
                     self.exp.log_scalar("acc_attr_{}_train_mo_{}".format(i, iter_evl),p[i])
-            
+            '''
             if c_pos_val[0] == 0:
                 self.exp.log_scalar("standing_pos_val_final{}".format(iter_evl), c_pos_val[0])
             else:
@@ -247,7 +247,7 @@ class Modus_Selecter(object):
                 self.exp.log_scalar("none_neg_val_final{}".format(iter_evl), c_neg_val[7])
             else:
                 self.exp.log_scalar("none_neg_val_final{}".format(iter_evl), c_neg_val[7]/(c_pos_val[7]+c_neg_val[7]))
-                                      
+            '''                         
             # Saving the results
             self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, time_iter=time_train, precisions=results_train['precision'], 
                       recalls=results_train['recall'], best_itera=best_itera)

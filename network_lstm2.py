@@ -243,7 +243,7 @@ class Network(nn.Module):
 
         
         if self.config["NB_sensor_channels"] == 27:
-            self.fc4 = nn.LSTM(input_size=(256*5),hidden_size= 256, num_layers=2, batch_first=True)
+            self.fc4 = nn.LSTM(input_size=(256*3),hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
             
         elif self.config["NB_sensor_channels"] == 30:
             self.fc4 = nn.LSTM(input_size=(256*5), hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
@@ -292,6 +292,10 @@ class Network(nn.Module):
             if self.config["dataset"] in ['motionminers_real', 'motionminers_flw']:
                 x_LA, x_N, x_RA = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_N, x_RA), 1)
+                x, _ = self.fc4(x)
+                x = F.dropout(x, training=self.training)
+                x= x[:,-1,:]
+                x = self.fc5(x)
             else:
                 x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
@@ -488,7 +492,7 @@ class Network(nn.Module):
         if self.config["reshape_input"]:
             if self.config["NB_sensor_channels"] == 27:
                 x_RA = F.relu(self.conv_RA_1_1(x[:, :, :, 6:9]))
-            if self.config["NB_sensor_channels"] == 30:
+            elif self.config["NB_sensor_channels"] == 30:
                 x_RA = F.relu(self.conv_RA_1_1(x[:, :, :, 6:8]))
             elif self.config["NB_sensor_channels"] == 126:
                 idx_RA = np.arange(22, 26)
