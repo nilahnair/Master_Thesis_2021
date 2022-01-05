@@ -291,7 +291,7 @@ class Network(nn.Module):
         elif self.config["network"] == "cnn_imu":
             if self.config["dataset"] in ['motionminers_real', 'motionminers_flw']:
                 x_LA, x_N, x_RA = self.tcnn_imu(x)
-                x = torch.cat((x_LA, x_N, x_RA), 1)
+                x = torch.cat((x_LA, x_N, x_RA), 2)
                 x, _ = self.fc4(x)
                 x = F.dropout(x, training=self.training)
                 x= x[:,-1,:]
