@@ -165,10 +165,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/oppor/locomotions/output/"
         #folder_base ="/data/nnair/oppor/gesture/output/"
-        folder_base = "/data/nnair/pamap/output/"
+        #folder_base = "/data/nnair/pamap/output/"
         #folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
         #folder_base = "/data/nnair/oppor/gesture/outputdrill/"   
         #folder_base = "/data/nnair/order/output/"
+        folder_base = "/data/nnair/exp/"
         
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
@@ -187,8 +188,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp1/'
+        #folder_exp = folder_base + 'exp1/'
         #folder_exp = folder_base + 'attr_imu/'
+        folder_exp=folder_base
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
