@@ -121,6 +121,9 @@ class Network(nn.Module):
                                             54, 256)
                 elif self.config["dataset"] == 'pamap2':
                     self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 13, 256)
+            elif self.config["dataset"] == 'orderpicking':
+                self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 3), 256)
             '''
             
             if self.config["reshape_input"]:
@@ -135,6 +138,9 @@ class Network(nn.Module):
                                             54),hidden_size= 256, num_layers=1, batch_first=True)
                 elif self.config["dataset"] == 'pamap2':
                     self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters'] * 13),hidden_size= 256, num_layers=1, batch_first=True)
+                elif self.config["dataset"] == 'orderpicking':
+                    self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters']*
+                                            int(self.config['NB_sensor_channels'] / 3)),hidden_size= 256, num_layers=1, batch_first=True)
                     
             # LL
             self.conv_LL_1_1 = nn.Conv2d(in_channels=in_channels,
@@ -182,6 +188,7 @@ class Network(nn.Module):
                                             52),hidden_size= 256, num_layers=1, batch_first=True)
                 elif self.config["dataset"] == 'pamap2':
                     self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters'] * 13),hidden_size= 256, num_layers=1, batch_first=True)
+                
             
             # N
             self.conv_N_1_1 = nn.Conv2d(in_channels=in_channels,
@@ -217,6 +224,9 @@ class Network(nn.Module):
                                            45, 256)
                 elif self.config["dataset"] == 'pamap2':
                     self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) * 14, 256)
+                elif self.config["dataset"] == 'orderpicking':
+                    self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 3), 256)
             '''
             if self.config["reshape_input"]:
                 if self.config["dataset"] == 'locomotion' or self.config["dataset"] == 'gesture':
@@ -230,6 +240,9 @@ class Network(nn.Module):
                                            45),hidden_size= 256, num_layers=1, batch_first=True)
                 elif self.config["dataset"] == 'pamap2':
                     self.fc3_N = nn.LSTM(input_size=(self.config['num_filters'] * 14),hidden_size= 256, num_layers=1, batch_first=True)
+                elif self.config["dataset"] == 'orderpicking':
+                    self.fc3_N = nn.LSTM(input_size=(self.config['num_filters']*
+                                            int(self.config['NB_sensor_channels'] / 3)),hidden_size= 256, num_layers=1, batch_first=True)
                     
             
             # RA
@@ -265,6 +278,9 @@ class Network(nn.Module):
                                             54, 256)
                 elif self.config["dataset"] == 'pamap2':
                     self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) * 13, 256)
+                elif self.config["dataset"] == 'orderpicking':
+                    self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
+                                            int(self.config['NB_sensor_channels'] / 3), 256)
             '''
             if self.config["reshape_input"]:
                 if self.config["dataset"] == 'locomotion' or self.config["dataset"] == 'gesture':
@@ -278,6 +294,9 @@ class Network(nn.Module):
                                             54),hidden_size= 256, num_layers=1, batch_first=True)
                 elif self.config["dataset"] == 'pamap2':
                     self.fc3_RA = nn.LSTM(input_size=(self.config['num_filters'] * 13),hidden_size= 256, num_layers=1, batch_first=True)
+                elif self.config["dataset"] == 'orderpicking':
+                    self.fc3_RA = nn.LSTM(input_size=(self.config['num_filters']*
+                                            int(self.config['NB_sensor_channels'] / 3)),hidden_size= 256, num_layers=1, batch_first=True)
                     
             # RL
             self.conv_RL_1_1 = nn.Conv2d(in_channels=in_channels,
@@ -341,7 +360,11 @@ class Network(nn.Module):
         if self.config["network"] == "cnn":
             self.fc4 = nn.LSTM(input_size=(256),hidden_size= 256, num_layers=2, batch_first=True)
         elif self.config["network"] == "cnn_imu":
-            self.fc4 = nn.LSTM(input_size=(256 * 5), hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
+            if self.config["dataset"] == 'orderpicking':
+                self.fc4 = nn.LSTM(input_size=(256*3),hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
+            else:
+                self.fc4 = nn.LSTM(input_size=(256 * 5), hidden_size= 256, dropout=0.5, num_layers=2, batch_first=True)
+            
             
             
         if self.config["fully_convolutional"] == "FCN":
@@ -401,6 +424,7 @@ class Network(nn.Module):
                 elif self.config["dataset"] == 'pamap2':
                     idx_LA = np.arange(1, 14)
                     x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_LA]))
+                elif self.config["dataset"] == 'orderpicking':
 
             x_LA = F.relu(self.conv_LA_1_2(x_LA))
             x_LA = F.relu(self.conv_LA_2_1(x_LA))
