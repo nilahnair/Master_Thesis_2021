@@ -28,7 +28,7 @@ from sliding_window_dat import sliding_window
 # Hardcoded number of sensor channels employed in the OPPORTUNITY challenge
 NB_SENSOR_CHANNELS = 27
 NUM_ACT_CLASSES= 11
-NUM_CLASSES =6
+NUM_CLASSES =5
 
 ws = 100
 ss = 12
@@ -727,7 +727,8 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/all/order/'
+    #base_directory = '/data/nnair/all/order/'
+    base_directory = '/data/nnair/order/'
     
     generate_data(base_directory)
     
