@@ -424,7 +424,8 @@ class Network(nn.Module):
                 elif self.config["dataset"] == 'pamap2':
                     idx_LA = np.arange(1, 14)
                     x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_LA]))
-                #elif self.config["dataset"] == 'orderpicking':
+                elif self.config["dataset"] == 'orderpicking':
+                    x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, 0:9]))
 
             x_LA = F.relu(self.conv_LA_1_2(x_LA))
             x_LA = F.relu(self.conv_LA_2_1(x_LA))
@@ -478,6 +479,8 @@ class Network(nn.Module):
                     idx_N = np.arange(0, 1)
                     idx_N = np.concatenate([idx_N, np.arange(14, 27)])
                     x_N = F.relu(self.conv_LA_1_1(x[:, :, :, idx_N]))
+                elif self.config["dataset"] == 'orderpicking':
+                    x_N = F.relu(self.conv_N_1_1(x[:, :, :, 18:27]))
             x_N = F.relu(self.conv_N_1_2(x_N))
             x_N = F.relu(self.conv_N_2_1(x_N))
             x_N = F.relu(self.conv_N_2_2(x_N))
@@ -505,7 +508,8 @@ class Network(nn.Module):
                 elif self.config["dataset"] == 'pamap2':
                     idx_RA = np.arange(1, 14)
                     x_RA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_RA]))
-
+                elif self.config["dataset"] == 'orderpicking':
+                    x_RA = F.relu(self.conv_N_1_1(x[:, :, :, 9:18]))
             x_RA = F.relu(self.conv_RA_1_2(x_RA))
             x_RA = F.relu(self.conv_RA_2_1(x_RA))
             x_RA = F.relu(self.conv_RA_2_2(x_RA))

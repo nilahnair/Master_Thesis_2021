@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('pamap cnn-imu-lstm')
+ex= Experiment('order cnn-imu-lstm')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -68,11 +68,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_step = {'locomotion': 12, 'gesture': 12, 'pamap2': 12, 'orderpicking': 1}
     #num_attributes = {'locomotion' : 10, 'gesture' : 32, 'carrots' : 32, 'pamap2' : 24, 'orderpicking' : 16}
     #num_classes = {'locomotion' : 5, 'gesture' : 18, 'carrots' : 16, 'pamap2' : 12, 'orderpicking' : 8}
-    num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 9, 'orderpicking': 6}
+    num_classes = {'locomotion' : 4, 'gesture' : 4, 'pamap2' : 9, 'orderpicking': 5}
     #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103611}
     #input2
     #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 56515, 'orderpicking': 125914}
-    num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103611, 'orderpicking': 125914}
+    #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103611, 'orderpicking': 125914}
+    num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103611, 'orderpicking': 92232}
     #input400
     #num_tr_inputs = {'locomotion': 34162, 'gesture': 34162, 'pamap2': 103586}
     
@@ -233,7 +234,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 ################################################################################################################################3
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
-    
+    '''
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputs/',
                     'gesture': '/data/nnair/oppor/gesture/input/',
                     'pamap2': '/data/nnair/pamap/inputnew9/',
@@ -241,8 +242,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
                     'gesture': '/data/nnair/oppor/gesture/inputdrill/',
-                    'pamap2': '/data/nnair/pamap/input400/'}
-    '''
+                    'pamap2': '/data/nnair/pamap/input400/',
+                    'orderpicking': '/data/nnair/order/'}
+    
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     GPU = 0
@@ -352,7 +354,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=2,
+    config = configuration(dataset_idx=3,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,

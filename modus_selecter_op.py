@@ -283,7 +283,7 @@ class Modus_Selecter(object):
             
             '''
             
-        
+            '''
             if c_pos_val[0] == 0:
                 self.exp.log_scalar("none_p_v_f{}".format(iter_evl), c_pos_val[0])
             else:
@@ -382,7 +382,7 @@ class Modus_Selecter(object):
             else:
                 self.exp.log_scalar("ropejumping_n_v_f{}".format(iter_evl), c_neg_val[11]/(c_pos_val[11]+c_neg_val[11]))
             
-            '''
+            
             
             if self.config['dataset']=='locomotion':
                 if c_pos_val[0] == 0:
@@ -713,7 +713,7 @@ class Modus_Selecter(object):
                 self.exp.log_scalar("if_any_n_test{}".format(iter_evl), count_neg_test[11])
             else:
                 self.exp.log_scalar("if_any_n_test{}".format(iter_evl), count_neg_test[11]/(count_pos_test[11]+count_neg_test[11]))
-            '''
+            
             
                 
             if count_pos_test[0] == 0:
@@ -814,7 +814,7 @@ class Modus_Selecter(object):
             else:
                 self.exp.log_scalar("ropejumping_n_test{}".format(iter_evl), count_neg_test[11]/(count_pos_test[11]+count_neg_test[11]))
             
-            '''
+            
             
             if self.config['dataset']=='locomotion':
                 if count_pos_test[0] == 0:
