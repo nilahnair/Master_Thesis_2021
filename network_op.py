@@ -424,7 +424,7 @@ class Network(nn.Module):
                 elif self.config["dataset"] == 'pamap2':
                     idx_LA = np.arange(1, 14)
                     x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_LA]))
-                elif self.config["dataset"] == 'orderpicking':
+                #elif self.config["dataset"] == 'orderpicking':
 
             x_LA = F.relu(self.conv_LA_1_2(x_LA))
             x_LA = F.relu(self.conv_LA_2_1(x_LA))
