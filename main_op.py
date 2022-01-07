@@ -123,19 +123,19 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'orderpicking' : {'cnn' : {'softmax' : 5, 'attribute': 10},
                                 'lstm' : {'softmax' : 25, 'attribute': 1},
-                                'cnn_imu' : {'softmax' : 10, 'attribute': 32}}} 
+                                'cnn_imu' : {'softmax' : 2, 'attribute': 32}}} 
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
 
     # Batch size
     batch_size_train = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 200, 'orderpicking' : 200}}
+        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 200, 'orderpicking' : 50}}
 
     batch_size_val = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 200, 'orderpicking' : 200}}
+        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 200, 'orderpicking' : 50}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'locomotion': 4, 'gesture': 4, 'pamap2': 4, 'orderpicking': 4}
@@ -360,7 +360,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=0,
+                           learning_rates_idx=2,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
