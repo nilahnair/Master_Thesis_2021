@@ -108,7 +108,7 @@ class Network(nn.Module):
                                           kernel_size=(self.config['filter_size'], 1),
                                           stride=1, padding=0)
 
-            '''
+            
             if self.config["reshape_input"]:
                 if self.config["dataset"] == 'locomotion' or self.config["dataset"] == 'gesture':
                     self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
@@ -121,8 +121,8 @@ class Network(nn.Module):
                                             54, 256)
                 elif self.config["dataset"] == 'pamap2':
                     self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 13, 256)
-            elif self.config["dataset"] == 'orderpicking':
-                self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
+                elif self.config["dataset"] == 'orderpicking':
+                    self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 3), 256)
             '''
             
@@ -141,7 +141,7 @@ class Network(nn.Module):
                 elif self.config["dataset"] == 'orderpicking':
                     self.fc3_LA = nn.LSTM(input_size=(self.config['num_filters']*
                                             int(self.config['NB_sensor_channels'] / 3)),hidden_size= 256, num_layers=1, batch_first=True)
-                    
+             '''      
             # LL
             self.conv_LL_1_1 = nn.Conv2d(in_channels=in_channels,
                                      out_channels=self.config['num_filters'],
@@ -162,7 +162,7 @@ class Network(nn.Module):
                                           out_channels=self.config['num_filters'],
                                           kernel_size=(self.config['filter_size'], 1),
                                           stride=1, padding=0)
-            '''
+            
             if self.config["reshape_input"]:
                 if self.config["dataset"] == 'locomotion' or self.config["dataset"] == 'gesture':
                     self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) *
@@ -188,7 +188,7 @@ class Network(nn.Module):
                                             52),hidden_size= 256, num_layers=1, batch_first=True)
                 elif self.config["dataset"] == 'pamap2':
                     self.fc3_LL = nn.LSTM(input_size=(self.config['num_filters'] * 13),hidden_size= 256, num_layers=1, batch_first=True)
-                
+            '''    
             
             # N
             self.conv_N_1_1 = nn.Conv2d(in_channels=in_channels,
@@ -211,7 +211,7 @@ class Network(nn.Module):
                                           kernel_size=(self.config['filter_size'], 1),
                                           stride=1, padding=0)
 
-            '''
+            
             if self.config["reshape_input"]:
                 if self.config["dataset"] == 'locomotion' or self.config["dataset"] == 'gesture':
                     self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
