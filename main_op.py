@@ -123,7 +123,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'orderpicking' : {'cnn' : {'softmax' : 5, 'attribute': 10},
                                 'lstm' : {'softmax' : 25, 'attribute': 1},
-                                'cnn_imu' : {'softmax' : 2, 'attribute': 32}}} 
+                                'cnn_imu' : {'softmax' : 5, 'attribute': 32}}} 
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
 
     # Batch size
@@ -360,7 +360,7 @@ def my_config():
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=2,
+                           learning_rates_idx=1,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
