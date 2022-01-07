@@ -130,12 +130,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 200, 'orderpicking' : 100}}
+        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 200, 'orderpicking' : 200}}
 
     batch_size_val = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 200, 'orderpicking' : 100}}
+        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 200, 'orderpicking' : 200}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'locomotion': 4, 'gesture': 4, 'pamap2': 4, 'orderpicking': 4}
