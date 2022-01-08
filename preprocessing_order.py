@@ -544,6 +544,7 @@ def generate_data(target_filename):
 
         ##############################
     # Normalizing the data to be in range [0,1] following the paper
+    '''
     total = np.vstack((X_train, X_val, X_test))
     for ch in range(total.shape[2]):
         max_ch = np.max(total[:, :, ch])
@@ -553,7 +554,8 @@ def generate_data(target_filename):
         X_val[:, :, ch] = (X_val[:, :, ch] - median_old_range) / (max_ch - min_ch)
         X_test[:, :, ch] = (X_test[:, :, ch] - median_old_range) / (max_ch - min_ch)
         
-        
+    '''
+    
     '''   
     for ch in range(X_val.shape[2]):
         max_ch = np.max(X_val[:, :, ch])
@@ -728,7 +730,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
 if __name__ == '__main__':
     
     #base_directory = '/data/nnair/all/order/'
-    base_directory = '/data/nnair/order/'
+    base_directory = '/data/nnair/all/nonormorder/'
     
     generate_data(base_directory)
     
