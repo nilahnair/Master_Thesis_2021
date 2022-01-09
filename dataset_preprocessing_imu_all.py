@@ -191,11 +191,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     '''
     
     if usage_modus == 'train':
-           persons = [ "S07", "S08", "S09", "S10", "S11", "S12", "S13"]
+           persons = [ "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     elif usage_modus == 'val':
-           persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13"]
+           persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13","S14"]
     elif usage_modus == 'test':
-           persons = ["S14"]
+           persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13","S14"]
     #persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S12":5, "S13": 6, "S14": 7}
