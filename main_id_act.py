@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mbientlab cnn-imu lr 0.0001 b 100')
+ex= Experiment('mbientlab cnn-imu lr 0.0001 b 50')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -185,11 +185,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap': 100, 'mbientlab':100, 'motionminers_flw': 200}}
+        'cnn_imu': {'mocap': 100, 'mbientlab':50, 'motionminers_flw': 200}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap':100, 'mbientlab':100, 'motionminers_flw': 200}}
+                      'cnn_imu': {'mocap':100, 'mbientlab':50, 'motionminers_flw': 200}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
