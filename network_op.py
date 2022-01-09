@@ -279,7 +279,7 @@ class Network(nn.Module):
                 elif self.config["dataset"] == 'pamap2':
                     self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) * 13, 256)
                 elif self.config["dataset"] == 'orderpicking':
-                    self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) *
+                    self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) *
                                             int(self.config['NB_sensor_channels'] / 3), 256)
             '''
             if self.config["reshape_input"]:
