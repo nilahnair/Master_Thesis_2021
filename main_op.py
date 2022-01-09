@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('order cnn-imu lr 0.0001 b 200')
+ex= Experiment('order nonorm cnn-imu lr 0.0001 b 200')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -239,12 +239,16 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'gesture': '/data/nnair/oppor/gesture/input/',
                     'pamap2': '/data/nnair/pamap/inputnew9/',
                     'orderpicking': '/data/nnair/order/input4/'}
-    '''
+    
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
                     'gesture': '/data/nnair/oppor/gesture/inputdrill/',
                     'pamap2': '/data/nnair/pamap/input400/',
                     'orderpicking': '/data/nnair/order/'}
-    
+    '''
+    dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
+                    'gesture': '/data/nnair/oppor/gesture/inputdrill/',
+                    'pamap2': '/data/nnair/pamap/input400/',
+                    'orderpicking': '/data/nnair/all/nonormorder/'}
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     GPU = 0
