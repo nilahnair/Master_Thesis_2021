@@ -438,7 +438,7 @@ class Network(nn.Module):
             #x_LA, _ = self.fc3_LA(x_LA)
             
             
-            '''
+            
             # LL
             if self.config["reshape_input"]:
                 if self.config["dataset"] == 'locomotion' or self.config["dataset"] == 'gesture':
@@ -463,7 +463,7 @@ class Network(nn.Module):
             x_LL = x_LL.view(x_LL.size()[0], -1, x_LL.size()[1] * x_LL.size()[3])
             #x_LL = F.relu(self.fc3_LL(x_LL))
             x_LL, _ = self.fc3_LL(x_LL)
-            '''
+            
 
             # N
             if self.config["reshape_input"]:
@@ -495,7 +495,7 @@ class Network(nn.Module):
             x_N = F.relu(self.fc3_N(x_N))
             #x_N,_ = self.fc3_N(x_N)
             
-        
+            '''
             # RA
             if self.config["reshape_input"]:
                 if self.config["dataset"] == 'locomotion' or self.config["dataset"] == 'gesture':
@@ -526,7 +526,7 @@ class Network(nn.Module):
             x_RA = F.relu(self.fc3_RA(x_RA))
             #x_RA, _ = self.fc3_RA(x_RA)
             
-            '''
+            
             # RL
             if self.config["reshape_input"]:
                 if self.config["dataset"] == 'locomotion' or self.config["dataset"] == 'gesture':
@@ -550,15 +550,18 @@ class Network(nn.Module):
             x_RL = F.relu(self.conv_RL_2_2(x_RL))
             # view is reshape
             x_RL = x_RL.view(x_RL.size()[0], -1, x_RL.size()[1] * x_RL.size()[3])
-            #x_RL = F.relu(self.fc3_RL(x_RL))
-            x_RL, _ = self.fc3_RL(x_RL)
+            x_RL = F.relu(self.fc3_RL(x_RL))
+            #x_RL, _ = self.fc3_RL(x_RL)
             
             '''
 
             #x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 1)
             
             #x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
-            x = torch.cat((x_LA, x_N, x_RA), 1)
+            if self.config["dataset"]=='pamap2':
+                x = torch.cat((x_LA, x_LL, x_N), 1)
+            #elif self.config["dataset"]=='orderpicking':
+                #x = torch.cat((x_LA, x_N, x_RA), 1)
             
             '''
             x = F.relu(self.fc4(x))
