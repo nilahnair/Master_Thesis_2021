@@ -461,8 +461,8 @@ class Network(nn.Module):
             x_LL = F.relu(self.conv_LL_2_2(x_LL))
             # view is reshape
             x_LL = x_LL.view(x_LL.size()[0], -1, x_LL.size()[1] * x_LL.size()[3])
-            #x_LL = F.relu(self.fc3_LL(x_LL))
-            x_LL, _ = self.fc3_LL(x_LL)
+            x_LL = F.relu(self.fc3_LL(x_LL))
+            #x_LL, _ = self.fc3_LL(x_LL)
             
 
             # N
