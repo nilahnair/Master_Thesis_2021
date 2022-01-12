@@ -188,7 +188,7 @@ class Network_User(object):
         #print(torch.load(self.config['folder_exp_base_fine_tuning'] + 'network.pt')['state_dict'])
 
         # Selects the source network according to configuration
-        pretrained_dict = torch.load(self.config['folder_exp_base_fine_tuning'] + 'network.pt')['state_dict']
+        pretrained_dict = torch.load('/data/nnair/model/cnnimu_imu.pt')['state_dict']
         logging.info('        Network_User:        Pretrained model loaded')
 
         #for k, v in pretrained_dict.items():
@@ -208,6 +208,7 @@ class Network_User(object):
                            'conv_RA_2_1.weight', 'conv_RA_2_1.bias', 'conv_RA_2_2.weight', 'conv_RA_2_2.bias',
                            'conv_RL_1_1.weight', 'conv_RL_1_1.bias', 'conv_RL_1_2.weight',  'conv_RL_1_2.bias',
                            'conv_RL_2_1.weight', 'conv_RL_2_1.bias', 'conv_RL_2_2.weight', 'conv_RL_2_2.bias']
+            
 
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in list_layers}
         #print(pretrained_dict)
@@ -305,11 +306,12 @@ class Network_User(object):
         if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':
             network_obj = Network(self.config)
             network_obj.init_weights()
-
+            network_obj = self.load_weights(network_obj)
+            '''
             # IF finetuning, load the weights from a source dataset
             if self.config["usage_modus"] == "fine_tuning":
                 network_obj = self.load_weights(network_obj)
-
+            '''
             # Displaying size of tensors
             logging.info('        Network_User:    Train:    network layers')
             for l in list(network_obj.named_parameters()):

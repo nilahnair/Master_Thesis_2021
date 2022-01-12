@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('pamap cnn-imu lr 0.0001 b 50 50 epochs')
+ex= Experiment('orderpicking cnnimu lr 0.0001 b50 freeze=false')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -123,19 +123,19 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                    'cnn_imu': {'softmax': 50, 'attribute': 10}},
               'orderpicking' : {'cnn' : {'softmax' : 5, 'attribute': 10},
                                 'lstm' : {'softmax' : 25, 'attribute': 1},
-                                'cnn_imu' : {'softmax' : 15, 'attribute': 32}}} 
+                                'cnn_imu' : {'softmax' : 10, 'attribute': 32}}} 
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
 
     # Batch size
     batch_size_train = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 300, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 50, 'orderpicking' : 20}}
+        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 50, 'orderpicking' : 50}}
 
     batch_size_val = {
         'cnn': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 200},
         'lstm': {'locomotion': 100, 'gesture': 100, 'pamap2': 100, 'orderpicking' : 100},
-        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 50, 'orderpicking' : 20}}
+        'cnn_imu': {'locomotion': 100, 'gesture':50, 'pamap2': 50, 'orderpicking' : 50}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'locomotion': 4, 'gesture': 4, 'pamap2': 4, 'orderpicking': 4}
@@ -147,7 +147,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                    'pamap2': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'orderpicking' : {'cnn' :64, 'lstm' : 32, 'cnn_imu': 64}}
 
-    freeze_options = [False, True]
+    freeze_options = [False]
     #evolution_iter = 10000
     # User gotta take care of creating these folders, or storing the results in a different way
     
@@ -239,7 +239,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'gesture': '/data/nnair/oppor/gesture/input/',
                     'pamap2': '/data/nnair/pamap/inputnew9/',
                     'orderpicking': '/data/nnair/order/input4/'}
-    
+    '''
     dataset_root = {'locomotion': '/data/nnair/oppor/locomotions/inputdrill/',
                     'gesture': '/data/nnair/oppor/gesture/inputdrill/',
                     'pamap2': '/data/nnair/pamap/input400/',
@@ -249,7 +249,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'gesture': '/data/nnair/oppor/gesture/inputdrill/',
                     'pamap2': '/data/nnair/pamap/inputno9/',
                     'orderpicking': '/data/nnair/all/nonormorder/'}
-   
+   '''
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     GPU = 0
@@ -359,7 +359,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=2,
+    config = configuration(dataset_idx=3,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
