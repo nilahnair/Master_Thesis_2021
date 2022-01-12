@@ -224,7 +224,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         #folder_base = "/data/nnair/all/experiments/momin/"
         #folder_base = "/data/nnair/trial/lstm/"
         #folder_base = "/data/nnair/exp2/"
-        folder_base = "/data/nnair/lrp/exp1"
+        folder_base = "/data/nnair/lrp/exp1/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
