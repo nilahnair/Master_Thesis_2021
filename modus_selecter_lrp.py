@@ -8,7 +8,8 @@ from __future__ import print_function
 import logging
 import os
 
-from network_user_lrp import Network_User
+#from network_user_lrp import Network_User
+from network_user_act import Network_User
 import numpy as np
 
 import torch
@@ -461,7 +462,7 @@ class Modus_Selecter(object):
         """
         Setting the training, validation, evolution and final training.
         """
-        
+        '''
         self.lrp_call()
         '''
         logging.info('    Network_selecter: Net modus: {}'.format(self.config['usage_modus']))
@@ -476,5 +477,5 @@ class Modus_Selecter(object):
             self.train(itera=1,  testing=True)
         elif self.config['usage_modus'] == 'fine_tuning':
             self.train(itera=5, testing=True)
-        '''
+        
         return

@@ -580,7 +580,7 @@ class Network_User(object):
                         p=results_val['acc_attrs']
                         for i in range(0,p.shape[0]):
                             self.exp.log_scalar("acc_attr_{}_val_int_{}".format(i, ea_itera),p[i], itera)
-                    
+                    '''
                     if c_pos_val[0] == 0:
                         self.exp.log_scalar("standing_pos_val_{}".format(ea_itera), c_pos_val[0], itera)
                     else:
@@ -646,6 +646,7 @@ class Network_User(object):
                         self.exp.log_scalar("none_neg_val_{}".format(ea_itera), c_neg_val[7], itera)
                     else:
                         self.exp.log_scalar("none_neg_val_{}".format(ea_itera), c_neg_val[7]/(c_pos_val[7]+c_neg_val[7]), itera)
+                    '''
                     
                     count_pos_val=np.array(count_pos_val)
                     count_neg_val=np.array(count_neg_val)
@@ -786,9 +787,10 @@ class Network_User(object):
         np.savetxt(self.config['folder_exp'] + 'plots/f1w_val.txt', f1w_val, delimiter=",", fmt='%s')
         np.savetxt(self.config['folder_exp'] + 'plots/loss_val.txt', losses_val, delimiter=",", fmt='%s')
         
-        
-        torch.save({'state_dict': network_obj.state_dict(),'network_config': network_config}, '/data/nnair/model/cnn_mocap.pt')
+        '''save the model into the desired location'''
+        torch.save({'state_dict': network_obj.state_dict(),'network_config': network_config}, '/data/nnair/model/cnnimu_imu.pt')
         #model_io.write(network_obj, '../Master_Thesis_2021/model/model_save_mocap2.pkl')
+       
         del losses_train, accs_train, f1w_train, f1m_train
         del losses_val, accs_val, f1w_val, f1m_val
         del loss_train_val, accs_train_val, f1w_train_val, f1m_train_val
@@ -1009,7 +1011,8 @@ class Network_User(object):
         @return confusion matrix: confusion matrix of testing results
         '''
         logging.info('        Network_User:    Test ---->')
-
+        
+        
         # Setting the testing set
         logging.info('        Network_User:     Creating Dataloader---->')
         harwindows_test = HARWindows(csv_file=self.config['dataset_root'] + "test.csv",
@@ -1054,9 +1057,9 @@ class Network_User(object):
             print("network loaded from cnn_mocap.pt")
         elif self.config["dataset"]=='mbientlab':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
-            pretrained_dict= torch.load('/data/nnair/model/model_save_imu.pt')
-            print("network loaded from model_save_imu.pt")
-        '''    
+            pretrained_dict= torch.load('/data/nnair/model/cnn_imu.pt')['state_dict']
+            print("network loaded from cnn_imu.pt")
+           
         list_layers = ['conv_LA_1_1.weight', 'conv_LA_1_1.bias', 'conv_LA_1_2.weight', 'conv_LA_1_2.bias',
                            'conv_LA_2_1.weight', 'conv_LA_2_1.bias', 'conv_LA_2_2.weight', 'conv_LA_2_2.bias',
                            'conv_LL_1_1.weight', 'conv_LL_1_1.bias', 'conv_LL_1_2.weight', 'conv_LL_1_2.bias',
@@ -1075,7 +1078,7 @@ class Network_User(object):
                            'conv2_1.weight', 'conv2_1.bias', 'conv2_2.weight', 'conv2_2.bias',
                            'fc3.weight', 'fc3.bias', 'fc4.weight', 'fc4.bias',
                            'fc5.weight', 'fc5.bias']
-        
+        '''
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in list_layers}
         print(pretrained_dict)
 
@@ -2243,8 +2246,8 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
 
         for ( mo ) in model.modules():
             mo.register_forward_hook(hook)
+    
     '''
-
 
     ##################################################
     ############  evolution_evaluation  ##############
@@ -2260,16 +2263,17 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
         @return confusion_matrix: dict with validating/testing results
         @return best_itera: best iteration for training
        '''
-       '''
+     
        logging.info('        Network_User: Evolution evaluation iter {}'.format(ea_iter))
 
        confusion_matrix = 0
-       '''
+       
        #best_itera = 0
        
        #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
-       self.lrp()
-       '''
+       #self.lrp()
+       
+       
        if testing:
             logging.info('        Network_User: Testing')
             results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
@@ -2291,6 +2295,6 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
             else:
                 logging.info('        Network_User: Not selected modus')
         
-       '''
-       #return results, confusion_matrix, best_itera, c_pos, c_neg
-       return
+       
+       return results, confusion_matrix, best_itera, c_pos, c_neg
+       #return
