@@ -147,7 +147,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                    'pamap2': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'orderpicking' : {'cnn' :64, 'lstm' : 32, 'cnn_imu': 64}}
 
-    freeze_options = [False]
+    freeze_options = [False, True]
     #evolution_iter = 10000
     # User gotta take care of creating these folders, or storing the results in a different way
     
@@ -367,7 +367,7 @@ def my_config():
                            reshape_input=False,
                            learning_rates_idx=0,
                            name_counter=0,
-                           freeze=0,
+                           freeze=1,
                            fully_convolutional=False,
                            #percentage_idx=12,
                            #pooling=0,
