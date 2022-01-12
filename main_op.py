@@ -170,7 +170,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         #folder_base = "/data/nnair/oppor/locomotions/outputdrill/"
         #folder_base = "/data/nnair/oppor/gesture/outputdrill/"   
         #folder_base = "/data/nnair/order/output/"
-        folder_base = "/data/nnair/lrp/"
+        folder_base = "/data/nnair/lrp/exp1/"
         
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
