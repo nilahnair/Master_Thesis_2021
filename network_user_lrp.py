@@ -1850,7 +1850,7 @@ class Network_User(object):
         
         '''
         print("check activity")
-        
+        '''
         print("window 341")
         print(indxn0[0])
         print(al[indxn0[0]])
@@ -1869,13 +1869,13 @@ class Network_User(object):
         print("\n window 925")
         print(indxn0[16])
         print(al[indxn0[16]])
-     
-        
         '''
+        
+        
         for i in range(len(indxp0)):
             if al[indxp0[i]] ==2:
                 print(indxp0[i])
-        '''
+       
         '''
         #lrp_test_indx=[]
         
