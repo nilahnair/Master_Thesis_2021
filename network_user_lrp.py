@@ -1047,9 +1047,12 @@ class Network_User(object):
         print("model dict with state dict loaded")
         #print(model_dict)
         #print(model_dict.conv1_1.weight)
+        pretrained_dict= torch.load('/data/nnair/model/cnn_imu_new.pt')['state_dict']
+        print("network loaded from cnn_imu.pt")
         
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
+        '''
         if self.config["dataset"]=='mocap':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_mocap.pt'))
             #network_obj.load_state_dict(torch.load(self.config['folder_exp'] + 'network.pt')['state_dict'])
@@ -1059,6 +1062,7 @@ class Network_User(object):
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
             pretrained_dict= torch.load('/data/nnair/model/cnn_imu_new.pt')['state_dict']
             print("network loaded from cnn_imu.pt")
+        '''
         '''
         list_layers = ['conv_LA_1_1.weight', 'conv_LA_1_1.bias', 'conv_LA_1_2.weight', 'conv_LA_1_2.bias',
                            'conv_LA_2_1.weight', 'conv_LA_2_1.bias', 'conv_LA_2_2.weight', 'conv_LA_2_2.bias',
