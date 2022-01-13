@@ -1918,7 +1918,7 @@ class Network_User(object):
          
         '''      
         
-        v=225
+        v=341
         print(v)
         test_v=d[v]
         test_l=l[v]
@@ -2027,8 +2027,8 @@ class Network_User(object):
         tv = np.reshape(tv, newshape=(tv.shape[2], tv.shape[3]))
         print(tv.shape)
         
-        savetxt('relevance225.csv', p, delimiter=',')
-        savetxt('input225.csv', tv, delimiter=',')
+        savetxt('relevance341.csv', p, delimiter=',')
+        savetxt('input341.csv', tv, delimiter=',')
         '''
         '
         A_LA[0] = (A_LA[0].data).requires_grad_(True)

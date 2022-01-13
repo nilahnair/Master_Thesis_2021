@@ -12,20 +12,20 @@ import sys
 import matplotlib.pyplot as plt
 import datetime
 #import csv_reader
-from sliding_window import sliding_window
+#from sliding_window import sliding_window
 import pickle
-from torch.utils.data import DataLoader
-from HARWindows import HARWindows
-import torch
-import torch.nn as nn
-from network_act import Network
+#from torch.utils.data import DataLoader
+#from HARWindows import HARWindows
+#import torch
+#import torch.nn as nn
+#from network_act import Network
 # load numpy array from csv file
 from numpy import loadtxt
 # load array
 
-relevance = loadtxt('relevance1250.csv', delimiter=',')
+relevance = loadtxt('relevance225.csv', delimiter=',')
 print(relevance.shape)
-input_d = loadtxt('input1250.csv', delimiter=',')
+input_d = loadtxt('input225.csv', delimiter=',')
 print(input_d.shape)
 
 output = relevance*input_d
@@ -41,18 +41,18 @@ plt.rcParams.update(parameters)
 
 #plt.plot(x,relevance[:,53], label = "L_toe_TZ")
 #plt.plot(x,relevance[:,107], label = "R_toe_TZ")
-
-plt.plot(x,relevance[:,0], label = "head_RX")
-plt.plot(x,relevance[:,1], label = "head_RY")
-plt.plot(x,relevance[:,2], label = "head_RZ")
-plt.plot(x,relevance[:,3], label = "head_TX")
-plt.plot(x,relevance[:,4], label = "head_TY")
-plt.plot(x,relevance[:,5], label = "head_TZ")
-
-#plt.plot(x,input_d)
+'''
+plt.plot(x,input_d[:,0], label = "head_RX")
+plt.plot(x,input_d[:,1], label = "head_RY")
+plt.plot(x,input_d[:,2], label = "head_RZ")
+plt.plot(x,input_d[:,3], label = "head_TX")
+plt.plot(x,input_d[:,4], label = "head_TY")
+plt.plot(x,input_d[:,5], label = "head_TZ")
+'''
+plt.plot(x,relevance)
 plt.xlabel("time frame")
 plt.ylabel("relevance")
-plt.title('window 1250')
+plt.title('window 225')
 leg = plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),ncol=2)
 plt.show()
 
