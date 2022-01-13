@@ -1902,14 +1902,16 @@ class Network_User(object):
         
         for i in range(len(lrp_test_indx)):
         
-            print(lrp_test_indx[i])
+            
             test_v=d[lrp_test_indx[i]]
             test_l=l[lrp_test_indx[i]]
             test_act = al[lrp_test_indx[i]]
-        
+            test_pred = p[lrp_test_indx[i]]
             print("test subject")
+            print(lrp_test_indx[i])
             print(test_l)
             print(test_act)
+            print(test_pred)
            
                
         '''
