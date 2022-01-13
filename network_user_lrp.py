@@ -1849,10 +1849,32 @@ class Network_User(object):
                 print(indxn0[i])
         
         '''
-        print("right classified and activity cart")
+        print("check activity")
+        
+        print("window 6")
+        print(indxp0[6])
+        print(al[indxp0[6]])
+        print("\n window 39")
+        print(indxp0[39])
+        print(al[indxp0[39]])
+        
+        print("\n window 126")
+        print(indxp0[126])
+        print(al[indxp0[126]])
+        
+        print("\n window 626")
+        print(indxp0[626])
+        print(al[indxp0[626]])
+        
+        print("\n window 910")
+        print(indxn0[910])
+        print(al[indxp0[910]])
+        
+        '''
         for i in range(len(indxp0)):
             if al[indxp0[i]] ==2:
                 print(indxp0[i])
+        '''
         '''
         #lrp_test_indx=[]
         
