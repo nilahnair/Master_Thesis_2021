@@ -1658,7 +1658,7 @@ class Network_User(object):
             print("network loaded from model_save_mocap.pt")
         elif self.config["dataset"]=='mbientlab':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
-            pretrained_dict= torch.load('/data/nnair/model/model_save_imu.pt')
+            pretrained_dict= torch.load('/data/nnair/model/cnn_imu_new.pt')['state_dict']
             print("network loaded from model_save_imu.pt")
         '''   
         list_layers = ['conv_LA_1_1.weight', 'conv_LA_1_1.bias', 'conv_LA_1_2.weight', 'conv_LA_1_2.bias',
@@ -1722,7 +1722,7 @@ class Network_User(object):
             npz_file = "/data/nnair/lrp/exp1/cnn_mocap.npz"
             print("mocap output loaded")
         elif self.config["dataset"]=='mbientlab':
-            npz_file = "/data/nnair/lrp/exp1/test_imu.npz"
+            npz_file = "/data/nnair/lrp/exp1/cnn_imu.npz"
             print("imu output loaded")
         
         with np.load(npz_file) as data:
@@ -2274,8 +2274,8 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
        
        best_itera = 0
        
-       results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
-       #self.lrp()
+       #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+       self.lrp()
        
        '''
        if testing:
@@ -2300,5 +2300,5 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
                 logging.info('        Network_User: Not selected modus')
         
        '''
-       return results, confusion_matrix, best_itera, c_pos, c_neg
-       #return
+       #return results, confusion_matrix, best_itera, c_pos, c_neg
+       return
