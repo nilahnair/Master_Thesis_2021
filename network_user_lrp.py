@@ -1866,9 +1866,13 @@ class Network_User(object):
         print(indxp0[626])
         print(al[indxp0[626]])
         
+        print(indxn0)
+        
+        '''
         print("\n window 910")
         print(indxn0[910])
         print(al[indxn0[910]])
+        '''
         
         '''
         for i in range(len(indxp0)):
