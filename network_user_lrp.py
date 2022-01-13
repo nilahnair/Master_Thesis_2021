@@ -1038,14 +1038,14 @@ class Network_User(object):
         
         network_obj = Network(self.config)
         print("network weights before initialisation")
-        print(network_obj.conv1_1.weight)
+        #print(network_obj.conv1_1.weight)
         network_obj.init_weights()
         print("initalised network with weight")
-        print(network_obj)
-        print(network_obj.conv1_1.weight)
+        #print(network_obj)
+        #print(network_obj.conv1_1.weight)
         model_dict = network_obj.state_dict()
         print("model dict with state dict loaded")
-        print(model_dict)
+        #print(model_dict)
         #print(model_dict.conv1_1.weight)
         
         #print(network_obj)
@@ -1057,7 +1057,7 @@ class Network_User(object):
             print("network loaded from cnn_mocap.pt")
         elif self.config["dataset"]=='mbientlab':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
-            pretrained_dict= torch.load('/data/nnair/model/cnn_imu.pt')['state_dict']
+            pretrained_dict= torch.load('/data/nnair/model/cnn_imu_new.pt')['state_dict']
             print("network loaded from cnn_imu.pt")
         '''
         list_layers = ['conv_LA_1_1.weight', 'conv_LA_1_1.bias', 'conv_LA_1_2.weight', 'conv_LA_1_2.bias',
