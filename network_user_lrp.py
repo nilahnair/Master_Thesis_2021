@@ -1059,7 +1059,7 @@ class Network_User(object):
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
             pretrained_dict= torch.load('/data/nnair/model/cnn_imu.pt')['state_dict']
             print("network loaded from cnn_imu.pt")
-           
+        '''
         list_layers = ['conv_LA_1_1.weight', 'conv_LA_1_1.bias', 'conv_LA_1_2.weight', 'conv_LA_1_2.bias',
                            'conv_LA_2_1.weight', 'conv_LA_2_1.bias', 'conv_LA_2_2.weight', 'conv_LA_2_2.bias',
                            'conv_LL_1_1.weight', 'conv_LL_1_1.bias', 'conv_LL_1_2.weight', 'conv_LL_1_2.bias',
@@ -1078,7 +1078,7 @@ class Network_User(object):
                            'conv2_1.weight', 'conv2_1.bias', 'conv2_2.weight', 'conv2_2.bias',
                            'fc3.weight', 'fc3.bias', 'fc4.weight', 'fc4.bias',
                            'fc5.weight', 'fc5.bias']
-        '''
+        
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in list_layers}
         print(pretrained_dict)
 
@@ -1345,12 +1345,12 @@ class Network_User(object):
         if self.config["dataset"]=='mocap':
             npz_file = "/data/nnair/lrp/exp1/cnn_mocap.npz"
         elif self.config["dataset"]=='mbientlab':
-            npz_file = "/data/nnair/lrp/exp1/test_imu.npz"
+            npz_file = "/data/nnair/lrp/exp1/cnn_imu.npz"
         
         np.savez(npz_file, d=d, l=l, al=al, p=p)
         
         
-        with np.load("/data/nnair/lrp/exp1/cnn_mocap.npz") as data:
+        with np.load("/data/nnair/lrp/exp1/cnn_imu.npz") as data:
             d=data['d']
             l=data['l']
             al=data['al']
@@ -2268,12 +2268,12 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
 
        confusion_matrix = 0
        
-       #best_itera = 0
+       best_itera = 0
        
-       #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
+       results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
        #self.lrp()
        
-       
+       '''
        if testing:
             logging.info('        Network_User: Testing')
             results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
@@ -2295,6 +2295,6 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
             else:
                 logging.info('        Network_User: Not selected modus')
         
-       
+       '''
        return results, confusion_matrix, best_itera, c_pos, c_neg
        #return

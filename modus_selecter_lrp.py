@@ -9,7 +9,7 @@ import logging
 import os
 
 #from network_user_lrp import Network_User
-from network_user_act import Network_User
+from network_user_lrp import Network_User
 import numpy as np
 
 import torch
