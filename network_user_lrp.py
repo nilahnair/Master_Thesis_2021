@@ -1827,7 +1827,7 @@ class Network_User(object):
                         countern7.append(k[j])
                         indxn7.append(i)
         
-        '''
+        
         for i in range(len(indxp1)):
             if counterp1[i]>=0.9:
                 print("positive value and index greater than 0.9")
@@ -1847,14 +1847,14 @@ class Network_User(object):
                 print("neg value and index greater than 0.4 and less than 0.5")
                 print(countern1[i])
                 print(indxn1[i])
-        '''
+        
         '''
         print("right classified and activity cart")
         for i in range(len(indxp1)):
             if al[indxp1[i]] ==2:
                 print(indxp1[i])
         '''
-        lrp_test_indx=[]
+        #lrp_test_indx=[]
         
         
         '''
@@ -1888,6 +1888,7 @@ class Network_User(object):
         print(test_act)
         test_act=al[lrp_test_indx[0]]
         '''
+        '''
         v=1250
         print(v)
         test_v=d[v]
@@ -1898,6 +1899,7 @@ class Network_User(object):
         print(test_act)
         #test_act=al[lrp_test_indx[0]]
         '''
+        '''
         print(6000)
         test_v=d[6000]
         test_l=l[6000]
@@ -1905,18 +1907,18 @@ class Network_User(object):
         print(test_l)
         test_act=al[6000]
         '''
-            
+        '''   
         test_v= torch.from_numpy(test_v)
         test_v= test_v.to(self.device, dtype=torch.float)
         test_l= np.array(test_l, dtype=np.float64)
         test_l= torch.from_numpy(test_l)
         test_l= test_l.to(self.device, dtype=torch.long) 
-        
+        '''
         '''
         for idx, m in enumerate(network_obj.modules()):
             print(idx, '->', m)
         '''
-        
+        '''
         layers= [module for module in network_obj.modules()]
         #first layer is just the network layout
         L=len(layers)
@@ -1998,7 +2000,7 @@ class Network_User(object):
         
         savetxt('relevance1250.csv', p, delimiter=',')
         savetxt('input1250.csv', tv, delimiter=',')
-        
+        '''
         '''
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
         A_LL[0] = (A_LL[0].data).requires_grad_(True)
@@ -2270,9 +2272,9 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
      
        logging.info('        Network_User: Evolution evaluation iter {}'.format(ea_iter))
 
-       confusion_matrix = 0
+       #confusion_matrix = 0
        
-       best_itera = 0
+       #best_itera = 0
        
        #results, confusion_matrix, c_pos, c_neg = self.test(ea_iter)
        self.lrp()
