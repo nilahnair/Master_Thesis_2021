@@ -1870,12 +1870,13 @@ class Network_User(object):
         print(indxn0[16])
         print(al[indxn0[16]])
         '''
-        '''        
-        for i in range(len(indxp0)):
-            if al[indxp0[i]] ==2:
-                print(indxp0[i])
-        '''
+        print("subject5 windows of activity cart")
+             
+        for i in range(len(indxp5)):
+            if al[indxp5[i]] ==2:
+                print(indxp5[i])
         
+        '''
         lrp_test_indx=[]
         
         
@@ -1912,7 +1913,7 @@ class Network_User(object):
             print(test_l)
             print(test_act)
             print(test_pred)
-           
+         '''  
                
         '''
         v=1250
