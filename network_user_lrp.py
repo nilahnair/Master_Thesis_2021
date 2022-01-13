@@ -1827,7 +1827,7 @@ class Network_User(object):
                         countern7.append(k[j])
                         indxn7.append(i)
         
-        
+        '''
         for i in range(len(indxp0)):
             if counterp0[i]>=0.9:
                 print("positive value and index greater than 0.9")
@@ -1850,13 +1850,14 @@ class Network_User(object):
         
         '''
         print("right classified and activity cart")
-        for i in range(len(indxp1)):
+        for i in range(len(indxp0)):
             if al[indxp1[i]] ==2:
                 print(indxp1[i])
         '''
         #lrp_test_indx=[]
         
         
+        '''
         '''
         for i in range(len(indxp1)):
             #947
