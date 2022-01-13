@@ -1851,24 +1851,24 @@ class Network_User(object):
         '''
         print("check activity")
         
-        print("window 6")
-        print(indxp0[6])
-        print(al[indxp0[6]])
-        print("\n window 39")
-        print(indxp0[39])
-        print(al[indxp0[39]])
-        
-        print("\n window 126")
-        print(indxp0[126])
-        print(al[indxp0[126]])
-        
-        print("\n window 626")
-        print(indxp0[626])
-        print(al[indxp0[626]])
+        print("window 341")
+        print(indxn0[0])
+        print(al[indxn0[0]])
+        print("\n window 713")
+        print(indxn0[4])
+        print(al[indxn0[4]])
         
         print("\n window 910")
-        print(indxp0[910])
-        print(al[indxp0[910]])
+        print(indxn0[5])
+        print(al[indxn0[5]])
+        
+        print("\n window 916")
+        print(indxn0[11])
+        print(al[indxn0[11]])
+        
+        print("\n window 925")
+        print(indxn0[16])
+        print(al[indxn0[16]])
      
         
         '''
