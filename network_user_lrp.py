@@ -1870,11 +1870,13 @@ class Network_User(object):
         print(indxn0[16])
         print(al[indxn0[16]])
         '''
+        '''
         print("subject5 windows of activity cart")
              
         for i in range(len(indxp5)):
             if al[indxp5[i]] ==2:
                 print(indxp5[i])
+        '''
         
         '''
         lrp_test_indx=[]
@@ -1913,10 +1915,10 @@ class Network_User(object):
             print(test_l)
             print(test_act)
             print(test_pred)
-         '''  
-               
-        '''
-        v=1250
+         
+        '''      
+        
+        v=225
         print(v)
         test_v=d[v]
         test_l=l[v]
@@ -1925,7 +1927,7 @@ class Network_User(object):
         print(test_l)
         print(test_act)
         #test_act=al[lrp_test_indx[0]]
-        '''
+        
         '''
         print(6000)
         test_v=d[6000]
@@ -1934,18 +1936,18 @@ class Network_User(object):
         print(test_l)
         test_act=al[6000]
         '''
-        '''   
+         
         test_v= torch.from_numpy(test_v)
         test_v= test_v.to(self.device, dtype=torch.float)
         test_l= np.array(test_l, dtype=np.float64)
         test_l= torch.from_numpy(test_l)
         test_l= test_l.to(self.device, dtype=torch.long) 
-        '''
+        
         '''
         for idx, m in enumerate(network_obj.modules()):
             print(idx, '->', m)
         '''
-        '''
+        
         layers= [module for module in network_obj.modules()]
         #first layer is just the network layout
         L=len(layers)
@@ -2025,10 +2027,10 @@ class Network_User(object):
         tv = np.reshape(tv, newshape=(tv.shape[2], tv.shape[3]))
         print(tv.shape)
         
-        savetxt('relevance1250.csv', p, delimiter=',')
-        savetxt('input1250.csv', tv, delimiter=',')
+        savetxt('relevance225.csv', p, delimiter=',')
+        savetxt('input225.csv', tv, delimiter=',')
         '''
-        '''
+        '
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
         A_LL[0] = (A_LL[0].data).requires_grad_(True)
         A_N[0] = (A_N[0].data).requires_grad_(True)
@@ -2044,8 +2046,8 @@ z -= utils.newlayer(layers[0],lambda p: p.clamp(max=0)).forward(hb)    # step 1 
 s = (R[1]/z).data                                                      # step 2
 (z*s).sum().backward(); c,cp,cm = A[0].grad,lb.grad,hb.grad            # step 3
 R[0] = (A[0]*c+lb*cp+hb*cm).data  
-        '''
-        '''
+       
+        
         if self.config["dataset"]=='mocap':
                 idx_LA = np.arange(12, 24)
                 idx_LA = np.concatenate([idx_LA, np.arange(36, 42)])
@@ -2232,7 +2234,7 @@ R[0] = (A[0]*c+lb*cp+hb*cm).data
         
   
         return
-        
+       
     #def newlayer(self, layer, g):
     def newlayer(self, layer):
         """Clone a layer and pass its parameters through the function g."""
