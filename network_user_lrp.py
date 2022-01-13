@@ -1828,25 +1828,25 @@ class Network_User(object):
                         indxn7.append(i)
         
         
-        for i in range(len(indxp1)):
-            if counterp1[i]>=0.9:
+        for i in range(len(indxp0)):
+            if counterp0[i]>=0.9:
                 print("positive value and index greater than 0.9")
-                print(counterp1[i])
-                print(indxp1[i])
-            elif counterp1[i]>=0.4 and counterp1[i]<=0.5:
+                print(counterp0[i])
+                print(indxp0[i])
+            elif counterp0[i]>=0.4 and counterp0[i]<=0.5:
                 print("positive value and index greater than 0.4 and less than 0.5")
-                print(counterp1[i])
-                print(indxp1[i])
+                print(counterp0[i])
+                print(indxp0[i])
         
-        for i in range(len(indxn1)):
-            if countern1[i]>=0.2 and countern1[i]<=0.3:
+        for i in range(len(indxn0)):
+            if countern0[i]>=0.2 and countern0[i]<=0.3:
                 print("neg value and index greater than 0.2 and less than 0.3")
-                print(countern1[i])
-                print(indxn1[i])
-            elif countern1[i]>=0.4 and countern1[i]<=0.5:
+                print(countern0[i])
+                print(indxn0[i])
+            elif countern0[i]>=0.4 and countern0[i]<=0.5:
                 print("neg value and index greater than 0.4 and less than 0.5")
-                print(countern1[i])
-                print(indxn1[i])
+                print(countern0[i])
+                print(indxn0[i])
         
         '''
         print("right classified and activity cart")
