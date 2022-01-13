@@ -1883,16 +1883,16 @@ class Network_User(object):
         
         for i in range(len(indxp0)):
             #947
-            if indxp1[i] == 225:
+            if indxp0[i] == 225:
                 lrp_test_indx.append(indxp0[i])
-            elif indxp1[i] == 39:
+            elif indxp0[i] == 39:
                 lrp_test_indx.append(indxp0[i])
                 
                 
         for i in range (len(indxn0)):
-            if indxn1[i] == 341:
+            if indxn0[i] == 341:
                 lrp_test_indx.append(indxn0[i])
-            elif indxn1[i] == 343:
+            elif indxn0[i] == 343:
                 lrp_test_indx.append(indxn0[i])
         
         
