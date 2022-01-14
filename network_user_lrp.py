@@ -1923,9 +1923,11 @@ class Network_User(object):
         test_v=d[v]
         test_l=l[v]
         test_act = al[v]
+        test_pre =p[v]
         print("test subject")
         print(test_l)
         print(test_act)
+        print(test_pre)
         #test_act=al[lrp_test_indx[0]]
         
         '''
@@ -1988,6 +1990,9 @@ class Network_User(object):
         #print(fA)
         #print(len(fA))
         sml=sm.forward(fA[4])
+        print("predicted")
+        print(test_pre)
+        print("sml")
         print(sml)
         
         print("Relevance part")
