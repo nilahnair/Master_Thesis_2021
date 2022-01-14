@@ -23,9 +23,9 @@ import pickle
 from numpy import loadtxt
 # load array
 
-relevance = loadtxt('relevance225.csv', delimiter=',')
+relevance = loadtxt('relevance4787.csv', delimiter=',')
 print(relevance.shape)
-input_d = loadtxt('input225.csv', delimiter=',')
+input_d = loadtxt('input4787.csv', delimiter=',')
 print(input_d.shape)
 
 output = relevance*input_d
@@ -49,10 +49,17 @@ plt.plot(x,input_d[:,3], label = "head_TX")
 plt.plot(x,input_d[:,4], label = "head_TY")
 plt.plot(x,input_d[:,5], label = "head_TZ")
 '''
-plt.plot(x,relevance)
+plt.plot(x,relevance[:,0], label = "AccX_LA")
+plt.plot(x,relevance[:,1], label = "AccY_LA")
+plt.plot(x,relevance[:,2], label = "AccZ_LA")
+plt.plot(x,relevance[:,3], label = "GyrX_LA")
+plt.plot(x,relevance[:,4], label = "GyrY_LA")
+plt.plot(x,relevance[:,5], label = "GYrZ_LA")
+
+#plt.plot(x,relevance)
 plt.xlabel("time frame")
 plt.ylabel("relevance")
-plt.title('window 225')
+plt.title('window 4787')
 leg = plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),ncol=2)
 plt.show()
 

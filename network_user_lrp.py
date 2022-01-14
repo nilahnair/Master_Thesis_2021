@@ -1659,7 +1659,7 @@ class Network_User(object):
         elif self.config["dataset"]=='mbientlab':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
             pretrained_dict= torch.load('/data/nnair/model/cnn_imu_new.pt')['state_dict']
-            print("network loaded from model_save_imu.pt")
+            print("network loaded from cnn_imu_new.pt")
         '''   
         list_layers = ['conv_LA_1_1.weight', 'conv_LA_1_1.bias', 'conv_LA_1_2.weight', 'conv_LA_1_2.bias',
                            'conv_LA_2_1.weight', 'conv_LA_2_1.bias', 'conv_LA_2_2.weight', 'conv_LA_2_2.bias',
