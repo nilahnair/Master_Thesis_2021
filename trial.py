@@ -23,9 +23,9 @@ import pickle
 from numpy import loadtxt
 # load array
 
-relevance = loadtxt('relevance341.csv', delimiter=',')
+relevance = loadtxt('relevance262.csv', delimiter=',')
 print(relevance.shape)
-input_d = loadtxt('input341.csv', delimiter=',')
+input_d = loadtxt('input262.csv', delimiter=',')
 print(input_d.shape)
 
 output = relevance*input_d
@@ -42,14 +42,21 @@ plt.rcParams.update(parameters)
 #plt.plot(x,relevance[:,53], label = "L_toe_TZ")
 #plt.plot(x,relevance[:,107], label = "R_toe_TZ")
 '''
-plt.plot(x,input_d[:,0], label = "head_RX")
-plt.plot(x,input_d[:,1], label = "head_RY")
-plt.plot(x,input_d[:,2], label = "head_RZ")
-plt.plot(x,input_d[:,3], label = "head_TX")
-plt.plot(x,input_d[:,4], label = "head_TY")
-plt.plot(x,input_d[:,5], label = "head_TZ")
+plt.plot(x, relevance[:,0], label = "head_RX")
+plt.plot(x,relevance[:,1], label = "head_RY")
+plt.plot(x,relevance[:,2], label = "head_RZ")
+plt.plot(x,relevance[:,3], label = "head_TX")
+plt.plot(x,relevance[:,4], label = "head_TY")
+plt.plot(x,relevance[:,5], label = "head_TZ")
 '''
-
+'''
+plt.plot(x, relevance[:,54], label = "L_wrist_RX")
+plt.plot(x,relevance[:,55], label = "L_wrist_RY")
+plt.plot(x,relevance[:,56], label = "L_wrist_RZ")
+plt.plot(x,relevance[:,57], label = "L_wrist_TX")
+plt.plot(x,relevance[:,58], label = "L_wrist_TY")
+plt.plot(x,relevance[:,59], label = "L_wrist_TZ")
+'''
 #k= relevance[:,6:9]
 #print(k)
 #rmsav= np.std(k, axis=1)
@@ -104,31 +111,58 @@ plt.plot(x,relevance[:,27], label = "GyrX_RL")
 plt.plot(x,relevance[:,28], label = "GyrY_RL")
 plt.plot(x,relevance[:,29], label = "GYrZ_RL")
 '''
+#print(relevance[:,3:6])
+#print(np.where(relevance[:,3:6]>0,relevance[:,3:6],0))
 '''
-rmsacc_LA= np.std(relevance[:,0:3], axis=1)
-rmsacc_LL= np.std(relevance[:,6:9], axis=1)
-rmsacc_N= np.std(relevance[:,12:15], axis=1)
-rmsacc_RA= np.std(relevance[:,18:21], axis=1)
-rmsacc_RL= np.std(relevance[:,24:27], axis=1)
-'''
+plt.plot(x,np.sqrt(np.mean(np.square(np.where(relevance[:,0:6]>0,relevance[:,0:6],0)), axis=1)), label = "LA")
+plt.plot(x,np.sqrt(np.mean(np.square(np.where(relevance[:,6:12]>0,relevance[:,6:12],0)), axis=1)), label = "LL")
+plt.plot(x,np.sqrt(np.mean(np.square(np.where(relevance[:,12:18]>0,relevance[:,12:18],0)), axis=1)), label = "N")
+plt.plot(x,np.sqrt(np.mean(np.square(np.where(relevance[:,18:24]>0,relevance[:,18:24],0)), axis=1)), label = "RA")
+plt.plot(x,np.sqrt(np.mean(np.square(np.where(relevance[:,24:30]>0,relevance[:,24:30],0)), axis=1)), label = "RL")
 
-plt.plot(x,np.std(relevance[:,0:3], axis=1), label = "ACC_LA")
-plt.plot(x,np.std(relevance[:,6:9], axis=1), label = "ACC_LL")
-plt.plot(x,np.std(relevance[:,12:15], axis=1), label = "ACC_N")
-plt.plot(x,np.std(relevance[:,18:21], axis=1), label = "ACC_RA")
-plt.plot(x,np.std(relevance[:,24:27], axis=1), label = "ACC_RL")
 '''
-plt.plot(x,np.std(relevance[:,3:6], axis=1), label = "GYR_LA")
-plt.plot(x,np.std(relevance[:,9:12], axis=1), label = "GYR_LL")
-plt.plot(x,np.std(relevance[:,15:18], axis=1), label = "GYR_N")
-plt.plot(x,np.std(relevance[:,21:24], axis=1), label = "GYR_RA")
-plt.plot(x,np.std(relevance[:,27:30], axis=1), label = "GYR_RL")
 '''
+plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,3:6]), axis=1)), label = "GYR_LA")
+plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,9:12]), axis=1)), label = "GYR_LL")
+plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,15:18]), axis=1)), label = "GYR_N")
+plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,21:24]), axis=1)), label = "GYR_RA")
+plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,27:30]), axis=1)), label = "GYR_RL")
+'''
+idx_LA = np.arange(12, 24)
+idx_LA = np.concatenate([idx_LA, np.arange(36, 42)])
+idx_LA = np.concatenate([idx_LA, np.arange(54, 66)])
+LA=relevance[:,idx_LA]
+
+idx_LL = np.arange(24, 36)
+idx_LL = np.concatenate([idx_LL, np.arange(42, 54)])
+LL=relevance[:,idx_LL]
+                    
+idx_N = np.arange(0, 12)
+idx_N = np.concatenate([idx_N, np.arange(120, 126)])
+N= relevance[:,idx_N]
+
+idx_RA = np.arange(66, 78)
+idx_RA = np.concatenate([idx_RA, np.arange(90, 96)])
+idx_RA = np.concatenate([idx_RA, np.arange(108, 120)])
+RA=relevance[:,idx_RA]    
+
+idx_RL = np.arange(78, 90)
+idx_RL = np.concatenate([idx_RL, np.arange(96, 108)])
+RL=relevance[:,idx_RL]                         
+                
+plt.plot(x,np.sqrt(np.mean(np.square(np.where(LA>0,LA,0)), axis=1)), label = "LA")
+plt.plot(x,np.sqrt(np.mean(np.square(np.where(LL>0,LL,0)), axis=1)), label = "LL")
+plt.plot(x,np.sqrt(np.mean(np.square(np.where(N>0,N,0)), axis=1)), label = "N")
+plt.plot(x,np.sqrt(np.mean(np.square(np.where(RA>0,RA,0)), axis=1)), label = "RA")
+plt.plot(x,np.sqrt(np.mean(np.square(np.where(RL>0,RL,0)), axis=1)), label = "RL")
+
+#print(relevance[:,3:6])
+#print(np.sqrt(np.mean(np.square(relevance[:,3:6]), axis=1)))
 #plt.plot(x,rmsav, label = "RMS")
 #plt.plot(x,relevance)
-plt.xlabel("time frame")
-plt.ylabel("relevance")
-plt.title('window 341')
+plt.xlabel("Time frame")
+plt.ylabel("RMS Relevance")
+plt.title('Subject 0, Cart activity, OMoCAP')
 leg = plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),ncol=2)
 plt.show()
 

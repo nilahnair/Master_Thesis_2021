@@ -1882,14 +1882,14 @@ class Network_User(object):
         print(indxn0[16])
         print(al[indxn0[16]])
         '''
-        '''
+        
         print("subject 0 windows with activity cart")
-        for i in range(len(indxn0)):
-            if al[indxn0[i]] ==2:
-                print(indxn0[i])
+        for i in range(len(indxp5)):
+            if al[indxp5[i]] ==2:
+                print(indxp5[i])
         '''
         
-        '''
+        
         lrp_test_indx=[]
         
         
@@ -1928,7 +1928,7 @@ class Network_User(object):
             print(test_pred)
          
         '''      
-        
+        '''
         v=262
         print(v)
         test_v=d[v]
@@ -1940,7 +1940,7 @@ class Network_User(object):
         print(test_act)
         print(test_pre)
         #test_act=al[lrp_test_indx[0]]
-        
+        '''
         '''
         print(6000)
         test_v=d[6000]
@@ -1949,7 +1949,7 @@ class Network_User(object):
         print(test_l)
         test_act=al[6000]
         '''
-        
+        '''
         test_v= torch.from_numpy(test_v)
         test_v= test_v.to(self.device, dtype=torch.float)
         test_l= np.array(test_l, dtype=np.float64)
@@ -2041,7 +2041,7 @@ class Network_User(object):
         
         savetxt('relevance262.csv', p, delimiter=',')
         savetxt('input262.csv', tv, delimiter=',')
-        
+        '''
         '''
         
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
