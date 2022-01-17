@@ -1835,7 +1835,7 @@ class Network_User(object):
                         countern7.append(k[j])
                         indxn7.append(i)
         
-        
+        '''
         for i in range(len(indxp0)):
             if counterp0[i]>=0.9:
                 print("positive value and index greater than 0.9")
@@ -1859,9 +1859,9 @@ class Network_User(object):
                 print(countern0[i])
                 print(indxn0[i])
                 print(al[indxn0[i]])
+        '''
         
-        
-        print("check activity")
+        #print("check activity")
         '''
         print("window 341")
         print(indxn0[0])
@@ -1882,13 +1882,11 @@ class Network_User(object):
         print(indxn0[16])
         print(al[indxn0[16]])
         '''
-        '''
-        print("subject5 windows of activity cart")
-        '''
+        
         print("subject 0 windows with activity cart")
-        for i in range(len(indxp0)):
-            if al[indxp0[i]] ==2:
-                print(indxp0[i])
+        for i in range(len(indxn0)):
+            if al[indxn0[i]] ==2:
+                print(indxn0[i])
         
         
         '''
