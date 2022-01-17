@@ -1882,13 +1882,13 @@ class Network_User(object):
         print(indxn0[16])
         print(al[indxn0[16]])
         '''
-        
+        '''
         print("subject 0 windows with activity cart")
         for i in range(len(indxp5)):
             if al[indxp5[i]] ==2:
                 print(indxp5[i])
         '''
-        
+        '''
         
         lrp_test_indx=[]
         
@@ -1928,8 +1928,8 @@ class Network_User(object):
             print(test_pred)
          
         '''      
-        '''
-        v=262
+        
+        v=4910
         print(v)
         test_v=d[v]
         test_l=l[v]
@@ -2039,9 +2039,9 @@ class Network_User(object):
         tv = np.reshape(tv, newshape=(tv.shape[2], tv.shape[3]))
         print(tv.shape)
         
-        savetxt('relevance262.csv', p, delimiter=',')
-        savetxt('input262.csv', tv, delimiter=',')
-        '''
+        savetxt('relevance4910.csv', p, delimiter=',')
+        savetxt('input4910.csv', tv, delimiter=',')
+        
         '''
         
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
