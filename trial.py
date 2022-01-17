@@ -23,9 +23,9 @@ import pickle
 from numpy import loadtxt
 # load array
 
-relevance = loadtxt('relevance4787.csv', delimiter=',')
+relevance = loadtxt('relevance341.csv', delimiter=',')
 print(relevance.shape)
-input_d = loadtxt('input4787.csv', delimiter=',')
+input_d = loadtxt('input341.csv', delimiter=',')
 print(input_d.shape)
 
 output = relevance*input_d
@@ -49,17 +49,86 @@ plt.plot(x,input_d[:,3], label = "head_TX")
 plt.plot(x,input_d[:,4], label = "head_TY")
 plt.plot(x,input_d[:,5], label = "head_TZ")
 '''
+
+#k= relevance[:,6:9]
+#print(k)
+#rmsav= np.std(k, axis=1)
+#print (rmsav)
+'''
 plt.plot(x,relevance[:,0], label = "AccX_LA")
 plt.plot(x,relevance[:,1], label = "AccY_LA")
 plt.plot(x,relevance[:,2], label = "AccZ_LA")
+'''
+'''
 plt.plot(x,relevance[:,3], label = "GyrX_LA")
 plt.plot(x,relevance[:,4], label = "GyrY_LA")
 plt.plot(x,relevance[:,5], label = "GYrZ_LA")
+'''
+'''
+plt.plot(x,relevance[:,6], label = "AccX_LL")
+plt.plot(x,relevance[:,7], label = "AccY_LL")
+plt.plot(x,relevance[:,8], label = "AccZ_LL")
+'''
+'''
+plt.plot(x,relevance[:,9], label = "GyrX_LL")
+plt.plot(x,relevance[:,10], label = "GyrY_LL")
+plt.plot(x,relevance[:,11], label = "GYrZ_LL")
+'''
+'''
+plt.plot(x,relevance[:,12], label = "AccX_N")
+plt.plot(x,relevance[:,13], label = "AccY_N")
+plt.plot(x,relevance[:,14], label = "AccZ_N")
+'''
+'''
+plt.plot(x,relevance[:,15], label = "GyrX_N")
+plt.plot(x,relevance[:,16], label = "GyrY_N")
+plt.plot(x,relevance[:,17], label = "GYrZ_N")
+'''
+'''
+plt.plot(x,relevance[:,18], label = "AccX_RA")
+plt.plot(x,relevance[:,19], label = "AccY_RA")
+plt.plot(x,relevance[:,20], label = "AccZ_RA")
+'''
+'''
+plt.plot(x,relevance[:,21], label = "GyrX_RA")
+plt.plot(x,relevance[:,22], label = "GyrY_RA")
+plt.plot(x,relevance[:,23], label = "GYrZ_RA")
+'''
+'''
+plt.plot(x,relevance[:,24], label = "AccX_RL")
+plt.plot(x,relevance[:,25], label = "AccY_RL")
+plt.plot(x,relevance[:,26], label = "AccZ_RL")
+'''
+'''
+plt.plot(x,relevance[:,27], label = "GyrX_RL")
+plt.plot(x,relevance[:,28], label = "GyrY_RL")
+plt.plot(x,relevance[:,29], label = "GYrZ_RL")
+'''
+'''
+rmsacc_LA= np.std(relevance[:,0:3], axis=1)
+rmsacc_LL= np.std(relevance[:,6:9], axis=1)
+rmsacc_N= np.std(relevance[:,12:15], axis=1)
+rmsacc_RA= np.std(relevance[:,18:21], axis=1)
+rmsacc_RL= np.std(relevance[:,24:27], axis=1)
+'''
 
+plt.plot(x,np.std(relevance[:,0:3], axis=1), label = "ACC_LA")
+plt.plot(x,np.std(relevance[:,6:9], axis=1), label = "ACC_LL")
+plt.plot(x,np.std(relevance[:,12:15], axis=1), label = "ACC_N")
+plt.plot(x,np.std(relevance[:,18:21], axis=1), label = "ACC_RA")
+plt.plot(x,np.std(relevance[:,24:27], axis=1), label = "ACC_RL")
+'''
+plt.plot(x,np.std(relevance[:,3:6], axis=1), label = "GYR_LA")
+plt.plot(x,np.std(relevance[:,9:12], axis=1), label = "GYR_LL")
+plt.plot(x,np.std(relevance[:,15:18], axis=1), label = "GYR_N")
+plt.plot(x,np.std(relevance[:,21:24], axis=1), label = "GYR_RA")
+plt.plot(x,np.std(relevance[:,27:30], axis=1), label = "GYR_RL")
+'''
+#plt.plot(x,rmsav, label = "RMS")
 #plt.plot(x,relevance)
 plt.xlabel("time frame")
 plt.ylabel("relevance")
-plt.title('window 4787')
+plt.title('window 341')
 leg = plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),ncol=2)
 plt.show()
 

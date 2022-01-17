@@ -1047,8 +1047,10 @@ class Network_User(object):
         print("model dict with state dict loaded")
         #print(model_dict)
         #print(model_dict.conv1_1.weight)
-        pretrained_dict= torch.load('/data/nnair/model/cnn_imu_new.pt')['state_dict']
-        print("network loaded from cnn_imu.pt")
+        #pretrained_dict= torch.load('/data/nnair/model/cnn_imu_new.pt')['state_dict']
+        pretrained_dict= torch.load('/data/nnair/model/cnn_mocap.pt')['state_dict']
+        #print("network loaded from cnn_imu.pt")
+        print("network loaded from cnn_mocap.pt")
         
         #print(network_obj)
         #print(network_obj.conv_LA_1_1.weight)
@@ -1353,12 +1355,18 @@ class Network_User(object):
         
         np.savez(npz_file, d=d, l=l, al=al, p=p)
         
-        
-        with np.load("/data/nnair/lrp/exp1/cnn_imu.npz") as data:
-            d=data['d']
-            l=data['l']
-            al=data['al']
-            p=data['p']
+        if self.config["dataset"]=='mocap':
+            with np.load("/data/nnair/lrp/exp1/cnn_mocap.npz") as data:
+                 d=data['d']
+                 l=data['l']
+                 al=data['al']
+                 p=data['p']
+        elif self.config["dataset"]=='mbientlab':
+            with np.load("/data/nnair/lrp/exp1/cnn_imu.npz") as data:
+                d=data['d']
+                l=data['l']
+                al=data['al']
+                p=data['p']
         
         
         counterp0=[]
@@ -1655,7 +1663,7 @@ class Network_User(object):
         if self.config["dataset"]=='mocap':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_mocap.pt'))
             pretrained_dict= torch.load('/data/nnair/model/cnn_mocap.pt')['state_dict']
-            print("network loaded from model_save_mocap.pt")
+            print("network loaded from cnn_mocap.pt")
         elif self.config["dataset"]=='mbientlab':
             #network_obj.load_state_dict(torch.load('/data/nnair/model/model_save_imu.pt'))
             pretrained_dict= torch.load('/data/nnair/model/cnn_imu_new.pt')['state_dict']
@@ -1827,7 +1835,7 @@ class Network_User(object):
                         countern7.append(k[j])
                         indxn7.append(i)
         
-        '''
+        
         for i in range(len(indxp0)):
             if counterp0[i]>=0.9:
                 print("positive value and index greater than 0.9")
@@ -1848,7 +1856,7 @@ class Network_User(object):
                 print(countern0[i])
                 print(indxn0[i])
         
-        '''
+        
         print("check activity")
         '''
         print("window 341")
@@ -1872,11 +1880,12 @@ class Network_User(object):
         '''
         '''
         print("subject5 windows of activity cart")
-             
+        '''
+        print("subject 0 windows with activity cart")
         for i in range(len(indxp5)):
             if al[indxp5[i]] ==2:
                 print(indxp5[i])
-        '''
+        
         
         '''
         lrp_test_indx=[]
@@ -1917,7 +1926,7 @@ class Network_User(object):
             print(test_pred)
          
         '''      
-        
+        '''
         v=4787
         print(v)
         test_v=d[v]
@@ -1929,7 +1938,7 @@ class Network_User(object):
         print(test_act)
         print(test_pre)
         #test_act=al[lrp_test_indx[0]]
-        
+        '''
         '''
         print(6000)
         test_v=d[6000]
@@ -1938,17 +1947,13 @@ class Network_User(object):
         print(test_l)
         test_act=al[6000]
         '''
-         
+        '''
         test_v= torch.from_numpy(test_v)
         test_v= test_v.to(self.device, dtype=torch.float)
         test_l= np.array(test_l, dtype=np.float64)
         test_l= torch.from_numpy(test_l)
         test_l= test_l.to(self.device, dtype=torch.long) 
-        
-        '''
-        for idx, m in enumerate(network_obj.modules()):
-            print(idx, '->', m)
-        '''
+       
         
         layers= [module for module in network_obj.modules()]
         #first layer is just the network layout
@@ -2035,7 +2040,8 @@ class Network_User(object):
         savetxt('relevance4787.csv', p, delimiter=',')
         savetxt('input4787.csv', tv, delimiter=',')
         '''
-        '
+        '''
+        
         A_LA[0] = (A_LA[0].data).requires_grad_(True)
         A_LL[0] = (A_LL[0].data).requires_grad_(True)
         A_N[0] = (A_N[0].data).requires_grad_(True)
