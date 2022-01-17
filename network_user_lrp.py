@@ -1841,20 +1841,24 @@ class Network_User(object):
                 print("positive value and index greater than 0.9")
                 print(counterp0[i])
                 print(indxp0[i])
+                print(al[indxp0[i]])
             elif counterp0[i]>=0.4 and counterp0[i]<=0.5:
                 print("positive value and index greater than 0.4 and less than 0.5")
                 print(counterp0[i])
                 print(indxp0[i])
+                print(al[indxp0[i]])
         
         for i in range(len(indxn0)):
             if countern0[i]>=0.2 and countern0[i]<=0.3:
                 print("neg value and index greater than 0.2 and less than 0.3")
                 print(countern0[i])
                 print(indxn0[i])
+                print(al[indxn0[i]])
             elif countern0[i]>=0.4 and countern0[i]<=0.5:
                 print("neg value and index greater than 0.4 and less than 0.5")
                 print(countern0[i])
                 print(indxn0[i])
+                print(al[indxn0[i]])
         
         
         print("check activity")
@@ -1882,9 +1886,9 @@ class Network_User(object):
         print("subject5 windows of activity cart")
         '''
         print("subject 0 windows with activity cart")
-        for i in range(len(indxp5)):
-            if al[indxp5[i]] ==2:
-                print(indxp5[i])
+        for i in range(len(indxp0)):
+            if al[indxp0[i]] ==2:
+                print(indxp0[i])
         
         
         '''
