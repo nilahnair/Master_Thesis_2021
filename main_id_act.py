@@ -220,7 +220,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/mbientlab/cnn_imu/FC/noreshape/experiment/"
-        folder_base = "/data/nnair/output/experiment/"
+        folder_base = "//data/nnair/output/avg/experiment/"
         #folder_base = "/data/nnair/all/experiments/momin/"
         #folder_base = "/data/nnair/trial/lstm/"
         #folder_base = "/data/nnair/exp2/"
@@ -243,9 +243,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        folder_exp = folder_base + 'exp1/'
+        #folder_exp = folder_base + 'exp1/'
         #folder_exp = folder_base + 'attr_imu/'
-        #folder_exp = folder_base
+        folder_exp = folder_base
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
@@ -313,7 +313,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': '/data/nnair/all/momin/'}
     '''
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     GPU = 0
    
     # Labels position on the segmented window
