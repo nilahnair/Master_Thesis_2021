@@ -781,7 +781,8 @@ class Network_User(object):
         np.savetxt(self.config['folder_exp'] + 'plots/loss_val.txt', losses_val, delimiter=",", fmt='%s')
                 
         '''save the model into the desired location'''
-        torch.save({'state_dict': network_obj.state_dict(),'network_config': network_config}, '/data/nnair/model/cnn_imu_new.pt')
+        
+        #torch.save({'state_dict': network_obj.state_dict(),'network_config': network_config}, '/data/nnair/model/cnn_imu_new.pt')
         #model_io.write(network_obj, '../Master_Thesis_2021/model/model_save_mocap2.pkl')
        
         

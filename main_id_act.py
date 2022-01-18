@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mbientlab for cnn lrp extract lr 0.0001 b 50')
+ex= Experiment('mocap b50 lr 0.0001 x5')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -187,11 +187,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap': 100, 'mbientlab':50, 'motionminers_flw': 50}}
+        'cnn_imu': {'mocap': 50, 'mbientlab':50, 'motionminers_flw': 50}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap':100, 'mbientlab':50, 'motionminers_flw': 50}}
+                      'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 50}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
@@ -220,11 +220,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/mbientlab/cnn_imu/FC/noreshape/experiment/"
-        #folder_base = "/data/nnair/output/experiment/"
+        folder_base = "/data/nnair/output/experiment/"
         #folder_base = "/data/nnair/all/experiments/momin/"
         #folder_base = "/data/nnair/trial/lstm/"
         #folder_base = "/data/nnair/exp2/"
-        folder_base = "/data/nnair/lrp/exp1/"
+        #folder_base = "/data/nnair/lrp/exp1/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
@@ -243,9 +243,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'experiment2/'
         '''
-        #folder_exp = folder_base + 'exp1/'
+        folder_exp = folder_base + 'exp1/'
         #folder_exp = folder_base + 'attr_imu/'
-        folder_exp = folder_base
+        #folder_exp = folder_base
         print(folder_exp)
         '''
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
@@ -411,7 +411,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=0,
                            output_idx=0,
                            usage_modus_idx=0,
