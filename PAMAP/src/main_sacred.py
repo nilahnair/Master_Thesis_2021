@@ -244,7 +244,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     dataset_root = {'locomotion': '/data2/fmoya/HAR/datasets/OpportunityUCIDataset/',
                     'gesture': '/data2/fmoya/HAR/datasets/OpportunityUCIDataset/',
-                    'pamap2': '/data/fmoya/HAR/datasets/PAMAP/',
+                    'pamap2': '/vol/actrec/PAMAP/',
                     'orderpicking': '/vol/actrec/icpram-data/numpy_arrays/'}
 
     # GPU
