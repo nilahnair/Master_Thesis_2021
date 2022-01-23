@@ -94,7 +94,7 @@ class Pamap2(data.Dataset):
                 #idx_files = [0]
         elif self.partition_modus == 'val':
             # idx_files = [ids for ids in range(10,12)]
-            idx_files = [[0, 1, 2, 3, 4, 5, 6, 7]]
+            idx_files = [0, 1, 2, 3, 4, 5, 6, 7]
             #idx_files = [10]
         elif self.partition_modus == 'test':
             # idx_files = [ids for ids in range(12,14)]
