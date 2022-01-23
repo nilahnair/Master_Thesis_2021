@@ -14,21 +14,21 @@ from sliding_window import sliding_window
 
 # Hardcoded names of the files defining the OPPORTUNITY challenge data. As named in the original data.
 PAMAP2_DATA_FILES = ['PAMAP2_Dataset/Protocol/subject101.dat', #0
-                     'PAMAP2_Dataset/Optional/subject101.dat', #1
+                     #'PAMAP2_Dataset/Optional/subject101.dat', #1
                      'PAMAP2_Dataset/Protocol/subject102.dat', #2
                      'PAMAP2_Dataset/Protocol/subject103.dat', #3
                      'PAMAP2_Dataset/Protocol/subject104.dat', #4
-                     'PAMAP2_Dataset/Protocol/subject107.dat', #5
-                     'PAMAP2_Dataset/Protocol/subject108.dat', #6
-                     'PAMAP2_Dataset/Optional/subject108.dat', #7
-                     'PAMAP2_Dataset/Protocol/subject109.dat', #8
-                     'PAMAP2_Dataset/Optional/subject109.dat', #9
-                     'PAMAP2_Dataset/Protocol/subject105.dat', #10
-                     'PAMAP2_Dataset/Optional/subject105.dat', #11
-                     'PAMAP2_Dataset/Protocol/subject106.dat', #12
-                     'PAMAP2_Dataset/Optional/subject106.dat', #13
+                     'PAMAP2_Dataset/Protocol/subject105.dat', #5
+                     #'PAMAP2_Dataset/Optional/subject105.dat', #6
+                     'PAMAP2_Dataset/Protocol/subject106.dat', #7
+                     #'PAMAP2_Dataset/Optional/subject106.dat', #8
+                     'PAMAP2_Dataset/Protocol/subject107.dat', #9
+                     'PAMAP2_Dataset/Protocol/subject108.dat', #10
+                     #'PAMAP2_Dataset/Optional/subject108.dat', #11
+                     'PAMAP2_Dataset/Protocol/subject109.dat', #12
+                     #'PAMAP2_Dataset/Optional/subject109.dat', #13
+                     
                       ]
-
 
 NORM_MAX_THRESHOLDS = [202.0, 35.5, 47.6314, 155.532, 157.76, 45.5484, 62.2598, 61.728, 21.8452,
                        13.1222, 14.2184, 137.544, 109.181, 100.543, 38.5625, 26.386, 153.582,
@@ -41,9 +41,6 @@ NORM_MIN_THRESHOLDS = [0., 0., -114.755, -104.301, -73.0384, -61.1938, -61.8086,
                        -32.9627, -39.7561, -56.0108, -10.1563, -5.06858, -3.99487, -70.0627, -122.48,
                        -66.6847, 0., -155.068, -155.617, -156.179, -60.3067, -61.9064, -62.2629, -14.162,
                        -13.0401, -14.0196, -172.865, -137.908, -102.232]
-
-
-
 
 
 class Pamap2(data.Dataset):
@@ -83,6 +80,8 @@ class Pamap2(data.Dataset):
         """
         X = np.empty((0, self.config['NB_sensor_channels']))
         Y = np.empty((0))
+        P_id=np.empty((0))
+        act=np.empty((0))
 
         if self.partition_modus == 'train':
             # dx_files = [ids for ids in range(0,10)]
@@ -91,15 +90,15 @@ class Pamap2(data.Dataset):
             elif self.config["proportions"] == 0.5:
                 idx_files = [0, 2, 4, 6, 8]
             elif self.config["proportions"] == 1.0:
-                idx_files = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                idx_files = [0, 1, 2, 3, 4, 5, 6, 7]
                 #idx_files = [0]
         elif self.partition_modus == 'val':
             # idx_files = [ids for ids in range(10,12)]
-            idx_files = [10, 11]
+            idx_files = [[0, 1, 2, 3, 4, 5, 6, 7]]
             #idx_files = [10]
         elif self.partition_modus == 'test':
             # idx_files = [ids for ids in range(12,14)]
-            idx_files = [12, 13]
+            idx_files = [8]
             #idx_files = [12]
         else:
             raise("Wrong Dataset partition settup")
@@ -111,14 +110,218 @@ class Pamap2(data.Dataset):
                 x, y = self.process_dataset_file(raw_data)
                 logging.info(x.shape)
                 logging.info(y.shape)
-
-                X = np.vstack((X, x))
-                Y = np.concatenate([Y, y])
+                
+                i_0=[]
+                i_1=[]
+                i_2=[]
+                i_3=[]
+                i_4=[]
+                i_5=[]
+                i_6=[]
+                i_7=[]
+                i_8=[]
+                i_9=[]
+                i_10=[]
+                i_11=[]
+    
+                
+                yl=[]
+                for i in range(len(y)):
+                    
+                    if y[i] == 0:
+                        i_0 = i_0 + [i]
+                    elif y[i] == 1:
+                        i_1 = i_1 + [i]
+                    elif y[i] == 2:
+                        i_2 = i_2 + [i]
+                    elif y[i] == 3:
+                        i_3 = i_3 + [i]
+                    elif y[i] == 4:
+                        i_4 = i_4 + [i]
+                    elif y[i] == 5:
+                        i_5 = i_5 + [i]
+                    elif y[i] == 6:
+                        i_6 = i_6 + [i]
+                    elif y[i] == 7:
+                        i_7 = i_7 + [i]
+                    elif y[i] == 8:
+                        i_8 = i_8 + [i]
+                    elif y[i] == 9:
+                        i_9 = i_9 + [i]
+                    elif y[i] == 10:
+                        i_10 = i_10 + [i]
+                    elif y[i] == 11:
+                        i_11 = i_11 + [i]
+                        
+                print("shape of the label index")
+                
+                print(len(i_0))
+                print(len(i_1))
+                print(len(i_2))
+                print(len(i_3))
+                print(len(i_4))
+                print(len(i_5))
+                print(len(i_6))
+                print(len(i_7))
+                print(len(i_8))
+                print(len(i_9))
+                print(len(i_10))
+                print(len(i_11))
+                
+                shape = len(i_0)
+                if shape != 0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_0[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_0[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_0[tv:shape]])
+                
+                shape = len(i_1)
+                if shape != 0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_1[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_1[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_1[tv:shape]])
+                    
+                shape = len(i_2)
+                if shape !=0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_2[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_2[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_2[tv:shape]])
+                    
+                shape = len(i_3)
+                if shape !=0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_3[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_3[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_3[tv:shape]])
+                    
+                shape =len(i_4)
+                if shape !=0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_4[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_4[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_4[tv:shape]])
+                
+                shape = len(i_5)
+                if shape !=0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_5[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_5[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_5[tv:shape]])
+                
+                shape = len(i_6)
+                if shape != 0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_6[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_6[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_6[tv:shape]])
+                    
+                shape = len(i_7)
+                if shape != 0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_7[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_7[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_7[tv:shape]])
+                   
+                shape = len(i_8)
+                if shape !=0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_8[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_8[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_8[tv:shape]])
+                    
+                shape = len(i_9)
+                if shape !=0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_9[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_9[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_9[tv:shape]])
+                    
+                shape = len(i_10)
+                if shape !=0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_10[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_10[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_10[tv:shape]])
+                    
+                shape = len(i_11)
+                if shape !=0:
+                    train_no=round(0.64*shape)
+                    val_no=round(0.18*shape)
+                    tv= train_no+val_no
+                    if self.partition_modus == 'train':
+                        yl= np.concatenate([yl, i_11[0:train_no]])
+                    elif self.partition_modus == 'val':
+                        yl= np.concatenate([yl, i_11[train_no:tv]])
+                    elif self.partition_modus == 'test':
+                        yl= np.concatenate([yl, i_11[tv:shape]])
+                        
+                for i in range(len(yl)):
+                    X = np.vstack((X, x[int(yl[i]),:]))
+                    act= np.append(act, [y[int(yl[i])]])
+                    P_id = np.append(P_id, idx_f)
+                    
             except KeyError:
                 logging.error('ERROR: Did not find {0} in zip file'.format(PAMAP2_DATA_FILES[idx_f]))
 
         logging.info("Final dataset with size: | train {0}".format(X.shape))
-        return X, Y
+        return X, P_id, act
 
     def process_dataset_file(self, raw_data):
         """Function defined as a pipeline to process individual OPPORTUNITY files

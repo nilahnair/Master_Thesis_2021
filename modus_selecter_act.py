@@ -91,9 +91,6 @@ class Modus_Selecter(object):
         if type_simple == 'training':
             child = ET.SubElement(child_dataset, "precision_mean", precision_mean=str(precisions))
             child = ET.SubElement(child_dataset, "precision_std", precision_std=str(recalls))
-            if self.config['output']== 'attribute':
-                child = ET.SubElement(child_dataset, "precision_attr_mean", precision_mean=str(precisions_attr))
-                child = ET.SubElement(child_dataset, "precision_attr_std", precision_std=str(recalls_attr))
         else:
             if self.config['output']== 'attribute':
                 child = ET.SubElement(child_dataset, "acc_attr_mean", precision_mean=str(np.mean(acc_attr_test, axis=0)))

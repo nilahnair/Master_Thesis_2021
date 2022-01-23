@@ -161,11 +161,11 @@ plt.plot(x,np.sqrt(np.mean(np.square(np.where(RL>0,RL,0)), axis=1)), label = "RL
 #print(np.sqrt(np.mean(np.square(relevance[:,3:6]), axis=1)))
 #plt.plot(x,rmsav, label = "RMS")
 #plt.plot(x,relevance)
-plt.xlabel("Time frame")
-plt.ylabel("RMS Relevance")
-plt.title('Subject 0, Cart activity, Mbientlab')
+plt.xlabel("Time frame", fontsize=20)
+plt.ylabel("RMS Relevance", fontsize=20)
+plt.title('Subject 0, Cart activity, Mbientlab', fontsize=20)
 #leg = plt.legend(loc='upper right', bbox_to_anchor=(0.5, -0.15),ncol=2)
-leg = plt.legend(loc='upper right')
+leg = plt.legend(loc='upper right', fontsize=15)
 plt.show()
 
 

@@ -50,7 +50,7 @@ class Modus_Selecter(object):
 
     def save(self, acc_test, f1_weighted_test, f1_mean_test, ea_iter, type_simple='training', confusion_matrix=0,
              time_iter=0, precisions=0, recalls=0, best_itera=0, acc_test_seg=[0], f1_weighted_test_seg=[0],
-             f1_mean_test_seg=[0]):
+             f1_mean_test_seg=[0],acc_attr_test=0, precisions_attr=0, recalls_attr=0):
         """
         Save the results of traiing and testing according to the configuration.
         As training is repeated several times, results are appended, and mean and std of all the repetitions
@@ -105,11 +105,20 @@ class Modus_Selecter(object):
             child = ET.SubElement(child_dataset, "precision", precision=str(precisions))
             child = ET.SubElement(child_dataset, "recall", recall=str(recalls))
         else:
+            if self.config['output']== 'attribute':
+                child = ET.SubElement(child_dataset, "acc_attr_mean", precision_mean=str(np.mean(acc_attr_test, axis=0)))
+                child = ET.SubElement(child_dataset, "acc_attr_std", precision_std=str(np.std(acc_attr_test, axis=0)))
+            
             child = ET.SubElement(child_dataset, "precision_mean", precision_mean=str(np.mean(precisions, axis=0)))
             child = ET.SubElement(child_dataset, "precision_std", precision_std=str(np.std(precisions, axis=0)))
             child = ET.SubElement(child_dataset, "recall_mean", recall_mean=str(np.mean(recalls, axis=0)))
             child = ET.SubElement(child_dataset, "recall_std", recall_std=str(np.std(recalls, axis=0)))
-
+            if self.config['output']== 'attribute':
+                child = ET.SubElement(child_dataset, "precision_attr_mean", precision_mean=str(np.mean(precisions_attr, axis=0)))
+                child = ET.SubElement(child_dataset, "precision_attr_std", precision_std=str(np.std(precisions_attr, axis=0)))
+                child = ET.SubElement(child_dataset, "recall_attr_mean", recall_mean=str(np.mean(recalls_attr, axis=0)))
+                child = ET.SubElement(child_dataset, "recall_attr_std", recall_std=str(np.std(recalls_attr, axis=0)))
+            
         for exp in range(len(acc_test_seg)):
             child = ET.SubElement(child_dataset, "metrics_seg", acc_test_seg=str(acc_test_seg[exp]),
                                   f1_weighted_test_seg=str(f1_weighted_test_seg[exp]),
@@ -143,6 +152,9 @@ class Modus_Selecter(object):
         acc_train_seg_ac = []
         f1_weighted_train_seg_ac = []
         f1_mean_train_seg_ac = []
+        if self.config['output']== 'attribute':
+            precisions_attr_test = []
+            recalls_attr_test = []
 
         if testing:
             acc_test_ac = []
@@ -151,6 +163,8 @@ class Modus_Selecter(object):
             acc_test_seg_ac = []
             f1_weighted_test_seg_ac = []
             f1_mean_test_seg_ac = []
+            if self.config['output']== 'attribute':
+                acc_attr_test_ac = []
 
         #There will be only one iteration
         #As there is not evolution
@@ -171,11 +185,20 @@ class Modus_Selecter(object):
 
             time_train = time.time() - start_time_train
 
-            logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
+            if self.config['output']== 'softmax':            
+                logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
                          'f1_weighted {}, f1_mean {}'.format(time_train,
                                                              results_train["classification"]['acc'],
                                                              results_train["classification"]['f1_weighted'],
                                                              results_train["classification"]['f1_mean']))
+            elif self.config['output']== 'attribute':
+                logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
+                         'f1_weighted {}, f1_mean {}, acc_attr{}'.format(time_train,
+                                                             results_train["classification"]['acc'],
+                                                             results_train["classification"]['f1_weighted'],
+                                                             results_train["classification"]['f1_mean'],
+                                                             results_train["classification"]['acc_attrs']))
+            
             # Saving the results
             if self.config["sacred"]:
                 self.exp.log_scalar("Acc_Val", value=results_train["classification"]['acc'])
@@ -204,7 +227,11 @@ class Modus_Selecter(object):
                 f1_mean_test_seg_ac.append(results_test["segmentation"]['f1_mean'])
                 precisions_test.append(results_test["classification"]['precision'].numpy())
                 recalls_test.append(results_test["classification"]['recall'].numpy())
-
+                if self.config['output']== 'attribute':
+                    acc_attr_test_ac.append(results_test['acc_attrs'])
+                    precisions_attr_test.append(results_test['precision_attr'].numpy())
+                    recalls_attr_test.append(results_test['recall_attr'].numpy())
+                
                 time_test = time.time() - start_time_test
 
                 if self.config["sacred"]:
@@ -253,6 +280,10 @@ class Modus_Selecter(object):
         start_time_test = time.time()
         precisions_test = []
         recalls_test = []
+        if self.config['output']== 'attribute':
+            precisions_attr_test = []
+            recalls_attr_test = []
+
 
         # Testing the network in folder (according to the conf)
         results_test, confusion_matrix_test, _ = self.network.evolution_evaluation(ea_iter=0, testing=testing)
@@ -262,12 +293,22 @@ class Modus_Selecter(object):
         # Appending results for later saving in results file
         precisions_test.append(results_test["classification"]['precision'].numpy())
         recalls_test.append(results_test["classification"]['recall'].numpy())
-
-        logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
+        if self.config['output']== 'attribute':
+            precisions_attr_test.append(results_test['precision_attr'].numpy())
+            recalls_attr_test.append(results_test['recall_attr'].numpy())
+        
+        if self.config['output']== 'softmax':
+            logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
                      'f1_weighted {}, f1_mean {}'.format(elapsed_time_test, results_test["classification"]['acc'],
                                                          results_test["classification"]['f1_weighted'],
                                                          results_test["classification"]['f1_mean']))
-
+        elif self.config['output']== 'attribute':
+            logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
+                     'f1_weighted {}, f1_mean {}'.format(elapsed_time_test, results_test["classification"]['acc'],
+                                                         results_test["classification"]['f1_weighted'],
+                                                         results_test["classification"]['f1_mean'],
+                                                         results_test["classification"]['acc_attrs']))
+        
         # Saving the results
         if not testing:
             if self.config["sacred"]:
@@ -414,7 +455,7 @@ class Modus_Selecter(object):
         """
         logging.info('    Network_selecter: Net modus: {}'.format(self.config['usage_modus']))
         if self.config['usage_modus'] == 'train':
-            self.train(itera=5, testing=True)
+            self.train(itera=1, testing=True)
         elif self.config['usage_modus'] == 'test':
             self.test()
         elif self.config['usage_modus'] == 'evolution':
