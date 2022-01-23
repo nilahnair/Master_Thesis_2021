@@ -105,19 +105,11 @@ class Modus_Selecter(object):
             child = ET.SubElement(child_dataset, "precision", precision=str(precisions))
             child = ET.SubElement(child_dataset, "recall", recall=str(recalls))
         else:
-            if self.config['output']== 'attribute':
-                child = ET.SubElement(child_dataset, "acc_attr_mean", precision_mean=str(np.mean(acc_attr_test, axis=0)))
-                child = ET.SubElement(child_dataset, "acc_attr_std", precision_std=str(np.std(acc_attr_test, axis=0)))
-            
+           
             child = ET.SubElement(child_dataset, "precision_mean", precision_mean=str(np.mean(precisions, axis=0)))
             child = ET.SubElement(child_dataset, "precision_std", precision_std=str(np.std(precisions, axis=0)))
             child = ET.SubElement(child_dataset, "recall_mean", recall_mean=str(np.mean(recalls, axis=0)))
             child = ET.SubElement(child_dataset, "recall_std", recall_std=str(np.std(recalls, axis=0)))
-            if self.config['output']== 'attribute':
-                child = ET.SubElement(child_dataset, "precision_attr_mean", precision_mean=str(np.mean(precisions_attr, axis=0)))
-                child = ET.SubElement(child_dataset, "precision_attr_std", precision_std=str(np.std(precisions_attr, axis=0)))
-                child = ET.SubElement(child_dataset, "recall_attr_mean", recall_mean=str(np.mean(recalls_attr, axis=0)))
-                child = ET.SubElement(child_dataset, "recall_attr_std", recall_std=str(np.std(recalls_attr, axis=0)))
             
         for exp in range(len(acc_test_seg)):
             child = ET.SubElement(child_dataset, "metrics_seg", acc_test_seg=str(acc_test_seg[exp]),
