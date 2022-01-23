@@ -461,7 +461,7 @@ class Network(nn.Module):
             elif self.config['output'] == 'attribute':
                 self.fc5 = nn.Linear(512, self.config['num_attributes'])
                 # The number of input size is double as one has bidirectional LSTM
-
+        '''
         if self.config["reshape_input"]:
             self.avgpool = nn.AvgPool2d(kernel_size=[1, int(self.config['NB_sensor_channels'] / 3)])
         else:
@@ -469,7 +469,7 @@ class Network(nn.Module):
                 self.avgpool = nn.AvgPool2d(kernel_size=[1, 257])
             else:
                 self.avgpool = nn.AvgPool2d(kernel_size=[1, self.config['NB_sensor_channels']])
-
+        '''
         self.softmax = nn.Softmax(dim=1)
         
         self.sigmoid = nn.Sigmoid()
@@ -499,13 +499,14 @@ class Network(nn.Module):
         if self.config["network"] == "cnn" or self.config["network"] == "cnn_tpp":
             x = self.tcnn(x)
         elif self.config["network"] == "cnn_imu" or self.config["network"] == "cnn_imu_tpp":
-                x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
+                #x_LA, x_LL, x_N, x_RA, x_RL = self.tcnn_imu(x)
+                x_LA, x_LL, x_N = self.tcnn_imu(x)
                 if self.config["aggregate"] in ["FCN"]:
-                    x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 3)
+                    x = torch.cat((x_LA, x_LL, x_N), 3)
                 elif self.config["aggregate"] == "FC":
-                    x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 1)
+                    x = torch.cat((x_LA, x_LL, x_N), 1)
                 elif self.config["aggregate"] == "LSTM":
-                    x = torch.cat((x_LA, x_LL, x_N, x_RA, x_RL), 2)
+                    x = torch.cat((x_LA, x_LL, x_N), 2)
 
         # Selecting MLP, either FC or FCN
         if self.config["aggregate"] == "FCN":
@@ -686,16 +687,20 @@ class Network(nn.Module):
                 x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_LA]))
 
         x_LA = F.relu(self.conv_LA_1_2(x_LA))
+        '''
         if self.config["pooling"] in [1, 2]:
             x_LA = self.spectral_pooling(x_LA, pooling_number=0)
         elif self.config["pooling"] in [3, 4]:
             x_LA = F.max_pool2d(x_LA, (2, 1))
+        '''
         x_LA = F.relu(self.conv_LA_2_1(x_LA))
         x_LA = F.relu(self.conv_LA_2_2(x_LA))
+        '''
         if self.config["pooling"] == 2:
             x_LA = self.spectral_pooling(x_LA, pooling_number=1)
         elif self.config["pooling"] == 4:
             x_LA = F.max_pool2d(x_LA, (2, 1))
+        '''
 
         if self.config["network"] == "cnn_imu_tpp":
             x_LA = self.tpp.tpp(x_LA)
@@ -732,17 +737,20 @@ class Network(nn.Module):
                 x_LL = F.relu(self.conv_LA_1_1(x[:, :, :, idx_LL]))
 
         x_LL = F.relu(self.conv_LL_1_2(x_LL))
+        '''
         if self.config["pooling"] in [1, 2]:
             x_LL = self.spectral_pooling(x_LL, pooling_number=0)
         elif self.config["pooling"] in [3, 4]:
             x_LL = F.max_pool2d(x_LL, (2, 1))
+        '''
         x_LL = F.relu(self.conv_LL_2_1(x_LL))
         x_LL = F.relu(self.conv_LL_2_2(x_LL))
+        '''
         if self.config["pooling"] == 2:
             x_LL = self.spectral_pooling(x_LL, pooling_number=1)
         elif self.config["pooling"] == 4:
             x_LL = F.max_pool2d(x_LL, (2, 1))
-
+        '''
         if self.config["network"] == "cnn_imu_tpp":
             x_LL = self.tpp.tpp(x_LL)
             x_LL = F.relu(self.fc3_LL(x_LL))
@@ -778,17 +786,20 @@ class Network(nn.Module):
                 idx_N = np.concatenate([idx_N, np.arange(14, 27)])
                 x_N = F.relu(self.conv_LA_1_1(x[:, :, :, idx_N]))
         x_N = F.relu(self.conv_N_1_2(x_N))
+        '''
         if self.config["pooling"] == 1 or self.config["pooling"] == 2:
             x_N = self.spectral_pooling(x_N, pooling_number=0)
         elif self.config["pooling"] in [3, 4]:
             x_N = F.max_pool2d(x_N, (2, 1))
+        '''
         x_N = F.relu(self.conv_N_2_1(x_N))
         x_N = F.relu(self.conv_N_2_2(x_N))
+        '''
         if self.config["pooling"] == 2:
             x_N = self.spectral_pooling(x_N, pooling_number=1)
         elif self.config["pooling"] == 4:
             x_N = F.max_pool2d(x_N, (2, 1))
-
+        '''
         if self.config["network"] == "cnn_imu_tpp":
             x_N = self.tpp.tpp(x_N)
             x_N = F.relu(self.fc3_N(x_N))
@@ -803,7 +814,7 @@ class Network(nn.Module):
                 x_N = x_N.permute(0, 2, 1, 3)
                 x_N = x_N.reshape((x_N.size()[0], x_N.size()[1], x_N.size()[2] * x_N.size()[3]))
                 x_N = F.relu(self.fc3_N(x_N)[0])
-
+        '''
         # RA
         if self.config["reshape_input"]:
             if self.config["dataset"] == 'locomotion' or self.config["dataset"] == 'gesture':
@@ -895,9 +906,10 @@ class Network(nn.Module):
                 x_RL = x_RL.permute(0, 2, 1, 3)
                 x_RL = x_RL.reshape((x_RL.size()[0], x_RL.size()[1], x_RL.size()[2] * x_RL.size()[3]))
                 x_RL = F.relu(self.fc3_RL(x_RL)[0])
-
+            
         return x_LA, x_LL, x_N, x_RA, x_RL
-
+        '''
+        return x_LA, x_LL, x_N
 
     def spectral_pooling(self, x, pooling_number = 0):
         '''

@@ -24,13 +24,13 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex = Experiment()
+ex = Experiment('pamap attr')
 # ex.captured_out_filter = apply_backspaces_and_linefeeds
 
-ex.observers.append(MongoObserver.create(url='soderbergh',
-                                         db_name='fmoya_sacred',
-                                         username='fmoya',
-                                         password='secavework',
+ex.observers.append(MongoObserver.create(url='curtiz',
+                                         db_name='nnair_sacred',
+                                         username='nnair',
+                                         password='Germany2018',
                                          authSource='admin',
                                          authMechanism='SCRAM-SHA-1'))
 
@@ -77,10 +77,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Dataset Hyperparameters
     NB_sensor_channels = {'locomotion': 113, 'gesture': 113, 'carrots': 30, 'pamap2': 40, 'orderpicking': 27}
     sliding_window_length = {'locomotion': 24, 'gesture': 24, 'carrots': 64, 'pamap2': 100, 'orderpicking': 100}
-    sliding_window_step = {'locomotion': 12, 'gesture': 2, 'carrots': 5, 'pamap2': 22, 'orderpicking': 1}
-    num_attributes = {'locomotion': 10, 'gesture': 32, 'carrots': 32, 'pamap2': 24, 'orderpicking': 16}
-    num_classes = {'locomotion': 5, 'gesture': 18, 'carrots': 16, 'pamap2': 12, 'orderpicking': 8}
-    num_tr_inputs = {'locomotion': 41600, 'gesture': 248600, 'carrots': 245526, 'pamap2': 245526,
+    sliding_window_step = {'locomotion': 12, 'gesture': 2, 'carrots': 5, 'pamap2': 12, 'orderpicking': 1}
+    num_attributes = {'locomotion': 10, 'gesture': 32, 'carrots': 32, 'pamap2': 11, 'orderpicking': 16}
+    num_classes = {'locomotion': 5, 'gesture': 18, 'carrots': 16, 'pamap2': 9, 'orderpicking': 8}
+    #num_tr_inputs = {'locomotion': 41600, 'gesture': 248600, 'carrots': 245526, 'pamap2': 245526,
+       #              'orderpicking': 245526}
+    num_tr_inputs = {'locomotion': 41600, 'gesture': 248600, 'carrots': 245526, 'pamap2': 103270,
                      'orderpicking': 245526}
 
     # Learning rate
@@ -117,7 +119,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                           'cnn_imu_tpp': {'softmax': 10, 'attribute': 5}},
               'pamap2': {'cnn': {'softmax': 50, 'attribute': 50},
                          'lstm': {'softmax': 50, 'attribute': 50},
-                         'cnn_imu': {'softmax': 50, 'attribute': 50},
+                         'cnn_imu': {'softmax': 10, 'attribute': 10},
                          'cnn_tpp': {'softmax': 50, 'attribute': 50},
                          'cnn_imu_tpp': {'softmax': 50, 'attribute': 50}},
               'orderpicking': {'cnn': {'softmax': 10, 'attribute': 10},
@@ -128,7 +130,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     division_epochs = {'locomotion': 1, 'gesture': 3, 'carrots': 2, 'pamap2': 3, 'orderpicking': 1}
 
     # Batch size
-    batch_size_train = {'cnn': {'locomotion': 300, 'gesture': 300, 'carrots': 128, 'pamap2': 300, 'orderpicking': 100},
+    batch_size_train = {'cnn': {'locomotion': 300, 'gesture': 300, 'carrots': 128, 'pamap2': 100, 'orderpicking': 100},
                         'lstm': {'locomotion': 100, 'gesture': 100, 'carrots': 128, 'pamap2': 50, 'orderpicking': 100},
                         'cnn_imu': {'locomotion': 200, 'gesture': 200, 'carrots': 128, 'pamap2': 100,
                                     'orderpicking': 100},
@@ -184,6 +186,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Spectral pooling 2 for 2 poolings after 2nd conv and after 4th layers
     # Max pooling 1 for 1 pooling after 2nd conv layer
     # Max pooling 2 for 2 poolings after 2nd conv and after 4th layers
+    '''
     if pooling in [1, 2]:
         pooling_pooling = "spectralpooling"
     elif pooling in [3, 4]:
@@ -232,7 +235,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                       + aggregate[aggregate_idx] + '/' + reshape_folder + '/' + 'final/'
     else:
         raise ("Error: Not selected fine tuning option")
-
+    '''
+    folder_base = "/data/nnair/lrp/exp1/"
+    folder_exp=folder_base
+    print(folder_exp)
+    
     # dataset
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     dataset_root = {'locomotion': '/data2/fmoya/HAR/datasets/OpportunityUCIDataset/',
@@ -287,7 +294,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'plotting': plotting,
                      'usage_modus': usage_modus[usage_modus_idx],
                      'folder_exp': folder_exp,
-                     'folder_exp_base_fine_tuning': folder_exp_base_fine_tuning,
+                     #'folder_exp_base_fine_tuning': folder_exp_base_fine_tuning,
                      'use_maxout': use_maxout[network[network_idx]],
                      'balancing': balancing[dataset[dataset_idx]],
                      'GPU': GPU,
@@ -313,7 +320,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'proportions': proportions[proportions_id],
                      'aggregate': aggregate[aggregate_idx],
                      'sacred': sacred,
-                     'labeltype': labeltype,
+                     #'labeltype': labeltype,
                      'pooling': pooling,
                      'distance': distance[dist]}
 
@@ -351,20 +358,20 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 
 @ex.config
 def my_config():
-    config = configuration(dataset_idx=0,
+    config = configuration(dataset_idx=3,
                            network_idx=2,
-                           output_idx=0,
+                           output_idx=1,
                            usage_modus_idx=0,
-                           dataset_fine_tuning_idx=1,
+                           dataset_fine_tuning_idx=0,
                            reshape_input=False,
                            learning_rates_idx=0,
                            name_counter=0,
                            freeze=0,
                            proportions_id=2,
-                           aggregate_idx=2,
+                           aggregate_idx=0,
                            pooling=0,
                            sacred=True,
-                           gpudevice="2",#gpudevice="MIG-GPU-2ac434d3-1aca-57a0-597d-1d2effdba9f3/2/0",
+                           gpudevice="0",#gpudevice="MIG-GPU-2ac434d3-1aca-57a0-597d-1d2effdba9f3/2/0",
                            dist=1)
 
     dataset = config["dataset"]
@@ -375,6 +382,8 @@ def my_config():
     dataset_finetuning = config["dataset_finetuning"]
     pooling = config["pooling"]
     lr = config["lr"]
+    bsize = config["batch_size_train"]
+    
 
 @ex.capture
 def run(config):

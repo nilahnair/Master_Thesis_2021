@@ -321,7 +321,7 @@ class Pamap2(data.Dataset):
                 logging.error('ERROR: Did not find {0} in zip file'.format(PAMAP2_DATA_FILES[idx_f]))
 
         logging.info("Final dataset with size: | train {0}".format(X.shape))
-        return X, P_id, act
+        return X, P_id
 
     def process_dataset_file(self, raw_data):
         """Function defined as a pipeline to process individual OPPORTUNITY files

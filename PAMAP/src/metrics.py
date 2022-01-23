@@ -264,7 +264,7 @@ class Metrics(object):
         logging.info('            Metric:    Precision attr: \n{}'.format(precision_attr))
         logging.info('            Metric:    Recall attr: \n{}'.format(recall_attr))
 
-        return
+        return acc_attrs, precision_attr, recall_attr
 
     '''
     ##################################################
@@ -360,7 +360,7 @@ class Metrics(object):
                                                                                             predictions[0]))
             logging.info('            Metric:    type targets vector: {}'.format(targets.type()))
             if self.config["aggregate"] in ["FCN", "LSTM"]:
-                self.metric_attr(targets, predictions)
+                acc_attrs, precision_attr, recall_attr =self.metric_attr(targets, predictions)
             if self.config["aggregate"] == "FC":
                 self.metric_attr(targets[:, 1:], predictions)
             predictions = self.efficient_distance(predictions)
@@ -378,6 +378,9 @@ class Metrics(object):
         self.results[self.mode]['f1_weighted'] = f1_weighted
         self.results[self.mode]['f1_mean'] = f1_mean
         self.results[self.mode]['predicted_classes'] = predicted_classes
+        self.results[self.mode]['acc_attrs'] = acc_attrs
+        self.results[self.mode]['precision_attr'] = precision_attr
+        self.results[self.mode]['recall_attr'] = recall_attr
         #return acc, f1_weighted, f1_mean, predicted_classes
         return self.results
 

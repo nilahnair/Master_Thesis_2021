@@ -63,8 +63,9 @@ class Network_User(object):
             self.attrs = self.reader_att_rep("atts_per_class_gesture.txt")
             self.attr_representation = self.reader_att_rep("atts_per_class_gesture.txt")
         elif self.config['dataset'] == 'pamap2':
-            self.attrs = self.reader_att_rep("atts_per_class_pamap2.txt")
-            self.attr_representation = self.reader_att_rep("atts_per_class_pamap2.txt")
+            #self.attrs = self.reader_att_rep("atts_per_class_pamap2.txt")
+            self.attrs = self.reader_att_rep("pamap_attr.txt")
+            self.attr_representation = self.reader_att_rep("pamap_attr.txt")
         else:
             self.attrs = None
             self.attr_representation = None
