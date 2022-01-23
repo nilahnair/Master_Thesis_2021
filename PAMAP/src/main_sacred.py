@@ -72,7 +72,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     usage_modus = {0: 'train', 1: 'test', 2: 'evolution', 3: 'train_final', 4: 'train_random', 5: 'fine_tuning'}
     distance = {0: 'euclidean', 1: 'BCELoss'}
 
-    assert usage_modus_idx == 2 and output_idx == 1, "Output should be Attributes for starting evolution"
+    #assert usage_modus_idx == 2 and output_idx == 1, "Output should be Attributes for starting evolution"
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'locomotion': 113, 'gesture': 113, 'carrots': 30, 'pamap2': 40, 'orderpicking': 27}
