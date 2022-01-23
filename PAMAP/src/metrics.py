@@ -378,9 +378,9 @@ class Metrics(object):
         self.results[self.mode]['f1_weighted'] = f1_weighted
         self.results[self.mode]['f1_mean'] = f1_mean
         self.results[self.mode]['predicted_classes'] = predicted_classes
-        self.results[self.mode]['acc_attrs'] = acc_attrs
-        self.results[self.mode]['precision_attr'] = precision_attr
-        self.results[self.mode]['recall_attr'] = recall_attr
+        #self.results[self.mode]['acc_attrs'] = acc_attrs
+        #self.results[self.mode]['precision_attr'] = precision_attr
+        #self.results[self.mode]['recall_attr'] = recall_attr
         #return acc, f1_weighted, f1_mean, predicted_classes
         return self.results
 
