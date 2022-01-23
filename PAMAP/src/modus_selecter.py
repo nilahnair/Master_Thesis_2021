@@ -289,9 +289,6 @@ class Modus_Selecter(object):
         # Appending results for later saving in results file
         precisions_test.append(results_test["classification"]['precision'].numpy())
         recalls_test.append(results_test["classification"]['recall'].numpy())
-        if self.config['output']== 'attribute':
-            precisions_attr_test.append(results_test['precision_attr'].numpy())
-            recalls_attr_test.append(results_test['recall_attr'].numpy())
         
         if self.config['output']== 'softmax':
             logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
@@ -302,8 +299,7 @@ class Modus_Selecter(object):
             logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
                      'f1_weighted {}, f1_mean {}'.format(elapsed_time_test, results_test["classification"]['acc'],
                                                          results_test["classification"]['f1_weighted'],
-                                                         results_test["classification"]['f1_mean'],
-                                                         results_test["classification"]['acc_attrs']))
+                                                         results_test["classification"]['f1_mean']))
         
         # Saving the results
         if not testing:
