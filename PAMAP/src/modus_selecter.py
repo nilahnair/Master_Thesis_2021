@@ -193,11 +193,10 @@ class Modus_Selecter(object):
                                                              results_train["classification"]['f1_mean']))
             elif self.config['output']== 'attribute':
                 logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
-                         'f1_weighted {}, f1_mean {}, acc_attr{}'.format(time_train,
+                         'f1_weighted {}, f1_mean {}'.format(time_train,
                                                              results_train["classification"]['acc'],
                                                              results_train["classification"]['f1_weighted'],
-                                                             results_train["classification"]['f1_mean'],
-                                                             results_train["classification"]['acc_attrs']))
+                                                             results_train["classification"]['f1_mean']))
             
             # Saving the results
             if self.config["sacred"]:
@@ -227,10 +226,7 @@ class Modus_Selecter(object):
                 f1_mean_test_seg_ac.append(results_test["segmentation"]['f1_mean'])
                 precisions_test.append(results_test["classification"]['precision'].numpy())
                 recalls_test.append(results_test["classification"]['recall'].numpy())
-                if self.config['output']== 'attribute':
-                    acc_attr_test_ac.append(results_test['acc_attrs'])
-                    precisions_attr_test.append(results_test['precision_attr'].numpy())
-                    recalls_attr_test.append(results_test['recall_attr'].numpy())
+                
                 
                 time_test = time.time() - start_time_test
 
