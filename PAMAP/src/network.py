@@ -434,7 +434,7 @@ class Network(nn.Module):
             if self.config["network"] in ["cnn", "cnn_tpp"]:
                 self.fc4 = nn.Linear(256, 256)
             elif self.config["network"] in ["cnn_imu", "cnn_imu_tpp"]:
-                self.fc4 = nn.Linear(256 * 5, 256)
+                self.fc4 = nn.Linear(256 * 3, 256)
         elif self.config["aggregate"] == "LSTM":
             if self.config["network"] in ["cnn"]:
                 self.fc4 = nn.LSTM(input_size=256 * 2, hidden_size=256, batch_first=True, bidirectional=True)
