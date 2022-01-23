@@ -847,7 +847,7 @@ class Network_User(object):
                             'num_classes': self.config['num_classes'],
                             'num_attributes': self.config['num_attributes'],
                             'aggregate': self.config['aggregate'],
-                            'labeltype': self.config['labeltype']
+                            #'labeltype': self.config['labeltype']
                         }
 
                         logging.info('        Network_User:            Saving the network')
