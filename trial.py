@@ -23,9 +23,9 @@ import pickle
 from numpy import loadtxt
 # load array
 
-relevance = loadtxt('relevance225.csv', delimiter=',')
+relevance = loadtxt('relevance262.csv', delimiter=',')
 print(relevance.shape)
-input_d = loadtxt('input225.csv', delimiter=',')
+input_d = loadtxt('input262.csv', delimiter=',')
 print(input_d.shape)
 
 output = relevance*input_d
@@ -113,13 +113,13 @@ plt.plot(x,relevance[:,29], label = "GYrZ_RL")
 '''
 #print(relevance[:,3:6])
 #print(np.where(relevance[:,3:6]>0,relevance[:,3:6],0))
-
+'''
 plt.plot(x,np.sqrt(np.mean(np.square(np.where(relevance[:,0:6]>0,relevance[:,0:6],0)), axis=1)), label = "LA")
 plt.plot(x,np.sqrt(np.mean(np.square(np.where(relevance[:,6:12]>0,relevance[:,6:12],0)), axis=1)), label = "LL")
 plt.plot(x,np.sqrt(np.mean(np.square(np.where(relevance[:,12:18]>0,relevance[:,12:18],0)), axis=1)), label = "N")
 plt.plot(x,np.sqrt(np.mean(np.square(np.where(relevance[:,18:24]>0,relevance[:,18:24],0)), axis=1)), label = "RA")
 plt.plot(x,np.sqrt(np.mean(np.square(np.where(relevance[:,24:30]>0,relevance[:,24:30],0)), axis=1)), label = "RL")
-
+'''
 
 '''
 plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,3:6]), axis=1)), label = "GYR_LA")
@@ -128,7 +128,7 @@ plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,15:18]), axis=1)), label = "GYR
 plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,21:24]), axis=1)), label = "GYR_RA")
 plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,27:30]), axis=1)), label = "GYR_RL")
 '''
-'''
+
 idx_LA = np.arange(12, 24)
 idx_LA = np.concatenate([idx_LA, np.arange(36, 42)])
 idx_LA = np.concatenate([idx_LA, np.arange(54, 66)])
@@ -156,16 +156,16 @@ plt.plot(x,np.sqrt(np.mean(np.square(np.where(LL>0,LL,0)), axis=1)), label = "LL
 plt.plot(x,np.sqrt(np.mean(np.square(np.where(N>0,N,0)), axis=1)), label = "N")
 plt.plot(x,np.sqrt(np.mean(np.square(np.where(RA>0,RA,0)), axis=1)), label = "RA")
 plt.plot(x,np.sqrt(np.mean(np.square(np.where(RL>0,RL,0)), axis=1)), label = "RL")
-'''
+
 #print(relevance[:,3:6])
 #print(np.sqrt(np.mean(np.square(relevance[:,3:6]), axis=1)))
 #plt.plot(x,rmsav, label = "RMS")
 #plt.plot(x,relevance)
 plt.xlabel("Time frame", fontsize=20)
 plt.ylabel("RMS Relevance", fontsize=20)
-plt.title('Subject 0, Cart activity, Mbientlab', fontsize=20)
+plt.title('Subject 1, Cart activity, MoCap', fontsize=20)
 #leg = plt.legend(loc='upper right', bbox_to_anchor=(0.5, -0.15),ncol=2)
-leg = plt.legend(loc='upper right', fontsize=15)
+#leg = plt.legend(loc='upper right', fontsize=15)
 plt.show()
 
 
