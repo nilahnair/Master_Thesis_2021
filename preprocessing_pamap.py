@@ -745,7 +745,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/pamap/attr/t09/'
+    base_directory = '/data/nnair/pamap/attr/t9/'
     
     generate_data(base_directory, usage_modus='train')
     generate_data(base_directory, usage_modus='test')
