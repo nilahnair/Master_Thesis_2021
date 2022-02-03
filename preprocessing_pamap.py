@@ -299,7 +299,7 @@ def generate_data(target_filename, usage_modus='train'):
                      '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject105.dat', #4
                      '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject106.dat', #5
                      '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject107.dat', #6
-                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject109.dat' #7
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject108.dat' #7
                      ]
            X_train = np.empty((0, NB_SENSOR_CHANNELS))
            act_train = np.empty((0))
@@ -309,7 +309,7 @@ def generate_data(target_filename, usage_modus='train'):
            act_val = np.empty((0))
            id_val = np.empty((0))
     elif usage_modus == 'test':
-           persons = ['/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject108.dat']
+           persons = ['/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject109.dat']
            X_test = np.empty((0, NB_SENSOR_CHANNELS))
            act_test = np.empty((0))
            id_test = np.empty((0))
@@ -750,7 +750,7 @@ def generate_CSV_final(csv_dir, data_dir1, data_dir2):
     
 if __name__ == '__main__':
     
-    base_directory = '/data/nnair/pamap/attr/t8/'
+    base_directory = '/data/nnair/pamap/attr/t9/'
     
     generate_data(base_directory, usage_modus='train')
     generate_data(base_directory, usage_modus='test')
