@@ -23,6 +23,26 @@ import pickle
 from numpy import loadtxt
 # load array
 
+
+persons = ['/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject101.dat', #0
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject102.dat', #1
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject103.dat', #2
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject104.dat', #3
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject105.dat', #4
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject106.dat', #5
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject107.dat', #6
+                     '/vol/actrec/PAMAP/PAMAP2_Dataset/Protocol/subject109.dat' #7
+                     ]
+
+for idx_f in persons:
+    x = idx_f.split('10')[1]
+    x=x.split('.')[0]
+    print(x)
+    print(type(x))
+    print(type(int(x)))
+    print(int(x)-1)
+'''
+
 relevance = loadtxt('relevance262.csv', delimiter=',')
 print(relevance.shape)
 input_d = loadtxt('input262.csv', delimiter=',')
@@ -41,6 +61,7 @@ plt.rcParams.update(parameters)
 
 #plt.plot(x,relevance[:,53], label = "L_toe_TZ")
 #plt.plot(x,relevance[:,107], label = "R_toe_TZ")
+'''
 '''
 plt.plot(x, relevance[:,0], label = "head_RX")
 plt.plot(x,relevance[:,1], label = "head_RY")
@@ -128,7 +149,7 @@ plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,15:18]), axis=1)), label = "GYR
 plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,21:24]), axis=1)), label = "GYR_RA")
 plt.plot(x,np.sqrt(np.mean(np.square(relevance[:,27:30]), axis=1)), label = "GYR_RL")
 '''
-
+'''
 idx_LA = np.arange(12, 24)
 idx_LA = np.concatenate([idx_LA, np.arange(36, 42)])
 idx_LA = np.concatenate([idx_LA, np.arange(54, 66)])
@@ -169,7 +190,7 @@ plt.title('Subject 1, Cart activity, MoCap', fontsize=20)
 plt.show()
 
 
-
+'''
 
 '''
 with np.load("../Master_Thesis_2021/test_imu.npz") as data:

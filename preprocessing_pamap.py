@@ -319,16 +319,21 @@ def generate_data(target_filename, usage_modus='train'):
     lid= np.empty((0))
     
     print('Processing dataset files ...')
-    counter=0
+    
     for idx_f in persons:
             try:
                 print('Loading file...{0}'.format(idx_f))
                 raw_data = np.loadtxt(idx_f)
                 print(idx_f)
+                split1 = idx_f.split('10')[1]
+                counter=int(split1.split('.')[0])-1
+                print('countervalue')
+                print(counter)
                 x, y = process_dataset_file(raw_data)
                 print("print datashape")
                 print(x.shape)
                 print(y.shape)
+                
                 
                 i_0=[]
                 i_1=[]
@@ -579,7 +584,7 @@ def generate_data(target_filename, usage_modus='train'):
                 act_test= np.concatenate([act_test, a_test])
                 id_test= np.concatenate([id_test, i_test])
                 '''
-                counter+=1
+
             except KeyError:
                 logging.error('ERROR: Did not find {0} in zip file'.format(PAMAP2_DATA_FILES[idx_f]))
      
