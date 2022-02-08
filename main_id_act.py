@@ -228,7 +228,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean,/mbientlab/cnn_imu/FC/noreshape/experiment/"
-        folder_base = "//data/nnair/output/avg/experiment/"
+        folder_base = "/data/nnair/output/avg/experiment/"
         #folder_base = "/data/nnair/all/experiments/momin/"
         #folder_base = "/data/nnair/trial/lstm/"
         #folder_base = "/data/nnair/exp2/"
