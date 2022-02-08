@@ -26,12 +26,14 @@ class Metrics(object):
         # Here, you need to extract the attributes from the network.pt
         #self,attr= network["att_rep"]
         self.attr = attributes
+        '''
         if self.config['num_attributes'] == 4:
             self.mid= self.attr[0:6,:]
         elif self.config['num_attributes'] == 10:
             self.mid= self.attr[0:6,:]
             self.mid= np.concatenate((self.mid, self.attr[7:8,:]), 0)
             self.mid[6,0]=6
+        '''
         
         #for attr_idx in range(self.attr.shape[0]):
         #    self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
@@ -39,12 +41,14 @@ class Metrics(object):
         self.atts = torch.from_numpy(self.attr).type(dtype=torch.FloatTensor)
         #self.atts = torch.from_numpy(self.attr)
         self.atts = self.atts.type(dtype=torch.cuda.FloatTensor)
-        
+        self.center = self.atts
+        '''
         if self.config['num_attributes'] == 4:
             self.center= self.atts[0:6,1:]
         elif self.config['num_attributes'] == 10:
             self.center= self.atts[0:6,1:]
             self.center= torch.cat((self.center, self.atts[7:8,1:]), 0)
+        '''
         
         self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0, 'recall': 0, 'acc_attrs': 0, 
                         'precision_attr': 0, 'recall_attr': 0,}
@@ -331,10 +335,13 @@ class Metrics(object):
             #predictions = predictions.repeat(self.attr.shape[0], 1, 1)
             #predictions = predictions.repeat(self.atts.shape[0], 1, 1)
         
+            '''
             if self.config['num_attributes'] == 4:
                 predictions = predictions.repeat(6, 1, 1)
             elif self.config['num_attributes'] == 10:
                 predictions = predictions.repeat(7, 1, 1)
+            '''
+            predictions=predictions.repeat(11,1,1)
        
             #predictions = predictions.repeat(8, 1, 1)
             predictions = predictions.permute(1, 0, 2)
@@ -386,8 +393,9 @@ class Metrics(object):
             
             predictions = self.efficient_distance(predictions)
         print('metric')
-                
+        '''        
         if self.config['output'] == 'attribute':
+            
             if self.config['num_attributes'] == 4:
                 for i in range(0, targets.shape[0]):
                     if targets[i,0]==6:
@@ -400,7 +408,8 @@ class Metrics(object):
                         targets[i,0]=5
                     elif targets[i,0]==7:
                         targets[i,0]=6
-       
+        '''
+            
         # Accuracy
         targets = targets.type(dtype=torch.FloatTensor)
         targets = targets.to(self.device)

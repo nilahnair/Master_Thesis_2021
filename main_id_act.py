@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mocap b50 lr 0.0001 x5')
+ex= Experiment('pamap attr representation')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -56,20 +56,20 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     plotting = False
 
     # Options
-    dataset = {0: 'mocap', 1: 'mbientlab', 2: 'motionminers_flw'}
+    dataset = {0: 'mocap', 1: 'mbientlab', 2: 'motionminers_flw', 3: 'pamap'}
     network = {0: 'cnn', 1: 'lstm', 2: 'cnn_imu'}
     output = {0: 'softmax', 1: 'attribute'}
     usage_modus = {0: 'train', 1: 'test', 2: 'fine_tuning', 3: 'train_final'}
 
     # Dataset Hyperparameters
-    NB_sensor_channels = {'mocap': 126, 'mbientlab': 30,'motionminers_flw': 27}
-    sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
-    sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
+    NB_sensor_channels = {'mocap': 126, 'mbientlab': 30,'motionminers_flw': 27, 'pamap':40}
+    sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100}
+    sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12, 'pamap':12}
     
     #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
-    num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1}
+    num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1, 'pamap':11}
     #all
-    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 161667}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 161667, 'pamap':103270}
     #num_tr_inputs = {'mocap': 172561, 'mbientlab': 147780, 'motionminers_flw': 161667}
     
     #attr without 6 and 7
@@ -120,7 +120,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type4
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
-    num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8}
+    num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8, 'pamap':9}
     #num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}    
     
     # Number of classes for either for activity recognition
@@ -151,7 +151,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                         'cnn_imu': learning_rates[learning_rates_idx]},
           'motionminers_flw': {'cnn': learning_rates[learning_rates_idx],
                                 'lstm': learning_rates[learning_rates_idx],
-                                'cnn_imu': learning_rates[learning_rates_idx]}
+                                'cnn_imu': learning_rates[learning_rates_idx]},
+          'pamap': {'cnn': learning_rates[learning_rates_idx],
+                        'lstm': learning_rates[learning_rates_idx],
+                        'cnn_imu':learning_rates[learning_rates_idx]}
           }
     lr_mult = 1.0
 
@@ -179,28 +182,33 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                             'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
-                                   'cnn_imu': {'softmax': 10, 'attribute': 10}}
+                                   'cnn_imu': {'softmax': 10, 'attribute': 10}},
+              'pamap': {'cnn': {'softmax': 10, 'attribute': 10},
+                        'lstm': {'softmax': 10, 'attribute': 10},
+                        'cnn_imu': {'softmax': 10, 'attribute': 10}}
               } 
+              
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
 
     # Batch size
     batch_size_train = {
-        'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap': 50, 'mbientlab':50, 'motionminers_flw': 50}}
+        'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
+        'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
+        'cnn_imu': {'mocap': 50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':100}}
 
-    batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 50}}
+    batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
+                      'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
+                      'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':100}}
     
      # Number of iterations for accumulating the gradients
-    accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4, 'pamap':4}
 
     # Filters
-    filter_size = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    filter_size = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5,'pamap':5}
     num_filters = {'mocap': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'mbientlab': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
-                   'motionminers_flw': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64}}
+                   'motionminers_flw': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
+                   'pamap': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64}}
 
     freeze_options = [False, True]
     #evolution_iter = 10000
@@ -219,7 +227,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        #folder_base = "/data/nnair/output/softmax/clean/mbientlab/cnn_imu/FC/noreshape/experiment/"
+        #folder_base = "/data/nnair/output/softmax/clean,/mbientlab/cnn_imu/FC/noreshape/experiment/"
         folder_base = "//data/nnair/output/avg/experiment/"
         #folder_base = "/data/nnair/all/experiments/momin/"
         #folder_base = "/data/nnair/trial/lstm/"
@@ -229,7 +237,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "attributes"
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
         #folder_base = "/data/nnair/output/attributes/no7/imu/output/"
-        folder_base = "/data/nnair/output/attributes/all/imu/"
+        #folder_base = "/data/nnair/output/attributes/all/imu/"
+        folder_base = "/data/nnair/pamap/attr/output/exp1/"
         
     print("folderbase selected")
     print(folder_base)
@@ -296,7 +305,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/trial/imu_all/',
-                    'motionminers_flw': '/data/nnair/all/momin/'}
+                    'motionminers_flw': '/data/nnair/all/momin/',
+                    'pamap': '/data/nnair/pamap/attr/t9/'}
     '''
     dataset_root = {'mocap': '/data/nnair/output/attributes/no67/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
@@ -327,6 +337,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     elif dataset[dataset_idx] == "mocap":
         train_show = {'cnn': int(train_show_value / 100), 'lstm': 100, 'cnn_imu': int(train_show_value / 100)}
         valid_show = {'cnn': int(train_show_value / 20), 'lstm': 50, 'cnn_imu': int(train_show_value / 20)}
+    elif dataset[dataset_idx] == "pamap":
+        train_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}
+        valid_show = {'cnn': int(train_show_value / 10), 'lstm': 10, 'cnn_imu': int(train_show_value / 10)}
     else:
         train_show = {'cnn': int(train_show_value / 100), 'lstm': 100, 'cnn_imu': int(train_show_value / 100)}
         valid_show = {'cnn': int(train_show_value / 50), 'lstm': 50, 'cnn_imu': int(train_show_value / 50)}

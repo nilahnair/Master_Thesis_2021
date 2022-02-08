@@ -57,8 +57,8 @@ class Network_User(object):
         #self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_one.txt")
         #self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_two.txt")
         
-        #self.attr_representation = self.reader_att_rep("atts_per_class_lara.txt")
-
+        self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/pamap_attr.txt")
+        
         self.normal = torch.distributions.Normal(torch.tensor([0.0]), torch.tensor([0.001]))
         self.exp = exp
 
@@ -125,23 +125,6 @@ class Network_User(object):
             for pl in range(len(metrics_list)):
                 plot_list[pl].set_ydata(metrics_list[pl])
                 plot_list[pl].set_xdata(range(len(metrics_list[pl])))
-
-
-            '''      
-                
-            plot_list[0].set_ydata(metrics_list[0])
-            plot_list[0].set_xdata(range(len(metrics_list[0])))
-            
-            plot_list[1].set_ydata(metrics_list[1])
-            plot_list[1].set_xdata(range(len(metrics_list[1])))
-            
-            plot_list[2].set_ydata(metrics_list[2])
-            plot_list[2].set_xdata(range(len(metrics_list[2])))
-            
-            plot_list[3].set_ydata(metrics_list[3])
-            plot_list[3].set_xdata(range(len(metrics_list[3])))
-            
-            '''
 
             axis_list[1].relim()
             axis_list[1].autoscale_view()
@@ -451,9 +434,6 @@ class Network_User(object):
                 #Setting the network to train mode
                 network_obj.train(mode=True)
                 
-                #Counting iterations
-                #itera = (e * harwindow_batched["data"].shape[0]) + b
-                
                 #Selecting batch
                 train_batch_v = harwindow_batched["data"]
                 
@@ -476,21 +456,7 @@ class Network_User(object):
                             if sample[i]==self.attrs[sample[i],0]:
                                 n=sample[i].item()
                                 train_batch_l[i]= self.attrs[n]
-                       
-                '''
-                if self.config['output'] == 'softmax':
-                    if self.config["fully_convolutional"] == "FCN":
-                        train_batch_l = harwindow_batched["labels"][:, :, 0]
-                        train_batch_l = train_batch_l.reshape(-1)
-                    elif self.config["fully_convolutional"] == "FC":
-                        train_batch_l = harwindow_batched["label"][:, 0]
-                        train_batch_l = train_batch_l.reshape(-1)
-                elif self.config['output'] == 'attribute':
-                    if self.config["fully_convolutional"] == "FCN":
-                        train_batch_l = harwindow_batched["labels"][:, :, 1:]
-                    elif self.config["fully_convolutional"] == "FC":
-                        train_batch_l = harwindow_batched["label"]
-                '''        
+                          
                 # Adding gaussian noise
                 noise = self.normal.sample((train_batch_v.size()))
                 noise = noise.reshape(train_batch_v.size())
@@ -672,7 +638,7 @@ class Network_User(object):
                             'network': self.config['network'],
                             'output': self.config['output'],
                             'num_classes': self.config['num_classes'],
-                            #'num_attributes': self.config['num_attributes'],
+                            'num_attributes': self.config['num_attributes'],
                             'fully_convolutional': self.config['fully_convolutional'],
                             'labeltype': self.config['labeltype']
                         }
@@ -681,7 +647,7 @@ class Network_User(object):
 
                         torch.save({'state_dict': network_obj.state_dict(),
                                     'network_config': network_config,
-                                    #'att_rep': self.attr_representation
+                                    'att_rep': self.attr_representation
                                     },
                                    self.config['folder_exp'] + 'network.pt')
                         best_acc_val = results_val['acc']

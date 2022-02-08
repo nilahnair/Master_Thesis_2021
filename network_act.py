@@ -143,7 +143,9 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 5), 256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
-
+                elif self.config["dataset"] == 'pamap':
+                    self.fc3_LA = nn.Linear(self.config['num_filters'] * int(Wx) * 13, 256)
+                
             # LL
             self.conv_LL_1_1 = nn.Conv2d(in_channels=in_channels,
                                      out_channels=self.config['num_filters'],
@@ -177,6 +179,9 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 5), 256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
+                elif self.config["dataset"] == 'pamap':
+                    self.fc3_LL = nn.Linear(self.config['num_filters'] * int(Wx) * 13, 256)
+            
 
             # N
             self.conv_N_1_1 = nn.Conv2d(in_channels=in_channels,
@@ -217,6 +222,9 @@ class Network(nn.Module):
                                            int(self.config['NB_sensor_channels'] / 5), 256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) * 18, 256)
+                elif self.config["dataset"] == 'pamap':
+                    self.fc3_N = nn.Linear(self.config['num_filters'] * int(Wx) * 14, 256)
+                
 
 
             # RA
@@ -258,6 +266,9 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 5), 256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) * 30, 256)
+                elif self.config["dataset"] == 'pamap':
+                    self.fc3_RA = nn.Linear(self.config['num_filters'] * int(Wx) * 13, 256)
+                
 
             # RL
             self.conv_RL_1_1 = nn.Conv2d(in_channels=in_channels,
@@ -292,6 +303,9 @@ class Network(nn.Module):
                                             int(self.config['NB_sensor_channels'] / 5), 256)
                 elif self.config["NB_sensor_channels"] == 126:
                     self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) * 24, 256)
+                elif self.config["dataset"] == 'pamap2':
+                    self.fc3_RL = nn.Linear(self.config['num_filters'] * int(Wx) * 13, 256)
+            
                     
         # MLP
         if self.config["fully_convolutional"] == "FCN":
@@ -309,7 +323,7 @@ class Network(nn.Module):
                 self.fc4 = nn.Linear(256, 256)
             elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] in [30, 126]:
                 self.fc4 = nn.Linear(256 * 5, 256)
-            elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] == 27:
+            elif self.config["network"] == "cnn_imu" and self.config["NB_sensor_channels"] in [27, 40]:
                 self.fc4 = nn.Linear(256 * 3, 256)
 
         if self.config["fully_convolutional"] == "FCN":
@@ -357,7 +371,7 @@ class Network(nn.Module):
         if self.config["network"] == "cnn":
             x = self.tcnn(x)
         elif self.config["network"] == "cnn_imu":
-            if self.config["dataset"] in ['motionminers_real', 'motionminers_flw']:
+            if self.config["dataset"] in ['motionminers_real', 'motionminers_flw', 'pamap']:
                 x_LA, x_N, x_RA = self.tcnn_imu(x)
                 x = torch.cat((x_LA, x_N, x_RA), 1)
             else:
@@ -508,6 +522,9 @@ class Network(nn.Module):
                 idx_LA = np.concatenate([idx_LA, np.arange(36, 42)])
                 idx_LA = np.concatenate([idx_LA, np.arange(54, 66)])
                 x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_LA]))
+            elif self.config["dataset"] == 'pamap':
+                    idx_LA = np.arange(1, 14)
+                    x_LA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_LA]))
 
         x_LA = F.relu(self.conv_LA_1_2(x_LA))
         x_LA = F.relu(self.conv_LA_2_1(x_LA))
@@ -515,6 +532,7 @@ class Network(nn.Module):
         # view is reshape
         x_LA = x_LA.reshape(-1, x_LA.size()[1] * x_LA.size()[2] * x_LA.size()[3])
         x_LA = F.relu(self.fc3_LA(x_LA))
+
 
         # LL
         if self.config["NB_sensor_channels"] in [30, 126]:
@@ -559,6 +577,11 @@ class Network(nn.Module):
                 idx_N = np.arange(0, 12)
                 idx_N = np.concatenate([idx_N, np.arange(120, 126)])
                 x_N = F.relu(self.conv_LA_1_1(x[:, :, :, idx_N]))
+            elif self.config["dataset"] == 'pamap':
+                    idx_N = np.arange(0, 1)
+                    idx_N = np.concatenate([idx_N, np.arange(14, 27)])
+                    x_N = F.relu(self.conv_LA_1_1(x[:, :, :, idx_N]))
+                
         x_N = F.relu(self.conv_N_1_2(x_N))
         x_N = F.relu(self.conv_N_2_1(x_N))
         x_N = F.relu(self.conv_N_2_2(x_N))
@@ -587,7 +610,10 @@ class Network(nn.Module):
                 idx_RA = np.concatenate([idx_RA, np.arange(90, 96)])
                 idx_RA = np.concatenate([idx_RA, np.arange(108, 120)])
                 x_RA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_RA]))
-
+            elif self.config["dataset"] == 'pamap':
+                    idx_RA = np.arange(1, 14)
+                    x_RA = F.relu(self.conv_LA_1_1(x[:, :, :, idx_RA]))
+          
         x_RA = F.relu(self.conv_RA_1_2(x_RA))
         x_RA = F.relu(self.conv_RA_2_1(x_RA))
         x_RA = F.relu(self.conv_RA_2_2(x_RA))
@@ -619,7 +645,7 @@ class Network(nn.Module):
             x_RL = x_RL.reshape(-1, x_RL.size()[1] * x_RL.size()[2] * x_RL.size()[3])
             x_RL = F.relu(self.fc3_RL(x_RL))
 
-        if self.config["NB_sensor_channels"] == 27:
+        if self.config["NB_sensor_channels"] in [27, 40]:
             return x_LA, x_N, x_RA
         else:
             return x_LA, x_LL, x_N, x_RA, x_RL

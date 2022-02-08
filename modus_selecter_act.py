@@ -284,7 +284,7 @@ class Modus_Selecter(object):
                 p=results_test['acc_attrs']
                 for i in range(0,p.shape[0]):
                     self.exp.log_scalar("acc_attr_{}_test_mo_{}".format(i, iter_evl),p[i])
-            
+            '''
             if count_pos_test[0] == 0:
                 self.exp.log_scalar("standing_pos_test{}".format(iter_evl), count_pos_test[0])
             else:
@@ -358,7 +358,7 @@ class Modus_Selecter(object):
                 self.exp.log_scalar("none_neg_test{}".format(iter_evl), count_neg_test[7])
             else:
                 self.exp.log_scalar("none_neg_test{}".format(iter_evl), count_neg_test[7]/(count_pos_test[7]+count_neg_test[7]))
-            
+           ''' 
 
         if self.config["usage_modus"] == "train":
             logging.info('    Network_selecter:    Train:    eliminating network file')
@@ -456,7 +456,7 @@ class Modus_Selecter(object):
         """
         logging.info('    Network_selecter: Net modus: {}'.format(self.config['usage_modus']))
         if self.config['usage_modus'] == 'train':
-            self.train(itera=5, testing=True)
+            self.train(itera=1, testing=True)
         elif self.config['usage_modus'] == 'test':
             self.test()
         #elif self.config['usage_modus'] == 'evolution':
