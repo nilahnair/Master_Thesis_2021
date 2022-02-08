@@ -306,7 +306,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/trial/imu_all/',
                     'motionminers_flw': '/data/nnair/all/momin/',
-                    'pamap': '/data/nnair/pamap/attr/t9/'}
+                    'pamap': '/data/nnair/pamap/attr/t8/'}
     '''
     dataset_root = {'mocap': '/data/nnair/output/attributes/no67/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
