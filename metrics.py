@@ -25,8 +25,8 @@ class Metrics(object):
         # Here, you need to extract the attributes from the network.pt
         # self,attr= network["att_rep"]
         self.attr = attributes
-        for attr_idx in range(self.attr.shape[0]):
-            self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
+        #for attr_idx in range(self.attr.shape[0]):
+        #    self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
 
         self.atts = torch.from_numpy(self.attr).type(dtype=torch.FloatTensor)
         self.atts = self.atts.type(dtype=torch.cuda.FloatTensor)
@@ -105,15 +105,16 @@ class Metrics(object):
         y = y.to(self.device, dtype=torch.long)
 
         for c in range(self.config['num_attributes']):
-            selected_elements = torch.where(predictions[:, c] == 1.0, x, y)
-            non_selected_elements = torch.where(predictions[:, c] == 1.0, y, x)
-
-            target_elements = torch.where(targets[:, c] == 1.0, x, y)
-            non_target_elements = torch.where(targets[:, c] == 1.0, y, x)
-
+            selected_elements = torch.where(predictions == c, x, y)
+               
+            non_selected_elements = torch.where(predictions == c, y, x)
+               
+            target_elements = torch.where(targets == c, x, y)
+            non_target_elements = torch.where(targets == c, y, x)
+            
             true_positives = torch.sum(target_elements * selected_elements)
             false_positives = torch.sum(non_target_elements * selected_elements)
-
+           
             false_negatives = torch.sum(target_elements * non_selected_elements)
 
             try:
