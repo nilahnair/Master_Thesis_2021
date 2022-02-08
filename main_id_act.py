@@ -424,9 +424,9 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=0,
+    config = configuration(dataset_idx=3,
                            network_idx=2,
-                           output_idx=0,
+                           output_idx=1,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
@@ -436,7 +436,7 @@ def my_config():
                            fully_convolutional=False,
                            #percentage_idx=12,
                            #pooling=0,
-                           dist_idx=1
+                           dist_idx=0
                            )
     
     dataset = config["dataset"]
