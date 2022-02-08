@@ -402,8 +402,8 @@ class Network_User(object):
         if self.config['output'] == 'softmax':
             metrics_obj = Metrics(self.config, self.device)
         elif self.config['output'] == 'attribute': 
-            #metrics_obj = Metrics(self.config, self.device, self.attrs)
-            metrics_obj = Metrics(self.config, self.device)
+            metrics_obj = Metrics(self.config, self.device, self.attrs)
+           
            
 
         itera = 0
