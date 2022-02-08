@@ -105,16 +105,16 @@ class Metrics(object):
         y = y.to(self.device, dtype=torch.long)
 
         for c in range(self.config['num_attributes']):
-            selected_elements = torch.where(predictions == c, x, y)
-               
-            non_selected_elements = torch.where(predictions == c, y, x)
-               
-            target_elements = torch.where(targets == c, x, y)
-            non_target_elements = torch.where(targets == c, y, x)
-            
+            selected_elements = torch.where(predictions[:, c] == 1.0, x, y)
+           
+            non_selected_elements = torch.where(predictions[:, c] == 1.0, y, x)
+
+            target_elements = torch.where(targets[:, c] == 1.0, x, y)
+            non_target_elements = torch.where(targets[:, c] == 1.0, y, x)
+
             true_positives = torch.sum(target_elements * selected_elements)
             false_positives = torch.sum(non_target_elements * selected_elements)
-           
+
             false_negatives = torch.sum(target_elements * non_selected_elements)
 
             try:
