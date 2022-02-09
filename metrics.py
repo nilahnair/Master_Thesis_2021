@@ -147,8 +147,8 @@ class Metrics(object):
         if self.config['output'] == 'softmax':
             predictions = torch.argmax(preds, dim=1)
         elif self.config['output'] == 'attribute':
-            # predictions = torch.argmin(preds, dim=1)
-            predictions = self.atts[torch.argmin(preds, dim=1), 0]
+             predictions = torch.argmin(preds, dim=1)
+           # predictions = self.atts[torch.argmin(preds, dim=1), 0]
             
         if self.config['output'] == 'softmax':
             precision, recall = self.get_precision_recall(targets, predictions)
@@ -212,7 +212,8 @@ class Metrics(object):
             # with this self.atts[torch.argmin(predictions, dim=1), 0]
             #  one computes the class that correspond to the argument with min distance
             # self.atts.size() = [# of windows, classes and 19 attributes] = [# of windows, 20], [#, 20]
-            predicted_classes = self.atts[torch.argmin(predictions, dim=1), 0]
+            #predicted_classes = self.atts[torch.argmin(predictions, dim=1), 0]
+            predicted_classes = torch.argmin(predictions, dim=1)
             logging.info('            Metric:    Acc:    Target     class {}'.format(targets[0, 0]))
             logging.info('            Metric:    Acc:    Prediction class {}'.format(predicted_classes[0]))
             acc = torch.sum(targets[:, 0] == predicted_classes.type(dtype=torch.cuda.FloatTensor))
