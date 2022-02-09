@@ -185,7 +185,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'pamap': {'cnn': {'softmax': 10, 'attribute': 10},
                         'lstm': {'softmax': 10, 'attribute': 10},
-                        'cnn_imu': {'softmax': 10, 'attribute': 10}}
+                        'cnn_imu': {'softmax': 10, 'attribute': 15}}
               } 
               
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
@@ -194,11 +194,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
-        'cnn_imu': {'mocap': 50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':50}}
+        'cnn_imu': {'mocap': 50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':20}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
-                      'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':50}}
+                      'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':20}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4, 'pamap':4}
