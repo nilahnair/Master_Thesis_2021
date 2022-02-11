@@ -266,6 +266,12 @@ class Metrics(object):
         
         if self.config["distance"] == "euclidean":
             dist_funct = torch.nn.PairwiseDistance()
+            
+            for attr_idx in range(self.attr.shape[0]):
+                self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
+            
+            self.atts = torch.from_numpy(self.attr).type(dtype=torch.FloatTensor)
+            self.atts = self.atts.type(dtype=torch.cuda.FloatTensor)
 
             # Normalize the predictions of the network
             for pred_idx in range(predictions.size()[0]):
