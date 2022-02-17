@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('pamap attr representation')
+ex= Experiment('pamap attr representation full')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -69,7 +69,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1, 'pamap':11}
     #all
-    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 161667, 'pamap':103270}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 161667, 'pamap':103611}
     #num_tr_inputs = {'mocap': 172561, 'mbientlab': 147780, 'motionminers_flw': 161667}
     
     #attr without 6 and 7
@@ -185,7 +185,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'pamap': {'cnn': {'softmax': 10, 'attribute': 10},
                         'lstm': {'softmax': 10, 'attribute': 10},
-                        'cnn_imu': {'softmax': 10, 'attribute': 15}}
+                        'cnn_imu': {'softmax': 10, 'attribute': 10}}
               } 
               
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
@@ -194,11 +194,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
-        'cnn_imu': {'mocap': 50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':20}}
+        'cnn_imu': {'mocap': 50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':50}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
-                      'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':20}}
+                      'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':50}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4, 'pamap':4}
@@ -306,7 +306,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/trial/imu_all/',
                     'motionminers_flw': '/data/nnair/all/momin/',
-                    'pamap': '/data/nnair/pamap/attr/t9/'}
+                    'pamap': '/data/nnair/pamap/attr/t0/'}
     '''
     dataset_root = {'mocap': '/data/nnair/output/attributes/no67/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
