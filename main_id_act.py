@@ -185,7 +185,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'pamap': {'cnn': {'softmax': 10, 'attribute': 10},
                         'lstm': {'softmax': 10, 'attribute': 10},
-                        'cnn_imu': {'softmax': 10, 'attribute': 15}}
+                        'cnn_imu': {'softmax': 10, 'attribute': 20}}
               } 
               
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
