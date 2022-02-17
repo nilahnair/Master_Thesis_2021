@@ -97,14 +97,14 @@ class Metrics(object):
 
         precision = torch.zeros((self.config['num_attributes']))
         recall = torch.zeros((self.config['num_attributes']))
-
+       
         x = torch.ones(predictions.size()[0])
         y = torch.zeros(predictions.size()[0])
-
         x = x.to(self.device, dtype=torch.long)
         y = y.to(self.device, dtype=torch.long)
 
         for c in range(self.config['num_attributes']):
+          
             selected_elements = torch.where(predictions[:, c] == 1.0, x, y)
            
             non_selected_elements = torch.where(predictions[:, c] == 1.0, y, x)
