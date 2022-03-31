@@ -343,7 +343,7 @@ class Metrics(object):
             '''
             predictions=predictions.repeat(11,1,1)
             print('printing predictions')
-            print(predictions.size)
+            print(predictions.shape)
             #predictions = predictions.repeat(8, 1, 1)
             predictions = predictions.permute(1, 0, 2)
         
