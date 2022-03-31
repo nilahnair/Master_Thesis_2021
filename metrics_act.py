@@ -41,7 +41,7 @@ class Metrics(object):
         self.atts = torch.from_numpy(self.attr).type(dtype=torch.FloatTensor)
         #self.atts = torch.from_numpy(self.attr)
         self.atts = self.atts.type(dtype=torch.cuda.FloatTensor)
-        self.center = self.atts
+        self.center = self.atts[:,1:]
         '''
         if self.config['num_attributes'] == 4:
             self.center= self.atts[0:6,1:]
