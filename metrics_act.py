@@ -348,6 +348,9 @@ class Metrics(object):
             predictions = predictions.permute(1, 0, 2)
             print('printing predictions 2')
             print(predictions.shape)
+            
+            print('printing center')
+            print(self.center.shape)
         
             # compute the distance among the predictions of the network
             # and the the attribute representation
