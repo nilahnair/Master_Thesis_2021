@@ -329,8 +329,8 @@ class Metrics(object):
             dist_funct = torch.nn.PairwiseDistance()
         
         # Normalize the predictions of the network
-            for pred_idx in range(predictions.size()[0]):
-                predictions[pred_idx, :] = predictions[pred_idx,:] / torch.norm(predictions[pred_idx, :])
+            #for pred_idx in range(predictions.size()[0]):
+            #    predictions[pred_idx, :] = predictions[pred_idx,:] / torch.norm(predictions[pred_idx, :])
         
             #predictions = predictions.repeat(self.attr.shape[0], 1, 1)
             #predictions = predictions.repeat(self.atts.shape[0], 1, 1)
@@ -341,7 +341,7 @@ class Metrics(object):
             elif self.config['num_attributes'] == 10:
                 predictions = predictions.repeat(7, 1, 1)
             '''
-            predictions=predictions.repeat(11,1,1)
+            predictions=predictions.repeat(9,1,1)
             print('printing predictions')
             print(predictions.shape)
             #predictions = predictions.repeat(8, 1, 1)
