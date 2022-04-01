@@ -142,7 +142,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.001, 0.00001, 0.000001, 0.01]
+    learning_rates = [0.0001, 0.00001, 0.000001, 0.01]
     lr = {'mocap': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
@@ -185,7 +185,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'pamap': {'cnn': {'softmax': 10, 'attribute': 10},
                         'lstm': {'softmax': 10, 'attribute': 10},
-                        'cnn_imu': {'softmax': 10, 'attribute': 20}}
+                        'cnn_imu': {'softmax': 10, 'attribute': 30}}
               } 
               
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
@@ -194,7 +194,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
-        'cnn_imu': {'mocap': 50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':20}}
+        'cnn_imu': {'mocap': 50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':50}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
