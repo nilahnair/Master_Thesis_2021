@@ -26,6 +26,7 @@ class Metrics(object):
         # Here, you need to extract the attributes from the network.pt
         #self,attr= network["att_rep"]
         self.attr = attributes
+        self.mid= self.attr[0:9,:]
         '''
         if self.config['num_attributes'] == 4:
             self.mid= self.attr[0:6,:]
