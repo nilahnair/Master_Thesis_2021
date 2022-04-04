@@ -436,7 +436,7 @@ def my_config():
                            fully_convolutional=False,
                            #percentage_idx=12,
                            #pooling=0,
-                           dist_idx=0
+                           dist_idx=1
                            )
     
     dataset = config["dataset"]
