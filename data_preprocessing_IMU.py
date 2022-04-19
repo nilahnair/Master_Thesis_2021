@@ -315,7 +315,7 @@ def create_dataset():
     test_ids = ["R27", "R28", "R29"]
     '''
     
-    base_directory='/data/nnair/lara/attr/no1/imu/input/'
+    base_directory='/data/nnair/lara/attr/no2/imu/input/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
