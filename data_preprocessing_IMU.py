@@ -309,14 +309,14 @@ def create_dataset():
     '''
     
     #type4-Avoiding persons 11,12,10
-    
+    '''
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     val_ids = ["R23","R25", "R26"]
     test_ids = ["R27", "R28", "R29"]
-  
+    '''
     
-    base_directory='/data/nnair/output/type4/imu/'
-    
+    base_directory='/data/nnair/lara/attr/no0/imu/input/'
+    '''
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
@@ -324,7 +324,7 @@ def create_dataset():
     generate_data(train_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_train, usage_modus='train')
     generate_data(val_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_val, usage_modus='val')
     generate_data(test_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test, usage_modus='test')
-    
+    '''
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
     generate_CSV(base_directory + "test.csv", data_dir_test)
