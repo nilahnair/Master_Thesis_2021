@@ -245,7 +245,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     print(folder_base)
 
 ##################################Check this again###############################################
-    
+
     # Folder
     if usage_modus[usage_modus_idx] == 'train':
         '''
@@ -261,33 +261,33 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] + '/' + fully_convolutional \
                                       + '/' + 'train_final/'
-        '''
+        
     elif usage_modus[usage_modus_idx] == 'test':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional \
                      + '/' + reshape_folder +'/' + 'test_final/'
         print(folder_exp)
-        '''
+        
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] +  fully_convolutional + \
                                       '/' + 'final/'
-        '''
+        
     elif usage_modus[usage_modus_idx] == 'train_final':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional +\
                      '/' + reshape_folder + '/' + 'train_final/'
         print(folder_exp)
-        '''
+       
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] + '/' + fully_convolutional + \
                                       '/' + 'train_final/'
-        '''
+        
     elif usage_modus[usage_modus_idx] == 'fine_tuning':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
                      network[network_idx] + '/' + fully_convolutional + \
                      + '/' + reshape_folder +'/' + 'fine_tuning/'
         print(folder_exp)
-        '''
+        
         folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
                                       network[network_idx] + '/' + fully_convolutional + \
                                       '/' + 'final/'
