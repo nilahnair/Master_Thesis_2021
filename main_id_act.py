@@ -60,7 +60,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     network = {0: 'cnn', 1: 'lstm', 2: 'cnn_imu'}
     output = {0: 'softmax', 1: 'attribute'}
     usage_modus = {0: 'train', 1: 'test', 2: 'fine_tuning', 3: 'train_final'}
-    fully_convolutional = {True: 'FCN', False:'FC'}
+    
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'mocap': 126, 'mbientlab': 30,'motionminers_flw': 27, 'pamap':40}
@@ -214,7 +214,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     freeze_options = [False, True]
     #evolution_iter = 10000
     # User gotta take care of creating these folders, or storing the results in a different way
-    '''
+    
     reshape_input = reshape_input
     if reshape_input:
         reshape_folder = "reshape"
@@ -225,7 +225,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         fully_convolutional = "FCN"
     else:
         fully_convolutional = "FC"
-    '''
+    
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean,/mbientlab/cnn_imu/FC/noreshape/experiment/"
