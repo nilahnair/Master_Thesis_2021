@@ -213,7 +213,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     freeze_options = [False, True]
     #evolution_iter = 10000
     # User gotta take care of creating these folders, or storing the results in a different way
-    
+    '''
     reshape_input = reshape_input
     if reshape_input:
         reshape_folder = "reshape"
@@ -224,11 +224,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         fully_convolutional = "FCN"
     else:
         fully_convolutional = "FC"
-
+    '''
     if output[output_idx] == 'softmax':
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean,/mbientlab/cnn_imu/FC/noreshape/experiment/"
-        folder_base = "/data/nnair/output/avg/experiment/"
+        #folder_base = "/data/nnair/output/avg/experiment/"
         #folder_base = "/data/nnair/all/experiments/momin/"
         #folder_base = "/data/nnair/trial/lstm/"
         #folder_base = "/data/nnair/exp2/"
@@ -298,6 +298,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 ################################################################################################################################3
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
+    dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
+                    'mbientlab': '/data/nnair/lara/attr/no0/imu/input/',
+                    'motionminers_flw': '/data/nnair/output/type1/momin/'}    
     '''
     dataset_root = {'mocap': '/data/nnair/output/activities/type4/mocap/',
                     'mbientlab': '/data/nnair/output/activities/type4/imu/',
@@ -314,10 +317,6 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     '''
-    
-    dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
-                    'mbientlab': '/data/nnair/lara/attr/no0/imu/input/',
-                    'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
     '''
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
