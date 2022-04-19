@@ -274,6 +274,8 @@ class Network_User(object):
         if self.config['usage_modus'] == 'train':
             harwindows_train = HARWindows(csv_file=self.config['dataset_root'] + "train.csv",
                                           root_dir=self.config['dataset_root'])
+            print('\n \n')
+            print(self.config['dataset_root'])
         elif self.config['usage_modus'] == 'train_final':
             harwindows_train = HARWindows(csv_file=self.config['dataset_root'] + "train.csv",
                                          root_dir=self.config['dataset_root'])
