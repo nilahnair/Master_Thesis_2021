@@ -316,7 +316,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
     
     dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
-                    'mbientlab': '/data/nnair/lara/attr/no1/imu/input/',
+                    'mbientlab': '/data/nnair/lara/attr/no0/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
     '''
