@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('pamap attr representation t1 bce')
+ex= Experiment('mbient attr rep no0 euclidean')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -69,7 +69,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1, 'pamap':11}
     #all
-    num_tr_inputs = {'mocap': 172561, 'mbientlab': 151583, 'motionminers_flw': 161667, 'pamap':90280}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 126843, 'motionminers_flw': 161667, 'pamap':90280}
     #num_tr_inputs = {'mocap': 172561, 'mbientlab': 147780, 'motionminers_flw': 161667}
     
     #attr without 6 and 7
@@ -179,7 +179,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                         'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'mbientlab': {'cnn': {'softmax': 10, 'attribute': 10},
                             'lstm': {'softmax': 10, 'attribute': 10},
-                            'cnn_imu': {'softmax': 10, 'attribute': 10}},
+                            'cnn_imu': {'softmax': 10, 'attribute': 50}},
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
@@ -238,7 +238,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         #folder_base = "/data/nnair/output/attributes/all/mocap/"
         #folder_base = "/data/nnair/output/attributes/no7/imu/output/"
         #folder_base = "/data/nnair/output/attributes/all/imu/"
-        folder_base = "/data/nnair/pamap/attr/output/exp1/"
+        #folder_base = "/data/nnair/pamap/attr/output/exp1/"
+        folder_base = "/data/nnair/lara/attr/output/"
         
     print("folderbase selected")
     print(folder_base)
@@ -302,22 +303,23 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab': '/data/nnair/output/activities/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type2/momin/'}
     '''  
-
+    '''
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/trial/imu_all/',
                     'motionminers_flw': '/data/nnair/all/momin/',
                     'pamap': '/data/nnair/pamap/attr/t1/'}
     '''
+    '''
     dataset_root = {'mocap': '/data/nnair/output/attributes/no67/mocap/input/',
                     'mbientlab': '/data/nnair/output/attributes/no67/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     '''
-    '''
+    
     dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
-                    'mbientlab': '/data/nnair/output/attributes/no7/imu/input/',
+                    'mbientlab': '/data/nnair/lara/attr/no1/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
-    
+    '''
     dataset_root = {'mocap': '/data/nnair/all/mocap/downsampled/',
                     'mbientlab': '/data/nnair/all/imu/',
                     'motionminers_flw': '/data/nnair/all/momin/'}
@@ -424,7 +426,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=3,
+    config = configuration(dataset_idx=1,
                            network_idx=2,
                            output_idx=1,
                            usage_modus_idx=0,
@@ -436,7 +438,7 @@ def my_config():
                            fully_convolutional=False,
                            #percentage_idx=12,
                            #pooling=0,
-                           dist_idx=1
+                           dist_idx=0
                            )
     
     dataset = config["dataset"]

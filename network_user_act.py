@@ -55,9 +55,9 @@ class Network_User(object):
         self.device = torch.device("cuda:{}".format(self.config["GPU"]) if torch.cuda.is_available() else "cpu")
 
         #self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_one.txt")
-        #self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_two.txt")
+        self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/id_attr_two.txt")
         
-        self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/pamap_attr.txt")
+        #self.attrs = self.reader_att_rep("/home/nnair/Master_Thesis_2021/pamap_attr.txt")
         
         self.normal = torch.distributions.Normal(torch.tensor([0.0]), torch.tensor([0.001]))
         self.exp = exp
@@ -1165,7 +1165,7 @@ class Network_User(object):
         
         print("testlabels shape")
         print(test_labels.shape)
-        '''    
+        
         if self.config['output'] == 'attribute':
             if self.config['num_attributes'] == 4:
                 for i in range(0, test_labels[0]):
@@ -1179,7 +1179,7 @@ class Network_User(object):
                         test_labels[i,0]=5
                     elif test_labels[i,0]==7:
                        test_labels[i,0]=6
-        '''
+        
 
         # Computing confusion matrix
         confusion_matrix = np.zeros((self.config['num_classes'], self.config['num_classes']))
