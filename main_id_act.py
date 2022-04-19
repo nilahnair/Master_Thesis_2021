@@ -60,6 +60,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     network = {0: 'cnn', 1: 'lstm', 2: 'cnn_imu'}
     output = {0: 'softmax', 1: 'attribute'}
     usage_modus = {0: 'train', 1: 'test', 2: 'fine_tuning', 3: 'train_final'}
+    fully_convolutional = {True: 'FCN', False:'FC'}
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'mocap': 126, 'mbientlab': 30,'motionminers_flw': 27, 'pamap':40}
