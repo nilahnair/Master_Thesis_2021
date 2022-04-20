@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mbient attr rep no0 euclidean')
+ex= Experiment('mbient attr rep no0 bce')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -143,7 +143,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.0001, 0.00001, 0.000001, 0.01]
+    learning_rates = [0.001, 0.00001, 0.000001, 0.01]
     lr = {'mocap': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
@@ -438,7 +438,7 @@ def my_config():
                            fully_convolutional=False,
                            #percentage_idx=12,
                            #pooling=0,
-                           dist_idx=0
+                           dist_idx=1
                            )
     
     dataset = config["dataset"]
