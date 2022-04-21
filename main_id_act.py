@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mbient attr rep no3 euclidean')
+ex= Experiment('mbient attr rep no4 euclidean')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -70,7 +70,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1, 'pamap':11}
     #all
-    num_tr_inputs = {'mocap': 172561, 'mbientlab': 137512, 'motionminers_flw': 161667, 'pamap':90280}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 141304, 'motionminers_flw': 161667, 'pamap':90280}
     #num_tr_inputs = {'mocap': 172561, 'mbientlab': 147780, 'motionminers_flw': 161667}
     
     #attr without 6 and 7
@@ -240,7 +240,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         #folder_base = "/data/nnair/output/attributes/no7/imu/output/"
         #folder_base = "/data/nnair/output/attributes/all/imu/"
         #folder_base = "/data/nnair/pamap/attr/output/exp1/"
-        folder_base = "/data/nnair/lara/attr/output/exp2/"
+        folder_base = "/data/nnair/lara/attr/output/exp3/"
         
     print("folderbase selected")
     print(folder_base)
@@ -300,7 +300,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
-                    'mbientlab': '/data/nnair/lara/attr/no3/imu/input/',
+                    'mbientlab': '/data/nnair/lara/attr/no4/imu/input/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}    
     '''
     dataset_root = {'mocap': '/data/nnair/output/activities/type4/mocap/',
