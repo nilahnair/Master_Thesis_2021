@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mbient attr rep no7 euclidean')
+ex= Experiment('momin attr rep no0 euclidean')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -70,7 +70,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1, 'pamap':11}
     #all
-    num_tr_inputs = {'mocap': 172561, 'mbientlab': 128263, 'motionminers_flw': 161667, 'pamap':90280}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 128263, 'motionminers_flw': 139222, 'pamap':90280}
     #num_tr_inputs = {'mocap': 172561, 'mbientlab': 147780, 'motionminers_flw': 161667}
     
     #attr without 6 and 7
@@ -183,7 +183,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                             'cnn_imu': {'softmax': 10, 'attribute': 50}},
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
-                                   'cnn_imu': {'softmax': 10, 'attribute': 10}},
+                                   'cnn_imu': {'softmax': 10, 'attribute': 50}},
               'pamap': {'cnn': {'softmax': 10, 'attribute': 10},
                         'lstm': {'softmax': 10, 'attribute': 10},
                         'cnn_imu': {'softmax': 10, 'attribute': 50}}
@@ -240,7 +240,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         #folder_base = "/data/nnair/output/attributes/no7/imu/output/"
         #folder_base = "/data/nnair/output/attributes/all/imu/"
         #folder_base = "/data/nnair/pamap/attr/output/exp1/"
-        folder_base = "/data/nnair/lara/attr/output/exp10/"
+        folder_base = "/data/nnair/momin/attr/output/exp1/"
         
     print("folderbase selected")
     print(folder_base)
@@ -301,7 +301,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
                     'mbientlab': '/data/nnair/lara/attr/no7/imu/input/',
-                    'motionminers_flw': '/data/nnair/output/type1/momin/'}    
+                    'motionminers_flw': '/data/nnair/momin/attr/no0/'}    
     '''
     dataset_root = {'mocap': '/data/nnair/output/activities/type4/mocap/',
                     'mbientlab': '/data/nnair/output/activities/type4/imu/',
@@ -325,7 +325,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': '/data/nnair/all/momin/'}
     '''
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     GPU = 0
    
     # Labels position on the segmented window
@@ -426,7 +426,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=2,
                            network_idx=2,
                            output_idx=1,
                            usage_modus_idx=0,
