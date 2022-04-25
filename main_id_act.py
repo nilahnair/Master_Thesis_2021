@@ -68,7 +68,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12, 'pamap':12}
     
     #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
-    num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 1, 'pamap':11}
+    num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 10, 'pamap':11}
     #all
     num_tr_inputs = {'mocap': 172561, 'mbientlab': 128263, 'motionminers_flw': 139222, 'pamap':90280}
     #num_tr_inputs = {'mocap': 172561, 'mbientlab': 147780, 'motionminers_flw': 161667}
