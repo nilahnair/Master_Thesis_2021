@@ -467,8 +467,8 @@ class Network_User(object):
 
                 # Sending to GPU
                 train_batch_v = train_batch_v.to(self.device, dtype=torch.float)
-                #train_batch_v += noise
-                train_batch_v = torch.add(train_batch_v, noise)
+                train_batch_v += noise
+                #train_batch_v = torch.add(train_batch_v, noise)
                 if self.config['output'] == 'softmax':
                     train_batch_l = train_batch_l.to(self.device, dtype=torch.long) #labels for crossentropy needs long type
                 elif self.config['output'] == 'attribute':
