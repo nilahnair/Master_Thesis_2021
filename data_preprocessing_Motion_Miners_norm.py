@@ -246,11 +246,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     
     #persons = [ "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     if usage_modus == 'train':
-           persons = [ "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+           persons = [ "S07", "S09", "S10", "S11", "S12", "S13", "S14"]
     elif usage_modus == 'val':
-           persons = ["S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+           persons = ["S07", "S09", "S10", "S11", "S12", "S13", "S14"]
     elif usage_modus == 'test':
-           persons = ["S07"]
+           persons = ["S08"]
            
     ID = {"S07": 0, "S08": 1, "S09": 2, "S10": 3, "S11": 4, "S12":5, "S13": 6, "S14": 7}
     train_ids = ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10", 
@@ -435,7 +435,7 @@ def create_dataset():
     test_ids = ["R15"]
     
     
-    base_directory='/data/nnair/momin/attr/no0/'
+    base_directory='/data/nnair/momin/attr/no1/'
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
