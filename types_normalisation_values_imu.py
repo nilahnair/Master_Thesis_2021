@@ -174,8 +174,8 @@ if __name__ == '__main__':
     x=np.asarray(x)
     print(x)
   
-    base_directory='/data/nnair/trial/'
+    base_directory='/data/nnair/cmu/norm/'
     
-    csv_dir=  base_directory+"all_normalisation_values_imu.csv"
+    csv_dir=  base_directory+"norm_brownie_mgx.csv"
     print(csv_dir)
     np.savetxt(csv_dir, x, delimiter="\n", fmt='%s')

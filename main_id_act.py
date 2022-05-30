@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('momin attr rep no7 euclidean')
+ex= Experiment('momin attr rep type 1 no7 euclidean')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -67,8 +67,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100}
     sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12, 'pamap':12}
     
-    #num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
-    num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 10, 'pamap':11}
+    num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    #num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 10, 'pamap':11}
     #all
     num_tr_inputs = {'mocap': 172561, 'mbientlab': 128263, 'motionminers_flw': 137957, 'pamap':90280}
     #num_tr_inputs = {'mocap': 172561, 'mbientlab': 147780, 'motionminers_flw': 161667}
