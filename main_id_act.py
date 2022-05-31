@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('momin attr rep type 1 no1 euclidean 6')
+ex= Experiment('momin attr rep type 1 no1 bcelosss 5')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -240,7 +240,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         #folder_base = "/data/nnair/output/attributes/no7/imu/output/"
         #folder_base = "/data/nnair/output/attributes/all/imu/"
         #folder_base = "/data/nnair/pamap/attr/output/exp1/"
-        folder_base = "/data/nnair/momin/attr/output/exp6/"
+        folder_base = "/data/nnair/momin/attr/output/exp5/"
         
     print("folderbase selected")
     print(folder_base)
@@ -438,7 +438,7 @@ def my_config():
                            fully_convolutional=False,
                            #percentage_idx=12,
                            #pooling=0,
-                           dist_idx=0
+                           dist_idx=1
                            )
     
     dataset = config["dataset"]
