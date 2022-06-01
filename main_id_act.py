@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('momin attr rep type 1 no0 euclidean 3')
+ex= Experiment('lara imu attr rep type 1 no0 euclidean 1')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -70,7 +70,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
     #num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 10, 'pamap':11}
     #all
-    num_tr_inputs = {'mocap': 172561, 'mbientlab': 128263, 'motionminers_flw': 139222, 'pamap':90280}
+    num_tr_inputs = {'mocap': 172561, 'mbientlab': 126843, 'motionminers_flw': 139222, 'pamap':90280}
     #num_tr_inputs = {'mocap': 172561, 'mbientlab': 147780, 'motionminers_flw': 161667}
     
     #attr without 6 and 7
@@ -240,7 +240,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         #folder_base = "/data/nnair/output/attributes/no7/imu/output/"
         #folder_base = "/data/nnair/output/attributes/all/imu/"
         #folder_base = "/data/nnair/pamap/attr/output/exp1/"
-        folder_base = "/data/nnair/momin/attr/output/exp3/"
+        folder_base = "/data/nnair/momin/attr/output/exp1/"
         
     print("folderbase selected")
     print(folder_base)
@@ -300,7 +300,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
     dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
-                    'mbientlab': '/data/nnair/lara/attr/no7/imu/input/',
+                    'mbientlab': '/data/nnair/lara/attr/no0/imu/input/',
                     'motionminers_flw': '/data/nnair/momin/attr/no0/'}    
     '''
     dataset_root = {'mocap': '/data/nnair/output/activities/type4/mocap/',
@@ -426,7 +426,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=2,
+    config = configuration(dataset_idx=1,
                            network_idx=2,
                            output_idx=1,
                            usage_modus_idx=0,
