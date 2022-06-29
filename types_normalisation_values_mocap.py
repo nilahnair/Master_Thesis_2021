@@ -55,7 +55,7 @@ def statistics_measurements():
     '''
 
     #dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_12000/"
-    dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed/"
+    dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/16_Annotated_Dataset/"
 
     #type1- avoiding person 12
     '''
@@ -78,15 +78,15 @@ def statistics_measurements():
     train_ids = ["R03", "R07", "R08", "R10", "R11", "R12", "R15", "R18", "R19", "R21", "R22"]
     '''   
     #all cases
-    '''
-    persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
-    train_ids = ["R01", "R02", "R03", "R04", "R05", "R06","R07", "R08", "R09", "R10", "R13", "R14", "R16", "R17",
+    
+    persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
+    train_ids = ["R01", "R02", "R03", "R04", "R05", "R06","R07", "R08", "R09", "R10", "R11", "R12", "R13", "R17",
                  "R18", "R19", "R20", "R21", "R22", "R23", "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
     '''
     persons = ["S03", "S05", "S06", "S07"]
     train_ids = ["R01", "R02", "R03", "R04", "R05", "R06","R07", "R08", "R09", "R10", "R11", "R12", "R13", "R14", "R15", "R16", "R17",
                  "R18", "R19", "R20", "R21", "R22", "R23", "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
-    
+    '''
     #val_ids = ["R12"]
     #test_ids = ["R15"]
 
@@ -195,7 +195,7 @@ if __name__ == '__main__':
     x=np.asarray(x)
     print(x)
   
-    base_directory='/data/nnair/trial/'
+    base_directory='/data/nnair/lara/databias/norm/'
     
     csv_dir=  base_directory+"normset1.csv"
     print(csv_dir)
