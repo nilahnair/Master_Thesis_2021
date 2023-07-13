@@ -33,6 +33,7 @@ NUM_CLASSES = 14
 NUM_ATTRIBUTES = 19
 #change this
 
+
 NORM_MAX_THRESHOLDS = [398.916,   355.542,   311.295,   459.25,    460.51,    460.81,    398.916,
                        355.542,   311.295,   572.34,    568.79,    575.8,     393.446,   503.798,
                        434.992,   318.84,    330.982,   332.26,    501.277,   598.326,   477.503,
@@ -875,7 +876,7 @@ def create_dataset(half=False):
         sliding_window_step = 12
     else:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/idnetwork/all/'
+        base_directory = '/data/nnair/idnetwork/prepros/all/'
         sliding_window_length = 200
         sliding_window_step = 25
   
