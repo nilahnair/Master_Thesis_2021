@@ -644,6 +644,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
             recordings = test_ids
         if P in ids:         
             for r, R in enumerate(recordings):
+                print('r value is', r)
+                print('R value is', R)
             # All of these if-cases are coming due to the naming of the recordings in the data.
             # Not all the subjects have the same
             # annotated recordings, nor annotators, nor annotations runs, nor scenarios.
