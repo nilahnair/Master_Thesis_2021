@@ -94,8 +94,10 @@ headers = ["sample", "label", "head_RX", "head_RY", "head_RZ", "head_TX", "head_
            "R_wrist_end_RZ", "R_wrist_end_TX", "R_wrist_end_TY", "R_wrist_end_TZ", "root_RX", "root_RY", "root_RZ",
            "root_TX", "root_TY", "root_TZ"]
 
-annotator = {"S07": "A05", "S08": "A17", "S09": "A03", "S10": "A18", "S11": "A08", "S12": "A11",
+annotator = {"S01": "A17", "S02": "A03", "S03": "A08", "S04": "A06", "S05": "A12", "S06": "A13",
+             "S07": "A05", "S08": "A17", "S09": "A03", "S10": "A18", "S11": "A08", "S12": "A11",
              "S13": "A08", "S14": "A06", "S15": "A05", "S16": "A05"}
+
 
 SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02', 'R06': 'L02', 'R07': 'L02',
             'R08': 'L02', 'R09': 'L02', 'R10': 'L02', 'R11': 'L02', 'R12': 'L02', 'R13': 'L02', 'R14': 'L02',
@@ -840,7 +842,7 @@ def general_statistics(ids):
     attr_check = 19
     min_durations = compute_min_num_samples(ids, boolean_classes=False, attr=attr_check)
 
-    compute_statistics_samples(ids, boolean_classes=False, attr=attr_check)
+    #compute_statistics_samples(ids, boolean_classes=False, attr=attr_check)
 
     print("Minimum per class {}".format(min_durations))
     print("Minimum ordered {}".format(np.sort(min_durations)))
