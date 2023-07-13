@@ -642,65 +642,64 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
             recordings = val_ids
         elif usage_modus == 'test':
             recordings = test_ids
-        if P in ids:         
-            for r, R in enumerate(recordings):
-                print('r value is', r)
-                print('R value is', R)
+        for r, R in enumerate(recordings):
+            print('r value is', r)
+            print('R value is', R)
             # All of these if-cases are coming due to the naming of the recordings in the data.
             # Not all the subjects have the same
             # annotated recordings, nor annotators, nor annotations runs, nor scenarios.
             # these will include all of the recordings for the subjects
-                if P in ["S01", "S02", "S03", "S04", "S05", "S06"]:
-                    S = "L01"
-                else:
-                    S = SCENARIO[r]
-                for N in repetition:
-                    annotator_file = annotator[P]
-                    if P == 'S07' and SCENARIO[R] == 'L01':
-                        annotator_file = "A03"
-                    if P == 'S14' and SCENARIO[R] == 'L03':
-                        annotator_file = "A19"
-                    if P == 'S11' and SCENARIO[R] == 'L01':
-                        annotator_file = "A03"
-                    if P == 'S11' and R in ['R04', 'R08', 'R09', 'R10', 'R11', 'R12', 'R13', 'R15']:
-                        annotator_file = "A02"
-                    if P == 'S13' and R in ['R28']:
-                        annotator_file = "A01"
-                    if P == 'S13' and R in ['R29', 'R30']:
-                        annotator_file = "A11"
-                    if P == 'S09' and R in ['R28', 'R29']:
-                        annotator_file = "A01"
-                    if P == 'S09' and R in ['R21', 'R22', 'R23', 'R24', 'R25']:
-                        annotator_file = "A11"
+            if P in ["S01", "S02", "S03", "S04", "S05", "S06"]:
+                S = "L01"
+            else:
+                S = SCENARIO[r]
+            for N in repetition:
+                annotator_file = annotator[P]
+                if P == 'S07' and SCENARIO[R] == 'L01':
+                    annotator_file = "A03"
+                if P == 'S14' and SCENARIO[R] == 'L03':
+                    annotator_file = "A19"
+                if P == 'S11' and SCENARIO[R] == 'L01':
+                    annotator_file = "A03"
+                if P == 'S11' and R in ['R04', 'R08', 'R09', 'R10', 'R11', 'R12', 'R13', 'R15']:
+                    annotator_file = "A02"
+                if P == 'S13' and R in ['R28']:
+                    annotator_file = "A01"
+                if P == 'S13' and R in ['R29', 'R30']:
+                    annotator_file = "A11"
+                if P == 'S09' and R in ['R28', 'R29']:
+                    annotator_file = "A01"
+                if P == 'S09' and R in ['R21', 'R22', 'R23', 'R24', 'R25']:
+                    annotator_file = "A11"
 
-                    file_name_norm = "{}/{}_{}_{}_{}_{}_norm_data.csv".format(P, S, P, R, annotator_file, N)
-                    file_name_label = "{}/{}_{}_{}_{}_{}_labels.csv".format(P, S, P, R, annotator_file, N)
+                file_name_norm = "{}/{}_{}_{}_{}_{}_norm_data.csv".format(P, S, P, R, annotator_file, N)
+                file_name_label = "{}/{}_{}_{}_{}_{}_labels.csv".format(P, S, P, R, annotator_file, N)
 
-                    try:
-                    #getting data
-                        data = csv_reader.reader_data(FOLDER_PATH + file_name_norm)
-                        print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_norm))
-                        data = select_columns_opp(data)
-                        print("Columns selected")
-                    except:
-                        print("\n In generating data, No file {}".format(FOLDER_PATH + file_name_norm))
-                        continue
+                try:
+                #getting data
+                    data = csv_reader.reader_data(FOLDER_PATH + file_name_norm)
+                    print("\nFiles loaded in modus {}\n{}".format(usage_modus, file_name_norm))
+                    data = select_columns_opp(data)
+                    print("Columns selected")
+                except:
+                    print("\n In generating data, No file {}".format(FOLDER_PATH + file_name_norm))
+                    continue
 
-                    try:
+                try:
                         #Getting labels and attributes
-                        act_labels = csv_reader.reader_labels(FOLDER_PATH + file_name_label)
-                        null_labels = np.where(act_labels[:, 0] == 7)[0]
+                    act_labels = csv_reader.reader_labels(FOLDER_PATH + file_name_label)
+                    null_labels = np.where(act_labels[:, 0] == 7)[0]
 
-                        # Deleting rows containing the "none" class
-                        data = np.delete(data, null_labels, 0)
-                        labels = np.delete(act_labels, null_labels, 0)
+                    # Deleting rows containing the "none" class
+                    data = np.delete(data, null_labels, 0)
+                    labels = np.delete(act_labels, null_labels, 0)
                     
                     
-                        act_class= labels
+                    act_class= labels
                     
-                    except:
-                        print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_label))
-                        continue
+                except:
+                    print("\n In generating data, Error getting the data {}".format(FOLDER_PATH + file_name_label))
+                    continue
                 '''
                 # halving the frequency
                 if half:
@@ -759,11 +758,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                                             'number {} with id {}'.format(f, counter_seq))
                                 sys.stdout.flush()
 
-                                # print "Creating sequence file number {} with id {}".format(f, counter_seq)
+                            # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                                 seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
                                 seq = np.require(seq, dtype=np.float)
                                 
-                                # Storing the sequences
+                            # Storing the sequences
                                 obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "id_label": labels_persons[P]}
                                 f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
