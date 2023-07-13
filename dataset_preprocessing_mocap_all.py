@@ -18,7 +18,7 @@ import pickle
 
 #import matplotlib.pyplot as plt
 
-from scipy.stats import norm, mode
+#from scipy.stats import norm, mode
 
 
 #folder path of the dataset
