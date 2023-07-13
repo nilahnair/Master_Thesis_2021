@@ -404,9 +404,11 @@ def compute_min_num_samples(ids, boolean_classes=True, attr=0):
     return np.min(min_durations, axis = 0)
 
 
-
+'''
 def compute_statistics_samples(ids, boolean_classes=True, attr=0):
-    '''
+'''
+    
+'''
     Compute some statistics of the duration of the sequences data:
 
     print:
@@ -419,8 +421,8 @@ def compute_statistics_samples(ids, boolean_classes=True, attr=0):
     @param ids: ids for train
     @param boolean_classes: selecting between classes or attributes
     @param attr: ids for attribute
-    '''
-
+'''
+'''
     recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
 
     counter_list_class = {}
@@ -589,7 +591,7 @@ def compute_statistics_samples(ids, boolean_classes=True, attr=0):
     
     return
 
-
+'''
 ################
 # Generate data
 #################
@@ -610,14 +612,16 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     @param identity_bool: selecting for identity experiment
     @param usage_modus: selecting Train, Val or testing
     '''
-    
+    '''
     if usage_modus == 'train':
            persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     elif usage_modus == 'val':
            persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     elif usage_modus == 'test':
            persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+    '''       
     #persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+    persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     print(persons)
     ID = {"S01": 0, "S02": 1, "S03": 2, "S04": 3, "S05": 4, "S06": 5, "S07": 6, "S08": 7, "S09": 8, "S10": 9, "S11": 10, "S12": 11, "S13": 12, "S14": 13}
     train_ids = ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10", 
