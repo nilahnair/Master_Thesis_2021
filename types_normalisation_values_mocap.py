@@ -55,7 +55,7 @@ def statistics_measurements():
     '''
 
     #dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/Motionminers/2019/flw_recordings_12000/"
-    dataset_path_imu = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/16_Annotated_Dataset/"
+    dataset_path = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/16_Annotated_Dataset/"
 
     #type1- avoiding person 12
     '''
@@ -118,8 +118,8 @@ def statistics_measurements():
                     #file_name_label = "{}/{}_{}_{}_labels.csv".format(P, S, P, R)
                     print("------------------------------\n{}".format(file_name_norm))
                     # getting data
-                    path=dataset_path_imu + file_name_norm
-                    pathlabels= dataset_path_imu + file_name_label
+                    path=dataset_path + file_name_norm
+                    pathlabels= dataset_path + file_name_label
                     print(path)
                     print(pathlabels)
                     try:
@@ -195,8 +195,8 @@ if __name__ == '__main__':
     x=np.asarray(x)
     print(x)
   
-    base_directory='/data/nnair/lara/databias/norm/'
+    base_directory='/data/nnair/idnetwork/'
     
-    csv_dir=  base_directory+"normset1.csv"
+    csv_dir=  base_directory+"normset.csv"
     print(csv_dir)
     np.savetxt(csv_dir, x, delimiter="\n", fmt='%s')
