@@ -915,7 +915,7 @@ def create_dataset(half=False):
     print(data_dir_test)
 
     generate_data(train_ids, sliding_window_length=sliding_window_length,
-                  #sliding_window_step=sliding_window_step, data_dir=data_dir_train, half=False, usage_modus='train')
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_train, half=False, usage_modus='train')
     generate_data(val_ids, sliding_window_length=sliding_window_length,
                   sliding_window_step=sliding_window_step, data_dir=data_dir_val, half=False, usage_modus='val')
     generate_data(test_ids, sliding_window_length=sliding_window_length,
