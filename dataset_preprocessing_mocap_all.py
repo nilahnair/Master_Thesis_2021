@@ -29,7 +29,7 @@ NB_SENSOR_CHANNELS = 134
 
 
 
-NUM_CLASSES = 14
+NUM_CLASSES = 8
 NUM_ATTRIBUTES = 19
 #change this
 
@@ -216,8 +216,13 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
                 for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
                    
                     labels = np.zeros((1)).astype(int)
+                    print('labels in sliding window')
+                    print(labels)
                     count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
+                    print('count_l in sliding window')
+                    print(count_l)
                     idy = np.argmax(count_l)
+                    print(idy, 'idy')
                     labels[0] = idy
                    
                     data_y_labels.append(labels)
@@ -653,6 +658,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                 S = "L01"
             else:
                 S = SCENARIO[r]
+                print('S value', S)
             for N in repetition:
                 annotator_file = annotator[P]
                 if P == 'S07' and SCENARIO[R] == 'L01':
@@ -722,9 +728,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     data_t, data_x, data_y = divide_x_y(data)
                     del data_t
                 '''
-                downsampling = range(0, data.shape[0], 2)
-                data = data[downsampling]
-                act_class = act_class[downsampling]
+                #downsampling = range(0, data.shape[0], 2)
+                #data = data[downsampling]
+                #act_class = act_class[downsampling]
                 
                 data_t, data_x, data_y = divide_x_y(data)
                 
@@ -899,11 +905,11 @@ def create_dataset(half=False):
     data_dir_test = base_directory + 'sequences_test/'
 
     generate_data(train_ids, sliding_window_length=sliding_window_length,
-                  sliding_window_step=sliding_window_step, data_dir=data_dir_train, half=half, usage_modus='train')
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_train, half=False, usage_modus='train')
     generate_data(val_ids, sliding_window_length=sliding_window_length,
-                  sliding_window_step=sliding_window_step, data_dir=data_dir_val, half=half, usage_modus='val')
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_val, half=False, usage_modus='val')
     generate_data(test_ids, sliding_window_length=sliding_window_length,
-                  sliding_window_step=sliding_window_step, data_dir=data_dir_test, half=half, usage_modus='test')
+                  sliding_window_step=sliding_window_step, data_dir=data_dir_test, half=False, usage_modus='test')
 
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
