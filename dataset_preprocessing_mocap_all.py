@@ -216,13 +216,9 @@ def opp_sliding_window(data_x, data_y, ws, ss, label_pos_end=True):
                 for sw in sliding_window(data_y, (ws, data_y.shape[1]), (ss, 1)):
                    
                     labels = np.zeros((1)).astype(int)
-                    print('labels in sliding window')
-                    print(labels)
                     count_l = np.bincount(sw[:, 0], minlength=NUM_CLASSES)
-                    print('count_l in sliding window')
-                    print(count_l)
+                    
                     idy = np.argmax(count_l)
-                    print(idy, 'idy')
                     labels[0] = idy
                    
                     data_y_labels.append(labels)
@@ -647,8 +643,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
             recordings = val_ids
         elif usage_modus == 'test':
             recordings = test_ids
-        for r, R in enumerate(recordings):
-            print('r value is', r)
+        for R in recordings:
             print('R value is', R)
             # All of these if-cases are coming due to the naming of the recordings in the data.
             # Not all the subjects have the same
@@ -657,7 +652,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
             if P in ["S01", "S02", "S03", "S04", "S05", "S06"]:
                 S = "L01"
             else:
-                S = SCENARIO[r]
+                S = SCENARIO[R]
                 print('S value', S)
             for N in repetition:
                 annotator_file = annotator[P]
