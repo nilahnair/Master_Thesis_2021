@@ -746,7 +746,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                                              sliding_window_length,
                                                              sliding_window_step, label_pos_end = False)
                         print("Windows are extracted")
-
+                        print(X.shape)
+                        print(y.shape)
+                        print(y_all.shape)
                         # Statistics
                         hist_classes = np.bincount(y[:, 0], minlength=NUM_CLASSES)
                         hist_classes_all += hist_classes
@@ -765,7 +767,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                 seq = np.require(seq, dtype=np.float)
                                 print('check 2')
                             # Storing the sequences
-                                obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "id_label": P}
+                                obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "id_label": labels_persons[P]}
                                 print('size of seq')
                                 print(seq.shape)
                                 print('act_label')
@@ -773,7 +775,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                 print('act_labels_all')
                                 print(y_all[f])
                                 print("id_label")
-                                print(P)
+                                print(labels_persons[P])
                                 f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
                                 f.close()
