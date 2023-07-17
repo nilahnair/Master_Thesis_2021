@@ -751,6 +751,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         hist_classes = np.bincount(y[:, 0], minlength=NUM_CLASSES)
                         hist_classes_all += hist_classes
                         print("Number of seq per class {}".format(hist_classes_all))
+                        print('directory for saving the snippet', data_dir)
 
                         for f in range(X.shape[0]):
                             try:
@@ -898,6 +899,10 @@ def create_dataset(half=False):
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
+    
+    print(data_dir_train)
+    print(data_dir_val)
+    print(data_dir_test)
 
     generate_data(train_ids, sliding_window_length=sliding_window_length,
                   sliding_window_step=sliding_window_step, data_dir=data_dir_train, half=False, usage_modus='train')
