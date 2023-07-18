@@ -13,8 +13,8 @@ class Metrics(object):
     classdocs
     '''
 
-    def __init__(self, config, dev, attributes):
-    #def __init__(self, config, dev):
+    #def __init__(self, config, dev, attributes):
+    def __init__(self, config, dev):
         '''
         Constructor
         '''
@@ -24,7 +24,7 @@ class Metrics(object):
         self.device = dev
         # Here, you need to extract the attributes from the network.pt
         # self,attr= network["att_rep"]
-        self.attr = attributes
+        #self.attr = attributes
         #for attr_idx in range(self.attr.shape[0]):
         #    self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
 
