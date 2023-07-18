@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('lstm imu raw type4 lr0 b200')
+ex= Experiment('mocap id softmax lr 10pow-4 batch 100 epoch 10')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -63,8 +63,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'mocap': 126, 'mbientlab': 30,'motionminers_flw': 27}
-    sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100}
-    sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12}
+    sliding_window_length = {'mocap': 200, 'mbientlab': 100, 'motionminers_flw': 100}
+    sliding_window_step = {'mocap': 25, 'mbientlab': 12, 'motionminers_flw': 12}
     
     #raw type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
@@ -73,7 +73,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #raw type3
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
     #raw type4
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 52752, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 309210, 'mbientlab': 52752, 'motionminers_flw': 93712}
      
      
     #unclean type1
@@ -114,7 +114,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     #type4
    
-    num_classes = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    num_classes = {'mocap': 13, 'mbientlab': 5, 'motionminers_flw': 5}
   
     
 
@@ -199,7 +199,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
         #folder_base = "/data/nnair/output/avg2/"
-        folder_base = "/data/nnair/trial/lstm/"
+        folder_exp = "/data/nnair/idnetwork/results/all/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/output/attributes/"
@@ -209,52 +209,6 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
 ##################################Check this again###############################################
     
-    # Folder
-    if usage_modus[usage_modus_idx] == 'train':
-        '''
-        folder_exp = folder_base + dataset[dataset_idx] + '/' + \
-                     network[network_idx] + '/' + fully_convolutional \
-                     + '/' + reshape_folder +'/' + 'experiment2/'
-        '''
-        folder_exp = folder_base + 'exp1/'
-        print(folder_exp)
-        '''
-        folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
-                                      network[network_idx] + '/' + fully_convolutional \
-                                      + '/' + 'train_final/'
-        '''
-    elif usage_modus[usage_modus_idx] == 'test':
-        folder_exp = folder_base + dataset[dataset_idx] + '/' + \
-                     network[network_idx] + '/' + fully_convolutional \
-                     + '/' + reshape_folder +'/' + 'test_final/'
-        print(folder_exp)
-        '''
-        folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
-                                      network[network_idx] +  fully_convolutional + \
-                                      '/' + 'final/'
-        '''
-    elif usage_modus[usage_modus_idx] == 'train_final':
-        folder_exp = folder_base + dataset[dataset_idx] + '/' + \
-                     network[network_idx] + '/' + fully_convolutional +\
-                     '/' + reshape_folder + '/' + 'train_final/'
-        print(folder_exp)
-        '''
-        folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
-                                      network[network_idx] + '/' + fully_convolutional + \
-                                      '/' + 'train_final/'
-        '''
-    elif usage_modus[usage_modus_idx] == 'fine_tuning':
-        folder_exp = folder_base + dataset[dataset_idx] + '/' + \
-                     network[network_idx] + '/' + fully_convolutional + \
-                     + '/' + reshape_folder +'/' + 'fine_tuning/'
-        print(folder_exp)
-        '''
-        folder_exp_base_fine_tuning = folder_base + dataset[dataset_fine_tuning_idx] + '/' + \
-                                      network[network_idx] + '/' + fully_convolutional + \
-                                      '/' + 'final/'
-        '''
-    else:
-        raise ("Error: Not selected fine tuning option")
     '''
     if usage_modus[usage_modus_idx] == 'train':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
@@ -306,7 +260,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
     #type1
     
-    dataset_root = {'mocap': '/data/nnair/output/type4/mocap/downsampled/',
+    dataset_root = {'mocap': '/data/nnair/idnetwork/prepros/all/',
                     'mbientlab': '/data/nnair/output/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
@@ -423,13 +377,13 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
-                           learning_rates_idx=0,
+                           learning_rates_idx=1,
                            name_counter=0,
                            freeze=0,
                            fully_convolutional=False,
@@ -450,9 +404,9 @@ def my_config():
 @ex.capture
 def run(config, dataset, network, output, usageModus):
    
-    file_name='/data/nnair/output/avg2/'
+    file_name='/data/nnair/idnetwork/'
    
-    file_name='/data/nnair/output/avg2/'+'logger.txt'
+    file_name='/data/nnair/idnetwork/'+'logger.txt'
     
     setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
 
