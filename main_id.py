@@ -205,7 +205,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_base = "/data/nnair/output/attributes/"
         
     print("folderbase selected")
-    print(folder_base)
+    print(folder_exp)
 
 ##################################Check this again###############################################
     
