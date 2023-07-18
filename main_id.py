@@ -114,7 +114,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     #type4
    
-    num_classes = {'mocap': 13, 'mbientlab': 5, 'motionminers_flw': 5}
+    num_classes = {'mocap': 14, 'mbientlab': 5, 'motionminers_flw': 5}
   
     
 
