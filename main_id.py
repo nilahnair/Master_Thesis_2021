@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mocap HARsoftmax lr 10pow-4 batch 200 epoch 10')
+ex= Experiment('mocap HARattribute lr 10pow-4 batch 200 epoch 10')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -379,7 +379,7 @@ def my_config():
     print("configuration function began")
     config = configuration(dataset_idx=0,
                            network_idx=2,
-                           output_idx=0,
+                           output_idx=1,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
