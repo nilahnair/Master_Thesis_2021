@@ -202,7 +202,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_exp = "/data/nnair/idnetwork/results/all/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
-        folder_base = "/data/nnair/output/attributes/"
+        folder_exp  = "/data/nnair/idnetwork/results/all/"
         
     print("folderbase selected")
     print(folder_exp)
