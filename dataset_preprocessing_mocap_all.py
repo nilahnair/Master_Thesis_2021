@@ -896,7 +896,7 @@ def create_dataset(half=False):
         sliding_window_step = 12
     else:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/idnetwork/prepros/all/'
+        base_directory = '/data/nnair/idnetwork/prepros/allid/'
         sliding_window_length = 200
         sliding_window_step = 25
   
