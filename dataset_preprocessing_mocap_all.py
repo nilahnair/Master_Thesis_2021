@@ -106,11 +106,11 @@ SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02'
             'R29': 'L03', 'R30': 'L03'}
 
 #scenario = ['S01']
-persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
 repetition = ["N01", "N02"]
 annotator_S01 = ["A17", "A12"]
 
-labels_persons = {"S01": 0, "S02": 1, "S03": 2, "S04": 3, "S05": 4, "S06": 5, "S07": 6, "S08": 7, "S09": 8, "S10": 9, "S11": 10, "S12": 11, "S13": 12, "S14": 13}
+labels_persons = {"S01": 0, "S02": 1, "S03": 2, "S04": 3, "S05": 4, "S06": 5, "S07": 6, "S08": 7, "S09": 8, "S10": 9, "S11": 10, "S12": 11, "S13": 12, "S14": 13, "S15": 14, "S16": 15}
 
 
 def select_columns_opp(data):
@@ -626,7 +626,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     #persons = ["S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     print(persons)
-    ID = {"S01": 0, "S02": 1, "S03": 2, "S04": 3, "S05": 4, "S06": 5, "S07": 6, "S08": 7, "S09": 8, "S10": 9, "S11": 10, "S12": 11, "S13": 12, "S14": 13}
+    ID = {"S01": 0, "S02": 1, "S03": 2, "S04": 3, "S05": 4, "S06": 5, "S07": 6, "S08": 7, "S09": 8, "S10": 9, "S11": 10, "S12": 11, "S13": 12, "S14": 13, 
+          "S15": 14, "S16": 15}
     train_ids = ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10", 
                  "R13", "R14", "R16", "R17", "R18", "R19", "R20", "R21", "R22", "R23", 
                  "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
@@ -746,9 +747,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                                              sliding_window_length,
                                                              sliding_window_step, label_pos_end = False)
                         print("Windows are extracted")
-                        print(X.shape)
-                        print(y.shape)
-                        print(y_all.shape)
+                        #print(X.shape)
+                        #print(y.shape)
+                        #print(y_all.shape)
                         # Statistics
                         hist_classes = np.bincount(y[:, 0], minlength=NUM_CLASSES)
                         hist_classes_all += hist_classes
@@ -768,14 +769,14 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                 print('check 2')
                             # Storing the sequences
                                 obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "id_label": labels_persons[P]}
-                                print('size of seq')
-                                print(seq.shape)
-                                print('act_label')
-                                print(y[f])
-                                print('act_labels_all')
-                                print(y_all[f])
-                                print("id_label")
-                                print(labels_persons[P])
+                                #print('size of seq')
+                                #print(seq.shape)
+                                #print('act_label')
+                                #print(y[f])
+                                #print('act_labels_all')
+                                #print(y_all[f])
+                                #print("id_label")
+                                #print(labels_persons[P])
                                 f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
                                 f.close()
