@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('mocap HARattribute lr 10pow-4 batch 200 epoch 10')
+ex= Experiment('mocap personid lr 10pow-4 batch 50 epoch 10')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -73,7 +73,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #raw type3
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
     #raw type4
-    num_tr_inputs = {'mocap': 309210, 'mbientlab': 52752, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 353993, 'mbientlab': 52752, 'motionminers_flw': 93712}
      
      
     #unclean type1
@@ -114,7 +114,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     #type4
    
-    num_classes = {'mocap': 7, 'mbientlab': 5, 'motionminers_flw': 5}
+    num_classes = {'mocap': 16, 'mbientlab': 5, 'motionminers_flw': 5}
     num_attributes = {'mocap': 19}
   
     
@@ -166,11 +166,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap':200, 'mbientlab':200, 'motionminers_flw': 100}}
+        'cnn_imu': {'mocap':50, 'mbientlab':200, 'motionminers_flw': 100}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap':200, 'mbientlab':200, 'motionminers_flw': 100}}
+                      'cnn_imu': {'mocap':50, 'mbientlab':200, 'motionminers_flw': 100}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
@@ -261,7 +261,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
     #type1
     
-    dataset_root = {'mocap': '/data/nnair/idnetwork/prepros/all/',
+    dataset_root = {'mocap': '/data/nnair/idnetwork/prepros/allid/',
                     'mbientlab': '/data/nnair/output/type4/imu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
@@ -380,7 +380,7 @@ def my_config():
     print("configuration function began")
     config = configuration(dataset_idx=0,
                            network_idx=2,
-                           output_idx=1,
+                           output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
