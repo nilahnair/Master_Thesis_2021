@@ -250,13 +250,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                   print("2 In generating data, Error getting the data {}".format(FOLDER_PATH
                                                                                        + file_name_data))
                   continue
-               '''
-                try:
+               
+               try:
                   data_x = norm_mbientlab(data_x)
                except:
                   print("\n3  In generating data, Plotting {}".format(FOLDER_PATH + file_name_data))
                   continue
-              '''
+              
                try:
                   # checking if annotations are consistent
                   if data_x.shape[0] == data_x.shape[0]:
