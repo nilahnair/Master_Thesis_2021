@@ -73,7 +73,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #raw type3
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
     #raw type4
-    num_tr_inputs = {'mocap': 353993, 'mbientlab': 52752, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 353993, 'mbientlab': 154937, 'motionminers_flw': 93712}
      
      
     #unclean type1
@@ -200,7 +200,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
         #folder_base = "/data/nnair/output/avg2/"
-        folder_exp = "/data/nnair/idnetwork/results/all/"
+        folder_exp = "/data/nnair/idnetwork/results/allimu/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_exp  = "/data/nnair/idnetwork/results/all/"
@@ -262,7 +262,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #type1
     
     dataset_root = {'mocap': '/data/nnair/idnetwork/prepros/allid/',
-                    'mbientlab': '/data/nnair/output/type4/imu/',
+                    'mbientlab': '/data/nnair/idnetwork/prepros/allimu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
     #type2
