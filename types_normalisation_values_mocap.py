@@ -181,7 +181,7 @@ def statistics_measurements():
         std_values = 0
         print("Error computing statistics")
     
-    return max_values, min_values, mean_values, std_values
+    return 
 
 if __name__ == '__main__':
     
