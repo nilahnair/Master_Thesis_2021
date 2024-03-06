@@ -437,9 +437,9 @@ def create_dataset():
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
     
-    generate_data(train_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_train, usage_modus='train')
-    generate_data(val_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_val, usage_modus='val')
-    generate_data(test_ids, sliding_window_length=100, sliding_window_step=12, data_dir=data_dir_test, usage_modus='test')
+    generate_data(train_ids, sliding_window_length=200, sliding_window_step=12, data_dir=data_dir_train, usage_modus='train')
+    generate_data(val_ids, sliding_window_length=200, sliding_window_step=12, data_dir=data_dir_val, usage_modus='val')
+    generate_data(test_ids, sliding_window_length=200, sliding_window_step=12, data_dir=data_dir_test, usage_modus='test')
     
     generate_CSV(base_directory + "train.csv", data_dir_train)
     generate_CSV(base_directory + "val.csv", data_dir_val)
