@@ -401,7 +401,7 @@ def my_config():
     #pooling = config["pooling"]
     lr = config["lr"]
     bsize = config["batch_size_train"]
-    augmentation= config["augmentation"]
+    #augmentation= config["augmentation"]
     
 @ex.capture
 def run(config, dataset, network, output, usageModus):
