@@ -765,7 +765,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                 #print('check 1')
                             # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                                 seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
-                                seq = np.require(seq, dtype=np.float32)#note that hence forth np.float cannot be used. either as float32 or float64
+                                seq = np.require(seq, dtype=np.float64)#note that hence forth np.float cannot be used. either as float32 or float64
                                 #print('check 2')
                             # Storing the sequences
                                 obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "label": labelid}
