@@ -13,8 +13,8 @@ class Metrics(object):
     classdocs
     '''
 
-    #def __init__(self, config, dev, attributes):
-    def __init__(self, config, dev):
+    def __init__(self, config, dev, attributes):
+    #def __init__(self, config, dev):
         '''
         Constructor
         '''
@@ -24,12 +24,15 @@ class Metrics(object):
         self.device = dev
         # Here, you need to extract the attributes from the network.pt
         # self,attr= network["att_rep"]
-        #self.attr = attributes
+        self.attr = attributes
+        self.mid= self.attr[0:14,:]
+        
         #for attr_idx in range(self.attr.shape[0]):
         #    self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
 
-        #self.atts = torch.from_numpy(self.attr).type(dtype=torch.FloatTensor)
-        #self.atts = self.atts.type(dtype=torch.cuda.FloatTensor)
+        self.atts = torch.from_numpy(self.attr).type(dtype=torch.FloatTensor)
+        self.atts = self.atts.type(dtype=torch.cuda.FloatTensor)
+        self.center= self.atts[0:14,1:]
         self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0,
                         'recall': 0}
 
@@ -47,8 +50,12 @@ class Metrics(object):
         @return precision: torch array with precision of each class
         @return recall: torch array with recall of each class
         '''
-        precision = torch.zeros((self.config['num_classes']))
-        recall = torch.zeros((self.config['num_classes']))
+        if self.config['output'] == 'softmax':
+            precision = torch.zeros((self.config['num_classes']))
+            recall = torch.zeros((self.config['num_classes']))
+        elif self.config['output'] == 'attribute':
+            precision = torch.zeros((self.center.shape[0]))
+            recall = torch.zeros((self.center.shape[0]))
 
         x = torch.ones(predictions.size())
         y = torch.zeros(predictions.size())
@@ -56,28 +63,51 @@ class Metrics(object):
         x = x.to(self.device, dtype=torch.long)
         y = y.to(self.device, dtype=torch.long)
 
-        for c in range(self.config['num_classes']):
-            selected_elements = torch.where(predictions == c, x, y)
-            non_selected_elements = torch.where(predictions == c, y, x)
+        if self.config['output'] == 'softmax':
+            for c in range(self.config['num_classes']):
+                selected_elements = torch.where(predictions == c, x, y)
+                non_selected_elements = torch.where(predictions == c, y, x)
 
-            target_elements = torch.where(targets == c, x, y)
-            non_target_elements = torch.where(targets == c, y, x)
+                target_elements = torch.where(targets == c, x, y)
+                non_target_elements = torch.where(targets == c, y, x)
 
-            true_positives = torch.sum(target_elements * selected_elements)
-            false_positives = torch.sum(non_target_elements * selected_elements)
+                true_positives = torch.sum(target_elements * selected_elements)
+                false_positives = torch.sum(non_target_elements * selected_elements)
 
-            false_negatives = torch.sum(target_elements * non_selected_elements)
+                false_negatives = torch.sum(target_elements * non_selected_elements)
 
-            try:
-                precision[c] = true_positives.item() / float((true_positives + false_positives).item())
-                recall[c] = true_positives.item() / float((true_positives + false_negatives).item())
+                try:
+                    precision[c] = true_positives.item() / float((true_positives + false_positives).item())
+                    recall[c] = true_positives.item() / float((true_positives + false_negatives).item())
 
-            except:
-                # logging.error('        Network_User:    Train:    In Class {} true_positives {} false_positives {} false_negatives {}'.format(c, true_positives.item(),
-                #                                                                                                                              false_positives.item(),
-                #                                                                                                                              false_negatives.item()))
-                continue
+                except:
+                    # logging.error('        Network_User:    Train:    In Class {} true_positives {} false_positives {} false_negatives {}'.format(c, true_positives.item(),
+                    #                                                                                                                              false_positives.item(),
+                    #                                                                                                                              false_negatives.item()))
+                    continue
+        elif self.config['output'] == 'attribute':
+            for c in range(self.center.shape[0]):
+                selected_elements = torch.where(predictions == c, x, y)
+               
+                non_selected_elements = torch.where(predictions == c, y, x)
+               
+                target_elements = torch.where(targets == c, x, y)
+                non_target_elements = torch.where(targets == c, y, x)
+            
+                true_positives = torch.sum(target_elements * selected_elements)
+                false_positives = torch.sum(non_target_elements * selected_elements)
+           
+                false_negatives = torch.sum(target_elements * non_selected_elements)
 
+                try:
+                    precision[c] = true_positives.item() / float((true_positives + false_positives).item())
+                    recall[c] = true_positives.item() / float((true_positives + false_negatives).item())
+
+                except:
+                    # logging.error('        Network_User:    Train:    In Class {} true_positives {} false_positives {} false_negatives {}'.format(c, true_positives.item(),
+                    #                                                                                                                              false_positives.item(),
+                    #                                                                                                                              false_negatives.item()))
+                    continue    
         return precision, recall
 
 
