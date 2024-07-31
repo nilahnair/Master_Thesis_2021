@@ -49,10 +49,10 @@ class HARWindows(Dataset):
         data = pickle.load(f, encoding='bytes')
         f.close()
 
-        X = data['data']
+        X = data["data"]
         y = data["label"]
         #y = data['act_label']
-        Y = data['act_labels_all']
+        Y = data["act_labels_all"]
         
         #Y = data['labels']
         window_data = {"data": X, "label": y, "labels":Y}
