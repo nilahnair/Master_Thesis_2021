@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('personid mocap lr 10pow-4 batch 50 epoch 10')
+ex= Experiment('personid attr mocap lr 10pow-4 batch 50 epoch 10')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -115,7 +115,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #type4
    
     num_classes = {'mocap': 16, 'mbientlab': 8, 'motionminers_flw': 5}
-    num_attributes = {'mocap': 19, 'mbientlab':19}
+    num_attributes = {'mocap': 5, 'mbientlab':19}
   
     
 
@@ -203,7 +203,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_exp = "/data/nnair/demo/idnetwork/results/all/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
-        folder_exp  = "/data/nnair/idnetwork/results/all/"
+        folder_exp  = "/data/nnair/demo/idnetwork/results/attr/"
         
     print("folderbase selected")
     print(folder_exp)
@@ -285,7 +285,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     ''' 
     
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     GPU = 0
    
     
@@ -380,7 +380,7 @@ def my_config():
     print("configuration function began")
     config = configuration(dataset_idx=0,
                            network_idx=2,
-                           output_idx=0,
+                           output_idx=1,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
                            reshape_input=False,
