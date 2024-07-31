@@ -747,9 +747,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                                              sliding_window_length,
                                                              sliding_window_step, label_pos_end = False)
                         print("Windows are extracted")
-                        print(X.shape)
-                        print(y.shape)
-                        print(y_all.shape)
+                        #print(X.shape)
+                        #print(y.shape)
+                        #print(y_all.shape)
                         # Statistics
                         #hist_classes = np.bincount(y[:, 0], minlength=NUM_CLASSES)
                         #hist_classes_all += hist_classes
@@ -762,15 +762,15 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                 sys.stdout.write('\r' + 'Creating sequence file '
                                                             'number {} with id {}'.format(f, counter_seq))
                                 sys.stdout.flush()
-                                print('check 1')
+                                #print('check 1')
                             # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                                 seq = np.reshape(X[f], newshape = (1, X.shape[1], X.shape[2]))
-                                seq = np.require(seq, dtype=np.float32)
-                                print('check 2')
+                                seq = np.require(seq, dtype=np.float32)#note that hence forth np.float cannot be used. either as float32 or float64
+                                #print('check 2')
                             # Storing the sequences
                                 obj = {"data": seq, "act_label": y[f], "act_labels_all": y_all[f], "label": labelid}
-                                print('size of seq')
-                                print(seq.shape)
+                                #print('size of seq')
+                                #print(seq.shape)
                                 #print('act_label')
                                 #print(y[f])
                                 #print('act_labels_all')
@@ -780,7 +780,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                                 f = open(os.path.join(data_dir, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                                 pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
                                 f.close()
-                                print('check 3')
+                                #print('check 3')
                                 counter_seq += 1
                             except:
                                 raise('\nError adding the seq')

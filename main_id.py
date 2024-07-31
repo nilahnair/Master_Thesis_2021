@@ -21,7 +21,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('personid imu lr 10pow-4 batch 50 epoch 10')
+ex= Experiment('personid mocap lr 10pow-4 batch 50 epoch 10')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -73,7 +73,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #raw type3
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
     #raw type4
-    num_tr_inputs = {'mocap': 353993, 'mbientlab': 154937, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 331248, 'mbientlab': 154937, 'motionminers_flw': 93712}
      
      
     #unclean type1
@@ -200,7 +200,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
         #folder_base = "/data/nnair/output/avg2/"
-        folder_exp = "/data/nnair/idnetwork/results/allimu/"
+        folder_exp = "/data/nnair/demo/idnetwork/results/all/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_exp  = "/data/nnair/idnetwork/results/all/"
@@ -261,7 +261,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     '''
     #type1
     
-    dataset_root = {'mocap': '/data/nnair/idnetwork/prepros/allid/',
+    dataset_root = {'mocap': '/data/nnair/demo/prepros/mocap/',
                     'mbientlab': '/data/nnair/idnetwork/prepros/allimu/',
                     'motionminers_flw': '/data/nnair/output/type1/momin/'}
     
@@ -378,7 +378,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=0,
                            usage_modus_idx=0,
