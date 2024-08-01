@@ -463,7 +463,7 @@ class Network_User(object):
                         sample = sample.reshape(-1)
                         train_batch_l=np.zeros([sample.shape[0],self.config['num_attributes']+1])
 
-                        for i in range(0,sample.shape[0]):
+                         for i in range(0,sample.shape[0]):
                             if sample[i]==self.attrs[sample[i],0]:
                                 n=sample[i].item()
                                 train_batch_l[i]= self.attrs[n]
