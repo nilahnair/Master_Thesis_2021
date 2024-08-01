@@ -350,7 +350,7 @@ class Metrics(object):
             elif self.config['num_attributes'] == 10:
                 predictions = predictions.repeat(7, 1, 1)
             elif self.config['num_attributes'] == 5:
-                prediction = prediction.repeat(10,1,1)
+                predictions = predictions.repeat(10,1,1)
             
            # predictions=predictions.repeat(9,1,1)
             #predictions = predictions.repeat(8, 1, 1)
