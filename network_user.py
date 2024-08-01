@@ -668,7 +668,7 @@ class Network_User(object):
         np.savetxt(self.config['folder_exp'] + 'plots/f1w_val.txt', f1w_val, delimiter=",", fmt='%s')
         np.savetxt(self.config['folder_exp'] + 'plots/loss_val.txt', losses_val, delimiter=",", fmt='%s')
                 
-        torch.save({'state_dict': network_obj.state_dict(),'network_config': network_config}, '/data/nnair/idnetwork/results/allimu/id_cnnimu_imu_class.pt')
+        torch.save({'state_dict': network_obj.state_dict(),'network_config': network_config}, '/data/nnair/demo/networks/id_cnnimu_mocap_all.pt')
         
         del losses_train, accs_train, f1w_train, f1m_train
         del losses_val, accs_val, f1w_val, f1m_val
