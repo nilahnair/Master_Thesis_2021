@@ -54,9 +54,9 @@ class Metrics(object):
             self.center= self.atts[0:6,1:]
             self.center= torch.cat((self.center, self.atts[7:8,1:]), 0)
         elif self.config['num_attributes'] == 5:
-            self.center= self.atts[0:8,:]
-            self.center= torch.cat((self.center, self.atts[10:11,:]), 0)
-            self.center= torch.cat((self.center, self.atts[15:16,:]), 0)
+            self.center= self.atts[0:8,1:]
+            self.center= torch.cat((self.center, self.atts[10:11,1:]), 0)
+            self.center= torch.cat((self.center, self.atts[15:16,1:]), 0)
         
         
         self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0, 'recall': 0, 'acc_attrs': 0, 
