@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('lara imu attr rep type 1 no7 euclidean 16')
+ex= Experiment('personattr mocap lr 10pow-3 batch 50 epoch 10')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -65,10 +65,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # Dataset Hyperparameters
     NB_sensor_channels = {'mocap': 126, 'mbientlab': 30,'motionminers_flw': 27, 'pamap':40}
-    sliding_window_length = {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100}
-    sliding_window_step = {'mocap': 12, 'mbientlab': 12, 'motionminers_flw': 12, 'pamap':12}
+    sliding_window_length = {'mocap': 200, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100}
+    sliding_window_step = {'mocap': 25, 'mbientlab': 12, 'motionminers_flw': 12, 'pamap':12}
     
-    num_attributes = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    num_attributes = {'mocap': 5, 'mbientlab': 4, 'motionminers_flw': 4}
     #num_attributes = {'mocap': 10, 'mbientlab': 10, 'motionminers_flw': 10, 'pamap':11}
     #all
     num_tr_inputs = {'mocap': 172561, 'mbientlab': 128263, 'motionminers_flw': 139222, 'pamap':90280}
@@ -122,7 +122,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #clean type4
     #num_tr_inputs = {'mocap': 51963, 'mbientlab': 50151, 'motionminers_flw': 93712}
     
-    num_classes = {'mocap': 8, 'mbientlab': 8, 'motionminers_flw': 8, 'pamap':9}
+    num_classes = {'mocap': 10, 'mbientlab': 8, 'motionminers_flw': 8, 'pamap':9}
     #num_classes = {'mocap': 7, 'mbientlab': 7, 'motionminers_flw': 7}    
     
     # Number of classes for either for activity recognition
@@ -241,7 +241,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         #folder_base = "/data/nnair/output/attributes/no7/imu/output/"
         #folder_base = "/data/nnair/output/attributes/all/imu/"
         #folder_base = "/data/nnair/pamap/attr/output/exp1/"
-        folder_base = "/data/nnair/momin/attr/output/exp16/"
+        folder_base = "/data/nnair/demo/idnetwork/results/attr/"
         
     print("folderbase selected")
     print(folder_base)
@@ -300,7 +300,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 ################################################################################################################################3
 
     # Paths are given according to the ones created in *preprocessing.py for the datasets
-    dataset_root = {'mocap': '/data/nnair/output/attributes/no7/mocap/input/',
+    dataset_root = {'mocap': '/data/nnair/demo/prepros/mocap/',
                     'mbientlab': '/data/nnair/lara/attr/no7/imu/input/',
                     'motionminers_flw': '/data/nnair/momin/attr/no0/'}    
     '''
@@ -326,7 +326,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': '/data/nnair/all/momin/'}
     '''
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "4"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "2"
     GPU = 0
    
     # Labels position on the segmented window
@@ -427,7 +427,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=1,
+    config = configuration(dataset_idx=0,
                            network_idx=2,
                            output_idx=1,
                            usage_modus_idx=0,

@@ -34,6 +34,11 @@ class Metrics(object):
             self.mid= self.attr[0:6,:]
             self.mid= np.concatenate((self.mid, self.attr[7:8,:]), 0)
             self.mid[6,0]=6
+        elif self.config['num_attributes'] == 5:
+            self.mid= self.attr[0:8,:]
+            self.mid= np.concatenate((self.mid, self.attr[10:11,:]), 0)
+            self.mid= np.concatenate((self.mid, self.attr[15:16,:]), 0)
+
         
         #for attr_idx in range(self.attr.shape[0]):
         #    self.attr[attr_idx, 1:] = self.attr[attr_idx, 1:] / np.linalg.norm(self.attr[attr_idx, 1:])
@@ -48,6 +53,10 @@ class Metrics(object):
         elif self.config['num_attributes'] == 10:
             self.center= self.atts[0:6,1:]
             self.center= torch.cat((self.center, self.atts[7:8,1:]), 0)
+        elif self.config['num_attributes'] == 5:
+            self.mid= self.attr[0:8,:]
+            self.mid= np.concatenate((self.mid, self.attr[10:11,:]), 0)
+            self.mid= np.concatenate((self.mid, self.attr[15:16,:]), 0)
         
         
         self.results = {'acc': 0, 'f1_weighted': 0, 'f1_mean': 0, 'predicted_classes': 0, 'precision': 0, 'recall': 0, 'acc_attrs': 0, 
@@ -340,6 +349,8 @@ class Metrics(object):
                 predictions = predictions.repeat(6, 1, 1)
             elif self.config['num_attributes'] == 10:
                 predictions = predictions.repeat(7, 1, 1)
+            elif self.config['num_attributes'] == 5:
+                prediction = prediction.repeat(10,1,1)
             
            # predictions=predictions.repeat(9,1,1)
             #predictions = predictions.repeat(8, 1, 1)
@@ -407,6 +418,16 @@ class Metrics(object):
                         targets[i,0]=5
                     elif targets[i,0]==7:
                         targets[i,0]=6
+            elif self.config['num_attributes'] == 5:
+                for i in range(0, targets.shape[0]):
+                    if targets[i,0]==14:
+                        targets[i,0]=0
+                    elif targets[i,0]==9 or targets[i,0]==13:
+                        targets[i,0]=2
+                    elif targets[i,0]==8:
+                        targets[i,0]=4
+                    elif targets[i,0]==11 or targets[i,0]==12:
+                        targets[i,0]=5
         
             
         # Accuracy
