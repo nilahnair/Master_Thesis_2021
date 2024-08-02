@@ -22,7 +22,7 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
-ex= Experiment('personattr mocap lr 10pow-4 batch 50 epoch 10')
+ex= Experiment('personattr mocap lr 10pow-4 batch 100 epoch 10')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -196,11 +196,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
-        'cnn_imu': {'mocap': 50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':50}}
+        'cnn_imu': {'mocap': 100, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':50}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'pamap':100},
-                      'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':50}}
+                      'cnn_imu': {'mocap':100, 'mbientlab':50, 'motionminers_flw': 50, 'pamap':50}}
     
      # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4, 'pamap':4}
@@ -241,7 +241,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         #folder_base = "/data/nnair/output/attributes/no7/imu/output/"
         #folder_base = "/data/nnair/output/attributes/all/imu/"
         #folder_base = "/data/nnair/pamap/attr/output/exp1/"
-        folder_base = "/data/nnair/demo/idnetwork/results/attr/"
+        folder_base = "/data/nnair/demo/idnetwork/results/attr1/"
         
     print("folderbase selected")
     print(folder_base)
@@ -326,7 +326,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': '/data/nnair/all/momin/'}
     '''
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     GPU = 0
    
     # Labels position on the segmented window
