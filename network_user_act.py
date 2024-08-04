@@ -752,7 +752,7 @@ class Network_User(object):
                 
         '''save the model into the desired location'''
         
-        #torch.save({'state_dict': network_obj.state_dict(),'network_config': network_config}, '/data/nnair/model/cnn_imu_new.pt')
+        torch.save({'state_dict': network_obj.state_dict(),'network_config': network_config}, '/data/nnair/demo/networks/attr_cnnimu_imu_all.pt')
         #model_io.write(network_obj, '../Master_Thesis_2021/model/model_save_mocap2.pkl')
        
         
