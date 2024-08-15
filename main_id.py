@@ -21,15 +21,26 @@ from sacred import Experiment
 #from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
 
+def load_credentials(path='~/.mongodb_credentials'):
+    path = os.path.expanduser(path)
+ 
+    logger = logging.getLogger('::load_credentials')
+    logger.info(f'Loading credientials from {path}')
+    with io.open(path) as f:
+        user, pw, url, db_name = f.read().strip().split(',')
+ 
+    return user, pw, url, db_name
+
+user, pw, url, db_name = load_credentials(path='~/.mongodb_credentials')
+
 ex= Experiment('personid mocap lr 10pow-4 batch 50 epoch 10')
 
-ex.observers.append(MongoObserver.create(url='curtiz',
-                                         db_name='nnair_sacred',
-                                         username='nnair',
-                                         password='Germany2018',
+ex.observers.append(MongoObserver.create(url=url,
+                                         db_name=db_name,
+                                         username=user,
+                                         password=pw,
                                          authSource='admin',
                                          authMechanism='SCRAM-SHA-1'))
-
 def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, dataset_fine_tuning_idx=0,
                   reshape_input=False, learning_rates_idx=0, name_counter=0, freeze=0, percentage_idx=0,
                   fully_convolutional=False, sacred=True):
