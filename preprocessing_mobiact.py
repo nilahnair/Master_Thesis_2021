@@ -10,7 +10,7 @@ import numpy as np
 import csv
 import os
 import sys
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import datetime
 from sliding_window import sliding_window
 import pickle
