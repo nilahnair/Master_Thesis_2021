@@ -283,7 +283,7 @@ def generate_data(ids, activities, sliding_window_length, sliding_window_step, d
                     #   all_segments.extend(segments)
            try:
                print('normalise')
-               data_x = normalize(all_segments)
+               all_segments = normalize(all_segments)
            except:
                print("\n3  In normalising, issues found.")
                continue
