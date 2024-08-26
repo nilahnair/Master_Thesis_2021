@@ -334,7 +334,7 @@ def generate_data(ids, activities, sliding_window_length, sliding_window_step, d
                     
                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                 seq = np.reshape(data_train[f], newshape = (1, data_train.shape[1], data_train.shape[2]))
-                seq = np.require(seq, dtype=float64)
+                seq = np.require(seq, dtype=np.float64)
             
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
@@ -360,7 +360,7 @@ def generate_data(ids, activities, sliding_window_length, sliding_window_step, d
 
                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                 seq = np.reshape(data_val[f], newshape = (1, data_val.shape[1], data_val.shape[2]))
-                seq = np.require(seq, dtype=float64)
+                seq = np.require(seq, dtype=np.float64)
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
                 obj = {"data": seq, "label": act_val[f], "labels": act_all_val[f], "identity": labelid_val[f]}
@@ -384,7 +384,7 @@ def generate_data(ids, activities, sliding_window_length, sliding_window_step, d
 
                 # print "Creating sequence file number {} with id {}".format(f, counter_seq)
                 seq = np.reshape(data_test[f], newshape = (1, data_test.shape[1], data_test.shape[2]))
-                seq = np.require(seq, dtype=float64)
+                seq = np.require(seq, dtype=np.float64)
                 # Storing the sequences
                 #obj = {"data": seq, "label": labelid}
                 obj = {"data": seq, "label": act_test[f], "labels": act_all_test[f], "identity": labelid_test[f]}
