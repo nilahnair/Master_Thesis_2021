@@ -477,8 +477,8 @@ def create_dataset(identity_bool = False):
     base_directory = '/data/nnair/anon/mobiact/'
     print('train ids')
     print(train_ids)
-    print('test ids')
-    print(test_ids)
+    #print('test ids')
+    #print(test_ids)
     
     print("Reading subject info...")
     start_time = time.time()
