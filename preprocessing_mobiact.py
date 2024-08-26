@@ -15,7 +15,7 @@ import datetime
 from sliding_window import sliding_window
 import pickle
 import time
-import pandas as pd
+#import pandas as pd
 
 # folder path
 FOLDER_PATH = "/vol/actrec/MobiAct_Dataset/"
