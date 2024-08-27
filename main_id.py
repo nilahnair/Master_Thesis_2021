@@ -127,7 +127,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #type4
    
     num_classes = {'mocap': 16, 'mbientlab': 8, 'motionminers_flw': 5, 'mobiact': 58,'sisfall': 38}
-    num_attributes = {'mocap': 19, 'mbientlab':19}
+    num_attributes = {'mocap': 19, 'mbientlab':19, 'motionminers_flw': 0, 'mobiact': 0,'sisfall': 0}
   
     
 
