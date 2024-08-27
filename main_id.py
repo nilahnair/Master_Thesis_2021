@@ -34,7 +34,7 @@ def load_credentials(path='~/.mongodb_credentials'):
 
 user, pw, url, db_name = load_credentials(path='~/.mongodb_credentials')
 
-ex= Experiment('personid mocap lr 10pow-4 batch 50 epoch 10')
+ex= Experiment('sisfall trial')
 
 ex.observers.append(MongoObserver.create(url=url,
                                          db_name=db_name,
@@ -230,7 +230,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
         #folder_base = "/data/nnair/output/avg2/"
-        folder_exp = "/data/nnair/anon/results/mobiact/exp2/"
+        folder_exp = "/data/nnair/anon/results/sisfall/exp1/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_exp  = "/data/nnair/idnetwork/results/all/"
@@ -410,7 +410,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=3,
+    config = configuration(dataset_idx=4,
                            network_idx=0,
                            output_idx=0,
                            usage_modus_idx=0,
