@@ -67,15 +67,15 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     plotting = False
 
     # Options
-    dataset = {0: 'mocap', 1: 'mbientlab', 2: 'motionminers_flw'}
+    dataset = {0: 'mocap', 1: 'mbientlab', 2: 'motionminers_flw', 3: 'mobiact', 4: 'sisfall' }
     network = {0: 'cnn', 1: 'lstm', 2: 'cnn_imu'}
     output = {0: 'softmax', 1: 'attribute'}
     usage_modus = {0: 'train', 1: 'test', 2: 'fine_tuning', 3: 'train_final'}
 
     # Dataset Hyperparameters
-    NB_sensor_channels = {'mocap': 126, 'mbientlab': 30,'motionminers_flw': 27}
-    sliding_window_length = {'mocap': 200, 'mbientlab': 100, 'motionminers_flw': 100}
-    sliding_window_step = {'mocap': 25, 'mbientlab': 12, 'motionminers_flw': 12}
+    NB_sensor_channels = {'mocap': 126, 'mbientlab': 30,'motionminers_flw': 27, 'mobiact': 9, 'sisfall': 9 }
+    sliding_window_length = {'mocap': 200, 'mbientlab': 100, 'motionminers_flw': 100, 'mobiact': 200,'sisfall': 200}
+    sliding_window_step = {'mocap': 25, 'mbientlab': 12, 'motionminers_flw': 12, 'mobiact': 50, 'sisfall': 50}
     
     #raw type1
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 34318, 'motionminers_flw': 93712}
@@ -84,7 +84,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     #raw type3
     #num_tr_inputs = {'mocap': 247702, 'mbientlab': 46989, 'motionminers_flw': 93712}
     #raw type4
-    num_tr_inputs = {'mocap': 331248, 'mbientlab': 154937, 'motionminers_flw': 93712}
+    num_tr_inputs = {'mocap': 331248, 'mbientlab': 154937, 'motionminers_flw': 93712, 'mobiact': 160561, 'sisfall': 118610}
      
      
     #unclean type1
@@ -125,7 +125,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     #type4
    
-    num_classes = {'mocap': 16, 'mbientlab': 8, 'motionminers_flw': 5}
+    num_classes = {'mocap': 16, 'mbientlab': 8, 'motionminers_flw': 5, 'mobiact': 58,'sisfall': 38}
     num_attributes = {'mocap': 19, 'mbientlab':19}
   
     
@@ -141,7 +141,15 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                         'cnn_imu': learning_rates[learning_rates_idx]},
           'motionminers_flw': {'cnn': learning_rates[learning_rates_idx],
                                 'lstm': learning_rates[learning_rates_idx],
-                                'cnn_imu': learning_rates[learning_rates_idx]}
+                                'cnn_imu': learning_rates[learning_rates_idx]},
+          'mobiact': {'cnn': learning_rates[learning_rates_idx],
+                      'lstm': learning_rates[learning_rates_idx],
+                      'cnn_imu': learning_rates[learning_rates_idx],
+                      'cnn_transformer':learning_rates[learning_rates_idx]},
+           'sisfall': {'cnn': learning_rates[learning_rates_idx],
+                      'lstm': learning_rates[learning_rates_idx],
+                      'cnn_imu': learning_rates[learning_rates_idx],
+                      'cnn_transformer':learning_rates[learning_rates_idx]}
           }
     lr_mult = 1.0
 
@@ -169,28 +177,38 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                             'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
-                                   'cnn_imu': {'softmax': 10, 'attribute': 10}}
+                                   'cnn_imu': {'softmax': 10, 'attribute': 10}},
+              'mobiact': {'cnn': {'softmax': 30, 'attribute': 50},
+                          'lstm': {'softmax': 15, 'attribute': 5},
+                          'cnn_imu': {'softmax': 32, 'attribute': 50},
+                          },
+              'sisfall': {'cnn': {'softmax': 50, 'attribute': 50},
+                                  'lstm': {'softmax': 50, 'attribute': 5},
+                                  'cnn_imu': {'softmax': 32, 'attribute': 50},}
+                                  
               } 
    #division_epochs = {'mocap': 2, 'mbientlab': 1, 'motionminers_flw': 1}
 
     # Batch size
     batch_size_train = {
-        'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-        'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 100}}
+        'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'mobiact': 50, 'sisfall': 50},
+        'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'mobiact': 50, 'sisfall': 50},
+        'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 100, 'mobiact': 100, 'sisfall': 100}}
 
-    batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100},
-                      'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 100}}
+    batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'mobiact': 50, 'sisfall': 50},
+                      'lstm': {'mocap': 100, 'mbientlab': 100, 'motionminers_flw': 100, 'mobiact': 50, 'sisfall': 50},
+                      'cnn_imu': {'mocap':50, 'mbientlab':50, 'motionminers_flw': 100, 'mobiact': 100, 'sisfall': 100}}
     
      # Number of iterations for accumulating the gradients
-    accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4}
+    accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'motionminers_flw': 4, 'mobiact': 4, 'sisfall': 4}
 
     # Filters
-    filter_size = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5}
+    filter_size = {'mocap': 5, 'mbientlab': 5, 'motionminers_flw': 5, 'mobiact': 5, 'sisfall': 5}
     num_filters = {'mocap': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'mbientlab': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
-                   'motionminers_flw': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64}}
+                   'motionminers_flw': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
+                   'mobiact': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64, 'cnn_transformer':64},
+                   'sisfall': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64, 'cnn_transformer':64}}
 
     freeze_options = [False, True]
     #evolution_iter = 10000
@@ -211,7 +229,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
         #folder_base = "/data/nnair/output/avg2/"
-        folder_exp = "/data/nnair/demo/idnetwork/results/all/"
+        folder_exp = "/data/nnair/anon/results/mobiact/exp1/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_exp  = "/data/nnair/idnetwork/results/all/"
@@ -274,7 +292,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     
     dataset_root = {'mocap': '/data/nnair/demo/prepros/mocap/',
                     'mbientlab': '/data/nnair/idnetwork/prepros/allimu/',
-                    'motionminers_flw': '/data/nnair/output/type1/momin/'}
+                    'motionminers_flw': '/data/nnair/output/type1/momin/',
+                    'mobiact': "/data/nnair/anon/mobiact/",
+                    'sisfall': "/data/nnair/anon/sisfall/"}
     
     #type2
     '''
@@ -389,8 +409,8 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    config = configuration(dataset_idx=0,
-                           network_idx=2,
+    config = configuration(dataset_idx=3,
+                           network_idx=0,
                            output_idx=0,
                            usage_modus_idx=0,
                            #dataset_fine_tuning_idx=0,
