@@ -133,7 +133,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.0001, 0.00001, 0.000001, 0.01]
+    learning_rates = [0.001, 0.00001, 0.000001, 0.01]
     lr = {'mocap': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
@@ -230,7 +230,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "class"
         #folder_base = "/data/nnair/output/softmax/clean/"
         #folder_base = "/data/nnair/output/avg2/"
-        folder_exp = "/data/nnair/anon/results/mobiact/exp1/"
+        folder_exp = "/data/nnair/anon/results/mobiact/exp2/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_exp  = "/data/nnair/idnetwork/results/all/"
