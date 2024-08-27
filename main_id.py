@@ -11,6 +11,7 @@ import logging
 import torch
 import numpy as np
 import random
+import io
 
 import platform
 from modus_selecter_new import Modus_Selecter
